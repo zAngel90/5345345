@@ -131,6 +131,32 @@ router.post('/categories-config', async (req, res) => {
   }
 });
 
+/**
+ * Gestión de Iconos de Categorías
+ */
+router.get('/category-icons-config', async (req, res) => {
+  try {
+    const db = getDB('settings');
+    await db.read();
+    res.json({ success: true, data: db.data.categoryIcons || {} });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+router.post('/category-icons-config', async (req, res) => {
+  try {
+    const { icons } = req.body;
+    const db = getDB('settings');
+    await db.read();
+    db.data.categoryIcons = icons;
+    await db.write();
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 router.post('/products-config', async (req, res) => {
   try {
     const { products } = req.body;

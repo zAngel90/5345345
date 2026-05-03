@@ -5,8 +5,7 @@
  */
 
 import { io } from 'socket.io-client';
-
-export const SERVER_URL = 'https://arrives-tcp-lead-talk.trycloudflare.com';
+export const SERVER_URL = 'https://lotus-sells-type-pursuit.trycloudflare.com';
 export const BASE_URL = `${SERVER_URL}/api`;
 export const socket = io(SERVER_URL);
 
@@ -246,6 +245,15 @@ export const StoreAPI = {
     return fetchAPI('/admin/mm2-config', {
       method: 'POST',
       body: JSON.stringify({ items })
+    });
+  },
+  getCategoryIconsConfig: async () => {
+    return fetchAPI('/admin/category-icons-config');
+  },
+  updateCategoryIconsConfig: async (icons: any) => {
+    return fetchAPI('/admin/category-icons-config', {
+      method: 'POST',
+      body: JSON.stringify({ icons })
     });
   }
 };

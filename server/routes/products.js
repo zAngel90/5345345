@@ -14,14 +14,8 @@ router.get('/', async (req, res) => {
     
     await Promise.all([dbProds.read(), dbLimiteds.read(), dbMm2.read()]);
 
-    // Combinar todo en una sola lista para la tienda
-    const allItems = [
-      ...(dbProds.data || []),
-      ...(dbLimiteds.data || []).map(item => ({ ...item, game: 'limiteds' })),
-      ...(dbMm2.data || []).map(item => ({ ...item, game: 'murder-mystery-2' }))
-    ];
-
-    res.json(allItems);
+    // Devolver solo productos generales
+    res.json(dbProds.data || []);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los productos' });
   }

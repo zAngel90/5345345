@@ -20,9 +20,8 @@ export default function GamesTab({ games, setGames, onSave, onTriggerUpload, onM
     setGames(games.filter(g => g.id !== id));
   };
 
-  const updateGame = (idx: number, field: string, value: any) => {
-    const newGames = [...games];
-    newGames[idx] = { ...newGames[idx], [field]: value };
+  const updateGame = (id: string, field: string, value: any) => {
+    const newGames = games.map(g => g.id === id ? { ...g, [field]: value } : g);
     setGames(newGames);
   };
 
@@ -56,9 +55,9 @@ export default function GamesTab({ games, setGames, onSave, onTriggerUpload, onM
                 </div>
               </div>
               <div className="flex-1 space-y-3">
-                <input type="text" value={game.name} onChange={(e) => updateGame(idx, 'name', e.target.value)} className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-sm" placeholder="Nombre del Juego" />
+                <input type="text" value={game.name} onChange={(e) => updateGame(game.id, 'name', e.target.value)} className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-sm" placeholder="Nombre del Juego" />
                 <div className="flex gap-2">
-                  <input type="text" value={game.color} onChange={(e) => updateGame(idx, 'color', e.target.value)} className="flex-1 bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-xs" placeholder="#Hex Color" />
+                  <input type="text" value={game.color} onChange={(e) => updateGame(game.id, 'color', e.target.value)} className="flex-1 bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-xs" placeholder="#Hex Color" />
                   <div className="w-8 h-8 rounded-lg border border-white/10" style={{ backgroundColor: game.color }} />
                 </div>
               </div>

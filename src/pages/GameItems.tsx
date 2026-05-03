@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { OrdersAPI, ChatAPI } from '../services/api';
+import { OrdersAPI, ChatAPI, SERVER_URL } from '../services/api';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -60,13 +60,12 @@ export default function GameItems() {
           });
         }
 
-        const robloxAvatar = `https://arrives-tcp-lead-talk.trycloudflare.com/api/users/avatar/${user.id}`;
+        const robloxAvatar = `${SERVER_URL}/api/users/avatar/${user.id}`;
         let finalAvatar = user.image || user.avatar || robloxAvatar;
         
         // Fix relative URLs by prepending the SERVER_URL
-        const API_SERVER = 'https://arrives-tcp-lead-talk.trycloudflare.com';
         if (finalAvatar && !finalAvatar.startsWith('http')) {
-          finalAvatar = `${API_SERVER}${finalAvatar.startsWith('/') ? '' : '/'}${finalAvatar}`;
+          finalAvatar = `${SERVER_URL}${finalAvatar.startsWith('/') ? '' : '/'}${finalAvatar}`;
         }
 
         targetWindow.postMessage({
@@ -137,7 +136,7 @@ export default function GameItems() {
 
       {/* Iframe que ocupa todo el espacio restante */}
       <iframe
-        src={`${CATALOG_URL}?game=${gameId}`}
+        src={`${CATALOG_URL}?game=${encodeURIComponent(gameId || '')}`}
         title="Catálogo de Items"
         className="flex-1 w-full border-none"
         style={{ display: 'block' }}

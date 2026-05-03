@@ -149,7 +149,7 @@ export default function RobuxCatalog() {
   useEffect(() => {
     const fetchRobuxPacks = async () => {
       try {
-        const res = await fetch('https://arrives-tcp-lead-talk.trycloudflare.com/api/admin/robux-config');
+        const res = await fetch(`${SERVER_URL}/api/admin/robux-config`);
         const data = await res.json();
         console.log('💎 Catalog Robux Data:', data);
         if (data.success) {

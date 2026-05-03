@@ -17,9 +17,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { StoreAPI } from '../services/api';
-
-const SERVER_URL = 'https://arrives-tcp-lead-talk.trycloudflare.com';
+import { StoreAPI, SERVER_URL } from '../services/api';
 
 export default function Catalog() {
   const [search, setSearch] = useState('');

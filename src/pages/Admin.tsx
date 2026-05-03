@@ -21,7 +21,7 @@ import {
   CreditCard,
   Crown
 } from 'lucide-react';
-import { RobloxAPI, StoreAPI } from '../services/api';
+import { RobloxAPI, StoreAPI, ChatAPI, AuthAPI, SERVER_URL } from '../services/api';
 
 // Sub-components
 import GroupsTab from '../components/admin/GroupsTab';
@@ -34,9 +34,7 @@ import ChatsTab from '../components/admin/ChatsTab';
 import OrdersTab from '../components/admin/OrdersTab';
 import PaymentMethodsTab from '../components/admin/PaymentMethodsTab';
 import HomeTab from '../components/admin/HomeTab';
-import { ChatAPI, AuthAPI } from '../services/api';
-
-const SERVER_URL = 'https://arrives-tcp-lead-talk.trycloudflare.com';
+import CategoryIconsTab from '../components/admin/CategoryIconsTab';
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -291,6 +289,7 @@ export default function Admin() {
               { id: 'limiteds', label: 'Limiteds / Trade', icon: Crown },
               { id: 'mm2', label: 'Murder Mystery 2', icon: ShieldCheck },
               { id: 'games', label: 'Juegos / Catálogo', icon: LayoutGrid },
+              { id: 'category-icons', label: 'Iconos Categorías', icon: LayoutGrid },
               { id: 'chats', label: 'Mensajería', icon: MessageSquare },
               { id: 'orders', label: 'Pedidos', icon: History },
               { id: 'home', label: 'Inicio / Home', icon: LayoutDashboard },
@@ -449,6 +448,10 @@ export default function Admin() {
                         <button onClick={() => handleSaveAll('products')} className="px-8 py-3 bg-emerald-600 text-white rounded-xl font-black text-xs uppercase">Guardar Items</button>
                       </div>
                     </div>
+                  )}
+
+                  {activeTab === 'category-icons' && (
+                    <CategoryIconsTab products={products} />
                   )}
 
                   {activeTab === 'orders' && (

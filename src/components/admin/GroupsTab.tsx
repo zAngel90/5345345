@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Plus, ShieldCheck, ExternalLink, Trash2, Save, Users } from 'lucide-react';
 
+import { SERVER_URL } from '../../services/api';
+
 interface GroupsTabProps {
   groups: any[];
   setGroups: (groups: any[]) => void;
@@ -19,7 +21,7 @@ export default function GroupsTab({ groups, setGroups, onSave, isSaving, isLoadi
       const missingIcons = groups.filter(g => !g.iconUrl).map(g => g.id);
       if (missingIcons.length > 0) {
         try {
-          const res = await fetch(`https://arrives-tcp-lead-talk.trycloudflare.com/api/groups/icons?groupIds=${missingIcons.join(',')}`);
+          const res = await fetch(`${SERVER_URL}/api/groups/icons?groupIds=${missingIcons.join(',')}`);
           const data = await res.json();
           if (data.data) {
             setGroups(groups.map(g => {

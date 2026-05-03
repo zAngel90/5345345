@@ -108,35 +108,44 @@ export default function Mm2Tab({ items, setItems, onSave, onTriggerUpload, isSav
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
-                  <select 
-                    value={item.rarity} 
-                    onChange={(e) => updateItem(idx, 'rarity', e.target.value)}
-                    className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white/60 text-xs outline-none"
-                  >
-                    <option value="Common">Common</option>
-                    <option value="Uncommon">Uncommon</option>
-                    <option value="Rare">Rare</option>
-                    <option value="Legendary">Legendary</option>
-                    <option value="Godly">Godly</option>
-                    <option value="Ancient">Ancient</option>
-                    <option value="Unique">Unique</option>
-                  </select>
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-black text-white/20 uppercase ml-1">Rareza</label>
+                    <select 
+                      value={item.rarity} 
+                      onChange={(e) => updateItem(idx, 'rarity', e.target.value)}
+                      className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white/60 text-xs outline-none"
+                    >
+                      <option value="Common">Common</option>
+                      <option value="Uncommon">Uncommon</option>
+                      <option value="Rare">Rare</option>
+                      <option value="Legendary">Legendary</option>
+                      <option value="Godly">Godly</option>
+                      <option value="Ancient">Ancient</option>
+                      <option value="Unique">Unique</option>
+                    </select>
+                  </div>
                   
-                  <div className="flex items-center gap-2 bg-[#0d0c22] border border-white/10 rounded-xl px-2">
-                    <input 
-                      type="color" 
-                      value={item.color || '#1a1c20'} 
-                      onChange={(e) => updateItem(idx, 'color', e.target.value)}
-                      className="w-6 h-6 bg-transparent border-none cursor-pointer"
-                    />
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-black text-white/20 uppercase ml-1">Categoría</label>
                     <input 
                       type="text" 
                       value={item.category || ''} 
                       onChange={(e) => updateItem(idx, 'category', e.target.value)}
-                      className="flex-1 bg-transparent border-none text-[10px] text-white/40 focus:text-white transition-colors outline-none"
-                      placeholder="Categoría" 
+                      className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-xs font-bold"
+                      placeholder="Ej: Skins, Knives..." 
                     />
                   </div>
+                </div>
+
+                <div className="flex items-center gap-4 bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2">
+                  <span className="text-[10px] font-black text-white/20 uppercase">Color de Aura:</span>
+                  <input 
+                    type="color" 
+                    value={item.color || '#1a1c20'} 
+                    onChange={(e) => updateItem(idx, 'color', e.target.value)}
+                    className="w-8 h-8 bg-transparent border-none cursor-pointer"
+                  />
+                  <span className="text-[10px] font-mono text-white/40">{item.color || '#1a1c20'}</span>
                 </div>
               </div>
             </div>
