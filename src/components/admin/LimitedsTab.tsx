@@ -74,7 +74,7 @@ export default function LimitedsTab({ limiteds, setLimiteds, onSave, onTriggerUp
                   placeholder="Nombre del Limited" 
                 />
                 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   <div className="space-y-1">
                     <label className="text-[9px] font-black text-white/20 uppercase ml-1">Precio USD</label>
                     <input 
@@ -92,7 +92,17 @@ export default function LimitedsTab({ limiteds, setLimiteds, onSave, onTriggerUp
                       value={item.assetId} 
                       onChange={(e) => updateLimited(idx, 'assetId', e.target.value)} 
                       className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-blue-400 text-xs font-mono" 
-                      placeholder="ID de Roblox" 
+                      placeholder="ID" 
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-black text-white/20 uppercase ml-1">Año</label>
+                    <input 
+                      type="text" 
+                      value={item.year || '2026'} 
+                      onChange={(e) => updateLimited(idx, 'year', e.target.value)} 
+                      className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white/40 text-xs font-bold" 
+                      placeholder="2026" 
                     />
                   </div>
                 </div>
@@ -109,6 +119,42 @@ export default function LimitedsTab({ limiteds, setLimiteds, onSave, onTriggerUp
                     <option value="Ancient">Ancient</option>
                   </select>
                   
+                  <select 
+                    value={item.itemType || 'NONE'} 
+                    onChange={(e) => updateLimited(idx, 'itemType', e.target.value)}
+                    className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-pink-400 text-xs font-bold outline-none"
+                  >
+                    <option value="NONE">Tipo (Ninguno)</option>
+                    <option value="UNIQUE">UNIQUE</option>
+                    <option value="LEGENDARY">LEGENDARY</option>
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-black text-white/20 uppercase ml-1">Stock Disponible</label>
+                    <input 
+                      type="number" 
+                      value={item.stock || 0} 
+                      onChange={(e) => updateLimited(idx, 'stock', parseInt(e.target.value))} 
+                      className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-xs font-bold" 
+                      placeholder="0" 
+                    />
+                  </div>
+                  <div className="flex flex-col justify-end pb-1">
+                    <label className="flex items-center gap-2 cursor-pointer group/check">
+                      <div 
+                        onClick={() => updateLimited(idx, 'onRequest', !item.onRequest)}
+                        className={`w-10 h-5 rounded-full p-1 transition-all ${item.onRequest ? 'bg-blue-500' : 'bg-white/10'}`}
+                      >
+                        <div className={`w-3 h-3 bg-white rounded-full transition-all ${item.onRequest ? 'translate-x-5' : 'translate-x-0'}`} />
+                      </div>
+                      <span className="text-[9px] font-black text-white/40 uppercase group-hover/check:text-white transition-colors">Bajo Pedido</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-1">
                   <div className="flex items-center gap-2 bg-[#0d0c22] border border-white/10 rounded-xl px-2">
                     <input 
                       type="color" 

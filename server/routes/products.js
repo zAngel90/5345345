@@ -5,10 +5,26 @@ import { upload } from '../middleware/upload.js';
 
 const router = express.Router();
 
-// Obtener todos los productos (Público)
+// Obtener todos los productos agregados (Público)
 router.get('/', async (req, res) => {
-  const db = getDB('products');
-  res.json(db.data);
+  try {
+    const dbProds = getDB('products');
+    const dbLimiteds = getDB('limiteds');
+    const dbMm2 = getDB('mm2');
+    
+    await Promise.all([dbProds.read(), dbLimiteds.read(), dbMm2.read()]);
+
+    // Combinar todo en una sola lista para la tienda
+    const allItems = [
+      ...(dbProds.data || []),
+      ...(dbLimiteds.data || []).map(item => ({ ...item, game: 'limiteds' })),
+      ...(dbMm2.data || []).map(item => ({ ...item, game: 'murder-mystery-2' }))
+    ];
+
+    res.json(allItems);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener los productos' });
+  }
 });
 
 // Crear producto (Admin)

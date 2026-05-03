@@ -298,6 +298,9 @@ router.get('/limiteds-config', async (req, res) => {
 
 router.post('/limiteds-config', async (req, res) => {
   try {
+    const { limiteds } = req.body;
+    const db = getDB('limiteds');
+    await db.read();
     db.data = limiteds;
     await db.write();
     res.json({ success: true });
