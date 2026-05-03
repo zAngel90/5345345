@@ -1,0 +1,42 @@
+{
+  "siteName": "Pixel Store",
+  "commission": 0.7,
+  "currency": "USD",
+  "requiredGroups": [
+    {
+      "id": "35425734",
+      "name": "'TinyPoem STORE\"",
+      "isMandatory": false
+    },
+    {
+      "id": "34320912",
+      "name": "UGC Cute Store",
+      "isMandatory": true
+    },
+    {
+      "id": "36043707",
+      "name": "Nekari",
+      "isMandatory": false
+    },
+    {
+      "id": "35155677",
+      "name": "# Hachi K",
+      "isMandatory": false
+    },
+    {
+      "id": "15266551",
+      "name": "Argent Silver",
+      "isMandatory": false
+    },
+    {
+      "id": "34009936",
+      "name": "Fresada",
+      "isMandatory": false
+    },
+    {
+      "id": "35656666",
+      "name": "'Picke Bicke STORE\"",
+      "isMandatory": false
+    }
+  ]
+}
