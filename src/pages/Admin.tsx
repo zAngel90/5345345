@@ -451,7 +451,11 @@ export default function Admin() {
                   )}
 
                   {activeTab === 'category-icons' && (
-                    <CategoryIconsTab products={products} />
+                    <CategoryIconsTab 
+                      products={products} 
+                      mm2Items={mm2Items}
+                      limiteds={limiteds}
+                    />
                   )}
 
                   {activeTab === 'orders' && (

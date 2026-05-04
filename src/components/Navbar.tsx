@@ -18,6 +18,7 @@ const SECTION_TO_NAV: Record<string, string> = {
 const NAV_ITEMS = [
   { id: 'inicio', label: 'Inicio', href: '/', icon: Home },
   { id: 'catalogo', label: 'Catálogo', href: '/catalog', icon: LayoutGrid, isDropdown: true },
+  { id: 'fortnite', label: 'Fortnite', href: '/fortnite', icon: Gamepad2 },
   { id: 'resenas', label: 'Reseñas', href: '/reviews', icon: Star },
   { id: 'grupos', label: 'Grupos', href: '/groups', icon: Users },
 ];
@@ -96,7 +97,8 @@ export default function Navbar() {
       }
 
       setOrders(allOrders);
-      const pending = allOrders.filter((o: any) => o.status === 'pending').length;
+      // Solo contamos los pendientes que NO han sido marcados como "vistos"
+      const pending = allOrders.filter((o: any) => o.status === 'pending' && !o.seen).length;
       setOrderNotifCount(pending);
     } catch (err) {
       console.error('Error fetching orders for notif:', err);
@@ -127,10 +129,40 @@ export default function Navbar() {
       setActiveNav('resenas');
     } else if (location.pathname === '/groups') {
       setActiveNav('grupos');
+    } else if (location.pathname === '/fortnite') {
+      setActiveNav('fortnite');
     } else if (location.pathname === '/') {
       setActiveNav('inicio');
     }
   }, [location]);
+
+  const handleClearNotifications = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    // Si no está logueado no hacemos nada
+    if (!user) return;
+
+    try {
+      // 1. Llamadas al backend para persistir el "limpiar"
+      await Promise.all([
+        ChatAPI.markAllAsRead(user.id),
+        OrdersAPI.markAllSeen(user.id)
+      ]);
+
+      // 2. Limpiar estado local inmediatamente
+      setUnreadCount(0);
+      setOrderNotifCount(0);
+      
+      // Actualizar la lista de órdenes localmente para marcar todas como vistas
+      setOrders(prev => prev.map(o => ({ ...o, seen: true })));
+
+    } catch (err) {
+      console.error('Error clearing notifications on backend:', err);
+      // Fallback: al menos limpiar localmente si falla el backend (opcional)
+      setUnreadCount(0);
+      setOrderNotifCount(0);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -241,8 +273,8 @@ export default function Navbar() {
                   className="absolute bottom-0 h-full z-0 flex flex-col items-center justify-end pointer-events-none"
                   initial={false}
                   animate={{
-                    left: `${NAV_ITEMS.findIndex(i => i.id === (hoveredNav || activeNav)) * 25}%`,
-                    width: '25%'
+                    left: `${NAV_ITEMS.findIndex(i => i.id === (hoveredNav || activeNav)) * (100 / NAV_ITEMS.length)}%`,
+                    width: `${100 / NAV_ITEMS.length}%`
                   }}
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                 >
@@ -378,7 +410,12 @@ export default function Navbar() {
                     <motion.div initial={{ opacity: 0, scale: 0.95, y: 10, originX: '90%', originY: '0%' }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }} transition={{ type: 'spring', stiffness: 450, damping: 30 }} className="absolute top-full right-0 mt-3 w-[300px] bg-pixel-panel/98 backdrop-blur-2xl border border-white/10 rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60] pointer-events-auto">
                       <div className="flex items-center justify-between mb-3 px-2 pt-1">
                         <h3 className="text-sm font-bold text-white tracking-tight">Notificaciones</h3>
-                        <button className="text-[10px] text-blue-400 hover:underline font-medium">Limpiar</button>
+                        <button 
+                          onClick={handleClearNotifications}
+                          className="text-[10px] text-blue-400 hover:underline font-medium"
+                        >
+                          Limpiar
+                        </button>
                       </div>
 
                       {/* Notification Tabs */}
@@ -417,8 +454,8 @@ export default function Navbar() {
                         {/* Notificaciones de Pedidos Reales */}
                         {(notifTab === 'todas' || notifTab === 'pedidos') && (
                           <div className="space-y-1">
-                            {orders.length > 0 ? (
-                              orders.slice(0, 3).map(order => (
+                            {orders.filter(o => !o.seen).length > 0 ? (
+                              orders.filter(o => !o.seen).slice(0, 3).map(order => (
                                 <div 
                                   key={order.id}
                                   onClick={() => { setShowNotifications(false); navigate('/account'); }}

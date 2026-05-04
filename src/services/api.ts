@@ -153,6 +153,16 @@ export const OrdersAPI = {
   },
 
   /**
+   * Mark all pending orders as seen
+   */
+  markAllSeen: async (userId: number) => {
+    return fetchAPI('/orders/mark-all-seen', {
+      method: 'PUT',
+      body: JSON.stringify({ userId })
+    });
+  },
+
+  /**
    * Get recent public orders
    */
   getRecentOrders: async () => {
@@ -301,6 +311,12 @@ export const ChatAPI = {
   markAsRead: async (chatId: number) => {
     return fetchAPI(`/chats/${chatId}/read`, {
       method: 'POST'
+    });
+  },
+  markAllAsRead: async (userId: number) => {
+    return fetchAPI('/chats/mark-all-read', {
+      method: 'PUT',
+      body: JSON.stringify({ userId })
     });
   },
   deleteChat: async (chatId: number) => {

@@ -1,0 +1,252 @@
+.item-card-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 271 / 448;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.item-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 23, 40, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* THE MARKED BORDER (Fortnite Selection Frame) */
+.card-selection-frame {
+  position: absolute;
+  inset: 0;
+  border: 0px solid white;
+  border-radius: 16px;
+  z-index: 100;
+  pointer-events: none;
+  transition: border-width 0.1s ease-out;
+}
+
+.item-card-wrapper:hover .card-selection-frame {
+  inset: -6px;
+  border-width: 4px;
+  border-radius: 22px;
+}
+
+
+/* RARITY BACKGROUNDS */
+.card-rarity-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.rarity-common .card-rarity-bg { background: linear-gradient(180deg, #b1b1b1 0%, #313131 100%); }
+.rarity-uncommon .card-rarity-bg { background: linear-gradient(180deg, #22c55e 0%, #064e3b 100%); }
+.rarity-rare .card-rarity-bg { background: linear-gradient(180deg, #3b82f6 0%, #1e3a8a 100%); }
+.rarity-epic .card-rarity-bg { background: linear-gradient(180deg, #a855f7 0%, #581c87 100%); }
+.rarity-legendary .card-rarity-bg { background: linear-gradient(180deg, #facc15 0%, #78350f 100%); }
+
+.item-image-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.item-image-container.wide-image {
+  justify-content: flex-start;
+  padding-left: 2.5rem;
+}
+
+.item-image-container.wide-image .item-image {
+  max-width: 45%;
+}
+
+.item-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+  transition: transform 0.3s ease-out;
+}
+
+.item-card-wrapper:hover .item-image {
+  transform: scale(1.08);
+}
+
+.item-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.item-info {
+  padding: 1.25rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  z-index: 5;
+}
+
+.item-name {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  margin-bottom: 0.75rem;
+}
+
+.item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-price-badge {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.vbucks-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.item-price-badge span {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 900;
+}
+
+.rarity-bar {
+  height: 8px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.rarity-common .rarity-bar { background-color: #b1b1b1; }
+.rarity-uncommon .rarity-bar { background-color: #22c55e; }
+.rarity-rare .rarity-bar { background-color: #3b82f6; }
+.rarity-epic .rarity-bar { background-color: #a855f7; }
+.rarity-legendary .rarity-bar { background-color: #facc15; }
+
+.item-card-wrapper:hover {
+  z-index: 10;
+}
+
+.item-card-wrapper.is-wide {
+  aspect-ratio: 542 / 448;
+  grid-column: span 2;
+}
+
+@media (max-width: 640px) {
+  .item-card-wrapper.is-wide {
+    grid-column: span 2;
+    aspect-ratio: 542 / 448;
+  }
+}
+
+.item-card-wrapper.is-bundle {
+  grid-column: span 2;
+  aspect-ratio: 542 / 448;
+}
+
+@media (max-width: 768px) {
+  .item-card-wrapper.is-bundle {
+    aspect-ratio: 1.2 / 1;
+  }
+}
+
+.bundle-image {
+  padding: 0 !important;
+  justify-content: center !important;
+}
+
+.bundle-image .item-image {
+  width: 100%;
+  height: 100%;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain;
+  filter: none !important;
+}
+
+.bundle-discount-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(90deg, #facc15, #eab308);
+  color: #000;
+  padding: 6px 30px;
+  font-size: 0.9rem;
+  font-weight: 900;
+  z-index: 100;
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+}
+
+.bundle-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: #fff;
+}
+
+.cart-btn {
+  background: #facc15;
+  color: #000;
+}
+
+.view-btn {
+  background: #2a2aeb;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+.is-bundle .item-info {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem;
+}
+
+.is-bundle .item-name {
+  font-size: 1.4rem;
+}

@@ -23,7 +23,8 @@ export default function GameItems() {
 
         const realNotifications: any[] = [];
         if (ordersRes.success && Array.isArray(ordersRes.data)) {
-          ordersRes.data.forEach((order: any) => {
+          // Only show orders that have not been seen
+          ordersRes.data.filter((o: any) => !o.seen).forEach((order: any) => {
             let statusText = 'está en revisión';
             if (order.status === 'completed') statusText = 'ha sido completado ✅';
             if (order.status === 'cancelled') statusText = 'ha sido cancelado ❌';
@@ -39,12 +40,13 @@ export default function GameItems() {
         }
 
         if (chatsRes.success && Array.isArray(chatsRes.data)) {
-          chatsRes.data.forEach((chat: any) => {
+          // Only show chats with unread messages
+          chatsRes.data.filter((c: any) => c.unreadCount > 0).forEach((chat: any) => {
             realNotifications.push({
               id: `chat-${chat.id}`,
               title: chat.userName || 'Soporte Pixel',
               desc: chat.lastMessage || 'Tienes un chat activo',
-              time: chat.unreadCount > 0 ? 'Ahora' : 'Reciente',
+              time: 'Ahora',
               type: 'chats'
             });
           });
@@ -113,6 +115,16 @@ export default function GameItems() {
             ...rest
           } 
         });
+      }
+
+      if (event.data?.action === 'clearNotifications') {
+        const user = JSON.parse(localStorage.getItem('pixel_user') || 'null');
+        if (user && user.id) {
+          Promise.all([
+            OrdersAPI.markAllSeen(user.id),
+            ChatAPI.markAllAsRead(user.id)
+          ]).catch(err => console.error('Error marking notifications as seen:', err));
+        }
       }
     };
     window.addEventListener('message', handler);

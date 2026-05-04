@@ -1,0 +1,242 @@
+.shop-layout {
+  display: flex;
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* SIDEBAR STYLES */
+.shop-sidebar {
+  width: 260px;
+  max-height: 85vh;
+  position: fixed;
+  top: 6rem;
+  left: 2rem;
+  z-index: 40;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.sidebar-container {
+  background: rgba(10, 15, 30, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.sidebar-title {
+  color: #fff !important;
+  font-size: 1.1rem !important;
+  margin-bottom: 1rem !important;
+  letter-spacing: 2px !important;
+  font-weight: 900 !important;
+  display: block !important;
+}
+
+
+.sidebar-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent);
+  margin-bottom: 1rem;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  max-height: 60vh;
+}
+
+/* Custom Scrollbar for Sidebar */
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(42, 42, 235, 0.3);
+  border-radius: 10px;
+}
+
+.nav-item {
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.nav-item.active {
+  background: rgba(42, 42, 235, 0.2);
+  border-color: rgba(42, 42, 235, 0.4);
+  color: #fff;
+  font-weight: 900;
+}
+
+/* CONTAINER ADJUSTMENTS */
+.shop-container {
+  flex: 1;
+  margin-left: 310px;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+@media (max-width: 1024px) {
+  .shop-sidebar {
+    display: none !important;
+  }
+  .shop-container {
+    margin-left: 0 !important;
+  }
+}
+
+.shop-header {
+  padding: 6rem 2rem 3rem 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+
+.shop-header h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  margin-bottom: 1.5rem;
+  color: #fff;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 255, 255, 0.1), 0 3px 6px rgba(0, 0, 0, 0.8);
+  display: inline-block;
+}
+
+.timer-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.75rem 2rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.timer-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.timer-value {
+  font-size: 1.6rem;
+  color: #facc15;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.shop-main {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  margin: 0 auto;
+}
+
+.shop-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-top: 2rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.section-divider {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .items-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(42, 42, 235, 0.1);
+  border-top-color: #2a2aeb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Global Burbank and Skewed fonts/classes */
+@font-face {
+  font-family: 'BurbankBig';
+  src: url('/fonts/burbankbigregular-black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.burbank {
+  font-family: 'BurbankBig', Arial Black, sans-serif !important;
+  text-transform: uppercase;
+}
+
+.skewed {
+  transform: skewX(-6deg);
+}

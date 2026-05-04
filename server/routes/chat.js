@@ -224,4 +224,26 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   }
 });
 
+// Marcar todos los chats como leídos (para el usuario)
+router.put('/mark-all-read', authMiddleware, async (req, res) => {
+  try {
+    const db = getDB('chats');
+    await db.read();
+    
+    const userId = req.user.id;
+    
+    // Filtramos los chats del usuario y reseteamos el contador de no leídos
+    db.data.forEach(chat => {
+      if (chat.userId === userId) {
+        chat.unreadUser = 0;
+      }
+    });
+    
+    await db.write();
+    res.json({ success: true, message: 'Todas las notificaciones marcadas como leídas' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 export default router;

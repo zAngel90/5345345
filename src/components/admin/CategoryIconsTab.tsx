@@ -13,20 +13,28 @@ import { StoreAPI } from '../../services/api';
 
 interface CategoryIconsTabProps {
   products: any[];
+  mm2Items: any[];
+  limiteds: any[];
 }
 
-export default function CategoryIconsTab({ products }: CategoryIconsTabProps) {
+export default function CategoryIconsTab({ products, mm2Items, limiteds }: CategoryIconsTabProps) {
   const [categories, setCategories] = useState<string[]>([]);
   const [iconMapping, setIconMapping] = useState<Record<string, string>>({});
   const [isSaving, setIsSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Extraer categorías únicas de los productos
-    const uniqueCats = Array.from(new Set(products.map(p => p.category || 'Otros'))).filter(Boolean);
+    // Extraer categorías únicas de todos los tipos de productos
+    const prodCats = products.map(p => p.category);
+    const mm2Cats = mm2Items.map(p => p.category);
+    const limitedCats = limiteds.map(p => p.category);
+
+    const allCats = [...prodCats, ...mm2Cats, ...limitedCats, 'MM2', 'Limiteds'];
+    const uniqueCats = Array.from(new Set(allCats.filter(Boolean))).map(c => c || 'Otros');
+    
     setCategories(uniqueCats);
     fetchIconMapping();
-  }, [products]);
+  }, [products, mm2Items, limiteds]);
 
   const fetchIconMapping = async () => {
     try {

@@ -80,6 +80,35 @@ router.get('/user/:userId', async (req, res) => {
   }
 });
 
+// Marcar todas las órdenes como vistas (para el usuario)
+router.put('/mark-all-seen', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    if (!userId) return res.status(400).json({ success: false, error: 'userId requerido' });
+
+    const db = getDB('orders');
+    await db.read();
+
+    const userIdStr = String(userId);
+
+    // Marcamos como "seen" las órdenes pendientes del usuario
+    db.data.forEach(order => {
+      const matchId = String(order.userId) === userIdStr;
+      const matchAccountId = order.accountId && String(order.accountId) === userIdStr;
+      const matchUsername = String(order.username).toLowerCase() === userIdStr.toLowerCase();
+
+      if ((matchId || matchAccountId || matchUsername) && !order.seen) {
+        order.seen = true;
+      }
+    });
+
+    await db.write();
+    res.json({ success: true, message: 'Órdenes marcadas como vistas' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // Obtener pedidos recientes para el feed de "Últimas Compras" (Público)
 router.get('/recent', async (req, res) => {
   try {
