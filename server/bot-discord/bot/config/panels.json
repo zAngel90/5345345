@@ -1,0 +1,47 @@
+{
+  "principal": {
+    "title": "CENTRO DE COMPRAS Y CONSULTAS",
+    "description": "Este canal esta disponible para realizar tus compras de:\n\n<:rx:1372420625037000774> Robux\n<:tk:1372420686307659856> Tokens de Blade Ball\n<:fornais:1470243955760169144> Skins de Fornite\n<:mm2:1470244770277359689> Sets de Murder Mystery 2\n<a:regalo:1486573572502847591> Gamepass o artículos de juegos\n<a:ayuda:1486495842805350620> Realizar consultas\n\n<a:cat:1481392415204966573> **PASOS PARA COMPRAR:**\n\n● Abre un ticket y selecciona la categoría de tu compra.\n● Dentro del ticket indica los datos requeridos.\n● Espera la respuesta de un administrador.\n● Realiza el pago y envía captura para confirmar.\n● Espera la entrega.\n● Toma una captura de prueba y súbelo en:\n<#1372773328829550622>\n\n<:roblox:1395091569329176787> **MÉTODOS DE PAGO**\nConsulta todos los métodos aqui:\n<#1372413873499410552>\n\n<a:dinero:1486488681538650197> **PRECIOS DE ROBUX**\nRevisa la tabla de precios actualizada aqui:\n<#1372618408461340704>\n\n<a:alerta:1486497648901881997> **IMPORTANTE**\n● Este canal es solo para comprar y consultar.",
+    "color": 16774400,
+    "type": "select",
+    "placeholder": "💲 ABRE TICKETS AQUI 💲",
+    "options": [
+      {
+        "label": "COMPRAR ROBUX",
+        "description": "abre este ticket para comprar robux",
+        "emoji": "<:rx:1372420625037000774>",
+        "ticketType": "robux"
+      },
+      {
+        "label": "COMPRAR SET DE MURDER MYSTERY 2",
+        "description": "abre este ticket para comprar armas de mm2",
+        "emoji": "<:mm2:1470244770277359689>",
+        "ticketType": "mm2"
+      },
+      {
+        "label": "COMPRAR ITEM DE OTROS JUEGOS",
+        "description": "abre este ticket para realizar compras personalizadas",
+        "emoji": "<a:regalo:1486573572502847591>",
+        "ticketType": "otros_juegos"
+      },
+      {
+        "label": "COMPRAR TOKENS DE BLADE BALL",
+        "description": "abre este ticket para comprar tokens de blade ball",
+        "emoji": "<:tk:1372420686307659856>",
+        "ticketType": "blade_ball"
+      },
+      {
+        "label": "COMPRAR SKIN DE FORTNITE",
+        "description": "abre este ticket para comprar pavos por regalo",
+        "emoji": "<:fornais:1470243955760169144>",
+        "ticketType": "fortnite"
+      },
+      {
+        "label": "Consultas",
+        "description": "Abre este ticket para realizar cualquier tipo de consulta",
+        "emoji": "<a:alerta:1486497648901881997>",
+        "ticketType": "consulta"
+      }
+    ]
+  }
+}

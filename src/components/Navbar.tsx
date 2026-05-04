@@ -2,8 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingCart, Menu, X, User, Bell, ChevronDown, ChevronRight, Gamepad2, Crown, Diamond, Home, LayoutGrid, Star, Users, Wallet, LogOut, Globe, Package, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { StoreAPI, AuthAPI, SERVER_URL, ChatAPI, socket, OrdersAPI } from '../services/api';
+import { StoreAPI, AuthAPI, ChatAPI, socket, OrdersAPI, SERVER_URL } from '../services/api';
 import AuthModal from './AuthModal';
+
+const LEVEL_CONFIG: Record<string, { name: string, color: string }> = {
+  BRONCE: { name: 'Bronce Pixel', color: 'bg-orange-500/10 text-orange-400 border-orange-500/20' },
+  SILVER: { name: 'Silver Pixel', color: 'bg-slate-400/10 text-slate-300 border-slate-400/20' },
+  GOLD: { name: 'Gold Pixel', color: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' },
+  DIAMOND: { name: 'Diamond Pixel', color: 'bg-blue-400/10 text-blue-300 border-blue-400/20' },
+  ROYAL: { name: 'Royal Pixel', color: 'bg-purple-500/10 text-purple-400 border-purple-500/20' },
+  MYTHIC: { name: 'Mythic Pixel', color: 'bg-red-500/10 text-red-400 border-red-500/20' }
+};
 
 // Mapeo: id de sección → clave del nav
 const SECTION_TO_NAV: Record<string, string> = {
@@ -571,7 +580,14 @@ export default function Navbar() {
                           />
                         </div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between"><h4 className="text-sm font-bold text-white truncate">{user?.username || 'Usuario'}</h4><span className="text-[9px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-black uppercase tracking-wider">Cliente</span></div>
+                            <div className="flex items-center justify-between">
+                              <h4 className="text-sm font-bold text-white truncate">{user?.username || 'Usuario'}</h4>
+                              <span className={`text-[8px] px-2 py-0.5 rounded-full border font-black uppercase tracking-wider ${
+                                (user?.level && LEVEL_CONFIG[user.level as keyof typeof LEVEL_CONFIG]?.color) || 'bg-blue-500/20 text-blue-400 border-blue-500/20'
+                              }`}>
+                                {(user?.level && LEVEL_CONFIG[user.level as keyof typeof LEVEL_CONFIG]?.name) || 'Cliente'}
+                              </span>
+                            </div>
                             <p className="text-[11px] text-gray-500 truncate">{user?.email || 'email@example.com'}</p>
                           </div>
                         </div>

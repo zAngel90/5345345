@@ -24,6 +24,20 @@ function AppContent() {
   const isChat = location.pathname === '/chat';
   const isNoUI = isIngame || isCheckout || isChat;
 
+  React.useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+    const userStr = params.get('user');
+
+    if (token && userStr) {
+      localStorage.setItem('pixel_token', token);
+      localStorage.setItem('pixel_user', userStr);
+      // Limpiar URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+      window.location.reload(); // Recargar para actualizar estado global
+    }
+  }, [location]);
+
   return (
     <div className={`font-sans selection:bg-blue-500/30 flex flex-col bg-pixel-bg ${isNoUI ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       <PageLoader />

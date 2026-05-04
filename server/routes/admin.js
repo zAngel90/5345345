@@ -322,14 +322,53 @@ router.post('/orders/:id/status', async (req, res) => {
     const db = getDB('orders');
     await db.read();
     const order = db.data.find(o => o.id === id);
-    if (order) {
-      order.status = status;
-      await db.write();
-      res.json({ success: true });
-    } else {
-      res.status(404).json({ success: false, error: 'Pedido no encontrado' });
+    
+    if (!order) {
+      return res.status(404).json({ success: false, error: 'Pedido no encontrado' });
     }
+
+    const previousStatus = order.status;
+    order.status = status;
+    await db.write();
+
+    // Si el pedido se marca como completado, actualizar totalRobux y nivel del usuario
+    if (status === 'completed' && previousStatus !== 'completed') {
+      const usersDB = getDB('users');
+      await usersDB.read();
+      
+      // Intentamos encontrar al usuario por id (si existe en el pedido) o por username
+      const user = usersDB.data.find(u => 
+        (order.accountId && u.id === order.accountId) || 
+        (u.username.toLowerCase() === order.username.toLowerCase())
+      );
+
+      if (user) {
+        user.totalRobux = (user.totalRobux || 0) + (parseInt(order.amount) || 0);
+        
+        // Calcular nuevo nivel (Misma lógica que el bot)
+        const getLevel = (rbx) => {
+          if (rbx >= 80000) return 'MYTHIC';
+          if (rbx >= 50000) return 'ROYAL';
+          if (rbx >= 25000) return 'DIAMOND';
+          if (rbx >= 10000) return 'GOLD';
+          if (rbx >= 3000) return 'SILVER';
+          return 'BRONCE';
+        };
+
+        user.level = getLevel(user.totalRobux);
+        await usersDB.write();
+
+        // Sincronizar con Discord si tiene cuenta vinculada
+        if (user.discordId) {
+          const { syncDiscordRole } = await import('../services/discordService.js');
+          await syncDiscordRole(user.discordId, user.totalRobux);
+        }
+      }
+    }
+
+    res.json({ success: true });
   } catch (error) {
+    console.error('Error updating order status:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });

@@ -1,0 +1,35 @@
+{
+  "robux": {
+    "title": "Ticket Robux",
+    "questions": [
+      {
+        "id": "roblox_user",
+        "label": "Usuario de Roblox",
+        "style": "short",
+        "placeholder": "Escribe tu user de Roblox",
+        "required": true
+      },
+      {
+        "id": "robux_amount",
+        "label": "Cantidad de Robux",
+        "style": "short",
+        "placeholder": "Ejemplo: 500",
+        "required": true
+      },
+      {
+        "id": "delivery_method",
+        "label": "Método de entrega",
+        "style": "short",
+        "placeholder": "Grupo o Gamepass",
+        "required": true
+      },
+      {
+        "id": "joined_groups",
+        "label": "¿Unido a nuestros grupos?",
+        "style": "short",
+        "placeholder": "Si o No",
+        "required": true
+      }
+    ]
+  }
+}

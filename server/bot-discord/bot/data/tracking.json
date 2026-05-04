@@ -1,0 +1,7101 @@
+{
+  "MoshiPsd": {
+    "robloxUserId": 1129678921,
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "groupId": 35425734,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "groupId": 34320912,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 3 | Nekari": {
+        "groupId": 36043707,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "groupId": 35155677,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 5 | Rumis": {
+        "groupId": 13135069,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "groupId": 35756160,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "groupId": 35656666,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      }
+    }
+  },
+  "fresh_zzz0": {
+    "robloxUserId": 8295182416,
+    "joinedAtGlobal": "2026-01-10",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "groupId": 35425734,
+        "joinedAt": "2026-04-01T05:30:15.442Z",
+        "manual": false,
+        "verified": false,
+        "everNotMember": true,
+        "notified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "groupId": 34320912,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 3 | Nekari": {
+        "groupId": 36043707,
+        "joinedAt": "2026-04-01T05:43:37.302Z",
+        "manual": false,
+        "verified": false,
+        "everNotMember": true,
+        "notified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "groupId": 35155677,
+        "joinedAt": "2026-04-01T05:42:45.113Z",
+        "manual": false,
+        "verified": false,
+        "everNotMember": true,
+        "notified": false
+      },
+      "Grupo 5 | Rumis": {
+        "groupId": 13135069,
+        "joinedAt": "2026-04-01T05:43:37.302Z",
+        "manual": false,
+        "verified": false,
+        "everNotMember": true,
+        "notified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "groupId": 35756160,
+        "joinedAt": "2026-04-01T05:30:15.442Z",
+        "manual": false,
+        "verified": false,
+        "everNotMember": true,
+        "notified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "groupId": 35656666,
+        "joinedAt": "2026-04-01T05:42:27.316Z",
+        "manual": false,
+        "verified": false,
+        "everNotMember": true,
+        "notified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-30T06:37:40.603Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-30T06:38:49.162Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    },
+    "displayUsername": "fresh_zzz0"
+  },
+  "moshipsd": {
+    "robloxUserId": 1129678921,
+    "joinedAtGlobal": "2024-05-06",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "groupId": 35425734,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "groupId": 34320912,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 3 | Nekari": {
+        "groupId": 36043707,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "groupId": 35155677,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 5 | Rumis": {
+        "groupId": 13135069,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "groupId": 35756160,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "groupId": 35656666,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      }
+    },
+    "displayUsername": "MoshiPsd"
+  },
+  "kafy_pq": {
+    "robloxUserId": 5308798791,
+    "displayUsername": "kafy_pq",
+    "joinedAtGlobal": "2025-06-03",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "groupId": 35425734,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "groupId": 34320912,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 3 | Nekari": {
+        "groupId": 36043707,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "groupId": 35155677,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 5 | Rumis": {
+        "groupId": 13135069,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "groupId": 35756160,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "groupId": 35656666,
+        "joinedAt": null,
+        "manual": false,
+        "verified": true,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "k40s_78": {
+    "robloxUserId": 9782021079,
+    "displayUsername": "K40S_78",
+    "joinedAtGlobal": "2025-10-29",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "groupId": 35425734,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "groupId": 34320912,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 3 | Nekari": {
+        "groupId": 36043707,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "groupId": 35155677,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 5 | Rumis": {
+        "groupId": 13135069,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "groupId": 35756160,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "groupId": 35656666,
+        "joinedAt": null,
+        "manual": false,
+        "verified": false,
+        "everNotMember": false,
+        "notified": false
+      }
+    }
+  },
+  "llywe_lyn": {
+    "joinedAtGlobal": "2025-11-21",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "mxlouqs": {
+    "joinedAtGlobal": "2026-02-09",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "liloxmyx": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "nicolasdher76w3": {
+    "joinedAtGlobal": "2026-03-07",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-30T06:34:10.779Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-30T06:34:10.780Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "jireh": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "zitxuwu5": {
+    "joinedAtGlobal": "2026-04-01T03:23:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-09T10:39:33.506Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-09T10:39:33.506Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "isai7351968": {
+    "joinedAtGlobal": "2025-06-26T19:35:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-13T16:44:14.894Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "nelson_elgod1": {
+    "joinedAtGlobal": "2026-02-21T23:55:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "prokale41": {
+    "joinedAtGlobal": "2026-03-24T03:46:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-08T21:20:14.383Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-08T21:20:14.383Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "papitash": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "hectorpapitayt": {
+    "joinedAtGlobal": "2025-10-08T17:17:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-02T18:03:03.244Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": "2026-04-02T18:03:03.244Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": "2026-04-02T18:03:03.244Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "anghelo2803": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "callon14914": {
+    "joinedAtGlobal": "2025-11-05T16:10:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-15T20:09:18.464Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-15T20:14:05.586Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "gxtzk2": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-15T02:59:57.733Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-15T02:59:57.733Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "dieto5": {
+    "joinedAtGlobal": "2026-03-30T03:19:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-05T22:02:45.553Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-05T22:02:45.553Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "dragonsito12621": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-03T20:25:36.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-03T20:25:36.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-03T20:25:36.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-07T23:38:19.902Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": "2026-04-03T20:25:36.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": "2026-04-03T20:25:36.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-03T20:25:36.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-07T23:38:19.902Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-07T23:38:19.902Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "lilitmili": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "team_dale": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-13T01:24:07.795Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-13T01:24:07.795Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "bella_136041": {
+    "joinedAtGlobal": "2026-03-09T01:11:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "encapuc": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-03T22:50:33.538Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-03T22:50:33.538Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-03T22:50:33.538Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-03T22:50:33.538Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": "2026-04-03T22:50:33.538Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": "2026-04-03T22:50:33.538Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-03T22:50:33.538Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "snezhnaya_17": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "zpiero10xd": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-04T02:37:20.395Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-04T02:37:20.408Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-04T02:37:20.408Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-04T02:37:20.408Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": "2026-04-04T02:37:20.408Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": "2026-04-04T02:37:20.408Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-04T02:37:20.408Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "angelopro202077": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-05-03T20:04:31.591Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-05-03T20:04:31.591Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "adrianolv24": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-30T16:44:33.012Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-30T16:44:33.012Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "irvin_2070": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-04T06:11:10.129Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-04T06:11:10.137Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-04T06:11:10.137Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-04T06:11:10.137Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": "2026-04-04T06:11:10.137Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": "2026-04-04T06:11:10.137Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-04T06:11:10.137Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "irvin": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "hyper": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "hetero_pro23": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "anderson617002": {
+    "joinedAtGlobal": "2026-04-04T14:00:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "ujjurht": {
+    "joinedAtGlobal": "2025-07-28T19:20:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-08T23:55:04.533Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-08T23:55:04.533Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-08T23:55:04.533Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "carlosplayer890": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "elmaspro_1951": {
+    "joinedAtGlobal": "2026-01-01T09:18:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-04T17:54:00.580Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-04T17:53:07.572Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-04T17:53:38.144Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-04T17:53:38.144Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": "2026-04-04T17:54:00.580Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": "2026-04-04T17:54:00.580Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-04T17:53:38.144Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-29T04:17:58.843Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "luxxifet": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-04T18:07:57.377Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-04T18:07:57.382Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-04T18:07:57.382Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": "2026-04-04T18:07:57.382Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": "2026-04-04T18:07:57.382Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-04T18:51:33.400Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "xiasoul_14": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "xiasoul1409": {
+    "joinedAtGlobal": "2026-03-24T20:18:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "popcito11": {
+    "joinedAtGlobal": "2026-04-04T21:30:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "misael_pro2003": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "mateo_yt500xd": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "yoshmel_yoel": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "theleuz001": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-05T20:18:24.255Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-05T20:18:24.256Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-05T20:18:24.256Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-05T20:18:24.256Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": "2026-04-05T20:18:24.256Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": "2026-04-05T20:18:24.256Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-05T20:18:24.256Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "robloxaronet5634xd": {
+    "joinedAtGlobal": "2026-04-05T17:08:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "patitaboldi": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-05T22:35:23.268Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Rumis": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Virtual 16": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "corrales3010": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-05T21:02:58.900Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-05T21:02:58.906Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-05T21:02:58.906Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-05T21:02:58.906Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-05T21:02:58.906Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-05T21:02:58.906Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-05T21:02:58.906Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "pichu789025": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "kraoespytree": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "fundashi_uvu": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "pupurufi34": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "rocio_roblox1243": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-18T16:49:15.866Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-18T16:49:15.867Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-18T16:49:15.867Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-18T16:49:15.867Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-18T16:49:15.867Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-18T16:49:15.867Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "joyssp0": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "rafael65_vt": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-06T00:49:56.568Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-06T00:49:56.568Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-06T00:49:56.568Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-06T00:49:56.568Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-06T00:49:56.568Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-06T00:49:56.568Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-06T00:49:56.568Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "cristhianffwazza": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-06T02:54:10.363Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-06T02:54:10.363Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-06T02:54:10.363Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-06T02:54:10.363Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-06T02:54:10.363Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-06T02:54:10.363Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-06T02:54:10.363Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "hielo_2342": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-06T03:34:55.150Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-06T03:34:55.150Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-06T03:34:55.150Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-06T03:34:55.150Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-06T03:34:55.150Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-06T03:34:55.150Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-06T03:34:55.150Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "thiago_300814": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "059603alvaro": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "marquitosss60": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-06T22:46:17.174Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-06T22:46:17.174Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-06T22:46:17.174Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "lin07789": {
+    "joinedAtGlobal": "2026-04-07T14:46:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      }
+    }
+  },
+  "nayeon_lovely1237": {
+    "joinedAtGlobal": "2026-04-07T19:51:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-07T19:53:45.694Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-07T19:53:45.694Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-07T19:53:45.694Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-07T19:53:45.694Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-07T19:53:45.694Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "afriano8": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "daniel826971": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "tu_pelona0237": {
+    "joinedAtGlobal": "2026-04-08T03:14:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-08T03:16:01.195Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-08T03:16:01.195Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "markelmaraco": {
+    "joinedAtGlobal": "2026-04-08T08:12:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "bibi_bpu": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-16T21:58:16.561Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-16T21:58:16.561Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "mayki_official1": {
+    "joinedAtGlobal": "2026-04-08T21:45:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "calamar1317": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "jonasproxititoyt": {
+    "joinedAtGlobal": "2026-04-08T23:18:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "josue_king082": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-09T01:23:26.104Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-09T01:23:26.104Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-09T01:23:26.104Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-09T01:23:26.104Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-09T01:23:26.104Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-09T01:23:26.104Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-09T01:23:26.104Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "torrodona": {
+    "joinedAtGlobal": "2026-04-09T04:43:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-09T04:42:48.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-09T04:42:48.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-09T04:42:48.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-09T04:42:48.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-09T04:42:48.347Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-09T04:42:48.347Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "oscarinon3": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "isackroblex": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-09T17:43:19.559Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-09T17:43:19.559Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "yeshuasg_18": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-09T14:45:34.576Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-09T14:45:34.576Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "jhos_mor17": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "anthony250954": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "sebaslmt": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-09T21:41:33.407Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-09T21:41:33.407Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-09T21:41:33.407Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-09T21:41:33.407Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-09T21:41:33.407Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-09T21:41:33.407Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-09T21:41:33.407Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "2bbah": {
+    "joinedAtGlobal": "2026-03-21T12:26:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "pxtrkz": {
+    "joinedAtGlobal": "2026-03-29T17:50:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-22T02:07:09.870Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "mich0921g": {
+    "joinedAtGlobal": "2026-03-31T22:51:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "mayito4215": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-10T02:44:48.013Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-10T02:44:48.023Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-10T02:44:48.023Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-10T02:44:48.023Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-10T02:44:48.023Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-10T02:44:48.023Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-10T02:44:48.023Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "cuentaqueperd0": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-10T03:41:41.729Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-10T03:41:41.729Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "lukeuwu634": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "alejandrito1665": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "enriqueee543": {
+    "joinedAtGlobal": "2026-04-11T03:14:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "gynnou": {
+    "joinedAtGlobal": "2026-03-25T01:16:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "anderson890842": {
+    "joinedAtGlobal": "2026-04-06T15:56:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "messi10123198": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "baekkie14": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-17T00:12:05.177Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-17T00:12:05.177Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "andy72175": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-12T17:02:33.439Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-12T17:02:33.440Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-12T17:02:33.440Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-12T17:02:33.440Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-12T17:02:33.440Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-12T17:02:33.440Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-12T17:02:33.440Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "fabri_77776": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "atreyos1321": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-12T22:09:14.465Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-12T22:09:14.465Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-12T22:09:14.465Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-12T22:09:14.465Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-12T22:09:14.465Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-12T22:09:14.465Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-12T22:09:14.465Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "carlitos23pulpo66": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "glxr1fy": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-12T22:56:08.634Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-12T22:56:08.634Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-12T22:56:08.634Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-12T22:56:08.634Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-12T22:56:08.634Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-12T22:56:08.634Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-12T22:56:08.634Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "dinorapxxx": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-12T23:34:20.648Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-12T23:34:20.648Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-12T23:34:20.648Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "elpanamartin56": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "paparica214": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-13T20:17:22.635Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-13T20:17:22.636Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-13T20:17:22.636Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-13T20:17:22.636Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-13T20:17:22.636Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-13T20:17:22.636Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-13T20:17:22.636Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "brandox82": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-14T01:12:08.230Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-14T01:12:08.230Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "hannx_vale": {
+    "joinedAtGlobal": "2026-04-14T01:16:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      }
+    }
+  },
+  "astroby2007yt": {
+    "joinedAtGlobal": "2026-04-14T21:13:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": false
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": "2026-05-03T12:04:00.000Z",
+        "everNotMember": false,
+        "verified": false
+      }
+    }
+  },
+  "soyaleexks": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-15T00:10:42.078Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-15T00:10:42.078Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "josuenas": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "chris7one": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "bugeyed_blanket": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-16T01:19:22.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-16T01:19:22.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-16T01:19:22.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "pandejamala": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-16T03:24:42.223Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-16T03:24:42.230Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-16T03:24:42.230Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-16T03:24:42.230Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-16T03:24:42.230Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-16T03:24:42.230Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-16T03:24:42.230Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "namishz": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "namishzz": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "eltioalexchrash": {
+    "joinedAtGlobal": "2026-04-17T02:22:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-17T02:24:55.068Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-17T02:24:55.068Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-17T02:24:55.068Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-17T02:24:55.068Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-17T02:24:55.068Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-17T02:24:55.068Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "rodrigojkj_20": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "nath_a15l": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-19T03:51:16.107Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-19T03:51:16.107Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-19T03:51:16.107Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-19T03:51:16.107Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-19T03:51:16.107Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-19T03:51:16.107Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-19T03:51:16.107Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "sooya_chichu": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "hola_ola1234557": {
+    "joinedAtGlobal": "2026-04-19T20:40:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "ashlie_xdi": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-20T22:32:09.176Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-20T22:32:09.176Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-20T22:32:09.176Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-20T22:32:09.176Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-20T22:32:09.176Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-20T22:32:09.176Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-20T22:32:09.176Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "sofi_luth": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "xxminatox32": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "arthur": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "10arbey": {
+    "joinedAtGlobal": "2026-04-23T17:04:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "xd367857": {
+    "joinedAtGlobal": "2026-04-16T05:25:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "lulu9990073": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "taruke_senpai": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "minikraoesp123": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "bruceprinz": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-24T18:44:33.881Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-24T18:44:33.883Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-24T18:44:33.883Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-24T18:44:33.883Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-24T18:44:33.883Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-24T18:44:33.883Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-24T18:44:33.883Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "nonl45253": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "zyro_l1l": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-25T20:34:39.277Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "seb07mayo": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "lapelusade_romeo": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-30T04:07:35.660Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-30T04:07:35.660Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-30T04:07:35.660Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-30T04:07:35.660Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-30T04:07:35.660Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-30T04:07:35.660Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "theshadowman001": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "justyuu2005": {
+    "joinedAtGlobal": "2026-04-26T22:05:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-05-03T05:09:18.687Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-05-03T05:09:18.687Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-05-03T05:09:18.687Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-05-03T05:09:18.687Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-05-03T05:09:18.687Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-05-03T05:09:18.687Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-05-03T05:09:18.687Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "elbabyjoshua21": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-26T06:20:35.556Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-26T06:20:35.556Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-26T06:20:35.556Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-26T06:23:44.430Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-26T06:23:44.430Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-26T06:23:44.430Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-26T06:23:44.430Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "maybull_cr": {
+    "joinedAtGlobal": "2026-04-26T20:41:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "h4ax71": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "tsj_gato7": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "moonxzp21": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "hedissun": {
+    "joinedAtGlobal": "2026-04-28T02:24:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-04-30T20:41:01.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-04-30T20:41:01.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-04-30T20:41:01.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-04-30T20:41:01.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-04-30T20:41:01.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-04-30T20:41:01.326Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-04-30T20:41:01.326Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "moships": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "lyne": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "llitaf": {
+    "joinedAtGlobal": "2026-01-01T09:13:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "julyzz_n1": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-05-02T01:10:16.664Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-05-02T01:10:16.664Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-05-02T01:10:16.664Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-05-02T01:10:16.664Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-05-02T01:10:16.664Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "seiishirouu7": {
+    "joinedAtGlobal": "2026-04-25T16:36:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "ary95thv": {
+    "joinedAtGlobal": "2026-05-03T16:08:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "si3nnx": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "elsswyth_1i1": {
+    "joinedAtGlobal": "2026-04-30T18:00:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "fynnou": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "yumpioalexx": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "alynubsita01": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "ashhley_yx": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-05-01T00:06:50.051Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-05-01T00:06:50.051Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-05-01T00:06:50.051Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "leo_q22": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "bxllx140": {
+    "joinedAtGlobal": "2026-05-01T21:01:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "d_aytonaa": {
+    "joinedAtGlobal": "2026-05-01T21:10:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "jhojan2024123": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "ohquelokazo1": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "qpwodiego10": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "kikameychi": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "layugamer12": {
+    "joinedAtGlobal": "2026-05-02T12:06:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "saiyajinff": {
+    "joinedAtGlobal": "2026-05-02T16:35:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "maxcrepro": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "mandi18739": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "krayzer035": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": "2026-05-03T01:02:03.379Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": "2026-05-03T01:02:03.379Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-05-03T01:02:03.379Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": "2026-05-03T01:02:03.379Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-05-03T01:02:03.379Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-05-03T01:02:03.379Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": "2026-05-03T01:02:03.379Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "leonel_x15x": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "sebast201122": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "oscar99119": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Picke Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "xiaylsl": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      }
+    }
+  },
+  "linschan737": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "artucra789": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": "2026-05-04T03:11:33.737Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "gagalumen": {
+    "joinedAtGlobal": null,
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": null,
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  },
+  "cocacolastri2": {
+    "joinedAtGlobal": "2026-05-04T15:50:00.000Z",
+    "groups": {
+      "Grupo 1 | Tiny Poem": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 2 | UGC Cute Store": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 3 | Nekari": {
+        "joinedAt": "2026-05-04T15:57:16.061Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 4 | Hachi K": {
+        "joinedAt": null,
+        "everNotMember": false,
+        "verified": true
+      },
+      "Grupo 5 | Argent": {
+        "joinedAt": "2026-05-04T15:57:16.061Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 6 | Fresada": {
+        "joinedAt": "2026-05-04T15:57:16.061Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 7 | Pickle Bicke": {
+        "joinedAt": "2026-05-04T15:57:16.061Z",
+        "everNotMember": true,
+        "verified": false
+      },
+      "Grupo 8 | Blox Zeta": {
+        "joinedAt": "2026-05-04T15:55:48.070Z",
+        "everNotMember": true,
+        "verified": false
+      }
+    }
+  }
+}
