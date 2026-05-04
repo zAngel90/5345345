@@ -418,9 +418,30 @@ export default function Admin() {
                   {selectedGameId && (
                     <div className="mt-8 pt-8 border-t border-white/5 space-y-6">
                       <div className="flex items-center justify-between bg-white/5 p-6 rounded-2xl border border-white/10">
-                        <div>
-                          <h3 className="text-lg font-black text-white uppercase">Items de {games.find(g => g.id === selectedGameId)?.name}</h3>
-                          <p className="text-white/40 text-xs">Gestión directa de productos para este juego.</p>
+                        <div className="flex items-center gap-6">
+                          {(() => {
+                            const game = games.find(g => g.id === selectedGameId);
+                            const gameImg = game?.image ? (game.image.startsWith('http') ? game.image : `${SERVER_URL}${game.image}`) : '';
+                            return (
+                              <div 
+                                onClick={() => triggerUpload('game', selectedGameId)}
+                                className="w-16 h-16 rounded-xl border border-dashed border-white/10 overflow-hidden bg-white/5 flex items-center justify-center cursor-pointer hover:border-blue-500/50 transition-all group relative shrink-0"
+                              >
+                                {gameImg ? (
+                                  <img src={gameImg} className="w-full h-full object-cover group-hover:opacity-40" alt="" />
+                                ) : (
+                                  <ImageIcon className="text-white/10 group-hover:text-blue-500" size={20} />
+                                )}
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Plus className="text-white" size={16} />
+                                </div>
+                              </div>
+                            );
+                          })()}
+                          <div>
+                            <h3 className="text-lg font-black text-white uppercase">Items de {games.find(g => g.id === selectedGameId)?.name}</h3>
+                            <p className="text-white/40 text-xs">Gestión directa de productos para este juego.</p>
+                          </div>
                         </div>
                         <div className="flex gap-2">
                           <button onClick={() => setSelectedGameId(null)} className="px-4 py-2 bg-white/5 text-white/40 rounded-xl font-bold text-xs">Cerrar</button>

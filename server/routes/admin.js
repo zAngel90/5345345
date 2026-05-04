@@ -86,7 +86,24 @@ router.get('/games-config', async (req, res) => {
   try {
     const db = getDB('settings');
     await db.read();
-    res.json({ success: true, data: db.data.games || [] });
+    
+    const { search, all } = req.query;
+    let games = db.data.games || [];
+    
+    if (search) {
+      const q = search.toLowerCase();
+      games = games.filter(g => 
+        g.name.toLowerCase().includes(q) || 
+        g.id.toLowerCase().includes(q)
+      );
+    } else if (all !== 'true') {
+      // Por defecto, solo devolver juegos listados (no ocultos)
+      // games = games.filter(g => !g.hidden);
+      // Nota: Si el usuario quiere que la sidebar los oculte, lo haremos en el frontend
+      // o aquí. El usuario dijo "juegos ocultos" que se buscan.
+    }
+    
+    res.json({ success: true, data: games });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -97,7 +114,15 @@ router.post('/games-config', async (req, res) => {
     const { games } = req.body;
     const db = getDB('settings');
     await db.read();
-    db.data.games = games;
+    
+    // Asegurar que cada juego tenga las propiedades básicas y normalizar IDs
+    const sanitizedGames = games.map(g => ({
+      ...g,
+      id: g.id || g.slug || g.name.toLowerCase().replace(/\s+/g, '-'),
+      hidden: !!g.hidden // Asegurar que sea booleano
+    }));
+
+    db.data.games = sanitizedGames;
     await db.write();
     res.json({ success: true });
   } catch (error) {

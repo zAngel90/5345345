@@ -148,7 +148,7 @@ export default function GameItems() {
 
       {/* Iframe que ocupa todo el espacio restante */}
       <iframe
-        src={`${CATALOG_URL}?game=${encodeURIComponent(gameId || '')}`}
+        src={`${CATALOG_URL}${window.location.search}${window.location.search ? '&' : '?'}game=${encodeURIComponent(gameId || '')}`}
         title="Catálogo de Items"
         className="flex-1 w-full border-none"
         style={{ display: 'block' }}

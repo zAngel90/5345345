@@ -28,6 +28,8 @@ export default function Catalog() {
   const [activeCurrency, setActiveCurrency] = useState('PEN');
   const [isLoading, setIsLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [otherGameSearch, setOtherGameSearch] = useState('');
+  const [showOtherGameSearch, setShowOtherGameSearch] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -67,7 +69,12 @@ export default function Catalog() {
               gameId: game.id
             }))
           };
-        }).filter((section: any) => section.items.length > 0); // Only show games with items
+        }).filter((section: any) => {
+          const game = gamesRes.data.find((g: any) => g.id === section.id);
+          const isHidden = game?.hidden;
+          if (search) return section.items.length > 0;
+          return section.items.length > 0 && !isHidden;
+        });
         
         setFeaturedSections(dynamicSections.slice(0, 3));
 
@@ -98,9 +105,11 @@ export default function Catalog() {
     return usdPrice * currency.rate;
   };
 
-  const filteredGames = games.filter(game => 
-    game.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredGames = games.filter(game => {
+    const matchesSearch = game.name.toLowerCase().includes(search.toLowerCase());
+    if (search) return matchesSearch;
+    return matchesSearch && !game.hidden;
+  });
 
   const scroll = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
@@ -253,23 +262,107 @@ export default function Catalog() {
             className={`${isExpanded || search ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4' : 'flex gap-4 overflow-x-auto pb-4 scroll-smooth scrollbar-hide -mx-1 px-1 snap-x snap-mandatory'}`}
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            <div data-card className={`${isExpanded || search ? '' : 'flex-shrink-0 snap-start w-[140px] sm:w-[260px]'} relative group cursor-pointer`}>
+            <div data-card className={`${isExpanded || search ? '' : 'flex-shrink-0 snap-start w-[140px] sm:w-[260px]'} relative group`}>
               <div className="absolute -inset-1 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl pointer-events-none bg-white/[0.04]" />
-              <div className="relative overflow-hidden rounded-2xl bg-[#0F1419] border border-dashed border-white/[0.08] group-hover:border-white/[0.15] transition-all duration-300 h-full flex flex-col">
-                <div className="relative aspect-square overflow-hidden flex items-center justify-center bg-gradient-to-br from-white/[0.02] to-transparent">
-                  <div className="flex flex-col items-center gap-3">
-                    <div className="w-10 md:w-16 h-10 md:h-16 rounded-xl md:rounded-2xl bg-white/[0.04] border border-dashed border-white/[0.1] flex items-center justify-center group-hover:bg-white/[0.08] group-hover:border-white/[0.15] transition-all">
-                      <Plus className="w-5 md:w-7 h-5 md:h-7 text-white/20 group-hover:text-white/50" />
+              <div className="relative overflow-hidden rounded-2xl bg-[#0F1419] border border-dashed border-white/[0.08] group-hover:border-white/[0.15] transition-all duration-300 h-full flex flex-col min-h-[140px] sm:min-h-[160px]">
+                {!showOtherGameSearch ? (
+                  <div className="flex flex-col h-full cursor-pointer" onClick={() => setShowOtherGameSearch(true)}>
+                    <div className="relative aspect-square overflow-hidden flex items-center justify-center bg-gradient-to-br from-white/[0.02] to-transparent">
+                      <div className="flex flex-col items-center gap-3">
+                        <div className="w-10 md:w-16 h-10 md:h-16 rounded-xl md:rounded-2xl bg-white/[0.04] border border-dashed border-white/[0.1] flex items-center justify-center group-hover:bg-white/[0.08] group-hover:border-white/[0.15] transition-all">
+                          <Plus className="w-5 md:w-7 h-5 md:h-7 text-white/20 group-hover:text-white/50" />
+                        </div>
+                        <span className="text-white/20 text-[10px] md:text-[11px] font-medium uppercase tracking-wider">Search</span>
+                      </div>
                     </div>
-                    <span className="text-white/20 text-[10px] md:text-[11px] font-medium uppercase tracking-wider">Search</span>
+                    <div className="p-3 md:p-4 mt-auto">
+                      <h3 className="text-white/50 font-bold text-xs md:text-[15px] truncate uppercase">Other game</h3>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-white/25 text-[10px] md:text-xs">Any Roblox game</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="p-3 md:p-4 mt-auto">
-                  <h3 className="text-white/50 font-bold text-xs md:text-[15px] truncate uppercase">Other game</h3>
-                  <div className="flex items-center justify-between mt-1">
-                    <span className="text-white/25 text-[10px] md:text-xs">Any Roblox game</span>
+                ) : (
+                  <div className="flex flex-col h-full p-3 sm:p-4">
+                    <div className="relative mb-3">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={14} />
+                      <input 
+                        autoFocus
+                        type="text"
+                        placeholder="Buscar juego..."
+                        className="w-full h-9 pl-9 pr-8 bg-white/5 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500/50 transition-all"
+                        value={otherGameSearch}
+                        onChange={(e) => setOtherGameSearch(e.target.value)}
+                      />
+                      {otherGameSearch && (
+                        <button onClick={() => setOtherGameSearch('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors">
+                          <Plus className="rotate-45" size={14} />
+                        </button>
+                      )}
+                    </div>
+                    
+                    <div className="flex-1 overflow-y-auto scrollbar-hide space-y-2 max-h-[200px]">
+                      <AnimatePresence mode="popLayout">
+                        {otherGameSearch.length < 2 ? (
+                          <motion.p 
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            className="text-[10px] text-white/20 text-center py-10 uppercase font-bold tracking-widest"
+                          >
+                            Escribe al menos 2 letras<br/>para buscar
+                          </motion.p>
+                        ) : games.filter(g => g.hidden && g.name.toLowerCase().includes(otherGameSearch.toLowerCase())).length === 0 ? (
+                          <motion.p 
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            className="text-[10px] text-white/20 text-center py-10 uppercase font-bold tracking-widest"
+                          >
+                            No encontrado
+                          </motion.p>
+                        ) : (
+                          games
+                            .filter(g => g.hidden && g.name.toLowerCase().includes(otherGameSearch.toLowerCase()))
+                            .map((g, idx) => (
+                              <motion.div 
+                                key={g.id}
+                                layout
+                                initial={{ opacity: 0, y: -15, scale: 0.9 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ 
+                                  type: 'spring', 
+                                  stiffness: 400, 
+                                  damping: 15,
+                                  mass: 0.8,
+                                  delay: idx * 0.05
+                                }}
+                                onClick={() => navigate(`/catalog/ingame/${g.id}?add_game=1`)}
+                                className="flex items-center gap-2 p-2 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.08] hover:border-white/10 transition-all cursor-pointer group/item"
+                              >
+                                <div className="w-8 h-8 rounded-lg overflow-hidden bg-white/5 shrink-0">
+                                  <img src={g.image ? (g.image.startsWith('http') ? g.image : `${SERVER_URL}${g.image}`) : ''} className="w-full h-full object-cover" alt="" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-[11px] font-bold text-white truncate">{g.name}</p>
+                                  <p className="text-[9px] text-white/30 uppercase">Roblox</p>
+                                </div>
+                                <Plus size={14} className="text-white/20 group-hover/item:text-blue-500 transition-colors" />
+                              </motion.div>
+                            ))
+                        )}
+                      </AnimatePresence>
+                    </div>
+                    
+                    <button 
+                      onClick={() => { setShowOtherGameSearch(false); setOtherGameSearch(''); }}
+                      className="mt-3 py-2 text-[10px] font-bold text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest"
+                    >
+                      Cerrar
+                    </button>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 

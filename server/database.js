@@ -76,12 +76,12 @@ const defaultData = {
       { id: 6, amount: 20000, price: 160.00, popular: false, bestValue: false },
     ],
     games: [
-      { id: 'blox-fruits', name: 'Blox Fruits', slug: 'blox-fruits', image: '/images/image_9.png', color: '#1D4ED8', items: '128 items' },
-      { id: 'rivals', name: 'Rivals', slug: 'rivals', image: '/images/image_10.png', color: '#111827', items: '45 items' },
-      { id: 'anime-vanguards', name: 'Anime Vanguards', slug: 'anime-vanguards', image: '/images/image_11.png', color: '#581C87', items: '86 items' },
-      { id: 'murder-mystery-2', name: 'Murder Mystery 2', slug: 'murder-mystery-2', image: '/images/image_12.png', color: '#991B1B', items: '210 items' },
-      { id: 'pet-simulator-99', name: 'Pet Simulator 99', slug: 'pet-simulator-99', image: '/images/image_8.png', color: '#0D9488', items: '154 items' },
-      { id: 'king-legacy', name: 'King Legacy', slug: 'king-legacy', image: '/images/image_7.png', color: '#92400E', items: '32 items' },
+      { id: 'blox-fruits', name: 'Blox Fruits', slug: 'blox-fruits', image: '/images/image_9.png', color: '#1D4ED8', items: '128 items', hidden: false },
+      { id: 'rivals', name: 'Rivals', slug: 'rivals', image: '/images/image_10.png', color: '#111827', items: '45 items', hidden: false },
+      { id: 'anime-vanguards', name: 'Anime Vanguards', slug: 'anime-vanguards', image: '/images/image_11.png', color: '#581C87', items: '86 items', hidden: false },
+      { id: 'murder-mystery-2', name: 'Murder Mystery 2', slug: 'murder-mystery-2', image: '/images/image_12.png', color: '#991B1B', items: '210 items', hidden: false },
+      { id: 'pet-simulator-99', name: 'Pet Simulator 99', slug: 'pet-simulator-99', image: '/images/image_8.png', color: '#0D9488', items: '154 items', hidden: false },
+      { id: 'king-legacy', name: 'King Legacy', slug: 'king-legacy', image: '/images/image_7.png', color: '#92400E', items: '32 items', hidden: false },
     ],
     categories: [
       { id: 'frutas', title: 'Frutas', subtitle: 'Poderosas habilidades para tu aventura', icon: 'Sword', image: '/images/image_4.png' },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingCart, Menu, X, User, Bell, ChevronDown, ChevronRight, Gamepad2, Crown, Diamond, Home, LayoutGrid, Star, Users, Wallet, LogOut, Globe, Package, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -41,14 +41,16 @@ export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const notifRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchGames = async () => {
       try {
         const res = await StoreAPI.getGamesConfig();
         if (res.success) {
-          // Tomamos los primeros 4 juegos configurados en el admin
-          setDropdownCategories(res.data.slice(0, 4));
+          // Tomamos los primeros 4 juegos configurados en el admin (que no estén ocultos)
+          setDropdownCategories(res.data.filter((g: any) => !g.hidden).slice(0, 4));
         }
       } catch (err) {
         console.error('Error fetching games for navbar:', err);
@@ -169,9 +171,24 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 40);
       if (showNotifications) setShowNotifications(false);
     };
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
+        setShowNotifications(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setShowProfile(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [showNotifications]);
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showNotifications, showProfile]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -397,7 +414,7 @@ export default function Navbar() {
               </div>
 
               <div className="flex items-center gap-3 relative">
-                <div className="relative">
+                <div className="relative" ref={notifRef}>
                   <button onClick={(e) => { e.stopPropagation(); setShowNotifications(!showNotifications); }} className={`p-2 transition-all hover:scale-110 active:scale-95 relative rounded-full ${showNotifications ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}>
                     <Bell size={18} />
                     {unreadCount > 0 && (
@@ -532,7 +549,7 @@ export default function Navbar() {
                 </button>
 
                 {isLoggedIn ? (
-                  <div className="relative">
+                  <div className="relative" ref={profileRef}>
                     <button onClick={(e) => { e.stopPropagation(); setShowProfile(!showProfile); if (showNotifications) setShowNotifications(false); }} className="flex items-center justify-center p-0.5 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 transition-all hover:scale-105 relative shadow-[0_0_15px_rgba(37,99,235,0.3)]">
                       <div className="relative size-9 rounded-full overflow-hidden border-2 border-[#0D0B1E]">
                         <img 

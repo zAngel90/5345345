@@ -15,10 +15,10 @@ export const socket = io(SERVER_URL);
 const fetchAPI = async (endpoint: string, options: RequestInit = {}) => {
   try {
     const token = localStorage.getItem('pixel_token');
-    
+
     // Don't set Content-Type if we're sending FormData
     const isFormData = options.body instanceof FormData;
-    
+
     const headers: Record<string, string> = {
       ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       ...(options.headers as Record<string, string>),
@@ -32,12 +32,12 @@ const fetchAPI = async (endpoint: string, options: RequestInit = {}) => {
       ...options,
       headers,
     });
-    
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.error || `API error: ${response.status} ${response.statusText}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error(`Error fetching ${endpoint}:`, error);
@@ -181,7 +181,7 @@ export const StoreAPI = {
   getProducts: async () => {
     return fetchAPI('/products');
   },
-  
+
   // Admin Endpoints
   getRobuxConfig: async () => {
     return fetchAPI('/admin/robux-config');

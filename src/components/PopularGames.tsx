@@ -49,8 +49,8 @@ export default function PopularGames() {
             });
             setFeaturedGames(mapped);
           } else {
-            // Use first 6 games as fallback instead of mock data
-            const fallback = allGames.slice(0, 6).map((game: any) => {
+            // Use first 6 visible games as fallback instead of mock data
+            const fallback = allGames.filter((g: any) => !g.hidden).slice(0, 6).map((game: any) => {
               const productCount = allProducts.filter((p: any) => p.game === game.id).length;
               return {
                 title: game.name,
