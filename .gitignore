@@ -1,1 +1,11 @@
 node_modules/
+.env
+.env.local
+dist/
+build/
+*.log
+levels.json
+orders.json
+tracking.json
+tickets.json
+server/

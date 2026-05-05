@@ -108,9 +108,9 @@ export default function Navbar() {
       }
 
       setOrders(allOrders);
-      // Solo contamos los pendientes que NO han sido marcados como "vistos"
-      const pending = allOrders.filter((o: any) => o.status === 'pending' && !o.seen).length;
-      setOrderNotifCount(pending);
+      // Contamos todas las órdenes que NO han sido marcadas como "vistas"
+      const unseen = allOrders.filter((o: any) => !o.seen).length;
+      setOrderNotifCount(unseen);
     } catch (err) {
       console.error('Error fetching orders for notif:', err);
     }
@@ -123,6 +123,7 @@ export default function Navbar() {
       
       const handleNotification = () => {
         fetchUnreadCount();
+        fetchOrders(user.id, user.username);
       };
 
       socket.on(channel, handleNotification);
@@ -265,9 +266,14 @@ export default function Navbar() {
               </Link>
 
               <div className="flex items-center gap-2">
-                <button className="p-2 text-gray-400 relative">
+                <button 
+                  className="p-2 text-gray-400 relative"
+                  onClick={() => navigate('/account')}
+                >
                   <Bell size={20} />
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-[#0D0B1E]"></span>
+                  {(unreadCount + orderNotifCount) > 0 && (
+                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-[#0D0B1E]"></span>
+                  )}
                 </button>
                 {isLoggedIn ? (
                   <button 
@@ -426,9 +432,9 @@ export default function Navbar() {
                 <div className="relative" ref={notifRef}>
                   <button onClick={(e) => { e.stopPropagation(); setShowNotifications(!showNotifications); }} className={`p-2 transition-all hover:scale-110 active:scale-95 relative rounded-full ${showNotifications ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}>
                     <Bell size={18} />
-                    {unreadCount > 0 && (
+                    {(unreadCount + orderNotifCount) > 0 && (
                       <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 bg-blue-500 rounded-full flex items-center justify-center text-[9px] font-black text-white shadow-[0_0_10px_rgba(59,130,246,0.6)] border-2 border-[#0D0B1E]">
-                        {unreadCount > 9 ? '+9' : unreadCount}
+                        {(unreadCount + orderNotifCount) > 9 ? '+9' : (unreadCount + orderNotifCount)}
                       </span>
                     )}
                   </button>
