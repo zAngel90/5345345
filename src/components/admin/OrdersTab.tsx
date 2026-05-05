@@ -109,7 +109,7 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
                       <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Entrega: {order.method}</span>
                       {order.gamepassId && (
                         <a 
-                          href={`https://www.roblox.com/library/${order.gamepassId}`} 
+                          href={`https://www.roblox.com/game-pass/${order.gamepassId}/`} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="px-1.5 py-0.5 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1"
