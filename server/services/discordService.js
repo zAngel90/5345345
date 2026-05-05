@@ -22,7 +22,7 @@ const getLevelFromRobux = (totalRobux) => {
 export const syncDiscordRole = async (discordId, totalRobux) => {
   try {
     const targetLevel = getLevelFromRobux(totalRobux);
-    const botToken = 'MTQ4MTgwNDk3OTYyNjA1MzgxNQ.G_TEgk.qC4GyAFv10-MqKw2iPFS_P6hZM-WuHRMl1Q73Y';
+    const botToken = 'DISCORD_BOT_TOKEN_PLACEHOLDER';
     const guildId = '1372409516913852468';
 
     if (!botToken || !guildId || !discordId) return null;

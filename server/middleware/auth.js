@@ -8,7 +8,7 @@ export const authMiddleware = (req, res, next) => {
   }
 
   try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET || 'pixel_secret_key');
+    const verified = jwt.verify(token, process.env.JWT_SECRET || 'pixel_secret_key_2026');
     req.user = verified;
     req.admin = verified;
     next();

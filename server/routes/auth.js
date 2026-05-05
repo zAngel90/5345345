@@ -11,7 +11,7 @@ const router = express.Router();
 
 // Discord Config
 const CLIENT_ID = '1481804979626053815';
-const CLIENT_SECRET = 'QGtB4eFg7RKPii-xZ2M6jg3QgvCkLj6G';
+const CLIENT_SECRET = 'DISCORD_CLIENT_SECRET_PLACEHOLDER';
 const REDIRECT_URI = 'https://lotus-sells-type-pursuit.trycloudflare.com/api/auth/discord/callback';
 const FRONTEND_URL = 'https://www.pixelstorep.com';
 
@@ -69,7 +69,7 @@ router.post('/register', async (req, res) => {
 
     const token = jwt.sign(
       { id: newUser.id, username: newUser.username, role: newUser.role },
-      process.env.JWT_SECRET || 'pixel_secret_key',
+      process.env.JWT_SECRET || 'pixel_secret_key_2026',
       { expiresIn: '30d' }
     );
 

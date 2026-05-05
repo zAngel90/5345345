@@ -108,6 +108,14 @@ export default function Account() {
       const parsedUser = JSON.parse(savedUser);
       setUser(parsedUser);
       fetchOrders(parsedUser.id, parsedUser.username);
+      
+      // Refresh profile data from server to get latest robux/level
+      AuthAPI.getProfile().then(res => {
+        if (res.success) {
+          setUser(res.data);
+          localStorage.setItem('pixel_user', JSON.stringify(res.data));
+        }
+      }).catch(err => console.error('Error refreshing profile:', err));
     }
   }, [navigate]);
 

@@ -20,17 +20,18 @@ const axios = require('axios');
 const fs = require('fs');
 const groups = require('./groups.json');
 const panels = require('./config/panels.json');
+require('dotenv').config();
 
-const token = 'MTQ4MTgwNDk3OTYyNjA1MzgxNQ.G_TEgk.qC4GyAFv10-MqKw2iPFS_P6hZM-WuHRMl1Q73Y'.trim();
-const clientId = '1481804979626053815';
-const guildId = '1372409516913852468';
+const token = process.env.DISCORD_TOKEN;
+const clientId = process.env.CLIENT_ID;
+const guildId = process.env.GUILD_ID;
 
-const SHOP_LOG_CHANNEL_ID = '1464638950730629210';
+const SHOP_LOG_CHANNEL_ID = process.env.SHOP_LOG_CHANNEL_ID;
 const storeName = 'Pixel Store';
-const OWNER_ID = '1225100784644128880';
+const OWNER_ID = process.env.OWNER_ID;
 const STAFF_ROLE_NAME = 'Staff';
-const BOOSTER_ROLE_ID = '1446156741267165244';
-const VERIFY_CHANNEL_ID = '1481698180818141256';
+const BOOSTER_ROLE_ID = process.env.BOOSTER_ROLE_ID;
+const VERIFY_CHANNEL_ID = process.env.VERIFY_CHANNEL_ID;
 
 const LEVEL_ROLE_IDS = {
   BRONCE: '1489796746799354077',
