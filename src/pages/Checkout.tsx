@@ -358,7 +358,7 @@ const Checkout = () => {
                 {/* Grid */}
                 <div className="lg:flex-1 lg:min-h-0 grid grid-cols-1 lg:grid-cols-[38%_62%] lg:divide-x lg:divide-white/[0.04] lg:overflow-hidden">
                   {/* LEFT col */}
-                  <div className="hidden lg:flex flex-col p-6">
+                  <div className="flex flex-col p-6 border-b lg:border-b-0 border-white/[0.04]">
                     <motion.div
                       whileHover={{ scale: 1.01, borderColor: 'rgba(255,255,255,0.12)' }}
                       transition={{ duration: 0.3 }}
@@ -409,11 +409,20 @@ const Checkout = () => {
                           <div className="flex items-start gap-3 mb-5">
                             <div className="w-12 h-12 rounded-xl bg-[#1e3a5f] border border-blue-500/20 flex items-center justify-center shrink-0">
                               {fromWebview && cart.length > 0 ? (
-                                <div className="relative w-full h-full p-2">
-                                   <ShoppingCart className="w-full h-full text-blue-400" />
-                                   <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center border border-[#111827]">
-                                     {cart.length}
-                                   </span>
+                                <div className="relative w-full h-full overflow-hidden rounded-lg">
+                                   <img 
+                                     src={cart[0]?.img || cart[0]?.image} 
+                                     className="w-full h-full object-contain p-1" 
+                                     alt={cart[0]?.name}
+                                     onError={(e) => {
+                                       (e.target as HTMLImageElement).src = 'https://i.postimg.cc/5tSsMDgK/logo-4x.png';
+                                     }}
+                                   />
+                                   {cart.length > 1 && (
+                                     <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center border border-[#111827]">
+                                       {cart.length}
+                                     </span>
+                                   )}
                                 </div>
                               ) : (
                                 <img src="/images/robux-logo.svg" alt="Robux" className="w-7 h-7" />

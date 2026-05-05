@@ -1737,6 +1737,10 @@ export default function RobuxCatalog() {
                           try {
                             const result = await RobloxAPI.searchUser(searchQuery.trim());
                             if (result && result.data && result.data.length > 0) {
+                              // Limpiar estados anteriores para asegurar búsqueda limpia
+                              setExistingGamepasses([]);
+                              setSelectedUser(null);
+                              
                               const user = result.data[0];
                               setSelectedUser(user);
                               saveRecentUser(user);
