@@ -36,10 +36,19 @@ const FortniteTab: React.FC<FortniteTabProps> = ({ showToast }) => {
   const loadOrders = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${SERVER_URL}/api/admin/fortnite-orders`);
+      const token = localStorage.getItem('pixel_token');
+      const response = await fetch(`${SERVER_URL}/api/admin/orders`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
       if (data.success) {
-        setOrders(data.data);
+        // Filtrar solo las órdenes de tipo fortnite
+        const fortniteOrders = data.data.filter((order: any) => order.type === 'fortnite');
+        // Ordenar por fecha más reciente primero
+        fortniteOrders.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        setOrders(fortniteOrders);
       }
     } catch (error) {
       console.error('Error loading orders:', error);
@@ -71,9 +80,13 @@ const FortniteTab: React.FC<FortniteTabProps> = ({ showToast }) => {
 
   const updateOrderStatus = async (orderId: string, status: string) => {
     try {
-      const response = await fetch(`${SERVER_URL}/api/admin/fortnite-orders/${orderId}/status`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const token = localStorage.getItem('pixel_token');
+      const response = await fetch(`${SERVER_URL}/api/admin/orders/${orderId}/status`, {
+        method: 'PUT',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ status })
       });
       const data = await response.json();
@@ -215,21 +228,25 @@ const FortniteTab: React.FC<FortniteTabProps> = ({ showToast }) => {
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
                     <p className="text-white/40 text-xs mb-1">Usuario Fortnite</p>
-                    <p className="text-white font-bold">{order.fortniteUsername}</p>
+                    <p className="text-white font-bold">{order.fortniteData?.fortniteUsername || order.username}</p>
                   </div>
                   <div>
                     <p className="text-white/40 text-xs mb-1">Plataforma</p>
-                    <p className="text-white font-bold capitalize">{order.platform}</p>
+                    <p className="text-white font-bold capitalize">{order.fortniteData?.platform || 'Epic'}</p>
                   </div>
                   <div>
                     <p className="text-white/40 text-xs mb-1">Contacto</p>
-                    <p className="text-white font-bold">{order.contactInfo}</p>
+                    <p className="text-white font-bold">{order.fortniteData?.contactInfo || 'N/A'}</p>
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs mb-1">Total</p>
+                    <p className="text-white/40 text-xs mb-1">Total Pagado</p>
+                    <p className="text-white font-bold">S/ {order.total.toFixed(2)} {order.currency}</p>
+                  </div>
+                  <div>
+                    <p className="text-white/40 text-xs mb-1">Total V-Bucks</p>
                     <div className="flex items-center gap-1">
                       <img src="https://i.postimg.cc/QtGpSqh4/10dp-Ikb-Es-Txae.png" alt="V-Bucks" className="w-4 h-4" />
-                      <p className="text-white font-bold">{order.total}</p>
+                      <p className="text-white font-bold">{order.fortniteData?.vbucksTotal || 0}</p>
                     </div>
                   </div>
                 </div>
@@ -251,6 +268,26 @@ const FortniteTab: React.FC<FortniteTabProps> = ({ showToast }) => {
                     ))}
                   </div>
                 </div>
+
+                {/* Comprobante de Pago */}
+                {order.receipt && (
+                  <div className="mb-4">
+                    <p className="text-white/40 text-xs mb-2">Comprobante de Pago</p>
+                    <a 
+                      href={order.receipt.startsWith('http') ? order.receipt : `${SERVER_URL}${order.receipt}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block bg-white/5 rounded-lg p-3 border border-white/10 hover:border-blue-500/50 transition-all group"
+                    >
+                      <img 
+                        src={order.receipt.startsWith('http') ? order.receipt : `${SERVER_URL}${order.receipt}`}
+                        alt="Comprobante"
+                        className="w-full max-w-xs rounded-lg mx-auto"
+                      />
+                      <p className="text-blue-400 text-xs text-center mt-2 group-hover:underline">Click para ver en tamaño completo</p>
+                    </a>
+                  </div>
+                )}
 
                 <div className="flex gap-2">
                   {order.status === 'pending' && (
