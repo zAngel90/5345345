@@ -1,0 +1,446 @@
+/**
+ * Centralized API client for Pixel Store.
+ * Connects to the backend server (which in turn uses Roblox APIs or scraping).
+ * This allows easily changing the base URL when deploying to production.
+ */
+
+import { io } from 'socket.io-client';
+export const SERVER_URL = 'https://api.vitria.cc';
+export const BASE_URL = `${SERVER_URL}/api`;
+export const socket = io(SERVER_URL);
+
+/**
+ * Helper for making API requests
+ */
+const fetchAPI = async (endpoint: string, options: RequestInit = {}) => {
+  try {
+    const token = localStorage.getItem('pixel_token');
+
+    // Don't set Content-Type if we're sending FormData
+    const isFormData = options.body instanceof FormData;
+
+    const headers: Record<string, string> = {
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+      ...(options.headers as Record<string, string>),
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `API error: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching ${endpoint}:`, error);
+    throw error;
+  }
+};
+
+export const RobloxAPI = {
+  /**
+   * Search for a Roblox user by keyword (username)
+   */
+  searchUser: async (keyword: string) => {
+    return fetchAPI(`/users/search?keyword=${encodeURIComponent(keyword)}`);
+  },
+
+  /**
+   * Get Roblox user details by ID
+   */
+  getUserById: async (userId: string | number) => {
+    return fetchAPI(`/users/${userId}`);
+  },
+
+  /**
+   * Get user avatar thumbnail
+   */
+  getUserThumbnail: async (userId: string | number, size: string = '150x150') => {
+    return fetchAPI(`/thumbnails/avatar-headshot?userIds=${userId}&size=${size}`);
+  },
+
+  /**
+   * Get places owned by a user
+   */
+  getUserPlaces: async (userId: string | number) => {
+    return fetchAPI(`/users/${userId}/places`);
+  },
+
+  /**
+   * Get all gamepasses from a specific place
+   */
+  getPlaceGamepasses: async (placeId: string | number, userId?: string | number) => {
+    return fetchAPI(`/places/${placeId}/gamepasses${userId ? `?userId=${userId}` : ''}`);
+  },
+
+  /**
+   * Get details of a specific gamepass
+   */
+  getGamepassDetails: async (gamepassId: string | number) => {
+    return fetchAPI(`/gamepasses/${gamepassId}`);
+  },
+
+  /**
+   * Check if a user is in a specific group
+   */
+  checkUserInGroup: async (userId: string | number, groupId: string | number) => {
+    return fetchAPI(`/users/${userId}/groups/${groupId}/status`);
+  },
+
+  /**
+   * Get required groups configuration
+   */
+  getGroupsConfig: async () => {
+    return fetchAPI('/groups/config');
+  },
+
+  /**
+   * Update required groups configuration
+   */
+  updateGroupsConfig: async (groups: any) => {
+    return fetchAPI('/groups/config', {
+      method: 'POST',
+      body: JSON.stringify({ groups })
+    });
+  },
+
+  /**
+   * Check user membership in all required groups
+   */
+  checkUserGroups: async (userId: string | number) => {
+    return fetchAPI(`/groups/check/${userId}`);
+  },
+
+  /**
+   * Get user collectibles (limiteds) via proxy
+   */
+  getUserCollectibles: async (userId: string | number) => {
+    return fetchAPI(`/users/${userId}/collectibles`);
+  },
+
+  /**
+   * Get group icons via proxy
+   */
+  getGroupIcons: async (groupIds: string) => {
+    return fetchAPI(`/groups/icons?groupIds=${groupIds}`);
+  }
+};
+
+export const OrdersAPI = {
+  /**
+   * Create a new order (with receipt upload)
+   */
+  createOrder: async (formData: FormData) => {
+    return fetchAPI('/orders', {
+      method: 'POST',
+      body: formData,
+    });
+  },
+
+  /**
+   * Get user orders
+   */
+  getUserOrders: async (userId: string) => {
+    return fetchAPI(`/orders/user/${userId}`);
+  },
+
+  /**
+   * Mark all pending orders as seen
+   */
+  markAllSeen: async (userId: number) => {
+    return fetchAPI('/orders/mark-all-seen', {
+      method: 'PUT',
+      body: JSON.stringify({ userId })
+    });
+  },
+
+  /**
+   * Get recent public orders
+   */
+  getRecentOrders: async () => {
+    return fetchAPI('/orders/recent');
+  },
+
+  /**
+   * Get order statistics (24h completed)
+   */
+  getOrderStats: async () => {
+    return fetchAPI('/orders/stats');
+  },
+
+  /**
+   * Get order by ID
+   */
+  getOrderById: async (orderId: string) => {
+    return fetchAPI(`/orders/${orderId}`);
+  },
+
+  /**
+   * Request MM2 delivery
+   */
+  requestMM2Delivery: async (orderId: string) => {
+    return fetchAPI(`/orders/${orderId}/mm2-delivery`, {
+      method: 'POST',
+    });
+  }
+};
+
+export const StoreAPI = {
+  getProducts: async () => {
+    return fetchAPI('/products');
+  },
+
+  // Admin Endpoints
+  getRobuxConfig: async () => {
+    return fetchAPI('/admin/robux-config');
+  },
+  updateRobuxConfig: async (config: any) => {
+    return fetchAPI('/admin/robux-config', {
+      method: 'POST',
+      body: JSON.stringify(config)
+    });
+  },
+  getGamesConfig: async () => {
+    return fetchAPI('/admin/games-config');
+  },
+  updateGamesConfig: async (games: any) => {
+    return fetchAPI('/admin/games-config', {
+      method: 'POST',
+      body: JSON.stringify({ games })
+    });
+  },
+  getCategoriesConfig: async () => {
+    return fetchAPI('/admin/categories-config');
+  },
+  updateCategoriesConfig: async (categories: any) => {
+    return fetchAPI('/admin/categories-config', {
+      method: 'POST',
+      body: JSON.stringify({ categories })
+    });
+  },
+  updateProductsConfig: async (products: any) => {
+    return fetchAPI('/admin/products-config', {
+      method: 'POST',
+      body: JSON.stringify({ products })
+    });
+  },
+  getCurrenciesConfig: async () => {
+    return fetchAPI('/admin/currencies-config');
+  },
+  updateCurrenciesConfig: async (currencies: any) => {
+    return fetchAPI('/admin/currencies-config', {
+      method: 'POST',
+      body: JSON.stringify({ currencies })
+    });
+  },
+  getPaymentMethodsConfig: () => fetchAPI('/admin/payment-methods-config'),
+  updatePaymentMethodsConfig: (paymentMethods: any) => fetchAPI('/admin/payment-methods-config', { method: 'POST', body: JSON.stringify({ paymentMethods }) }),
+  
+  getCountriesConfig: () => fetchAPI('/admin/countries-config'),
+  updateCountriesConfig: (countries: any) => fetchAPI('/admin/countries-config', { method: 'POST', body: JSON.stringify({ countries }) }),
+  getHomePopularCategories: () => fetchAPI('/admin/home-popular-categories'),
+  updateHomePopularCategories: (categories: any) => fetchAPI('/admin/home-popular-categories', { method: 'POST', body: JSON.stringify({ categories }) }),
+  uploadImage: (formData: FormData) => fetchAPI('/admin/upload', { method: 'POST', body: formData }),
+  updateOrderStatus: async (orderId: string, status: string) => {
+    return fetchAPI(`/admin/orders/${orderId}/status`, {
+      method: 'POST',
+      body: JSON.stringify({ status })
+    });
+  },
+  getOrders: async () => {
+    return fetchAPI('/admin/orders');
+  },
+  getLimitedsConfig: async () => {
+    return fetchAPI('/admin/limiteds-config');
+  },
+  updateLimitedsConfig: async (limiteds: any) => {
+    return fetchAPI('/admin/limiteds-config', {
+      method: 'POST',
+      body: JSON.stringify({ limiteds })
+    });
+  },
+  getMm2Config: async () => {
+    return fetchAPI('/admin/mm2-config');
+  },
+  updateMm2Config: async (items: any) => {
+    return fetchAPI('/admin/mm2-config', {
+      method: 'POST',
+      body: JSON.stringify({ items })
+    });
+  },
+  getCategoryIconsConfig: async () => {
+    return fetchAPI('/admin/category-icons-config');
+  },
+  updateCategoryIconsConfig: async (icons: any) => {
+    return fetchAPI('/admin/category-icons-config', {
+      method: 'POST',
+      body: JSON.stringify({ icons })
+    });
+  },
+  updateMM2Delivery: async (orderId: string, data: any) => {
+    return fetchAPI(`/admin/orders/${orderId}/mm2-delivery`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  },
+  getMM2ServerConfig: async () => {
+    return fetchAPI('/admin/mm2-server-config');
+  },
+  updateMM2ServerConfig: async (mm2PrivateServerUrl: string) => {
+    return fetchAPI('/admin/mm2-server-config', {
+      method: 'POST',
+      body: JSON.stringify({ mm2PrivateServerUrl })
+    });
+  }
+};
+
+export const AuthAPI = {
+  login: async (credentials: any) => {
+    return fetchAPI('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials)
+    });
+  },
+  register: async (userData: any) => {
+    return fetchAPI('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData)
+    });
+  },
+  getProfile: async () => {
+    return fetchAPI('/auth/profile');
+  },
+  updateProfile: async (data: any) => {
+    return fetchAPI('/auth/profile', {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+};
+
+export const ChatAPI = {
+  getChats: async () => {
+    return fetchAPI('/chats');
+  },
+  getMessages: async (chatId: number) => {
+    return fetchAPI(`/chats/${chatId}/messages`);
+  },
+  sendMessage: async (text: string, chatId?: number, orderId?: string, type?: string, fileUrl?: string) => {
+    return fetchAPI('/chats/message', {
+      method: 'POST',
+      body: JSON.stringify({ chatId, text, orderId, type, fileUrl })
+    });
+  },
+  getUnreadCount: async () => {
+    return fetchAPI('/chats/unread-count');
+  },
+  getChatByOrderId: async (orderId: string) => {
+    return fetchAPI(`/chats/order/${orderId}`);
+  },
+  markAsRead: async (chatId: number) => {
+    return fetchAPI(`/chats/${chatId}/read`, {
+      method: 'POST'
+    });
+  },
+  markAllAsRead: async (userId: number) => {
+    return fetchAPI('/chats/mark-all-read', {
+      method: 'PUT',
+      body: JSON.stringify({ userId })
+    });
+  },
+  deleteChat: async (chatId: number) => {
+    return fetchAPI(`/chats/${chatId}`, {
+      method: 'DELETE'
+    });
+  },
+  uploadFile: async (formData: FormData) => {
+    return fetch(`${SERVER_URL}/api/chats/upload`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('pixel_token')}`
+      },
+      body: formData
+    }).then(res => res.json());
+  }
+};
+
+export const ReviewsAPI = {
+  getReviews: async () => {
+    return fetchAPI('/reviews');
+  },
+  createReview: async (formData: FormData) => {
+    return fetchAPI('/reviews', {
+      method: 'POST',
+      body: formData
+    });
+  }
+};
+
+export const CouponsAPI = {
+  /**
+   * (Public) Get active coupons for account discounts display
+   */
+  getPublicCoupons: async () => {
+    return fetchAPI('/coupons/public');
+  },
+
+  /**
+   * (Checkout) Validate a coupon code
+   */
+  validateCoupon: async (code: string, subtotal: number) => {
+    return fetchAPI('/coupons/validate', {
+      method: 'POST',
+      body: JSON.stringify({ code, subtotal })
+    });
+  },
+
+  /**
+   * (Admin) Get all coupons in database
+   */
+  getAdminAllCoupons: async () => {
+    return fetchAPI('/coupons/admin/all');
+  },
+
+  /**
+   * (Admin) Create new coupon
+   */
+  createCoupon: async (couponData: {
+    code: string;
+    discountType: 'percentage' | 'fixed';
+    discountValue: number;
+    maxUses?: number | null;
+    isPublic?: boolean;
+    expiresAt?: string | null;
+  }) => {
+    return fetchAPI('/coupons/admin/create', {
+      method: 'POST',
+      body: JSON.stringify(couponData)
+    });
+  },
+
+  /**
+   * (Admin) Toggle active state of a coupon
+   */
+  toggleCouponActive: async (id: number) => {
+    return fetchAPI(`/coupons/admin/${id}/toggle`, {
+      method: 'PATCH'
+    });
+  },
+
+  /**
+   * (Admin) Delete a coupon
+   */
+  deleteCoupon: async (id: number) => {
+    return fetchAPI(`/coupons/admin/${id}`, {
+      method: 'DELETE'
+    });
+  }
+};

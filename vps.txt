@@ -1,0 +1,25 @@
+# COMANDOS DE ENVÍO AL VPS (PIXEL STORE)
+# Servidor Principal: 177.7.41.162
+
+## 1. ENVÍO DE ARCHIVOS INDIVIDUALES (BACKEND)
+# Reemplazar 'archivo.js' y 'ruta/destino/' según corresponda
+scp server/routes/orders.js root@177.7.41.162:~/pixel-backend/server/routes/
+scp server/routes/chat.js root@177.7.41.162:~/pixel-backend/server/routes/
+scp server/database.js root@177.7.41.162:~/pixel-backend/server/
+
+## 2. ENVÍO DE TODO EL BACKEND (RECURSIVO)
+scp -r server/* root@177.7.41.162:~/pixel-backend/server/
+
+## 3. ENVÍO DEL FRONTEND (ESTÁTICO/COMPILADO)
+# Sube el contenido de la carpeta dist al directorio web del servidor
+scp -r dist/* root@177.7.41.162:/var/www/pixel-store/
+
+## 4. ACCESO SSH Y REINICIO DE SERVICIOS
+# Acceder al servidor
+ssh root@177.7.41.162
+
+# Reiniciar procesos con PM2 (dentro del servidor)
+pm2 restart all
+
+# Ver logs en tiempo real
+pm2 logs
