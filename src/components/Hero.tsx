@@ -57,7 +57,7 @@ export default function Hero() {
           <div className="flex flex-col items-start">
             
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 mb-6 shadow-lg">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pixel-panel/60 backdrop-blur-sm md:backdrop-blur-md border border-white/10 mb-6 shadow-lg">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
               <span className="text-xs font-medium text-gray-300">+500 órdenes completadas hoy</span>
             </div>
@@ -76,15 +76,15 @@ export default function Hero() {
             
             {/* Features Pills */}
             <div className="flex flex-wrap gap-2 md:gap-3 mb-6 md:mb-10">
-              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
+              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-sm md:backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
                 <Zap size={14} className="md:w-4 md:h-4 text-yellow-400" />
                 Entrega inmediata
               </div>
-              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
+              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-sm md:backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
                 <Gem size={14} className="md:w-4 md:h-4 text-pixel-accent" />
                 Mejores precios
               </div>
-              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
+              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-sm md:backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
                 <Lock size={14} className="md:w-4 md:h-4 text-gray-400" />
                 Compra segura 24/7
               </div>
@@ -96,7 +96,7 @@ export default function Hero() {
                 Comprar Robux Ahora
                 <ArrowRight size={18} />
               </button>
-              <button className="px-6 md:px-7 py-3 md:py-3.5 bg-pixel-panel/60 backdrop-blur-md hover:bg-pixel-panelHover border border-white/10 text-white rounded-full font-bold text-sm md:text-base transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg">
+              <button className="px-6 md:px-7 py-3 md:py-3.5 bg-pixel-panel/60 backdrop-blur-sm md:backdrop-blur-md hover:bg-pixel-panelHover border border-white/10 text-white rounded-full font-bold text-sm md:text-base transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg">
                 Ver Catálogo
                 <LayoutGrid size={18} />
               </button>
@@ -155,7 +155,7 @@ export default function Hero() {
 
         {/* Bottom Ticker: Compras Recientes (Enhanced Glassmorphism) */}
         <div className="w-full mt-auto">
-          <div className="bg-pixel-panel/40 backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-3xl p-3 md:p-4 flex items-center gap-3 md:gap-4 lg:gap-6 overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+          <div className="bg-pixel-panel/40 backdrop-blur-sm md:backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-3xl p-3 md:p-4 flex items-center gap-3 md:gap-4 lg:gap-6 overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
             
             {/* Left Header */}
             <div className="flex-shrink-0 border-r border-white/10 pr-3 md:pr-4 lg:pr-6">

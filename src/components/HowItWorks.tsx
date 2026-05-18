@@ -75,7 +75,7 @@ export default function HowItWorks() {
                 key={index} 
                 whileHover={{ y: -12, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="rounded-xl md:rounded-[3rem] p-4 md:p-6 lg:p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-auto md:min-w-0 min-h-[180px] md:min-h-[320px] border transition-all duration-500 bg-gradient-to-b from-[#1400AC]/40 to-[#0D0B1E]/90 backdrop-blur-2xl border-[#4D00FF]/40 shadow-[0_30px_60px_-20px_rgba(20,0,172,0.3)] hover:shadow-[0_40px_80px_-20px_rgba(77,0,255,0.4)] hover:border-[#4D00FF]/60 flex-shrink-0"
+                className="rounded-xl md:rounded-[3rem] p-4 md:p-6 lg:p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-auto md:min-w-0 min-h-[180px] md:min-h-[320px] border transition-all duration-500 bg-gradient-to-b from-[#1400AC]/40 to-[#0D0B1E]/90 backdrop-blur-sm md:backdrop-blur-2xl border-[#4D00FF]/40 shadow-[0_30px_60px_-20px_rgba(20,0,172,0.3)] hover:shadow-[0_40px_80px_-20px_rgba(77,0,255,0.4)] hover:border-[#4D00FF]/60 flex-shrink-0"
               >
               {/* Animated Light Streak on Hover */}
               <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out"></div>

@@ -57,7 +57,7 @@ export default function StarBackground() {
       `}</style>
 
       <div
-        className="fixed inset-0 pointer-events-none"
+        className="hidden md:block fixed inset-0 pointer-events-none"
         style={{ zIndex: 1 }}
         aria-hidden="true"
       >
