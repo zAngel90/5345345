@@ -23,9 +23,13 @@ import {
   Send,
   Paperclip,
   Image as ImageIcon,
-  X
+  X,
+  Star,
+  PenLine,
+  Camera,
+  Loader2
 } from 'lucide-react';
-import { OrdersAPI, SERVER_URL, RobloxAPI, ChatAPI, socket } from '../services/api';
+import { OrdersAPI, SERVER_URL, RobloxAPI, ChatAPI, socket, ReviewsAPI } from '../services/api';
 
 interface Order {
   id: string;
@@ -74,6 +78,14 @@ const OrderDetails = () => {
   const [showMM2Modal, setShowMM2Modal] = useState(false);
   const [mm2TimeLeft, setMM2TimeLeft] = useState(900); // 15 minutes in seconds
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Review Modal States
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviewRating, setReviewRating] = useState(5);
+  const [reviewText, setReviewText] = useState('');
+  const [reviewImage, setReviewImage] = useState<File | null>(null);
+  const [reviewPreviewUrl, setReviewPreviewUrl] = useState<string | null>(null);
+  const [submittingReview, setSubmittingReview] = useState(false);
 
   const scrollToBottom = (instant = false) => {
     if (messagesContainerRef.current) {
@@ -184,6 +196,21 @@ const OrderDetails = () => {
   useEffect(() => {
     setTimeout(() => scrollToBottom(), 100);
   }, [messages]);
+
+  // Detectar cuando la orden se completa y mostrar modal de reseña
+  useEffect(() => {
+    if (order && order.status === 'completed') {
+      // Verificar si ya dejó una reseña para esta orden
+      const hasReviewed = localStorage.getItem(`reviewed_order_${order.id}`);
+      if (!hasReviewed) {
+        // Mostrar modal después de 1 segundo
+        const timer = setTimeout(() => {
+          setShowReviewModal(true);
+        }, 1000);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [order?.status, order?.id]);
 
   const handleSendMessage = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -1088,6 +1115,174 @@ const OrderDetails = () => {
               </div>
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Review Modal */}
+      <AnimatePresence>
+        {showReviewModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => !submittingReview && setShowReviewModal(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-xl bg-[#151432] border border-white/10 rounded-[32px] overflow-hidden shadow-2xl"
+            >
+              <div className="p-8">
+                <div className="flex justify-between items-start mb-8">
+                  <div>
+                    <h2 className="text-2xl font-black text-white">¡Pedido Completado! 🎉</h2>
+                    <p className="text-white/40 text-sm mt-1">¿Qué te pareció tu experiencia?</p>
+                  </div>
+                  <button onClick={() => setShowReviewModal(false)} className="p-2 hover:bg-white/5 rounded-xl text-white/20 hover:text-white transition-all">
+                    <X size={24} />
+                  </button>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Stars */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Calificación</label>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex gap-0.5">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star 
+                            key={star} 
+                            size={32}
+                            onClick={() => setReviewRating(star)}
+                            className={`${star <= reviewRating ? "fill-amber-400 text-amber-400" : "text-white/10 fill-white/10"} cursor-pointer hover:scale-110 transition-transform`} 
+                          />
+                        ))}
+                      </div>
+                      <span className="text-xs text-amber-400/60 font-medium">
+                        {['Muy mala', 'Mala', 'Regular', 'Buena', 'Excelente'][reviewRating - 1]}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Comment */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Comentario</label>
+                    <textarea 
+                      value={reviewText}
+                      onChange={(e) => setReviewText(e.target.value)}
+                      placeholder="¿Qué te pareció el servicio? ¿Fue rápido? ¿Lo recomendarías?"
+                      className="w-full h-32 bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder:text-white/20 focus:border-blue-500/50 transition-all outline-none resize-none"
+                    />
+                  </div>
+
+                  {/* Image Upload */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Añadir Foto (Opcional)</label>
+                    <div className="flex items-center gap-4">
+                      {reviewPreviewUrl ? (
+                        <div className="relative size-24 rounded-2xl overflow-hidden border border-blue-500/50">
+                          <img src={reviewPreviewUrl} alt="Preview" className="w-full h-full object-cover" />
+                          <button 
+                            onClick={() => { setReviewImage(null); setReviewPreviewUrl(null); }}
+                            className="absolute top-1 right-1 p-1 bg-black/60 rounded-full text-white/80 hover:text-white"
+                          >
+                            <X size={14} />
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="size-24 flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/10 bg-white/5 hover:bg-white/[0.08] hover:border-blue-500/40 cursor-pointer transition-all">
+                          <Camera className="text-white/20" size={24} />
+                          <span className="text-[10px] font-bold text-white/30">AÑADIR</span>
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            className="hidden" 
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                setReviewImage(file);
+                                setReviewPreviewUrl(URL.createObjectURL(file));
+                              }
+                            }}
+                          />
+                        </label>
+                      )}
+                      <div className="flex-1">
+                        <p className="text-[11px] text-white/40 leading-relaxed">
+                          Sube una captura de tu pedido para ayudar a otros usuarios. Formatos: JPG, PNG, WebP. Máx 5MB.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <button 
+                      onClick={() => {
+                        setShowReviewModal(false);
+                        localStorage.setItem(`reviewed_order_${order?.id}`, 'skipped');
+                      }}
+                      className="flex-1 h-14 bg-white/5 hover:bg-white/10 text-white/60 font-bold rounded-2xl transition-all"
+                    >
+                      Ahora no
+                    </button>
+                    <button 
+                      onClick={async () => {
+                        if (!reviewText.trim()) return;
+                        
+                        const user = JSON.parse(localStorage.getItem('pixel_user') || 'null');
+                        if (!user) {
+                          document.dispatchEvent(new CustomEvent('openAuthModal'));
+                          return;
+                        }
+
+                        setSubmittingReview(true);
+                        try {
+                          const formData = new FormData();
+                          formData.append('rating', reviewRating.toString());
+                          formData.append('text', reviewText);
+                          
+                          const username = user.displayName || user.name || user.username || user.display_name || 'Usuario';
+                          formData.append('username', username);
+                          formData.append('userId', user.id);
+                          
+                          const avatar = user.avatar || user.profilePicture || user.photoURL || user.userAvatar;
+                          if (avatar) formData.append('userAvatar', avatar);
+                          
+                          if (reviewImage) {
+                            formData.append('image', reviewImage);
+                          }
+                          
+                          if (order?.id) formData.append('orderId', order.id);
+
+                          const res = await ReviewsAPI.createReview(formData);
+                          if (res.success) {
+                            localStorage.setItem(`reviewed_order_${order?.id}`, 'true');
+                            setShowReviewModal(false);
+                            setReviewText('');
+                            setReviewImage(null);
+                            setReviewPreviewUrl(null);
+                          }
+                        } catch (error) {
+                          console.error('Error submitting review:', error);
+                        } finally {
+                          setSubmittingReview(false);
+                        }
+                      }}
+                      disabled={submittingReview || !reviewText.trim()}
+                      className="flex-1 h-14 bg-blue-600 hover:bg-blue-500 disabled:bg-white/5 disabled:text-white/20 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-3"
+                    >
+                      {submittingReview ? <Loader2 className="animate-spin" size={20} /> : <PenLine size={20} />}
+                      {submittingReview ? 'Publicando...' : 'Publicar Reseña'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

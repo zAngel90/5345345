@@ -16,7 +16,7 @@ import {
   Camera,
   Loader2
 } from 'lucide-react';
-import { ReviewsAPI, SERVER_URL } from '../services/api';
+import { ReviewsAPI, SERVER_URL, OrdersAPI } from '../services/api';
 
 // --- Types ---
 interface Review {
@@ -30,6 +30,13 @@ interface Review {
   verified?: boolean;
   userAvatar?: string;
   userColor?: string;
+  orderId?: string | null;
+  orderType?: string | null;
+  orderDetails?: {
+    type: string;
+    itemsCount?: number;
+    amount?: number;
+  } | null;
   reply?: {
     author: string;
     text: string;
@@ -119,6 +126,28 @@ const ReviewCard = ({ review }: { review: Review }) => {
     avatarUrl = `${SERVER_URL}/api/users/avatar/${review.userId}`;
   }
 
+  // Determinar el texto del pedido usando orderDetails
+  const getOrderText = () => {
+    if (!review.orderDetails) return 'Pedido Realizado';
+    
+    const { type, itemsCount, amount } = review.orderDetails;
+    
+    if (type === 'fortnite') {
+      const count = itemsCount || 1;
+      return `Pedido de ${count} Skin${count > 1 ? 's' : ''} Fortnite`;
+    } else if (type === 'mm2') {
+      const count = itemsCount || 1;
+      return `Pedido de ${count} Item${count > 1 ? 's' : ''} MM2`;
+    } else if (type === 'trade_limited') {
+      const count = itemsCount || 1;
+      return `Pedido de ${count} Limited${count > 1 ? 's' : ''}`;
+    } else if (type === 'robux') {
+      return `Pedido de ${amount || 0} Robux`;
+    }
+    
+    return 'Pedido Realizado';
+  };
+
   return (
     <motion.article 
       initial={{ opacity: 0, y: 20 }}
@@ -156,7 +185,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
             <span className="text-white/20">·</span>
             <span className="inline-flex items-center gap-1 text-white/60">
               <Package size={14} className="opacity-70" />
-              Pedido Realizado
+              {getOrderText()}
             </span>
           </div>
 
@@ -213,6 +242,8 @@ export default function Reviews() {
   const [newImage, setNewImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState<string>('');
+  const [userOrders, setUserOrders] = useState<any[]>([]);
 
   const itemsPerPage = 10;
 
@@ -230,7 +261,26 @@ export default function Reviews() {
 
   useEffect(() => {
     fetchReviews();
+    fetchUserOrders();
   }, []);
+
+  const fetchUserOrders = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem('pixel_user') || 'null');
+      if (!user) return;
+
+      const res = await OrdersAPI.getUserOrders(user.id);
+      if (res.success) {
+        // Filtrar solo órdenes completadas y ordenar por más recientes
+        const completedOrders = res.data
+          .filter((order: any) => order.status === 'completed')
+          .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        setUserOrders(completedOrders);
+      }
+    } catch (err) {
+      console.error('Error fetching orders:', err);
+    }
+  };
 
   const stats = useMemo(() => {
     const total = reviews.length;
@@ -308,6 +358,7 @@ export default function Reviews() {
       const avatar = user.avatar || user.profilePicture || user.photoURL || user.userAvatar;
       if (avatar) formData.append('userAvatar', avatar);
       if (newImage) formData.append('image', newImage);
+      if (selectedOrderId) formData.append('orderId', selectedOrderId);
 
       const res = await ReviewsAPI.createReview(formData);
       if (res.success) {
@@ -315,6 +366,7 @@ export default function Reviews() {
         setNewText('');
         setNewImage(null);
         setPreviewUrl(null);
+        setSelectedOrderId('');
         fetchReviews();
       }
     } catch (err) {
@@ -587,6 +639,39 @@ export default function Reviews() {
                         {['Muy mala', 'Mala', 'Regular', 'Buena', 'Excelente'][newRating - 1]}
                       </span>
                     </div>
+                  </div>
+
+                  {/* Order Selector */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Seleccionar Pedido (Opcional)</label>
+                    <select
+                      value={selectedOrderId}
+                      onChange={(e) => setSelectedOrderId(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:border-blue-500/50 transition-all outline-none appearance-none cursor-pointer"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' opacity='0.3' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'right 1rem center'
+                      }}
+                    >
+                      <option value="" className="bg-[#151432] text-white">Sin pedido específico</option>
+                      {userOrders.map((order) => (
+                        <option key={order.id} value={order.id} className="bg-[#151432] text-white">
+                          Pedido #{order.id.slice(0, 8)} - {
+                            order.type === 'fortnite' 
+                              ? `${order.cart?.length || 1} Skin${order.cart?.length > 1 ? 's' : ''} Fortnite`
+                              : order.type === 'mm2'
+                                ? `${order.cart?.length || 1} Item${order.cart?.length > 1 ? 's' : ''} MM2`
+                                : order.type === 'trade_limited'
+                                  ? `${order.cart?.length || 1} Item${order.cart?.length > 1 ? 's' : ''} Limited`
+                                  : `${order.amount} Robux`
+                          } - {new Date(order.createdAt).toLocaleDateString()}
+                        </option>
+                      ))}
+                    </select>
+                    {userOrders.length === 0 && (
+                      <p className="text-xs text-white/20">No tienes pedidos completados aún</p>
+                    )}
                   </div>
 
                   {/* Comment */}
