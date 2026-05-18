@@ -51,6 +51,7 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const notifRef = useRef<HTMLDivElement>(null);
+  const notifRefMobile = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -183,7 +184,11 @@ export default function Navbar() {
     };
     
     const handleClickOutside = (event: MouseEvent) => {
-      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
+      // Verificar si el click está fuera de ambos contenedores de notificaciones
+      const isInsideNotifDesktop = notifRef.current?.contains(event.target as Node);
+      const isInsideNotifMobile = notifRefMobile.current?.contains(event.target as Node);
+      
+      if (!isInsideNotifDesktop && !isInsideNotifMobile) {
         setShowNotifications(false);
       }
       if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
@@ -250,21 +255,134 @@ export default function Navbar() {
               </Link>
 
               <div className="flex items-center gap-2">
-                <button 
-                  className="p-2 text-gray-400 relative"
-                  onClick={() => navigate('/account')}
-                >
-                  <Bell size={20} />
-                  {(unreadCount + orderNotifCount) > 0 && (
-                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-[#0D0B1E]"></span>
-                  )}
-                </button>
+                <div className="relative" ref={notifRefMobile}>
+                  <button 
+                    className="p-2 text-gray-400 relative"
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      setShowNotifications(!showNotifications); 
+                      if (showProfile) setShowProfile(false); 
+                    }}
+                  >
+                    <Bell size={20} />
+                    {(unreadCount + orderNotifCount) > 0 && (
+                      <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-[#0D0B1E]"></span>
+                    )}
+                  </button>
+                  
+                  {/* Dropdown de notificaciones para móvil */}
+                  <AnimatePresence>{showNotifications && (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95, y: 10 }} 
+                      animate={{ opacity: 1, scale: 1, y: 0 }} 
+                      exit={{ opacity: 0, scale: 0.95, y: 10 }} 
+                      transition={{ type: 'spring', stiffness: 450, damping: 30 }} 
+                      onClick={(e) => e.stopPropagation()}
+                      className="lg:hidden fixed inset-x-4 top-16 border border-white/10 rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60] max-h-[80vh] overflow-y-auto"
+                      style={{ 
+                        background: 'rgba(13, 11, 30, 0.98)',
+                        backdropFilter: 'blur(30px)',
+                        WebkitBackdropFilter: 'blur(30px)',
+                        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5)'
+                      } as React.CSSProperties}
+                    >
+                      <div className="flex items-center justify-between mb-3 px-2 pt-1">
+                        <h3 className="text-sm font-bold text-white tracking-tight">Notificaciones</h3>
+                        <button 
+                          onClick={handleClearNotifications}
+                          className="text-[10px] text-blue-400 hover:underline font-medium"
+                        >
+                          Limpiar
+                        </button>
+                      </div>
+
+                      {/* Notification Tabs */}
+                      <div className="px-1 mb-3">
+                        <div className="flex items-center p-1 bg-white/5 border border-white/5 rounded-2xl gap-1">
+                          {[
+                            { id: 'todas', label: 'Todas', badge: unreadCount + orderNotifCount },
+                            { id: 'pedidos', label: 'Pedidos', badge: orderNotifCount },
+                            { id: 'sistema', label: 'Sistema', badge: unreadCount }
+                          ].map(tab => (
+                            <button
+                              key={tab.id}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setNotifTab(tab.id);
+                              }}
+                              className={`flex-1 px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all relative ${
+                                notifTab === tab.id 
+                                  ? 'bg-blue-500/20 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.2)]' 
+                                  : 'text-gray-400 hover:text-white'
+                              }`}
+                            >
+                              {tab.label}
+                              {tab.badge > 0 && (
+                                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center">
+                                  {tab.badge > 99 ? '99+' : tab.badge}
+                                </span>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Notifications List */}
+                      <div className="space-y-2 max-h-[400px] overflow-y-auto scrollbar-thin">
+                        {(notifTab === 'todas' || notifTab === 'pedidos') && (
+                          <div className="space-y-1">
+                            {orders.filter(o => !o.seen).length > 0 ? (
+                              orders.filter(o => !o.seen).slice(0, 5).map(order => (
+                                <div
+                                  key={order.id}
+                                  onClick={() => { navigate(`/orders/${order.id}`); setShowNotifications(false); }}
+                                  className="p-3 rounded-2xl cursor-pointer transition-all bg-blue-500/10 hover:bg-blue-500/15 border border-blue-500/20"
+                                >
+                                  <div className="flex items-start gap-2.5">
+                                    <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 bg-blue-500/20 text-blue-400">
+                                      <Package size={16} />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-white text-xs font-semibold mb-0.5 leading-tight">Pedido #{order.id.slice(0, 8)}</p>
+                                      <p className="text-gray-400 text-[11px] leading-snug">
+                                        Estado: {order.status === 'pending' ? 'Pendiente' : order.status === 'in_progress' ? 'En progreso' : order.status === 'completed' ? 'Completado' : 'Cancelado'}
+                                      </p>
+                                    </div>
+                                    {order.status === 'pending' && <div className="w-2 h-2 bg-amber-500 rounded-full shrink-0 mt-2 animate-pulse" />}
+                                  </div>
+                                </div>
+                              ))
+                            ) : notifTab === 'pedidos' && (
+                              <div className="p-8 text-center text-gray-500 text-sm">
+                                No tienes pedidos nuevos
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        {notifTab === 'sistema' && (
+                          <div className="text-center py-8 text-gray-500 text-sm">
+                            No hay notificaciones del sistema
+                          </div>
+                        )}
+                        {notifTab === 'todas' && orders.filter(o => !o.seen).length === 0 && (
+                          <div className="text-center py-8 text-gray-500 text-sm">
+                            No hay notificaciones
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}</AnimatePresence>
+                </div>
                 {isLoggedIn ? (
                   <button 
                     onClick={() => navigate('/account')}
                     className="size-8 rounded-full border border-white/10 overflow-hidden"
                   >
-                    <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-7CD8F7C85B3C840748F735B16F6D2687-Png/150/150/AvatarHeadshot/Webp/noFilter" alt="" className="size-full object-cover" />
+                    <img 
+                      src={user?.avatar?.startsWith('http') ? user.avatar : `${SERVER_URL}${user?.avatar || '/avatar.png'}`} 
+                      alt="Avatar" 
+                      className="size-full object-cover" 
+                    />
                   </button>
                 ) : (
                   <button 

@@ -37,7 +37,7 @@ export default function Hero() {
     : [];
 
   return (
-    <section id="home" className="relative z-[2] min-h-screen flex flex-col pt-32 pb-6 overflow-hidden bg-pixel-bg">
+    <section id="home" className="relative z-[2] min-h-screen flex flex-col pt-20 md:pt-32 pb-4 md:pb-6 overflow-hidden bg-pixel-bg">
       
       {/* Background Image */}
       <div 
@@ -51,7 +51,7 @@ export default function Hero() {
       
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex-grow flex flex-col w-full">
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-grow items-center pt-10 pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-grow items-center pt-4 md:pt-10 pb-8 md:pb-20">
           
           {/* Left Content */}
           <div className="flex flex-col items-start">
@@ -63,53 +63,53 @@ export default function Hero() {
             </div>
             
             {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black tracking-tight mb-4 leading-[1.1]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight mb-4 leading-[1.1]">
               <span className="text-white text-shadow-sm">Compra Robux</span><br />
               {/* Balanced Gradient: Deep Blue to Fuchsia */}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pixel-primary via-pixel-primaryEnd to-pixel-accent">al Mejor Precio</span>
             </h1>
             
             {/* Subtitle */}
-            <p className="text-gray-400 text-base max-w-md mb-8 leading-relaxed">
+            <p className="text-gray-400 text-sm md:text-base max-w-md mb-6 md:mb-8 leading-relaxed">
               Entrega rápida, precios por volumen y sistema 100% seguro. Compra en segundos y recibe tus Robux al instante.
             </p>
             
             {/* Features Pills */}
-            <div className="flex flex-wrap gap-3 mb-10">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-sm font-medium text-gray-300 shadow-lg">
-                <Zap size={16} className="text-yellow-400" />
+            <div className="flex flex-wrap gap-2 md:gap-3 mb-6 md:mb-10">
+              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
+                <Zap size={14} className="md:w-4 md:h-4 text-yellow-400" />
                 Entrega inmediata
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-sm font-medium text-gray-300 shadow-lg">
-                <Gem size={16} className="text-pixel-accent" />
+              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
+                <Gem size={14} className="md:w-4 md:h-4 text-pixel-accent" />
                 Mejores precios
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-sm font-medium text-gray-300 shadow-lg">
-                <Lock size={16} className="text-gray-400" />
+              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-pixel-panel/60 backdrop-blur-md border border-white/10 text-xs md:text-sm font-medium text-gray-300 shadow-lg">
+                <Lock size={14} className="md:w-4 md:h-4 text-gray-400" />
                 Compra segura 24/7
               </div>
             </div>
             
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-16 w-full sm:w-auto">
-              <button className="px-7 py-3.5 bg-gradient-to-r from-pixel-primaryStart to-pixel-primaryEnd text-white rounded-full font-bold text-base transition-all shadow-[0_0_24px_rgba(59,91,255,0.4)] hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_0_32px_rgba(59,91,255,0.6)] flex items-center justify-center gap-2">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-16 w-full sm:w-auto">
+              <button className="px-6 md:px-7 py-3 md:py-3.5 bg-gradient-to-r from-pixel-primaryStart to-pixel-primaryEnd text-white rounded-full font-bold text-sm md:text-base transition-all shadow-[0_0_24px_rgba(59,91,255,0.4)] hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_0_32px_rgba(59,91,255,0.6)] flex items-center justify-center gap-2">
                 Comprar Robux Ahora
                 <ArrowRight size={18} />
               </button>
-              <button className="px-7 py-3.5 bg-pixel-panel/60 backdrop-blur-md hover:bg-pixel-panelHover border border-white/10 text-white rounded-full font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg">
+              <button className="px-6 md:px-7 py-3 md:py-3.5 bg-pixel-panel/60 backdrop-blur-md hover:bg-pixel-panelHover border border-white/10 text-white rounded-full font-bold text-sm md:text-base transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg">
                 Ver Catálogo
                 <LayoutGrid size={18} />
               </button>
             </div>
             
             {/* Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full pt-8 border-t border-white/10">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 w-full pt-6 md:pt-8 border-t border-white/10">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <Zap size={16} className="text-pixel-primaryEnd" />
-                  <span className="text-white font-bold text-base">1-5 min</span>
+                  <span className="text-white font-bold text-sm md:text-base">1-5 min</span>
                 </div>
-                <p className="text-[10px] text-gray-500 uppercase tracking-wider font-bold">Entrega promedio</p>
+                <p className="text-[9px] md:text-[10px] text-gray-500 uppercase tracking-wider font-bold">Entrega promedio</p>
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -155,14 +155,14 @@ export default function Hero() {
 
         {/* Bottom Ticker: Compras Recientes (Enhanced Glassmorphism) */}
         <div className="w-full mt-auto">
-          <div className="bg-pixel-panel/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex items-center gap-4 sm:gap-6 overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+          <div className="bg-pixel-panel/40 backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-3xl p-3 md:p-4 flex items-center gap-3 md:gap-4 lg:gap-6 overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
             
             {/* Left Header */}
-            <div className="flex-shrink-0 border-r border-white/10 pr-4 sm:pr-6">
-              <h3 className="text-sm font-bold text-white leading-tight">Compras<br/>recientes</h3>
+            <div className="flex-shrink-0 border-r border-white/10 pr-3 md:pr-4 lg:pr-6">
+              <h3 className="text-xs md:text-sm font-bold text-white leading-tight">Compras<br/>recientes</h3>
               <div className="flex items-center gap-1.5 mt-1">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
-                <span className="text-[10px] font-bold text-green-500 tracking-wider">EN VIVO</span>
+                <span className="text-[9px] md:text-[10px] font-bold text-green-500 tracking-wider">EN VIVO</span>
               </div>
             </div>
 

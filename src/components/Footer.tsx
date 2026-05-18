@@ -37,7 +37,7 @@ function useGalaxyStars(count: number) {
 const GalaxyBackground = () => {
     const stars = useGalaxyStars(180);
     return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block" aria-hidden="true">
             <div className="absolute inset-0" style={{
                 background: `
           radial-gradient(ellipse 80% 60% at 10% 80%, rgba(37,99,235,0.15) 0%, transparent 60%),

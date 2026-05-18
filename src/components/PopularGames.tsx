@@ -7,14 +7,17 @@ import { Link } from 'react-router-dom';
 export default function PopularGames() {
   const [featuredGames, setFeaturedGames] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   
   const x = useMotionValue(0);
   const springX = useSpring(x, {
-    stiffness: 400,
-    damping: 40,
-    mass: 0.5
+    stiffness: 600,
+    damping: 50,
+    mass: 0.3,
+    restDelta: 0.001,
+    restSpeed: 0.001
   });
 
   useEffect(() => {
@@ -99,48 +102,68 @@ export default function PopularGames() {
   if (isLoading) return null;
 
   return (
-    <section id="games" className="py-24 section-glow bg-pixel-bg">
+    <section id="games" className="pt-0 pb-8 md:py-24 section-glow bg-pixel-bg">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85%] bg-pixel-primaryStart/5 blur-[150px] rounded-full pointer-events-none z-0"></div>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="bg-pixel-panel/60 rounded-[3rem] p-6 sm:p-10 border border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] overflow-hidden">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div className="bg-pixel-panel/60 rounded-2xl md:rounded-[3rem] p-4 md:p-6 lg:p-10 border border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 md:mb-8 gap-4">
             <div className="flex gap-3 items-start">
               <div className="w-1.5 h-7 bg-pixel-primary rounded-full mt-1.5 shadow-[0_0_12px_rgba(20,0,172,0.6)]"></div>
               <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-0.5 tracking-tight uppercase">Juegos populares</h2>
-                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Items, frutas y gamepasses</p>
+                <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-0.5 tracking-tight uppercase">Juegos populares</h2>
+                <p className="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-wider">Items, frutas y gamepasses</p>
               </div>
             </div>
             
-            <div className="flex items-center gap-3">
-              <button onClick={scrollLeft} className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"><ChevronLeft size={18} /></button>
-              <button onClick={scrollRight} className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"><ChevronRight size={18} /></button>
-              <Link to="/robux" className="px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-pixel-accent/50 text-xs font-bold transition-all flex items-center gap-1.5 shadow-lg group">
+            <div className="flex items-center gap-2 md:gap-3">
+              <button onClick={scrollLeft} className="hidden md:flex w-9 h-9 rounded-full bg-white/5 border border-white/10 items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"><ChevronLeft size={18} /></button>
+              <button onClick={scrollRight} className="hidden md:flex w-9 h-9 rounded-full bg-white/5 border border-white/10 items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"><ChevronRight size={18} /></button>
+              <Link to="/robux" className="px-3 md:px-5 py-2 md:py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-pixel-accent/50 text-[10px] md:text-xs font-bold transition-all flex items-center gap-1.5 shadow-lg group">
                 Ver todos <span className="text-lg leading-none text-pixel-accent group-hover:translate-x-0.5 transition-transform">&rsaquo;</span>
               </Link>
             </div>
           </div>
 
-          <div className="relative cursor-grab active:cursor-grabbing select-none" ref={containerRef}>
-            <motion.div ref={contentRef} className="flex gap-4 w-max pb-2" style={{ x: springX }} drag="x" dragConstraints={containerRef}>
+          <div className="relative cursor-grab active:cursor-grabbing select-none overflow-hidden" ref={containerRef}>
+            <motion.div 
+              ref={contentRef} 
+              className="flex gap-3 md:gap-4 w-max pb-2" 
+              style={{ x: springX }} 
+              drag="x" 
+              dragElastic={0.05}
+              dragMomentum={true}
+              dragTransition={{ 
+                bounceStiffness: 600, 
+                bounceDamping: 50,
+                power: 0.3,
+                timeConstant: 200
+              }}
+              dragConstraints={{ left: -2000, right: 0 }}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={() => setTimeout(() => setIsDragging(false), 50)}
+            >
               {featuredGames.map((game, index) => (
-                <Link 
-                  key={index} 
-                  to={`/catalog/ingame/${game.id}`}
-                  className="min-w-[220px] sm:min-w-[260px] h-[140px] sm:h-[160px] relative rounded-2xl overflow-hidden group border border-white/10 flex-shrink-0 shadow-lg block"
+                <div
+                  key={index}
+                  onClick={() => {
+                    if (!isDragging) {
+                      window.location.href = `/catalog/ingame/${game.id}`;
+                    }
+                  }}
+                  className="min-w-[180px] sm:min-w-[220px] md:min-w-[260px] h-[120px] sm:h-[140px] md:h-[160px] relative rounded-xl md:rounded-2xl overflow-hidden group border border-white/10 flex-shrink-0 shadow-lg cursor-pointer"
                 >
                   <img src={game.image} alt={game.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/60 to-transparent pointer-events-none"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end gap-3 pointer-events-none">
+                  <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 flex justify-between items-end gap-2 md:gap-3 pointer-events-none">
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-bold text-base sm:text-lg leading-tight mb-1 truncate" title={game.title}>{game.title}</h3>
-                      <p className="text-gray-300 text-xs sm:text-sm truncate">{game.subtitle}</p>
+                      <h3 className="text-white font-bold text-sm md:text-base lg:text-lg leading-tight mb-0.5 md:mb-1 truncate" title={game.title}>{game.title}</h3>
+                      <p className="text-gray-300 text-[10px] md:text-xs lg:text-sm truncate">{game.subtitle}</p>
                     </div>
-                    <div className="flex-shrink-0 bg-pixel-primaryStart/20 border border-pixel-primaryStart/30 text-white text-[10px] sm:text-xs font-bold px-2.5 py-1.5 rounded-full whitespace-nowrap backdrop-blur-md">
+                    <div className="flex-shrink-0 bg-pixel-primaryStart/20 border border-pixel-primaryStart/30 text-white text-[9px] md:text-[10px] lg:text-xs font-bold px-2 md:px-2.5 py-1 md:py-1.5 rounded-full whitespace-nowrap backdrop-blur-md">
                       {game.products}
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </motion.div>
           </div>

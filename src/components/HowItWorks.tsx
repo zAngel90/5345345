@@ -45,13 +45,13 @@ export default function HowItWorks() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="how-it-works" className="py-24 section-glow bg-pixel-bg">
+    <section id="how-it-works" className="pt-0 pb-8 md:py-24 section-glow bg-pixel-bg">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-pixel-primaryEnd/5 blur-[140px] rounded-full pointer-events-none z-0"></div>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Section */}
-        <div className="flex flex-col mb-12">
+        <div className="flex flex-col mb-6 md:mb-12">
           {/* Top Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0D0B1E]/80 border border-pixel-primary/40 mb-6 w-max">
             <Link2 size={14} className="text-pixel-accent" />
@@ -67,36 +67,37 @@ export default function HowItWorks() {
           </h2>
         </div>
 
-        {/* Static Grid Layout with Premium Hover Animations */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, index) => (
-            <motion.div 
-              key={index} 
-              whileHover={{ y: -12, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              className="rounded-[3rem] p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer min-h-[320px] border transition-all duration-500 bg-gradient-to-b from-[#1400AC]/40 to-[#0D0B1E]/90 backdrop-blur-2xl border-[#4D00FF]/40 shadow-[0_30px_60px_-20px_rgba(20,0,172,0.3)] hover:shadow-[0_40px_80px_-20px_rgba(77,0,255,0.4)] hover:border-[#4D00FF]/60"
-            >
+        {/* Carrusel horizontal en móviles, Grid en desktop */}
+        <div className="overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 pb-4 md:pb-0">
+            {steps.map((step, index) => (
+              <motion.div 
+                key={index} 
+                whileHover={{ y: -12, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="rounded-xl md:rounded-[3rem] p-4 md:p-6 lg:p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-auto md:min-w-0 min-h-[180px] md:min-h-[320px] border transition-all duration-500 bg-gradient-to-b from-[#1400AC]/40 to-[#0D0B1E]/90 backdrop-blur-2xl border-[#4D00FF]/40 shadow-[0_30px_60px_-20px_rgba(20,0,172,0.3)] hover:shadow-[0_40px_80px_-20px_rgba(77,0,255,0.4)] hover:border-[#4D00FF]/60 flex-shrink-0"
+              >
               {/* Animated Light Streak on Hover */}
               <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out"></div>
 
               {/* Top Row: Number & Icon */}
               <div className="flex justify-between items-start mb-auto relative z-10">
-                <div className="w-10 h-10 rounded-2xl flex items-center justify-center text-xs font-black tracking-tighter transition-all duration-500 group-hover/card:scale-110 bg-gradient-to-r from-pixel-primary to-pixel-primaryEnd text-white shadow-[0_0_15px_rgba(77,0,255,0.4)]">
+                <div className="w-8 md:w-10 h-8 md:h-10 rounded-xl md:rounded-2xl flex items-center justify-center text-[10px] md:text-xs font-black tracking-tighter transition-all duration-500 group-hover/card:scale-110 bg-gradient-to-r from-pixel-primary to-pixel-primaryEnd text-white shadow-[0_0_15px_rgba(77,0,255,0.4)]">
                   {step.num}
                 </div>
-                <div className="p-3 rounded-2xl bg-white/5 transition-all duration-500 group-hover/card:bg-pixel-primaryEnd/20 group-hover/card:scale-110">
+                <div className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-white/5 transition-all duration-500 group-hover/card:bg-pixel-primaryEnd/20 group-hover/card:scale-110">
                   <step.icon 
-                    size={22} 
+                    size={18}
                     strokeWidth={2} 
-                    className="text-white"
+                    className="text-white md:w-[22px] md:h-[22px]"
                   />
                 </div>
               </div>
 
               {/* Content */}
-              <div className="relative z-10 mt-8">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover/card:text-pixel-accent transition-colors duration-300 tracking-tight">{step.title}</h3>
-                <p className="text-[13px] leading-relaxed transition-colors duration-300 text-blue-100/70">
+              <div className="relative z-10 mt-4 md:mt-8">
+                <h3 className="text-base md:text-xl font-bold text-white mb-2 md:mb-3 group-hover/card:text-pixel-accent transition-colors duration-300 tracking-tight">{step.title}</h3>
+                <p className="text-[11px] md:text-[13px] leading-relaxed transition-colors duration-300 text-blue-100/70">
                   {step.desc}
                 </p>
               </div>
@@ -110,6 +111,7 @@ export default function HowItWorks() {
               </div>
             </motion.div>
           ))}
+          </div>
         </div>
 
       </div>
