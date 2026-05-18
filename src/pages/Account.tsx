@@ -215,7 +215,7 @@ export default function Account() {
         OrdersAPI.getUserOrders(username)
       ]);
 
-      let allOrders = [];
+      let allOrders: any[] = [];
       if (resById.success) allOrders = [...resById.data];
       if (resByUsername.success) {
         const existingIds = new Set(allOrders.map(o => o.id));
@@ -223,6 +223,8 @@ export default function Account() {
         allOrders = [...allOrders, ...extraOrders];
       }
 
+      // Ordenar por fecha más reciente primero
+      allOrders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       setOrders(allOrders);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -642,7 +644,14 @@ export default function Account() {
                               </span>
                             </div>
                             <p className="text-xs text-white/40 font-bold uppercase tracking-wider">
-                              {order.amount} Robux • {new Date(order.createdAt).toLocaleDateString()}
+                              {order.type === 'fortnite' 
+                                ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
+                                : order.type === 'mm2'
+                                  ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
+                                  : order.type === 'trade_limited'
+                                    ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
+                                    : `${order.amount} Robux`
+                              } • {new Date(order.createdAt).toLocaleDateString()}
                             </p>
                           </div>
                         </div>

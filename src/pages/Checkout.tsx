@@ -110,6 +110,7 @@ const Checkout = () => {
   const state = (location.state as any) || {};
 
   const isTrade = state.type === 'trade_limited';
+  const isFortnite = state.type === 'fortnite';
   const amount: number = Number(state.amount) || (isTrade ? 0 : 1700);
   const username: string = state.username || '';
   const userId: string = state.userId || '';
@@ -126,7 +127,7 @@ const Checkout = () => {
     return g.includes('limited') || g.includes('unique') || state.type === 'trade_limited';
   });
   const isSpecialGame = true; // Always use special layout
-  const isRobuxOnly = !isMM2 && !isLimiteds && !isTrade; // Regular Robux purchase
+  const isRobuxOnly = !isMM2 && !isLimiteds && !isTrade && !isFortnite; // Regular Robux purchase
 
   useEffect(() => {
     console.log('📦 Checkout State:', state);
@@ -168,7 +169,16 @@ const Checkout = () => {
 
   useEffect(() => {
     const savedUser = localStorage.getItem('pixel_user');
-    if (savedUser) setStoreUser(JSON.parse(savedUser));
+    if (savedUser) {
+      const user = JSON.parse(savedUser);
+      setStoreUser(user);
+      // Usar el avatar del usuario logueado
+      if (user?.avatar) {
+        setUserAvatar(user.avatar.startsWith('http') ? user.avatar : `${SERVER_URL}${user.avatar}`);
+      } else if (user?.id) {
+        setUserAvatar(`${SERVER_URL}/api/users/avatar/${user.id}`);
+      }
+    }
 
     const fetchAvatar = async () => {
       if (!userId) return;
@@ -178,7 +188,7 @@ const Checkout = () => {
         console.error('Error setting avatar:', error);
       }
     };
-    fetchAvatar();
+    if (!storeUser) fetchAvatar();
 
     const fetchMethods = async () => {
       try {
@@ -323,6 +333,12 @@ const Checkout = () => {
         formData.append('tradeItem', JSON.stringify(state.tradeItem));
         formData.append('targetItem', JSON.stringify(state.targetItem));
         if (cart.length > 0) formData.append('cart', JSON.stringify(cart));
+      } else if (isFortnite && cart.length > 0) {
+        formData.append('type', 'fortnite');
+        formData.append('cart', JSON.stringify(cart));
+        if (state.fortniteData) {
+          formData.append('fortniteData', JSON.stringify(state.fortniteData));
+        }
       } else if (isMM2 && cart.length > 0) {
         formData.append('type', 'mm2');
         formData.append('cart', JSON.stringify(cart));
@@ -556,6 +572,84 @@ const Checkout = () => {
                                 })}
                               </div>
                             </div>
+                          ) : isFortnite ? (
+                            <>
+                              <div className="space-y-4 mb-5">
+                                {/* Fortnite Summary Header */}
+                                <div className="bg-white/[0.03] border border-white/10 rounded-[24px] p-4">
+                                  <div className="flex items-center gap-3 mb-4">
+                                    <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                                      <ShoppingCart className="w-6 h-6 text-blue-400" />
+                                    </div>
+                                    <div className="flex-1">
+                                      <div className="text-sm font-black text-white uppercase tracking-tight mb-1">
+                                        {cart.length} {cart.length === 1 ? 'Skin' : 'Skins'} Fortnite
+                                      </div>
+                                      <div className="flex flex-wrap gap-1.5">
+                                        <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-blue-500/[0.08]">
+                                          <Zap className="w-2.5 h-2.5 text-blue-400" />
+                                          <span className="text-[9px] font-semibold text-blue-400">Entrega directa</span>
+                                        </div>
+                                        <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-emerald-500/[0.08]">
+                                          <Shield className="w-2.5 h-2.5 text-emerald-400" />
+                                          <span className="text-[9px] font-semibold text-emerald-400">Pago protegido</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className="pt-3 border-t border-white/[0.06]">
+                                    <div className="text-[9px] font-black text-white/20 uppercase tracking-[0.2em] mb-2">Cliente</div>
+                                    <div className="flex items-center gap-2">
+                                      <div className="w-6 h-6 rounded-full bg-white/5 border border-white/10 overflow-hidden shrink-0">
+                                        <img
+                                          src={
+                                            storeUser?.avatar?.startsWith('http') 
+                                              ? storeUser.avatar 
+                                              : storeUser?.avatar 
+                                                ? `${SERVER_URL}${storeUser.avatar}` 
+                                                : `https://ui-avatars.com/api/?name=${state.fortniteData?.fortniteUsername || username}&background=random`
+                                          }
+                                          className="w-full h-full object-cover"
+                                          alt=""
+                                        />
+                                      </div>
+                                      <span className="text-[10px] font-bold text-white/60">@{state.fortniteData?.fortniteUsername || username}</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Fortnite Items List */}
+                                <div className="space-y-2">
+                                  {cart.map((item, idx) => (
+                                    <div key={idx} className="bg-white/[0.02] border border-white/[0.06] rounded-[20px] p-3">
+                                      <div className="flex items-center gap-3">
+                                        <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0 overflow-hidden">
+                                          <img
+                                            src={item?.image || item?.img}
+                                            alt=""
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => {
+                                              (e.target as HTMLImageElement).src = 'https://i.postimg.cc/5tSsMDgK/logo-4x.png';
+                                            }}
+                                          />
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                          <p className="text-[9px] text-white/30 font-bold uppercase tracking-tight mb-0.5">
+                                            Fortnite
+                                          </p>
+                                          <p className="text-[11px] font-black text-white truncate leading-tight mb-1">{item?.name}</p>
+                                          <p className="text-[9px] text-blue-400 font-bold uppercase">Skin</p>
+                                        </div>
+                                        <div className="text-right">
+                                          <span className="text-[10px] font-black text-white/40">{((item?.price || 0) * (item?.quantity || 1)).toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </>
                           ) : isLimiteds && !isTrade ? (
                             <>
                               <div className="space-y-4 mb-5">
@@ -1024,14 +1118,23 @@ const Checkout = () => {
                       <div className="flex items-center gap-3 px-3 py-2 rounded-2xl mb-3" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(59,130,246,0.35)' }}>
                         <div className="w-8 h-8 rounded-full bg-[#1e293b] border border-white/[0.10] overflow-hidden shrink-0 flex items-center justify-center">
                           <img
-                            src={userAvatar || `${SERVER_URL}/api/users/avatar/${userId}`}
-                            alt={username} className="w-full h-full object-cover"
+                            src={
+                              isFortnite 
+                                ? (storeUser?.avatar?.startsWith('http') 
+                                    ? storeUser.avatar 
+                                    : storeUser?.avatar 
+                                      ? `${SERVER_URL}${storeUser.avatar}` 
+                                      : `https://ui-avatars.com/api/?name=${state.fortniteData?.fortniteUsername || username}&background=random`)
+                                : (userAvatar || `${SERVER_URL}/api/users/avatar/${userId}`)
+                            }
+                            alt={isFortnite ? state.fortniteData?.fortniteUsername || username : username} 
+                            className="w-full h-full object-cover"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${username}&background=random`;
+                              (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${isFortnite ? state.fortniteData?.fortniteUsername || username : username}&background=random`;
                             }}
                           />
                         </div>
-                        <span className="flex-1 text-xs font-medium text-white/90">@{username}</span>
+                        <span className="flex-1 text-xs font-medium text-white/90">@{isFortnite ? state.fortniteData?.fortniteUsername || username : username}</span>
                         <button
                           onClick={() => setIsUserModalOpen(true)}
                           className="p-1.5 rounded-lg hover:bg-white/[0.06] transition-all"

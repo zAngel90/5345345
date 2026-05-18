@@ -47,6 +47,12 @@ interface Order {
   mm2DeliveryStatus?: 'pending' | 'requested' | 'ready' | 'completed';
   mm2PrivateServer?: string;
   mm2RequestedAt?: string;
+  fortniteData?: {
+    fortniteUsername: string;
+    platform: string;
+    contactInfo: string;
+    vbucksTotal: number;
+  };
 }
 
 const OrderDetails = () => {
@@ -618,6 +624,8 @@ const OrderDetails = () => {
                     <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
                     {order.type === 'trade_limited' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited'))) ? (
                       <ShoppingCart className="w-8 h-8 text-blue-400" />
+                    ) : order.type === 'fortnite' ? (
+                      <ShoppingCart className="w-8 h-8 text-blue-400" />
                     ) : (order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) ? (
                       <img src="https://www.peekstore.com/_next/image?url=%2Fmm2-logo.webp&w=64&q=75" className="w-full h-full object-contain rounded-lg" alt="MM2" />
                     ) : (
@@ -628,6 +636,8 @@ const OrderDetails = () => {
                     <h2 className="text-2xl font-black tracking-tighter mb-0.5">
                       {order.type === 'trade_limited' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited'))) ? (
                         `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
+                      ) : order.type === 'fortnite' ? (
+                        `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
                       ) : (order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) ? (
                         `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
                       ) : (
@@ -663,8 +673,45 @@ const OrderDetails = () => {
               </div>
 
               <div className="p-5 space-y-4">
-                {/* For Limited/MM2 - Show Trade Items */}
-                {(order.type === 'trade_limited' || order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited') || String(item.game || '').toLowerCase().includes('mm2')))) ? (
+                {/* For Fortnite - Show Skins */}
+                {order.type === 'fortnite' ? (
+                  <div className="space-y-3">
+                    {/* Método Regalo */}
+                    <div className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl flex items-center justify-between">
+                       <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400">
+                             <Zap size={14} />
+                          </div>
+                          <div>
+                            <p className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-0.5">Método de Entrega</p>
+                            <h4 className="text-xs font-bold uppercase tracking-tight">Regalo</h4>
+                          </div>
+                       </div>
+                    </div>
+
+                    {/* Skins de Fortnite */}
+                    {order.cart && order.cart.length > 0 && (
+                      <div className="space-y-2">
+                        {order.cart.map((item: any, idx: number) => (
+                          <div 
+                            key={idx} 
+                            className="flex items-center gap-3 p-2.5 rounded-2xl bg-blue-500/10 border border-blue-500/30"
+                          >
+                            <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
+                              <img src={item?.image || item?.img} alt="" className="w-full h-full object-cover" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-blue-400">
+                                Skin Fortnite
+                              </p>
+                              <p className="text-xs font-bold text-white truncate">{item?.name}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (order.type === 'trade_limited' || order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited') || String(item.game || '').toLowerCase().includes('mm2')))) ? (
                   <div className="space-y-3">
                     {/* Target Items (Items a recibir) - Lista Expandida */}
                     {order.cart && order.cart.length > 0 ? (
@@ -742,17 +789,32 @@ const OrderDetails = () => {
                    <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-800 rounded-xl overflow-hidden border border-white/10 ring-2 ring-white/5">
                          <img 
-                            src={`${SERVER_URL}/api/users/avatar/${order.userId}`} 
-                            alt={order.username} 
+                            src={
+                              order.type === 'fortnite' 
+                                ? (() => {
+                                    const user = localStorage.getItem('pixel_user');
+                                    if (user) {
+                                      const userData = JSON.parse(user);
+                                      return userData?.avatar?.startsWith('http') 
+                                        ? userData.avatar 
+                                        : userData?.avatar 
+                                          ? `${SERVER_URL}${userData.avatar}` 
+                                          : `${SERVER_URL}/api/users/avatar/${order.userId}`;
+                                    }
+                                    return `${SERVER_URL}/api/users/avatar/${order.userId}`;
+                                  })()
+                                : `${SERVER_URL}/api/users/avatar/${order.userId}`
+                            }
+                            alt={order.type === 'fortnite' ? order.fortniteData?.fortniteUsername || order.username : order.username} 
                             className="w-full h-full object-cover"
                          />
                       </div>
                       <div>
-                        <h4 className="text-xs font-black uppercase tracking-tight">{order.username}</h4>
-                        <p className="text-[9px] text-white/30 font-bold mt-0.5">ID: {order.userId}</p>
+                        <h4 className="text-xs font-black uppercase tracking-tight">{order.type === 'fortnite' ? order.fortniteData?.fortniteUsername || order.username : order.username}</h4>
+                        <p className="text-[9px] text-white/30 font-bold mt-0.5">{order.type === 'fortnite' ? `Plataforma: ${order.fortniteData?.platform || 'Epic'}` : `ID: ${order.userId}`}</p>
                       </div>
                    </div>
-                   <button onClick={() => copyToClipboard(order.username, 'username')} className="p-2 text-white/20 hover:text-white transition-colors">
+                   <button onClick={() => copyToClipboard(order.type === 'fortnite' ? order.fortniteData?.fortniteUsername || order.username : order.username, 'username')} className="p-2 text-white/20 hover:text-white transition-colors">
                       {copiedField === 'username' ? <CheckCircle2 size={14} className="text-emerald-400" /> : <Copy size={14} />}
                    </button>
                 </div>

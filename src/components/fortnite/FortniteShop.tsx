@@ -258,18 +258,25 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
           width: '60px',
           height: '60px',
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, #3b82f6 0%, #9333ea 100%)',
-          border: '2px solid rgba(255, 255, 255, 0.2)',
+          background: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          boxShadow: '0 10px 30px rgba(59, 130, 246, 0.4)',
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.6)',
           zIndex: 50,
-          transition: 'transform 0.2s'
+          transition: 'all 0.2s'
         }}
-        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'scale(1.1)';
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+        }}
       >
         <ShoppingCart color="white" size={28} />
         {cartCount > 0 && (

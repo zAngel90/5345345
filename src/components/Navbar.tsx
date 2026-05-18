@@ -506,7 +506,17 @@ export default function Navbar() {
                                       <h4 className="text-[12px] font-black text-white group-hover:text-blue-400 transition-colors capitalize">Pedido {order.status}</h4>
                                       <span className="text-[9px] font-bold text-white/20">{new Date(order.createdAt).toLocaleDateString()}</span>
                                     </div>
-                                    <p className="text-[10px] text-white/40 mt-0.5 leading-tight truncate">ID: {order.id} • {order.amount} Robux</p>
+                                    <p className="text-[10px] text-white/40 mt-0.5 leading-tight truncate">
+                                      ID: {order.id} • {
+                                        order.type === 'fortnite' 
+                                          ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
+                                          : order.type === 'mm2'
+                                            ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
+                                            : order.type === 'trade_limited'
+                                              ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
+                                              : `${order.amount} Robux`
+                                      }
+                                    </p>
                                   </div>
                                   {order.status === 'pending' && <div className="size-2 bg-amber-500 rounded-full mt-2 animate-pulse" />}
                                 </div>
