@@ -73,19 +73,19 @@ export default function HowItWorks() {
             {steps.map((step, index) => (
               <motion.div 
                 key={index} 
-                whileHover={{ y: -12, scale: 1.02 }}
+                whileHover={window.innerWidth >= 768 ? { y: -12, scale: 1.02 } : {}}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="rounded-xl md:rounded-[3rem] p-4 md:p-6 lg:p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-auto md:min-w-0 min-h-[180px] md:min-h-[320px] border transition-all duration-500 bg-gradient-to-b from-[#1400AC]/40 to-[#0D0B1E]/90 backdrop-blur-sm md:backdrop-blur-2xl border-[#4D00FF]/40 shadow-[0_30px_60px_-20px_rgba(20,0,172,0.3)] hover:shadow-[0_40px_80px_-20px_rgba(77,0,255,0.4)] hover:border-[#4D00FF]/60 flex-shrink-0"
+                className="rounded-xl md:rounded-[3rem] p-4 md:p-6 lg:p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-auto md:min-w-0 min-h-[180px] md:min-h-[320px] border md:transition-all duration-500 bg-gradient-to-b from-[#1400AC]/40 to-[#0D0B1E]/90 backdrop-blur-sm md:backdrop-blur-2xl border-[#4D00FF]/40 shadow-[0_30px_60px_-20px_rgba(20,0,172,0.3)] md:hover:shadow-[0_40px_80px_-20px_rgba(77,0,255,0.4)] md:hover:border-[#4D00FF]/60 flex-shrink-0"
               >
               {/* Animated Light Streak on Hover */}
-              <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+              <div className="hidden md:block absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out"></div>
 
               {/* Top Row: Number & Icon */}
               <div className="flex justify-between items-start mb-auto relative z-10">
-                <div className="w-8 md:w-10 h-8 md:h-10 rounded-xl md:rounded-2xl flex items-center justify-center text-[10px] md:text-xs font-black tracking-tighter transition-all duration-500 group-hover/card:scale-110 bg-gradient-to-r from-pixel-primary to-pixel-primaryEnd text-white shadow-[0_0_15px_rgba(77,0,255,0.4)]">
+                <div className="w-8 md:w-10 h-8 md:h-10 rounded-xl md:rounded-2xl flex items-center justify-center text-[10px] md:text-xs font-black tracking-tighter md:transition-all duration-500 md:group-hover/card:scale-110 bg-gradient-to-r from-pixel-primary to-pixel-primaryEnd text-white shadow-[0_0_15px_rgba(77,0,255,0.4)]">
                   {step.num}
                 </div>
-                <div className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-white/5 transition-all duration-500 group-hover/card:bg-pixel-primaryEnd/20 group-hover/card:scale-110">
+                <div className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-white/5 md:transition-all duration-500 md:group-hover/card:bg-pixel-primaryEnd/20 md:group-hover/card:scale-110">
                   <step.icon 
                     size={18}
                     strokeWidth={2} 

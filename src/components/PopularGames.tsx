@@ -12,7 +12,12 @@ export default function PopularGames() {
   const contentRef = useRef<HTMLDivElement>(null);
   
   const x = useMotionValue(0);
-  const springX = useSpring(x, {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const springX = useSpring(x, isMobile ? {
+    stiffness: 300,
+    damping: 30,
+    mass: 0.5
+  } : {
     stiffness: 600,
     damping: 50,
     mass: 0.3,

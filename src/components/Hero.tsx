@@ -58,7 +58,7 @@ export default function Hero() {
             
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pixel-panel/60 backdrop-blur-sm md:backdrop-blur-md border border-white/10 mb-6 shadow-lg">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
+              <div className="w-2 h-2 bg-green-500 rounded-full md:animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
               <span className="text-xs font-medium text-gray-300">+500 órdenes completadas hoy</span>
             </div>
             
@@ -92,11 +92,11 @@ export default function Hero() {
             
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-16 w-full sm:w-auto">
-              <button className="px-6 md:px-7 py-3 md:py-3.5 bg-gradient-to-r from-pixel-primaryStart to-pixel-primaryEnd text-white rounded-full font-bold text-sm md:text-base transition-all shadow-[0_0_24px_rgba(59,91,255,0.4)] hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_0_32px_rgba(59,91,255,0.6)] flex items-center justify-center gap-2">
+              <button className="px-6 md:px-7 py-3 md:py-3.5 bg-gradient-to-r from-pixel-primaryStart to-pixel-primaryEnd text-white rounded-full font-bold text-sm md:text-base md:transition-all shadow-[0_0_24px_rgba(59,91,255,0.4)] md:hover:scale-[1.02] md:active:scale-[0.98] md:hover:shadow-[0_0_32px_rgba(59,91,255,0.6)] flex items-center justify-center gap-2">
                 Comprar Robux Ahora
                 <ArrowRight size={18} />
               </button>
-              <button className="px-6 md:px-7 py-3 md:py-3.5 bg-pixel-panel/60 backdrop-blur-sm md:backdrop-blur-md hover:bg-pixel-panelHover border border-white/10 text-white rounded-full font-bold text-sm md:text-base transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg">
+              <button className="px-6 md:px-7 py-3 md:py-3.5 bg-pixel-panel/60 backdrop-blur-sm md:backdrop-blur-md md:hover:bg-pixel-panelHover border border-white/10 text-white rounded-full font-bold text-sm md:text-base md:transition-all md:hover:scale-[1.02] md:active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg">
                 Ver Catálogo
                 <LayoutGrid size={18} />
               </button>
@@ -161,7 +161,7 @@ export default function Hero() {
             <div className="flex-shrink-0 border-r border-white/10 pr-3 md:pr-4 lg:pr-6">
               <h3 className="text-xs md:text-sm font-bold text-white leading-tight">Compras<br/>recientes</h3>
               <div className="flex items-center gap-1.5 mt-1">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full md:animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
                 <span className="text-[9px] md:text-[10px] font-bold text-green-500 tracking-wider">EN VIVO</span>
               </div>
             </div>
