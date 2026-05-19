@@ -118,7 +118,7 @@ const Checkout = () => {
   const fromWebview: boolean = state.fromWebview || !!state.action;
   const initialCurrency: string = state.currency || (isTrade ? 'PEN' : 'COP');
 
-  const isMM2 = cart.some(item => {
+  const isMM2 = state.gameType === 'mm2' || cart.some(item => {
     const g = String(item.game || '').toLowerCase();
     return g.includes('mm2') || g.includes('murder mystery') || g.includes('murder');
   });
@@ -126,8 +126,9 @@ const Checkout = () => {
     const g = String(item.game || '').toLowerCase();
     return g.includes('limited') || g.includes('unique') || state.type === 'trade_limited';
   });
+  const isIngame = !isMM2 && !isLimiteds && !isTrade && !isFortnite && (state.fromIngame || state.gameType === 'ingame');
   const isSpecialGame = true; // Always use special layout
-  const isRobuxOnly = !isMM2 && !isLimiteds && !isTrade && !isFortnite; // Regular Robux purchase
+  const isRobuxOnly = !isMM2 && !isLimiteds && !isTrade && !isFortnite && !isIngame; // Regular Robux purchase
 
   useEffect(() => {
     console.log('📦 Checkout State:', state);
@@ -857,7 +858,7 @@ const Checkout = () => {
                                 </div>
                               </div>
                             </div>
-                          ) : fromWebview && cart.length > 0 ? (
+                          ) : isIngame && cart.length > 0 ? (
                             <div className="space-y-3 mb-5">
                               {/* Header Summary */}
                               <div className="bg-white/[0.03] border border-white/10 rounded-[24px] p-3">
