@@ -659,9 +659,9 @@ export default function Catalog() {
                     }
                     navigate(`/catalog/ingame/${item.gameId}?game=${item.gameId}`);
                   }}
-                  className="flex-shrink-0 snap-start w-[300px] sm:w-[330px] group cursor-pointer"
+                  className="flex-shrink-0 snap-start w-[220px] sm:w-[280px] md:w-[330px] group cursor-pointer"
                 >
-                  <div className="relative rounded-2xl bg-white/[0.02] border border-white/[0.05] p-5 transition-all duration-500 hover:bg-white/[0.04] hover:border-white/[0.1] hover:translate-y-[-4px] overflow-hidden flex flex-col">
+                  <div className="relative rounded-2xl bg-white/[0.02] border border-white/[0.05] p-3 sm:p-4 md:p-5 transition-all duration-500 hover:bg-white/[0.04] hover:border-white/[0.1] hover:translate-y-[-4px] overflow-hidden flex flex-col">
                     {/* Glow effect */}
                     <div className="absolute -inset-20 bg-gradient-radial from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
@@ -677,15 +677,15 @@ export default function Catalog() {
                     </div>
 
                     {/* Image */}
-                    <div className="relative mb-5 group-hover:scale-105 transition-transform duration-700 ease-out z-10 flex items-center justify-center h-[220px]">
+                    <div className="relative mb-3 sm:mb-4 md:mb-5 group-hover:scale-105 transition-transform duration-700 ease-out z-10 flex items-center justify-center h-[140px] sm:h-[180px] md:h-[220px]">
                       <img src={item.image} className="max-w-full max-h-full object-contain filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]" alt={item.name} />
                     </div>
 
                     {/* Footer */}
                     <div className="relative z-10 mt-auto">
-                      <h3 className="text-white font-bold text-base mb-3 leading-tight">{item.name}</h3>
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="text-emerald-400 font-black text-lg">
+                      <h3 className="text-white font-bold text-xs sm:text-sm md:text-base mb-2 sm:mb-3 leading-tight line-clamp-2">{item.name}</h3>
+                      <div className="flex items-center justify-between gap-2 sm:gap-3">
+                        <p className="text-emerald-400 font-black text-sm sm:text-base md:text-lg">
                           {activeCurrency === 'USD' ? '$' : (activeCurrency === 'PEN' ? 'S/' : '$')}
                           {convertPrice(item.price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {activeCurrency}
                         </p>

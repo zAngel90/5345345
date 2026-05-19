@@ -17,6 +17,7 @@ import Fortnite from './pages/Fortnite';
 import OrderDetails from './pages/OrderDetails';
 
 import PageLoader from './components/PageLoader';
+import ScrollToTop from './components/ScrollToTop';
 
 function AppContent() {
   const location = useLocation();
@@ -41,12 +42,13 @@ function AppContent() {
   }, [location]);
 
   return (
-    <div className={`font-sans selection:bg-blue-500/30 flex flex-col bg-pixel-bg ${isNoUI ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
+    <div className={`font-sans selection:bg-blue-500/30 flex flex-col bg-pixel-bg ${isNoUI ? 'lg:h-screen lg:overflow-hidden min-h-screen' : 'min-h-screen'}`}>
+      <ScrollToTop />
       <PageLoader />
       {!isAdmin && <StarBackground />}
       {!isNoUI && <Navbar />}
 
-      <main className={isIngame || isCheckout ? 'flex-1 flex flex-col' : 'flex-grow'}>
+      <main className={isIngame || isCheckout ? 'lg:flex-1 flex flex-col' : 'flex-grow'}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />

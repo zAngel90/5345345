@@ -15,7 +15,7 @@ const Fortnite: React.FC = () => {
   }, []);
 
   return (
-    <div className="pt-20">
+    <div className="pt-16 lg:pt-20 pb-28 lg:pb-0 overflow-x-hidden">
       <FortniteShop user={user} />
     </div>
   );

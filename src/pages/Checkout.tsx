@@ -367,7 +367,7 @@ const Checkout = () => {
             initial={{ opacity: 0, filter: 'blur(20px)', scale: 1.05 }}
             animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
             transition={{ duration: 0.8, ease: "circOut" }}
-            className="min-h-screen lg:h-screen lg:flex lg:flex-col text-white relative lg:overflow-hidden overflow-x-hidden"
+            className="min-h-screen lg:h-screen lg:flex lg:flex-col text-white relative lg:overflow-hidden"
           >
             {/* Background — exact from reference HTML */}
             <div className="absolute inset-0 bg-[#0F172A]" />
@@ -414,7 +414,7 @@ const Checkout = () => {
 
             {/* Top Bar Premium (Solo para MM2/Limiteds) */}
             {isSpecialGame && (
-              <div className="w-full shrink-0 flex items-center justify-between px-8 py-6 border-b border-white/[0.06] backdrop-blur-md relative z-50">
+              <div className="hidden lg:flex w-full shrink-0 items-center justify-between px-8 py-6 border-b border-white/[0.06] backdrop-blur-md relative z-50">
                 <div className="flex items-center gap-4">
                   <button onClick={() => navigate(-1)} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/30 hover:text-white hover:bg-white/10 transition-all">
                     <ArrowLeft size={20} />
@@ -441,7 +441,7 @@ const Checkout = () => {
             )}
 
             {/* Inner Content */}
-            <div className={`lg:flex-1 w-full relative z-10 flex flex-col items-center ${isSpecialGame ? 'justify-center' : 'px-4 sm:px-5 lg:px-12 py-6 lg:py-10 overflow-y-auto'}`}>
+            <div className={`lg:flex-1 w-full relative z-10 flex flex-col items-center ${isSpecialGame ? 'lg:justify-center' : 'px-4 sm:px-5 lg:px-12 py-6 lg:py-10 overflow-y-auto'}  `}>
               {/* Full-width backgrounds for special game */}
               {isSpecialGame && (
                 <>
@@ -453,7 +453,7 @@ const Checkout = () => {
                 </>
               )}
               
-              <div className={`w-full ${isSpecialGame ? 'flex-1 lg:h-full max-w-[1400px] flex flex-col relative z-10' : 'max-w-[950px] bg-white/[0.02] rounded-[32px] border border-white/[0.05] shadow-2xl overflow-hidden flex flex-col'} transition-all duration-500`}>
+              <div className={`w-full ${isSpecialGame ? 'lg:flex-1 lg:h-full max-w-[1400px] flex flex-col relative z-10' : 'max-w-[950px] bg-white/[0.02] rounded-[32px] border border-white/[0.05] shadow-2xl overflow-hidden flex flex-col'} transition-all duration-500`}>
 
                 {/* Desktop header (Solo si no es special game) */}
                 {!isSpecialGame && (
@@ -487,15 +487,15 @@ const Checkout = () => {
                 )}
 
                 {/* Grid */}
-                <div className={`grid grid-cols-1 ${isSpecialGame ? 'flex-1 lg:h-full lg:grid-cols-[420px_1fr] relative' : 'lg:grid-cols-[38%_62%] lg:divide-x lg:divide-white/[0.04]'} transition-all duration-500`}>
+                <div className={`grid grid-cols-1 ${isSpecialGame ? 'lg:flex-1 lg:h-full lg:grid-cols-[420px_1fr] relative' : 'lg:grid-cols-[38%_62%] lg:divide-x lg:divide-white/[0.04]'} transition-all duration-500 pb-8 lg:pb-0`}>
                   {/* Border line for special game */}
                   {isSpecialGame && <div className="hidden lg:block absolute top-0 bottom-0 left-[420px] w-[1px] bg-white/[0.06] z-30" />}
                   
                   {/* LEFT col */}
-                  <div className={isSpecialGame ? "h-full overflow-y-auto custom-scrollbar relative z-20" : "flex flex-col p-6 border-b lg:border-b-0 border-white/[0.04]"}>
-                    <div className={isSpecialGame ? "w-full max-w-[420px] mx-auto px-6 lg:px-8 py-10" : ""}>
+                  <div className={isSpecialGame ? "lg:h-full lg:overflow-y-auto custom-scrollbar relative z-20 px-4 py-4 lg:py-10 lg:px-0" : "flex flex-col p-4 lg:p-6 border-b lg:border-b-0 border-white/[0.04]"}>
+                    <div className={isSpecialGame ? "w-full max-w-[420px] mx-auto lg:px-6 lg:px-8" : ""}>
                       <motion.div
-                        className="relative bg-gradient-to-br from-[#111827]/80 via-[#1a2332]/70 to-[#111827]/80 border border-white/[0.08] rounded-[32px] p-6 mb-6 overflow-hidden cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl"
+                        className="relative bg-gradient-to-br from-[#111827]/80 via-[#1a2332]/70 to-[#111827]/80 border border-white/[0.08] rounded-2xl lg:rounded-[32px] p-4 lg:p-6 mb-4 lg:mb-6 overflow-hidden cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl"
                         style={{
                           boxShadow: '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 0 1px rgba(59,130,246,0.05)'
                         }}
@@ -723,7 +723,7 @@ const Checkout = () => {
                               </div>
 
                               {/* Trustpilot-style Rating Card */}
-                              <div className="bg-white/[0.02] border border-white/[0.06] rounded-[24px] p-4 mb-4">
+                              <div className="hidden lg:block bg-white/[0.02] border border-white/[0.06] rounded-[24px] p-4 mb-4">
                                 <div className="flex items-center justify-between mb-3">
                                   <div className="flex items-center gap-1">
                                     {[1, 2, 3, 4, 5].map(i => (
@@ -740,7 +740,7 @@ const Checkout = () => {
                               </div>
 
                               {/* Average Rating Card */}
-                              <div className="bg-white/[0.02] border border-white/[0.06] rounded-[24px] p-5 flex items-center justify-center gap-3">
+                              <div className="hidden lg:flex bg-white/[0.02] border border-white/[0.06] rounded-[24px] p-5 items-center justify-center gap-3">
                                 <span className="text-2xl font-black text-white">5.0</span>
                                 <Star size={16} className="text-yellow-500 fill-yellow-500" />
                                 <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">de calificación<br />promedio</span>
@@ -959,7 +959,7 @@ const Checkout = () => {
 
 
                       {/* Stats Carousel */}
-                      <div className="relative rounded-2xl px-5 py-5 mb-4 overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                      <div className="hidden lg:block relative rounded-2xl px-5 py-5 mb-4 overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
                         <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[80%] bg-white/[0.02] rounded-[100%] rotate-[-15deg] pointer-events-none" />
                         <div className="absolute bottom-[-30%] left-[-5%] w-[40%] h-[70%] bg-white/[0.015] rounded-[100%] rotate-[10deg] pointer-events-none" />
 
@@ -1112,9 +1112,9 @@ const Checkout = () => {
                   </div>
 
                   {/* RIGHT col */}
-                  <div className={isSpecialGame ? "h-full grid grid-rows-[1fr_auto] relative z-20" : "flex flex-col px-5 lg:px-6 py-5 lg:py-6 overflow-y-auto custom-scrollbar"}>
-                    <div className={isSpecialGame ? "h-0 min-h-full overflow-y-auto scrollbar-hide" : ""}>
-                      <div className={isSpecialGame ? "w-full max-w-[892px] px-6 lg:px-8 pt-10 pb-6 mx-0" : ""}>
+                  <div className={isSpecialGame ? "lg:h-full lg:grid lg:grid-rows-[1fr_auto] relative z-20 px-4 py-4 lg:py-0 lg:px-0" : "flex flex-col px-4 lg:px-6 py-4 lg:py-6 overflow-y-auto custom-scrollbar"}>
+                    <div className={isSpecialGame ? "lg:h-0 lg:min-h-full lg:overflow-y-auto scrollbar-hide" : ""}>
+                      <div className={isSpecialGame ? "w-full max-w-[892px] lg:px-6 lg:px-8 lg:pt-10 lg:pb-6 mx-0" : ""}>
                       <div className="flex items-center gap-3 px-3 py-2 rounded-2xl mb-3" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(59,130,246,0.35)' }}>
                         <div className="w-8 h-8 rounded-full bg-[#1e293b] border border-white/[0.10] overflow-hidden shrink-0 flex items-center justify-center">
                           <img

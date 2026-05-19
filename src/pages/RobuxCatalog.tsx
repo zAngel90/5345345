@@ -576,7 +576,7 @@ export default function RobuxCatalog() {
             {/* Method & Currency */}
             <motion.div variants={itemVariants} className="grid sm:grid-cols-2 gap-5 sm:gap-6">
               {/* Tab Selector Method */}
-              <div>
+              <div className="hidden lg:block">
                 <div className="flex items-center gap-2 mb-3">
                   <h3 className="text-[11px] font-semibold text-white/40 uppercase tracking-widest">Método</h3>
                   <Info size={14} className="text-white/20" />
@@ -675,8 +675,8 @@ export default function RobuxCatalog() {
             </motion.div>
           </div>
 
-          {/* Sidebar */}
-          <motion.div variants={itemVariants} className="w-full lg:w-[320px] shrink-0 lg:sticky lg:top-24 space-y-6">
+          {/* Sidebar - Hidden on mobile */}
+          <motion.div variants={itemVariants} className="hidden lg:block w-full lg:w-[320px] shrink-0 lg:sticky lg:top-24 space-y-6">
             <div className="relative rounded-2xl overflow-hidden bg-white/[0.02] backdrop-blur-sm" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
               <div className="p-6 bg-white/[0.02] backdrop-blur-sm">
                 <div className="flex items-center justify-between mb-5">
@@ -2373,6 +2373,79 @@ export default function RobuxCatalog() {
         </div>
       )}
     </AnimatePresence>
+
+    {/* Mobile Bottom Bar - Fixed */}
+    {displayAmount > 0 && (
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0d0c22] border-t border-white/10 p-4 backdrop-blur-xl">
+        <div className="max-w-lg mx-auto">
+          {/* Method Selector */}
+          <div className="flex gap-2 mb-3">
+            <button
+              onClick={() => setMethod('gamepass')}
+              className={`flex-1 py-2.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                method === 'gamepass' 
+                  ? 'bg-white/10 text-white border border-white/20' 
+                  : 'bg-white/5 text-white/40 border border-white/10'
+              }`}
+            >
+              <img src="/images/gamepass2.svg" className="w-4 h-4 shrink-0" alt="Gamepass" />
+              Gamepass
+            </button>
+            <button
+              onClick={() => setMethod('group')}
+              className={`flex-1 py-2.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                method === 'group' 
+                  ? 'bg-white/10 text-white border border-white/20' 
+                  : 'bg-white/5 text-white/40 border border-white/10'
+              }`}
+            >
+              <Users size={14} />
+              Grupo
+              <span className="text-[8px] bg-emerald-500/20 text-emerald-400 px-1 py-0.5 rounded font-bold">-15%</span>
+            </button>
+          </div>
+
+          {/* Info Row */}
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-5 h-5">
+                  <img src="/images/robux-logo.svg" className="w-full h-full object-contain filter brightness-0 invert" alt="Robux" />
+                </div>
+                <span className="text-white font-bold text-sm">{displayAmount.toLocaleString()} Robux</span>
+              </div>
+              <p className="text-[10px] text-white/50 font-medium">
+                {selectedCurrencyData.symbol}{currentPrice} {currency}
+              </p>
+            </div>
+            
+            <button
+              onClick={handlePurchase}
+              disabled={isLoading}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black text-sm transition-all shadow-[0_8px_16px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2 uppercase tracking-wider"
+            >
+              {isLoading ? (
+                <>
+                  <LoadingSpinner />
+                  <span>Procesando...</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingCart size={16} strokeWidth={3} />
+                  COMPRAR
+                </>
+              )}
+            </button>
+          </div>
+          
+          {/* Security Text */}
+          <div className="flex items-center justify-center gap-1.5 text-[10px] text-white/40">
+            <Shield size={12} />
+            <span>Pago seguro - Compra protegida</span>
+          </div>
+        </div>
+      </div>
+    )}
   </>
   );
 }

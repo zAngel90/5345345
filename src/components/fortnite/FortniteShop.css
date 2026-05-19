@@ -2,6 +2,8 @@
   display: flex;
   min-height: 100vh;
   background: transparent;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* SIDEBAR STYLES */
@@ -98,6 +100,8 @@
   margin-left: 310px;
   min-height: 100vh;
   padding-bottom: 4rem;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 @media (max-width: 1024px) {
@@ -192,14 +196,121 @@
   gap: 1.5rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .items-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.6rem;
+  }
+
+  .items-grid > * {
+    min-width: 0;
   }
   
   .section-header h2 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+  }
+
+  .shop-header {
+    padding: 1.5rem 1rem 1rem 1rem;
+  }
+
+  .shop-main {
+    padding: 0 0.6rem;
+    gap: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .shop-section {
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  .timer-value {
+    font-size: 1.1rem;
+  }
+
+  .item-name {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .item-info {
+    padding: 0.6rem;
+  }
+
+  .item-price-badge span {
+    font-size: 0.85rem;
+  }
+
+  .action-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .item-card-wrapper.is-bundle {
+    grid-column: span 2;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.cart-float-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  z-index: 50;
+  transition: all 0.2s;
+}
+
+.cart-float-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 1024px) {
+  .cart-float-btn {
+    bottom: 100px;
+    right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
+.admin-username-card {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .admin-username-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+    margin: 12px 0;
+    gap: 12px;
+  }
+  .admin-username-card .copy-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 

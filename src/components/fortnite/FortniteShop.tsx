@@ -164,17 +164,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
 
         {/* Admin Username Section */}
         {adminUsername && (
-          <div style={{ 
-            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%)',
-            border: '1px solid rgba(59, 130, 246, 0.3)',
-            borderRadius: '16px',
-            padding: '20px',
-            margin: '20px 0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '16px'
-          }}>
+          <div className="admin-username-card">
             <div>
               <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px', marginBottom: '8px' }}>
                 Agrega al administrador en Fortnite para recibir tus items:
@@ -198,6 +188,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
             </div>
             <button
               onClick={handleCopyUsername}
+              className="copy-btn"
               style={{
                 background: copied ? 'rgba(34, 197, 94, 0.2)' : 'rgba(59, 130, 246, 0.2)',
                 border: copied ? '1px solid rgba(34, 197, 94, 0.4)' : '1px solid rgba(59, 130, 246, 0.4)',
@@ -251,32 +242,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
       {/* Floating Cart Button */}
       <button
         onClick={() => setCartOpen(true)}
-        style={{
-          position: 'fixed',
-          bottom: '30px',
-          right: '30px',
-          width: '60px',
-          height: '60px',
-          borderRadius: '50%',
-          background: 'rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.6)',
-          zIndex: 50,
-          transition: 'all 0.2s'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'scale(1.1)';
-          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'scale(1)';
-          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-        }}
+        className="cart-float-btn"
       >
         <ShoppingCart color="white" size={28} />
         {cartCount > 0 && (
@@ -317,18 +283,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            style={{
-              position: 'fixed',
-              top: '100px',
-              right: '30px',
-              zIndex: 200,
-              background: 'linear-gradient(135deg, #3b82f6 0%, #9333ea 100%)',
-              color: 'white',
-              padding: '16px 24px',
-              borderRadius: '12px',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
-              border: '1px solid rgba(255, 255, 255, 0.2)'
-            }}
+            className="fixed top-24 right-4 lg:right-[30px] z-[200] bg-gradient-to-br from-blue-500 to-purple-600 text-white px-4 py-3 lg:px-6 lg:py-4 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 max-w-[calc(100vw-2rem)] lg:max-w-none"
           >
             <p style={{ fontWeight: 'bold', margin: 0 }}>{toastMessage}</p>
           </motion.div>

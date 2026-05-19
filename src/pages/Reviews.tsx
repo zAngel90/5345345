@@ -380,34 +380,34 @@ export default function Reviews() {
     <motion.div 
       initial={{ opacity: 0, scale: 0.9, y: 30 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      className="min-h-screen bg-[#0d0c22] relative"
+      className="min-h-screen bg-[#0d0c22] relative overflow-x-hidden"
     >
       {/* Background blobs */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-16 xl:px-24 pt-24 sm:pt-32 pb-28 md:pb-20 relative z-10">
+      <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-10 lg:px-16 xl:px-24 pt-20 sm:pt-32 pb-36 md:pb-20 relative z-10">
         
         {/* Header Section */}
-        <motion.header className="mb-8 lg:mb-12">
-          <h1 className="text-4xl lg:text-5xl font-display font-black text-white tracking-tight leading-tight mb-2">
+        <motion.header className="mb-6 lg:mb-12">
+          <h1 className="text-3xl lg:text-5xl font-display font-black text-white tracking-tight leading-tight mb-1">
             Reseñas
           </h1>
-          <p className="text-white/40 text-lg">Lo que nuestros clientes dicen de nosotros.</p>
+          <p className="text-white/40 text-sm lg:text-lg">Lo que nuestros clientes dicen de nosotros.</p>
         </motion.header>
 
-        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[340px_1fr] gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[340px_1fr] gap-4 lg:gap-8">
           
           {/* Sidebar */}
-          <aside className="sticky top-28 self-start space-y-4">
+          <aside className="md:sticky md:top-28 md:self-start space-y-3 md:space-y-4">
             
             {/* Overall Rating Card */}
             <motion.div className="bg-white/[0.03] backdrop-blur-xl border border-blue-500/20 rounded-3xl transition-all duration-500 hover:border-blue-500/50 group/rating relative">
               <div className="px-6 pt-5 pb-4 border-b border-white/5">
                 <h3 className="text-xs font-bold text-white/30 uppercase tracking-[0.2em]">Puntuación General</h3>
               </div>
-              <div className="px-6 pt-16 pb-14 flex flex-col items-center text-center gap-5">
-                <span className="text-[84px] font-black bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent leading-none tracking-tighter group-hover/rating:scale-110 transition-transform duration-500 tabular-nums">
+              <div className="px-6 pt-6 lg:pt-16 pb-6 lg:pb-14 flex flex-col items-center text-center gap-3 lg:gap-5">
+                <span className="text-6xl lg:text-[84px] font-black bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent leading-none tracking-tighter group-hover/rating:scale-110 transition-transform duration-500 tabular-nums">
                   {stats.average}
                 </span>
                 <StarRating rating={Math.round(parseFloat(stats.average))} size={28} />
@@ -438,7 +438,7 @@ export default function Reviews() {
                   })}
                 </div>
               </div>
-              <div className="px-4 pb-4">
+              <div className="hidden md:block px-4 pb-4">
                 <button 
                   onClick={() => setIsModalOpen(true)}
                   className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
@@ -449,8 +449,8 @@ export default function Reviews() {
               </div>
             </motion.div>
 
-            {/* Filters Card */}
-            <motion.div className="bg-white/[0.03] backdrop-blur-xl border border-blue-500/20 rounded-3xl transition-all duration-500 hover:border-blue-500/50 relative z-20">
+            {/* Filters Card - hidden on mobile, show compact version */}
+            <motion.div className="hidden md:block bg-white/[0.03] backdrop-blur-xl border border-blue-500/20 rounded-3xl transition-all duration-500 hover:border-blue-500/50 relative z-20">
               <div className="p-4 border-b border-white/5 flex items-center justify-between">
                 <h3 className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Filtrar por</h3>
                 <AnimatePresence>
@@ -538,10 +538,53 @@ export default function Reviews() {
           </aside>
 
           {/* Main Content */}
-          <div className="space-y-6">
+          <div className="space-y-4 lg:space-y-6">
             
+            {/* Mobile: write review button */}
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="flex md:hidden w-full items-center justify-center gap-2 py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all active:scale-[0.98] text-sm uppercase tracking-wider"
+            >
+              <PenLine size={16} />
+              Escribir reseña
+            </button>
+
+            {/* Mobile compact filters */}
+            <div className="flex md:hidden gap-2 overflow-x-auto scrollbar-hide pb-1">
+              {[5,4,3,2,1].map(r => (
+                <button
+                  key={r}
+                  onClick={() => { setFilterRating(filterRating === r ? 'all' : r); setCurrentPage(1); }}
+                  className={`shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                    filterRating === r ? 'bg-amber-500/20 border-amber-500/40 text-amber-400' : 'border-white/10 bg-white/5 text-white/50'
+                  }`}
+                >
+                  <Star size={11} className={filterRating === r ? 'fill-amber-400 text-amber-400' : 'text-white/30'} />
+                  {r}
+                </button>
+              ))}
+              <button
+                onClick={() => { setFilterRating('all'); setCurrentPage(1); }}
+                className={`shrink-0 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                  filterRating === 'all' ? 'bg-blue-500/20 border-blue-500/40 text-blue-400' : 'border-white/10 bg-white/5 text-white/50'
+                }`}
+              >
+                Todas
+              </button>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="shrink-0 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white appearance-none focus:outline-none cursor-pointer"
+              >
+                <option value="newest" className="bg-[#0d0c22]">Recientes</option>
+                <option value="oldest" className="bg-[#0d0c22]">Antiguas</option>
+                <option value="highest" className="bg-[#0d0c22]">Mayor Rating</option>
+                <option value="lowest" className="bg-[#0d0c22]">Menor Rating</option>
+              </select>
+            </div>
+
             {/* Search Bar */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 lg:gap-4">
               <motion.div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" size={20} />
                 <input 
@@ -616,12 +659,12 @@ export default function Reviews() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-xl bg-[#151432] border border-white/10 rounded-[32px] overflow-hidden shadow-2xl"
+              className="relative w-full max-w-xl bg-[#151432] border border-white/10 rounded-2xl lg:rounded-[32px] overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto"
             >
-              <div className="p-8">
+              <div className="p-4 lg:p-8">
                 <div className="flex justify-between items-start mb-8">
                   <div>
-                    <h2 className="text-2xl font-black text-white">Escribir Reseña</h2>
+                    <h2 className="text-xl lg:text-2xl font-black text-white">Escribir Reseña</h2>
                     <p className="text-white/40 text-sm mt-1">Cuéntanos tu experiencia con Pixel Store</p>
                   </div>
                   <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-white/5 rounded-xl text-white/20 hover:text-white transition-all">
