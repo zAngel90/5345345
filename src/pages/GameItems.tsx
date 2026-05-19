@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { OrdersAPI, ChatAPI, SERVER_URL } from '../services/api';
-import { ChevronLeft } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const CATALOG_URL = 'https://54345345.vercel.app/';
@@ -133,18 +132,6 @@ export default function GameItems() {
 
   return (
     <div className="fixed inset-0 flex flex-col bg-[#0B0F16] text-white font-sans overflow-hidden">
-
-      {/* Top bar móvil */}
-      <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-white/[0.06] bg-[#0B0F16] shrink-0">
-        <button
-          onClick={() => navigate('/catalog')}
-          className="p-2 bg-white/5 border border-white/10 rounded-xl text-white/60 hover:text-white transition-colors"
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <img src="https://i.postimg.cc/5tSsMDgK/logo-4x.png" className="h-7 object-contain" alt="Pixel Store" />
-        <div className="w-9" />
-      </div>
 
       {/* Iframe que ocupa todo el espacio restante */}
       <iframe
