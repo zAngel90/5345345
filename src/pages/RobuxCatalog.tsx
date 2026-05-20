@@ -334,6 +334,10 @@ export default function RobuxCatalog() {
         try {
           const placesRes = await RobloxAPI.getUserPlaces(selectedUser.id);
           if (placesRes.data) {
+            if (placesRes.data.length === 0) {
+              setHasUnclassifiedGame(true);
+              return;
+            }
             let allGp: any[] = [];
             for (const place of placesRes.data) {
               const gpRes = await RobloxAPI.getPlaceGamepasses(place.id, selectedUser.id);
@@ -344,6 +348,11 @@ export default function RobuxCatalog() {
                 }));
                 allGp = [...allGp, ...passesWithUniverse];
               }
+            }
+            if (allGp.length === 0) {
+              setActiveUniverseId(placesRes.data[0]?.universeId || null);
+              setHasUnclassifiedGame(true);
+              return;
             }
             setExistingGamepasses(allGp);
           }
@@ -1357,8 +1366,11 @@ export default function RobuxCatalog() {
                             if (found) {
                               setSelectedGamepass(found);
                               setGamepassStep(3);
+                            } else if (allGp.length === 0) {
+                              // Todos los juegos son ghost/borrados
+                              setHasUnclassifiedGame(true);
                             } else {
-                              // Si hay juegos pero no el gamepass con el precio, mostrar instrucciones de creación
+                              // Hay juegos válidos pero sin el gamepass al precio correcto
                               setHasUnclassifiedGame(false);
                             }
                           } else {
@@ -1566,9 +1578,11 @@ export default function RobuxCatalog() {
                             }
                             
                             let foundGamepass = null;
+                            let totalGp = 0;
                             for (const place of placesRes.data) {
                               const gpRes = await RobloxAPI.getPlaceGamepasses(place.id, selectedUser.id);
                               if (gpRes.data && gpRes.data.length > 0) {
+                                totalGp += gpRes.data.length;
                                 foundGamepass = gpRes.data.find((gp: any) => gp.price === gamepassRequiredPrice);
                                 if (foundGamepass) break;
                               }
@@ -1577,8 +1591,11 @@ export default function RobuxCatalog() {
                             if (foundGamepass) {
                               setSelectedGamepass(foundGamepass);
                               setGamepassStep(3);
+                            } else if (totalGp === 0) {
+                              // Todos los juegos son ghost/borrados
+                              setHasUnclassifiedGame(true);
                             } else {
-                              // Si hay juegos pero no el precio exacto, mostrar instrucciones de precio (NO "configura tu entrega")
+                              // Hay juegos válidos pero sin el gamepass al precio correcto
                               setHasUnclassifiedGame(false);
                             }
                           } catch (error) {

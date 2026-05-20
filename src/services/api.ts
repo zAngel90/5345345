@@ -251,7 +251,7 @@ export const StoreAPI = {
   uploadImage: (formData: FormData) => fetchAPI('/admin/upload', { method: 'POST', body: formData }),
   updateOrderStatus: async (orderId: string, status: string) => {
     return fetchAPI(`/admin/orders/${orderId}/status`, {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify({ status })
     });
   },
