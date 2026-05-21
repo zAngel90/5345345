@@ -818,7 +818,7 @@ export default function Account() {
                       <Crown className="text-yellow-600" size={20} />
                     </div>
                     <div>
-                      <h1 className="text-xl font-bold text-white tracking-wide">Peek Tiers</h1>
+                      <h1 className="text-xl font-bold text-white tracking-wide">Pixel Tiers</h1>
                       <p className="text-[11px] text-white/40">Tu progreso y recompensas</p>
                     </div>
                   </div>
