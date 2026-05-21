@@ -1,0 +1,9 @@
+Este archivo es temporal para guardar el código del modal que voy a implementar.
+
+El modal tendrá:
+- Paso 1: Buscar usuario de Roblox
+- Paso 2 (si gamepass): Buscar/verificar gamepass
+- Paso 2 (si grupo): Verificar grupos
+- Paso 3: Confirmación y actualización
+
+Debido a la extensión del código, voy a implementarlo en partes.

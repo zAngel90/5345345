@@ -746,7 +746,7 @@ export default function Admin() {
               animate={{opacity:1, scale:1, y:0}} 
               exit={{opacity:0, scale:0.95, y:20}}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#0a0a16] border border-white/10 rounded-3xl w-full max-w-7xl max-h-[90vh] overflow-hidden shadow-2xl"
+              className="bg-[#0a0a16] border border-white/10 rounded-3xl w-full max-w-7xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl"
             >
               {/* Modal Header */}
               <div className="flex items-center justify-between p-8 border-b border-white/5 bg-white/[0.02]">
@@ -790,7 +790,7 @@ export default function Admin() {
               </div>
 
               {/* Modal Content */}
-              <div className="p-8 overflow-y-auto max-h-[calc(90vh-180px)] custom-scrollbar">
+              <div className="flex-1 p-8 overflow-y-auto custom-scrollbar">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {products.filter(p => p.game === selectedGameId).map(product => (
                     <div key={product.id} className="bg-white/[0.02] border border-white/5 p-5 rounded-3xl group relative hover:border-white/10 hover:bg-white/[0.04] transition-all">
@@ -814,12 +814,20 @@ export default function Admin() {
               </div>
 
               {/* Modal Footer */}
-              <div className="p-6 border-t border-white/5 bg-white/[0.02] flex justify-end">
+              <div className="flex-shrink-0 p-4 sm:p-6 border-t border-white/5 bg-white/[0.02] flex flex-col sm:flex-row justify-end gap-3">
+                <button 
+                  onClick={() => setSelectedGameId(null)}
+                  className="w-full sm:w-auto px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl font-bold text-sm transition-all"
+                >
+                  Cerrar
+                </button>
                 <button 
                   onClick={() => handleSaveAll('products')} 
-                  className="px-10 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-emerald-600/20 transition-all flex items-center gap-2"
+                  disabled={isSaving}
+                  className="w-full sm:w-auto px-8 py-3 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white rounded-xl font-black text-sm uppercase tracking-widest shadow-xl shadow-emerald-600/20 transition-all flex items-center justify-center gap-2"
                 >
-                  <Save size={16} /> Guardar Catálogo
+                  {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+                  {isSaving ? 'Guardando...' : 'Guardar Catálogo'}
                 </button>
               </div>
             </motion.div>

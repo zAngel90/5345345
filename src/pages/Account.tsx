@@ -30,14 +30,13 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RobloxAPI, StoreAPI, AuthAPI, SERVER_URL, OrdersAPI, CouponsAPI } from '../services/api';
 
 const TIERS_CONFIG = [
-  { id: 'NINGUNO', name: 'Inicio', rbx: 0, desc: 'Realiza tu primera compra para subir', benefit: 'Sin beneficios especiales', icon: Leaf, color: 'text-white/20' },
-  { id: 'CLIENTE', name: 'Cliente Pixel', rbx: 1, desc: 'Rol personalizado en Discord', benefit: '1.5% cashback a saldo', icon: DollarSign, color: 'text-blue-400' },
-  { id: 'BRONCE', name: 'Bronce Pixel', rbx: 3000, desc: 'Rol personalizado en Discord', benefit: 'Acceso a canales exclusivos', logo: '/images/bronce.png', color: 'text-orange-400' },
-  { id: 'SILVER', name: 'Silver Pixel', rbx: 10000, desc: 'Rol personalizado en Discord', benefit: 'Prioridad en soporte', logo: '/images/plata.png', color: 'text-slate-300' },
-  { id: 'GOLD', name: 'Gold Pixel', rbx: 25000, desc: 'Rol personalizado en Discord', benefit: 'Descuentos exclusivos', logo: '/images/oro.png', color: 'text-yellow-400' },
-  { id: 'DIAMOND', name: 'Diamond Pixel', rbx: 50000, desc: 'Rol personalizado en Discord', benefit: 'Sorteos VIP mensuales', logo: '/images/diamante.png', color: 'text-blue-300' },
-  { id: 'ROYAL', name: 'Royal Pixel', rbx: 80000, desc: 'Rol personalizado en Discord', benefit: 'Invitación a eventos secretos', logo: '/images/Royal.png', color: 'text-purple-400' },
-  { id: 'MYTHIC', name: 'Mythic Pixel', rbx: 150000, desc: 'Nivel legendario máximo', benefit: 'Beneficios supremos VIP', logo: '/images/mythic.png', color: 'text-red-500' },
+  { id: 'NINGUNO', name: 'Sin Rango', rbx: 0, desc: 'Realiza tu primera compra para obtener rango', benefit: 'Sin beneficios especiales', icon: Leaf, color: 'text-white/20' },
+  { id: 'BRONCE', name: 'Bronce', rbx: 1, desc: 'Rol personalizado en Discord', benefit: 'Acceso a canales exclusivos', logo: '/images/bronce.png', color: 'text-orange-400' },
+  { id: 'SILVER', name: 'Plata', rbx: 3000, desc: 'Rol personalizado en Discord', benefit: 'Prioridad en soporte', logo: '/images/plata.png', color: 'text-slate-300' },
+  { id: 'GOLD', name: 'Oro', rbx: 10000, desc: 'Rol personalizado en Discord', benefit: 'Descuentos exclusivos', logo: '/images/oro.png', color: 'text-yellow-400' },
+  { id: 'DIAMOND', name: 'Diamante', rbx: 25000, desc: 'Rol personalizado en Discord', benefit: 'Sorteos VIP mensuales', logo: '/images/diamante.png', color: 'text-blue-300' },
+  { id: 'ROYAL', name: 'Royal', rbx: 50000, desc: 'Rol personalizado en Discord', benefit: 'Invitación a eventos secretos', logo: '/images/Royal.png', color: 'text-purple-400' },
+  { id: 'MYTHIC', name: 'Mythic', rbx: 80000, desc: 'Nivel legendario máximo', benefit: 'Beneficios supremos VIP', logo: '/images/mythic.png', color: 'text-red-500' },
 ];
 
 const TiltButton = ({ label, icon: Icon, onClick, isSuccess }: { label: string, icon: any, onClick: (e: any) => void, isSuccess: boolean }) => {
@@ -949,7 +948,14 @@ export default function Account() {
                           className={`p-4 rounded-2xl border transition-all duration-300 group cursor-pointer flex items-center gap-4 ${
                             isCurrent 
                               ? 'bg-blue-500/10 border-blue-500/30 shadow-[4px_4px_0px_0px_rgba(59,130,246,0.2)]' 
-                              : 'bg-white/[0.03] border-white/5 shadow-[4px_4px_0px_0px_rgba(255,255,255,0.02)] hover:bg-white/[0.06] hover:border-white/10'
+                              : `bg-white/[0.03] border-white/5 shadow-[4px_4px_0px_0px_rgba(255,255,255,0.02)] ${
+                                  tier.color?.includes('orange') ? 'hover:bg-orange-500/10 hover:border-orange-500/30' :
+                                  tier.color?.includes('slate') || tier.color?.includes('gray') ? 'hover:bg-slate-400/10 hover:border-slate-400/30' :
+                                  tier.color?.includes('yellow') ? 'hover:bg-yellow-500/10 hover:border-yellow-500/30' :
+                                  tier.color?.includes('blue') ? 'hover:bg-blue-400/10 hover:border-blue-400/30' :
+                                  tier.color?.includes('purple') ? 'hover:bg-purple-500/10 hover:border-purple-500/30' :
+                                  tier.color?.includes('red') ? 'hover:bg-red-500/10 hover:border-red-500/30' : 'hover:bg-white/[0.06] hover:border-white/10'
+                                }`
                           }`}
                         >
                           {/* Logo with Neon Worm - Contours approach */}
@@ -1009,7 +1015,13 @@ export default function Account() {
                             </div>
                             <div className="flex items-center gap-2">
                                <p className="text-[10px] font-bold text-white/30 tracking-tight">
-                                 {tier.rbx === 0 ? 'Inicio' : `${tier.rbx.toLocaleString()} R$`}
+                                 {(() => {
+                                   const currentIndex = TIERS_CONFIG.findIndex(t => t.id === tier.id);
+                                   const nextTier = TIERS_CONFIG[currentIndex + 1];
+                                   if (tier.rbx === 0) return 'Sin compras';
+                                   if (!nextTier) return `${tier.rbx.toLocaleString()}+ R$`;
+                                   return `${tier.rbx.toLocaleString()} - ${(nextTier.rbx - 1).toLocaleString()} R$`;
+                                 })()}
                                </p>
                             </div>
                             <p className="text-[9px] font-medium text-white/15 group-hover:text-white/30 transition-colors truncate mt-1">{tier.desc}</p>

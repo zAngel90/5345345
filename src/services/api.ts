@@ -249,6 +249,7 @@ export const StoreAPI = {
   getHomePopularCategories: () => fetchAPI('/admin/home-popular-categories'),
   updateHomePopularCategories: (categories: any) => fetchAPI('/admin/home-popular-categories', { method: 'POST', body: JSON.stringify({ categories }) }),
   uploadImage: (formData: FormData) => fetchAPI('/admin/upload', { method: 'POST', body: formData }),
+  getAdminUsers: () => fetchAPI('/admin/users'),
   updateOrderStatus: async (orderId: string, status: string) => {
     return fetchAPI(`/admin/orders/${orderId}/status`, {
       method: 'PUT',
@@ -392,13 +393,17 @@ export const CouponsAPI = {
     return fetchAPI('/coupons/public');
   },
 
+  getMyCoupons: async () => {
+    return fetchAPI('/coupons/mine');
+  },
+
   /**
    * (Checkout) Validate a coupon code
    */
-  validateCoupon: async (code: string, subtotal: number) => {
+  validateCoupon: async (code: string, subtotal: number, userId?: string) => {
     return fetchAPI('/coupons/validate', {
       method: 'POST',
-      body: JSON.stringify({ code, subtotal })
+      body: JSON.stringify({ code, subtotal, userId })
     });
   },
 
@@ -414,11 +419,13 @@ export const CouponsAPI = {
    */
   createCoupon: async (couponData: {
     code: string;
-    discountType: 'percentage' | 'fixed';
-    discountValue: number;
+    discountType: 'percentage' | 'fixed' | 'balance';
+    discountValue?: number;
+    initialBalance?: number;
     maxUses?: number | null;
     isPublic?: boolean;
     expiresAt?: string | null;
+    assignedTo?: string | null;
   }) => {
     return fetchAPI('/coupons/admin/create', {
       method: 'POST',

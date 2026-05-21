@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, Shield, Zap, Tag, ArrowRight, ArrowLeft, Star, Lock, Edit2, X, Search, HelpCircle, ShoppingCart, Loader2, ImageIcon, Globe } from 'lucide-react';
+import { ShoppingCart, CreditCard, Smartphone, Wallet, DollarSign, X, ChevronDown, ChevronUp, ChevronLeft, Tag, CheckCircle2, Loader2, Copy, Check, ArrowRight, ArrowLeft, Users, Search, Search as SearchIcon, HelpCircle, Shield, Info, TrendingUp, Zap, Star, Clock, Lock, Globe, ExternalLink, AlertCircle, Package, FileText, ImageIcon } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { StoreAPI, OrdersAPI, SERVER_URL, CouponsAPI } from '../services/api';
+import { RobloxAPI, StoreAPI, OrdersAPI, BASE_URL, SERVER_URL, CouponsAPI } from '../services/api';
 
 const PAYMENT_METHODS = [
   { id: 'nequi', name: 'Nequi', emoji: '💜' },
@@ -155,10 +155,128 @@ const Checkout = () => {
   const [currentUser, setCurrentUser] = useState({ name: username, id: userId });
   const [userAvatar, setUserAvatar] = useState('');
 
+  // Estados para modal de cambio de usuario
+  const [isChangeUserModalOpen, setIsChangeUserModalOpen] = useState(false);
+  const [changeUserStep, setChangeUserStep] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [recentUsers, setRecentUsers] = useState<any[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoadingUser, setIsLoadingUser] = useState(false);
+  const [userError, setUserError] = useState<string | null>(null);
+  const [existingGamepasses, setExistingGamepasses] = useState<any[]>([]);
+  const [selectedGamepass, setSelectedGamepass] = useState<any>(null);
+  const [gamepassSearchQuery, setGamepassSearchQuery] = useState('');
+  const [isLoadingGamepass, setIsLoadingGamepass] = useState(false);
+  const [groupVerificationResults, setGroupVerificationResults] = useState<any>(null);
+  const [isVerifyingGroups, setIsVerifyingGroups] = useState(false);
+  const [requiredGroups, setRequiredGroups] = useState<any[]>([]);
+  const deliveryMethod = state.method || 'gamepass'; // 'gamepass' o 'group'
+  const gamepassRequiredPrice = Math.ceil(amount / 0.7); // Precio con comisión de Roblox (30%)
+
   // Sync currentUser if username/userId changes
   useEffect(() => {
     setCurrentUser({ name: username, id: userId });
   }, [username, userId]);
+
+  // Cargar usuarios recientes
+  useEffect(() => {
+    const saved = localStorage.getItem('roblox_recent_users');
+    if (saved) {
+      try {
+        setRecentUsers(JSON.parse(saved));
+      } catch (e) {
+        console.error('Error loading recent users:', e);
+      }
+    }
+  }, []);
+
+  // Cargar configuración de grupos
+  useEffect(() => {
+    const fetchGroupsConfig = async () => {
+      try {
+        const res = await RobloxAPI.getGroupsConfig();
+        if (res.success) {
+          setRequiredGroups(res.data);
+        }
+      } catch (error) {
+        console.error('Error fetching groups config:', error);
+      }
+    };
+    fetchGroupsConfig();
+  }, []);
+
+  // Verificar grupos automáticamente al llegar al paso 2 (group)
+  useEffect(() => {
+    if (changeUserStep === 2 && deliveryMethod === 'group' && selectedUser && !groupVerificationResults) {
+      const verifyGroups = async () => {
+        setIsVerifyingGroups(true);
+        setUserError(null);
+        try {
+          const res = await RobloxAPI.checkUserGroups(selectedUser.id);
+          if (res.success) {
+            setGroupVerificationResults(res.data);
+            // NO avanzar automáticamente, dejar que el usuario vea la lista de grupos
+          }
+        } catch (error) {
+          console.error('Error verificando grupos:', error);
+          setUserError('Error al verificar grupos');
+        } finally {
+          setIsVerifyingGroups(false);
+        }
+      };
+      verifyGroups();
+    }
+  }, [changeUserStep, deliveryMethod, selectedUser, groupVerificationResults]);
+
+  // Cargar gamepasses automáticamente al llegar al paso 2 (gamepass)
+  useEffect(() => {
+    if (changeUserStep === 2 && deliveryMethod === 'gamepass' && selectedUser && existingGamepasses.length === 0) {
+      const loadGamepasses = async () => {
+        setIsLoadingGamepass(true);
+        setUserError(null);
+        try {
+          const placesRes = await RobloxAPI.getUserPlaces(selectedUser.id);
+          if (placesRes.data && placesRes.data.length > 0) {
+            let allGp: any[] = [];
+            for (const place of placesRes.data) {
+              const gpRes = await RobloxAPI.getPlaceGamepasses(place.id, selectedUser.id);
+              if (gpRes.data) {
+                const passesWithUniverse = gpRes.data.map((gp: any) => ({
+                  ...gp,
+                  universeId: place.universeId,
+                  placeId: place.id
+                }));
+                allGp = [...allGp, ...passesWithUniverse];
+              }
+            }
+            setExistingGamepasses(allGp);
+            
+            // Selección automática del gamepass según el precio requerido
+            const foundGamepass = allGp.find(gp => gp.price === gamepassRequiredPrice);
+            
+            if (foundGamepass) {
+              setSelectedGamepass(foundGamepass);
+              setChangeUserStep(3); // Avanzar automáticamente al paso 3
+              console.log('✅ Gamepass encontrado automáticamente, avanzando al paso 3:', foundGamepass.name, foundGamepass.price);
+            } else if (allGp.length === 0) {
+              setUserError('No se encontraron gamepasses para este usuario');
+            } else {
+              console.log(`⚠️ No se encontró gamepass con precio ${gamepassRequiredPrice} R$. Gamepasses disponibles:`, allGp.map(g => `${g.name} (${g.price} R$)`));
+            }
+          } else {
+            setUserError('Este usuario no tiene juegos con gamepasses');
+          }
+        } catch (error) {
+          console.error('Error cargando gamepasses:', error);
+          setUserError('Error al cargar gamepasses');
+        } finally {
+          setIsLoadingGamepass(false);
+        }
+      };
+      loadGamepasses();
+    }
+  }, [changeUserStep, deliveryMethod, selectedUser, state]);
 
   const stats = [
     { value: '+50,000', label: 'entregas exitosas' },
@@ -253,12 +371,22 @@ const Checkout = () => {
   const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
   const [couponError, setCouponError] = useState('');
 
+  // Detectar cupón aplicado desde el modal de Robux
+  useEffect(() => {
+    if (state.coupon && state.coupon.code) {
+      console.log('🎫 Cupón detectado desde modal:', state.coupon);
+      setAppliedCoupon(state.coupon);
+      setCode(state.coupon.code);
+      setShowDiscount(false); // No mostrar el input de cupón
+    }
+  }, [state.coupon]);
+
   const handleValidateCoupon = async () => {
     if (!code.trim()) return;
     try {
       setIsValidatingCoupon(true);
       setCouponError('');
-      const res = await CouponsAPI.validateCoupon(code.toUpperCase(), baseTotal);
+      const res = await CouponsAPI.validateCoupon(code.toUpperCase(), baseTotal, storeUser?.id);
       if (res.success) {
         setAppliedCoupon(res.coupon);
         setCouponError('');
@@ -325,6 +453,7 @@ const Checkout = () => {
       formData.append('currency', displayCurrency);
       if (appliedCoupon) {
         formData.append('couponId', appliedCoupon.id.toString());
+        formData.append('discountAmount', discountAmount.toString());
       }
       if (state.gamepassId) {
         formData.append('gamepassId', state.gamepassId.toString());
@@ -765,7 +894,7 @@ const Checkout = () => {
                                     <div className="flex items-center gap-1.5">
                                       <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-blue-500/[0.08]">
                                         <Shield className="w-2.5 h-2.5 text-blue-400" />
-                                        <span className="text-[9px] font-semibold text-blue-400">Gamepass</span>
+                                        <span className="text-[9px] font-semibold text-blue-400">{deliveryMethod === 'group' ? 'Grupo' : 'Gamepass'}</span>
                                       </div>
                                       <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-blue-500/[0.08]">
                                         <Shield className="w-2.5 h-2.5 text-blue-400" />
@@ -1131,20 +1260,31 @@ const Checkout = () => {
                             alt={isFortnite ? state.fortniteData?.fortniteUsername || username : username} 
                             className="w-full h-full object-cover"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${isFortnite ? state.fortniteData?.fortniteUsername || username : username}&background=random`;
+                              (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=User&background=random';
                             }}
                           />
                         </div>
                         <span className="flex-1 text-xs font-medium text-white/90">@{isFortnite ? state.fortniteData?.fortniteUsername || username : username}</span>
-                        <button
-                          onClick={() => setIsUserModalOpen(true)}
-                          className="p-1.5 rounded-lg hover:bg-white/[0.06] transition-all"
-                        >
-                          <Edit2 className="w-3.5 h-3.5 text-white/35" />
-                        </button>
+                        {/* Solo mostrar botón de cambiar usuario para Robux normales (no in-game, MM2 o limiteds) */}
+                        {!isIngame && !isMM2 && !isLimiteds && !isTrade && !isFortnite && (
+                          <button
+                            onClick={() => {
+                              setIsChangeUserModalOpen(true);
+                              setChangeUserStep(1);
+                              setSelectedUser(null);
+                              setSearchQuery('');
+                              setExistingGamepasses([]);
+                              setSelectedGamepass(null);
+                              setGroupVerificationResults(null);
+                            }}
+                            className="text-[10px] font-black text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-wider"
+                          >
+                            Cambiar
+                          </button>
+                        )}
                       </div>
 
-                      {!showDiscount && !appliedCoupon ? (
+                      {!showDiscount ? (
                         <button
                           onClick={() => setShowDiscount(true)}
                           className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl mb-4 transition-all bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.06] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]"
@@ -1178,7 +1318,19 @@ const Checkout = () => {
                             <div className="space-y-2">
                               <div className="flex items-center justify-between mb-1.5">
                                 <span className="text-[9px] font-black text-white/40 uppercase tracking-widest ml-1">Aplicar Cupón</span>
-                                <button onClick={() => { setShowDiscount(false); setCode(''); setCouponError(''); }} className="text-[9px] text-white/30 hover:text-white font-black">✕</button>
+                                <button 
+                                  type="button"
+                                  onClick={(e) => { 
+                                    e.preventDefault();
+                                    e.stopPropagation(); 
+                                    setShowDiscount(false); 
+                                    setCode(''); 
+                                    setCouponError(''); 
+                                  }} 
+                                  className="relative z-10 p-1.5 text-white/30 hover:text-white hover:bg-white/10 rounded-lg transition-all font-black cursor-pointer shrink-0"
+                                >
+                                  <X size={14} />
+                                </button>
                               </div>
                               <div className="flex gap-2">
                                 <div className="flex-1 relative">
@@ -1523,6 +1675,671 @@ const Checkout = () => {
                     ))}
                   </div>
                 </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Cambio de Usuario */}
+      <AnimatePresence>
+        {isChangeUserModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsChangeUserModalOpen(false)}
+              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="relative w-full max-w-[560px] bg-[#0d0c22] border border-blue-500/20 rounded-[24px] overflow-visible shadow-[0_32px_64px_rgba(0,0,0,0.6)]"
+              style={{ 
+                backgroundImage: 'radial-gradient(circle at 50% -20%, rgba(59, 130, 246, 0.15), transparent 60%)'
+              }}
+            >
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-1">
+                  <div>
+                    <h2 className="text-xl font-black text-white uppercase tracking-tight">
+                      {deliveryMethod === 'gamepass' ? 'Cambiar Gamepass' : 'Cambiar Grupo'}
+                    </h2>
+                    <p className="text-white/40 text-[11px] font-medium">
+                      {changeUserStep === 1 && 'Busca tu cuenta de Roblox'}
+                      {changeUserStep === 2 && deliveryMethod === 'gamepass' && 'Verifica tu gamepass'}
+                      {changeUserStep === 2 && deliveryMethod === 'group' && 'Verifica tus grupos'}
+                      {changeUserStep === 3 && '¡Verificado exitosamente!'}
+                    </p>
+                  </div>
+                  <button onClick={() => setIsChangeUserModalOpen(false)} className="text-white/20 hover:text-white transition-colors p-1">
+                    <X size={20} />
+                  </button>
+                </div>
+                
+                {/* PASO 1: Buscar Usuario */}
+                {changeUserStep === 1 && (
+                  <motion.div 
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    className="p-6"
+                  >
+                    {/* Progress Bar */}
+                    <div className="flex items-center justify-center gap-0 my-8 px-4">
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                          <Search size={14} className="text-white" />
+                        </div>
+                        <span className="text-[8px] font-black text-white uppercase tracking-widest">BUSCAR</span>
+                      </div>
+                      <div className="flex-1 h-[1px] bg-white/10 mx-2 mt-[-18px]"></div>
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-8 h-8 bg-[#1a1835] border border-white/5 rounded-full flex items-center justify-center">
+                          {deliveryMethod === 'gamepass' ? (
+                            <Tag size={14} className="text-white/20" />
+                          ) : (
+                            <Users size={14} className="text-white/20" />
+                          )}
+                        </div>
+                        <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">
+                          {deliveryMethod === 'gamepass' ? 'GAMEPASS' : 'GRUPO'}
+                        </span>
+                      </div>
+                      <div className="flex-1 h-[1px] bg-white/10 mx-2 mt-[-18px]"></div>
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-8 h-8 bg-[#1a1835] border border-white/5 rounded-full flex items-center justify-center">
+                          <CheckCircle2 size={14} className="text-white/20" />
+                        </div>
+                        <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">VERIFICADO</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-5">
+                      <div className="relative mt-4">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 z-10">
+                      <Search size={16} />
+                    </div>
+                    <input 
+                      type="text" 
+                      placeholder="Usuario de Roblox..." 
+                      value={searchQuery}
+                      onFocus={() => setIsDropdownOpen(true)}
+                      onBlur={() => setTimeout(() => setIsDropdownOpen(false), 150)}
+                      onChange={(e) => {
+                        setSearchQuery(e.target.value);
+                        if (selectedUser) {
+                          setSelectedUser(null);
+                          setGroupVerificationResults(null);
+                        }
+                        setUserError(null);
+                        setIsDropdownOpen(true);
+                      }}
+                      className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-blue-500/40 focus:bg-blue-500/5 transition-all shadow-inner relative z-0"
+                    />
+                    
+                    {/* Dropdown de usuarios recientes con animaciones */}
+                    <div
+                      className={`absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-gradient-to-b from-[#0d0c22] to-[#0a0919] border border-blue-500/20 rounded-2xl overflow-hidden origin-top transition-all duration-[400ms] shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${
+                        isDropdownOpen && recentUsers.length > 0 && !selectedUser
+                          ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+                          : 'opacity-0 -translate-y-2 scale-[0.98] pointer-events-none'
+                      }`}
+                      style={{
+                        transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                        backdropFilter: 'blur(12px)',
+                        animation: isDropdownOpen ? 'containerVibrate 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards' : 'none',
+                        animationDelay: '0.15s'
+                      }}
+                      onMouseDown={(e) => e.preventDefault()}
+                    >
+                      <div className="flex items-center gap-2 px-4 py-3 border-b border-blue-500/10 bg-blue-500/5">
+                        <Clock size={13} className="text-blue-400/60" />
+                        <span className="text-[10px] font-bold text-blue-400/80 uppercase tracking-wider">Recientes</span>
+                      </div>
+                      <div className="max-h-[280px] overflow-y-auto scrollbar-hide">
+                        {recentUsers.map((user, idx) => (
+                          <React.Fragment key={user.id}>
+                            <button
+                              onClick={() => {
+                                setSelectedUser(user);
+                                setSearchQuery(user.name);
+                                setUserError(null);
+                                setIsDropdownOpen(false);
+                                setGroupVerificationResults(null);
+                              }}
+                              className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group rounded-xl ${
+                                isDropdownOpen ? 'animate-[itemSlideIn_1.1s_cubic-bezier(0.22,1,0.36,1)_both]' : ''
+                              }`}
+                              style={{
+                                animationDelay: '0.08s'
+                              }}
+                            >
+                              <div className={`w-10 h-10 rounded-2xl overflow-hidden bg-blue-500/10 border border-blue-500/20 shrink-0 group-hover:border-blue-500/40 transition-all ${
+                                isDropdownOpen ? 'animate-[avatarAppear_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
+                              }`}
+                              style={{
+                                animationDelay: '0.08s'
+                              }}>
+                                <img 
+                                  src={`${BASE_URL}/users/avatar/${user.id || user.userId}`}
+                                  className="w-full h-full object-cover" 
+                                  alt=""
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${user.name || 'User'}&background=0D8ABC&color=fff`;
+                                  }}
+                                />
+                              </div>
+                              <div className={`flex-1 min-w-0 ${
+                                isDropdownOpen ? 'animate-[textTurbulence_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
+                              }`}
+                              style={{
+                                animationDelay: '0.08s'
+                              }}>
+                                <p className="text-sm font-semibold text-white truncate group-hover:text-blue-400 transition-colors">{user.displayName || user.name}</p>
+                                <p className="text-xs text-white/40 truncate group-hover:text-white/60 transition-colors">@{user.name}</p>
+                              </div>
+                              <ArrowRight size={14} className="text-white/10 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all shrink-0" />
+                            </button>
+                            {idx < recentUsers.length - 1 && (
+                              <div className="border-t border-white/[0.04]" />
+                            )}
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {userError && (
+                    <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                      <p className="text-xs font-bold text-red-400">{userError}</p>
+                    </div>
+                  )}
+
+                  {selectedUser && (
+                    <div className="p-4 bg-white/[0.02] border border-white/10 rounded-xl flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full overflow-hidden bg-white/10">
+                        <img 
+                          src={`${BASE_URL}/users/avatar/${selectedUser.id || selectedUser.userId}`}
+                          className="w-full h-full object-cover" 
+                          alt=""
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${selectedUser.name || 'User'}&background=0D8ABC&color=fff`;
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-white">{selectedUser.displayName || selectedUser.name}</p>
+                        <p className="text-xs text-white/40">@{selectedUser.name}</p>
+                      </div>
+                      <CheckCircle2 size={20} className="text-emerald-400" />
+                    </div>
+                  )}
+
+                  <button 
+                    onClick={async () => {
+                      if (isLoadingUser) return;
+                      
+                      if (!searchQuery.trim()) {
+                        setUserError('Ingresa un nombre de usuario');
+                        return;
+                      }
+
+                      // Si ya hay un usuario seleccionado, avanzar al paso 2
+                      if (selectedUser) {
+                        const updated = [selectedUser, ...recentUsers.filter(u => u.id !== selectedUser.id)].slice(0, 5);
+                        setRecentUsers(updated);
+                        localStorage.setItem('roblox_recent_users', JSON.stringify(updated));
+                        setChangeUserStep(2);
+                        return;
+                      }
+
+                      setIsLoadingUser(true);
+                      setUserError(null);
+
+                      try {
+                        const result = await RobloxAPI.searchUser(searchQuery.trim());
+                        if (result && result.data && result.data.length > 0) {
+                          const user = result.data[0];
+                          setSelectedUser(user);
+                          setGroupVerificationResults(null);
+                          // Guardar en recientes
+                          const updated = [user, ...recentUsers.filter(u => u.id !== user.id)].slice(0, 5);
+                          setRecentUsers(updated);
+                          localStorage.setItem('roblox_recent_users', JSON.stringify(updated));
+                        } else {
+                          setUserError('Usuario no encontrado. Verifica el nombre exacto de Roblox.');
+                        }
+                      } catch (error) {
+                        console.error('Error buscando usuario:', error);
+                        setUserError('Error al buscar el usuario. Intenta de nuevo más tarde.');
+                      } finally {
+                        setIsLoadingUser(false);
+                      }
+                    }}
+                    disabled={isLoadingUser}
+                    className="w-full p-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-600/50 text-white rounded-2xl font-black text-sm transition-all shadow-[0_12px_24px_rgba(37,99,235,0.4)] flex items-center justify-center gap-3 tracking-wider"
+                  >
+                    {isLoadingUser ? (
+                      <>
+                        <Loader2 size={18} className="animate-spin" />
+                        <span>Buscando...</span>
+                      </>
+                    ) : selectedUser ? (
+                      <>
+                        <ArrowRight size={18} />
+                        <span>Continuar</span>
+                      </>
+                    ) : (
+                      <>
+                        <Search size={18} />
+                        <span>Buscar Usuario</span>
+                      </>
+                    )}
+                  </button>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* PASO 2: Verificar Gamepass - AUTOMÁTICO */}
+                {changeUserStep === 2 && deliveryMethod === 'gamepass' && (
+                  <motion.div 
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    className="p-6"
+                  >
+                    {isLoadingGamepass && existingGamepasses.length === 0 ? (
+                      <div className="flex flex-col items-center justify-center py-12">
+                        <Loader2 size={48} className="animate-spin text-blue-500 mb-4" />
+                        <p className="text-white font-bold text-sm">Verificando gamepasses...</p>
+                        <p className="text-white/40 text-xs mt-1">Buscando gamepass con precio {gamepassRequiredPrice.toLocaleString()} R$</p>
+                      </div>
+                    ) : (
+                    <div className="space-y-4">
+                      {/* Precio requerido */}
+                      <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400">
+                            <div className="relative w-5 h-5">
+                              <Tag size={20} />
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="text-[10px] font-bold text-emerald-400/80 uppercase tracking-widest">Precio requerido</h4>
+                            <p className="text-lg font-black text-white">{gamepassRequiredPrice.toLocaleString()} R$</p>
+                          </div>
+                        </div>
+                        <button 
+                          onClick={() => navigator.clipboard.writeText(gamepassRequiredPrice.toString())}
+                          className="flex items-center gap-2 px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-white/80 text-[11px] font-bold transition-colors border border-white/10"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                          Copiar
+                        </button>
+                      </div>
+
+                      <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center gap-2">
+                        <HelpCircle size={14} className="text-amber-500 flex-shrink-0" />
+                        <span className="text-[11px] font-bold text-amber-500 uppercase tracking-wide">Desactiva "Precios Regionales" en tu gamepass</span>
+                      </div>
+
+                      {/* Instrucciones */}
+                      <div className="grid grid-cols-2 gap-3">
+                        {[
+                          { num: 1, text: "Abre Roblox Create" },
+                          { num: 2, text: "Crea un Gamepass en tu juego" },
+                          { num: 3, text: "Desactiva precios regionales" },
+                          { num: 4, text: `Pon el precio exacto: ${gamepassRequiredPrice.toLocaleString()} R$` }
+                        ].map(step => (
+                          <div key={step.num} className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/5 rounded-xl">
+                            <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-[11px] font-black text-blue-400">
+                              {step.num}
+                            </div>
+                            <span className="text-xs font-bold text-white/80">{step.text}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Botones de editar/crear */}
+                      <div className="pt-2 flex flex-col gap-3 items-center w-full">
+                        {existingGamepasses.length > 0 && !selectedGamepass && (
+                          <div className="w-full p-3 bg-red-500/10 border border-red-500/20 rounded-xl mb-1 flex items-center gap-2.5">
+                            <div className="w-5 h-5 bg-red-500/20 rounded-full flex items-center justify-center text-red-500 shrink-0">
+                              <HelpCircle size={12} />
+                            </div>
+                            <p className="text-[10px] font-bold text-red-400 uppercase tracking-tight">
+                              El precio es incorrecto. Cámbialo aquí:
+                            </p>
+                          </div>
+                        )}
+
+                        {existingGamepasses.length > 0 && existingGamepasses[0].universeId && (
+                          <button 
+                            onClick={() => window.open(`https://create.roblox.com/dashboard/creations/experiences/${existingGamepasses[0].universeId}/passes/${existingGamepasses[0].id}/sales`, '_blank')}
+                            className="w-full flex items-center justify-center gap-2 p-3 bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 rounded-xl text-white/80 text-xs font-bold transition-all shadow-sm">
+                            <Edit2 size={14} className="text-white/40" />
+                            Editar gamepass existente ({existingGamepasses[0].price} R$) <Globe size={12} className="text-white/40 ml-1" />
+                          </button>
+                        )}
+                        
+                        <button 
+                          onClick={() => {
+                            if (existingGamepasses.length > 0 && existingGamepasses[0].universeId) {
+                              window.open(`https://create.roblox.com/dashboard/creations/experiences/${existingGamepasses[0].universeId}/passes`, '_blank');
+                            } else {
+                              window.open('https://create.roblox.com/dashboard/creations', '_blank');
+                            }
+                          }}
+                          className="text-[11px] font-bold text-white/40 hover:text-white/70 flex items-center gap-1 transition-colors">
+                          O crear uno nuevo <Globe size={10} />
+                        </button>
+                      </div>
+
+                      {/* Botón verificar de nuevo */}
+                      <button 
+                        onClick={async () => {
+                          setIsLoadingGamepass(true);
+                          setUserError(null);
+                          try {
+                            const placesRes = await RobloxAPI.getUserPlaces(selectedUser.id);
+                            if (placesRes.data && placesRes.data.length > 0) {
+                              let allGp: any[] = [];
+                              for (const place of placesRes.data) {
+                                const gpRes = await RobloxAPI.getPlaceGamepasses(place.id, selectedUser.id);
+                                if (gpRes.data) {
+                                  allGp = [...allGp, ...gpRes.data.map((gp: any) => ({
+                                    ...gp,
+                                    universeId: place.universeId,
+                                    placeId: place.id
+                                  }))];
+                                }
+                              }
+                              setExistingGamepasses(allGp);
+                              
+                              const found = allGp.find(gp => gp.price === gamepassRequiredPrice);
+                              
+                              if (found) {
+                                setSelectedGamepass(found);
+                                setChangeUserStep(3);
+                              } else {
+                                setUserError('No se encontró el gamepass con el precio correcto');
+                              }
+                            }
+                          } catch (error) {
+                            setUserError('Error al verificar gamepass');
+                          } finally {
+                            setIsLoadingGamepass(false);
+                          }
+                        }}
+                        disabled={isLoadingGamepass}
+                        className="w-full p-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black text-sm transition-all shadow-[0_8px_20px_rgba(37,99,235,0.3)] flex items-center justify-center gap-3 uppercase tracking-wider"
+                      >
+                        {isLoadingGamepass ? (
+                          <>
+                            <Loader2 size={14} className="animate-spin" />
+                            <span>Verificando...</span>
+                          </>
+                        ) : (
+                          <>
+                            Verificar de nuevo <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" className="animate-spin-custom"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.72 2.78L21 8"/><path d="M21 3v5h-5"/></svg>
+                          </>
+                        )}
+                      </button>
+
+                      {userError && (
+                        <div className="p-3.5 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl text-xs font-bold flex items-center gap-2">
+                          <HelpCircle size={14} className="text-red-400 flex-shrink-0" />
+                          <span>{userError}</span>
+                        </div>
+                      )}
+                    </div>
+                    )}
+                  </motion.div>
+                )}
+
+                {/* PASO 2: Verificar Grupo - AUTOMÁTICO */}
+                {changeUserStep === 2 && deliveryMethod === 'group' && (
+                  <motion.div 
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    className="p-6"
+                  >
+                    {isVerifyingGroups || !groupVerificationResults ? (
+                      <div className="flex flex-col items-center justify-center py-12">
+                        <Loader2 size={48} className="animate-spin text-blue-500 mb-4" />
+                        <p className="text-white font-bold text-sm">Verificando grupos...</p>
+                        <p className="text-white/40 text-xs mt-1">Comprobando membresía en grupos</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {/* Alerta importante */}
+                        <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+                          <div className="flex gap-3">
+                            <div className="w-8 h-8 bg-amber-500/20 rounded-xl flex-shrink-0 flex items-center justify-center text-amber-500">
+                              <HelpCircle size={18} />
+                            </div>
+                            <div>
+                              <h4 className="text-sm text-white font-bold mb-1">Importante: 14 días de espera</h4>
+                              <p className="text-xs text-white/70 leading-relaxed">
+                                Debes permanecer al menos <span className="font-bold text-amber-500">14 días</span> en los grupos para que Roblox permita la transferencia.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Lista de grupos */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {groupVerificationResults?.details
+                            ?.sort((a: any, b: any) => {
+                              const isAMandatory = requiredGroups.find(rg => rg.id === a.groupId)?.isMandatory;
+                              const isBMandatory = requiredGroups.find(rg => rg.id === b.groupId)?.isMandatory;
+                              if (isAMandatory && !isBMandatory) return -1;
+                              if (!isAMandatory && isBMandatory) return 1;
+                              return 0;
+                            })
+                            .map((group: any) => (
+                            <div key={group.groupId} className="p-4 bg-white/[0.02] border border-white/[0.06] rounded-[24px] flex items-center justify-between gap-3">
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className="min-w-0">
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <h4 className="text-xs font-bold text-white leading-tight truncate">{group.groupName}</h4>
+                                    {requiredGroups.find(rg => rg.id === group.groupId)?.isMandatory && (
+                                      <span className="px-1.5 py-0.5 bg-blue-500/20 text-blue-400 text-[6px] font-black uppercase tracking-widest rounded border border-blue-500/30">OBLIGATORIO</span>
+                                    )}
+                                  </div>
+                                  {group.isMember ? (
+                                    <div className="flex flex-col gap-1.5 mt-1">
+                                      <div className="flex items-center gap-1.5">
+                                        <CheckCircle2 size={10} className="text-emerald-500" />
+                                        <span className="text-[9px] font-bold text-emerald-500 uppercase tracking-wider">Ya eres miembro</span>
+                                      </div>
+                                      {group.remainingDays > 0 && (
+                                        <div className="flex items-center gap-1.5 px-2 py-0.5 bg-amber-500/10 border border-amber-500/20 rounded-lg text-[7px] font-black text-amber-500 w-fit uppercase tracking-wider">
+                                          <Clock size={8} />
+                                          <span>Faltan {group.remainingDays} días</span>
+                                        </div>
+                                      )}
+                                      {group.remainingDays <= 0 && (
+                                        <div className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-[7px] font-black text-emerald-500 w-fit uppercase tracking-wider">
+                                          <CheckCircle2 size={8} />
+                                          <span>Listo para retiro</span>
+                                        </div>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <p className="text-white/30 text-[9px] mt-1 truncate">Debes unirte a este grupo</p>
+                                  )}
+                                </div>
+                              </div>
+                              {!group.isMember && (
+                                <a 
+                                  href={`https://www.roblox.com/groups/${group.groupId}`} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="px-4 py-1.5 bg-white text-[#0d0c22] rounded-xl font-bold text-[10px] hover:scale-105 transition-all shrink-0"
+                                >
+                                  Unirse
+                                </a>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Botón verificar de nuevo / continuar */}
+                        <button
+                          onClick={async () => {
+                            const mandatoryJoined = groupVerificationResults?.details
+                              ?.filter((g: any) => requiredGroups.find(rg => rg.id === g.groupId)?.isMandatory)
+                              .every((g: any) => g.isMember);
+
+                            if (mandatoryJoined) {
+                              setChangeUserStep(3);
+                            } else {
+                              setIsVerifyingGroups(true);
+                              setUserError(null);
+                              try {
+                                const res = await RobloxAPI.checkUserGroups(selectedUser.id);
+                                if (res.success) {
+                                  setGroupVerificationResults(res.data);
+                                  // Verificar si todos los grupos obligatorios están unidos
+                                  const allMandatoryJoined = res.data?.details
+                                    ?.filter((g: any) => requiredGroups.find(rg => rg.id === g.groupId)?.isMandatory)
+                                    .every((g: any) => g.isMember);
+                                  if (allMandatoryJoined) {
+                                    setChangeUserStep(3);
+                                  }
+                                }
+                              } catch (error) {
+                                setUserError('Error al verificar grupos');
+                              } finally {
+                                setIsVerifyingGroups(false);
+                              }
+                            }
+                          }}
+                          disabled={isVerifyingGroups}
+                          className="w-full p-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black text-sm transition-all shadow-[0_8px_20px_rgba(37,99,235,0.3)] flex items-center justify-center gap-3 uppercase tracking-wider"
+                        >
+                          {isVerifyingGroups ? (
+                            <>
+                              <Loader2 size={16} className="animate-spin" />
+                              <span>Verificando...</span>
+                            </>
+                          ) : (
+                            <>
+                              {(() => {
+                                const mandatoryJoined = groupVerificationResults?.details
+                                  ?.filter((g: any) => requiredGroups.find(rg => rg.id === g.groupId)?.isMandatory)
+                                  .every((g: any) => g.isMember);
+                                return mandatoryJoined ? 'Continuar' : 'Verificar nuevamente';
+                              })()}
+                              <ArrowRight size={16} strokeWidth={3} />
+                            </>
+                          )}
+                        </button>
+
+                        {userError && (
+                          <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-xs font-bold text-red-400">
+                            {userError}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+
+                {/* PASO 3: Verificado */}
+                {changeUserStep === 3 && (
+                  <motion.div 
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    className="p-6"
+                  >
+                    <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center justify-between shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-12 h-12 bg-black/40 rounded-xl overflow-hidden border border-emerald-500/30 shrink-0 flex items-center justify-center">
+                          {deliveryMethod === 'gamepass' ? (
+                            selectedGamepass?.thumbnail ? (
+                              <img src={selectedGamepass.thumbnail} className="w-full h-full object-cover" alt="Gamepass" />
+                            ) : (
+                              <Tag size={20} className="text-emerald-500/50" />
+                            )
+                          ) : (
+                            <Users size={20} className="text-emerald-500" />
+                          )}
+                        </div>
+                        <div className="min-w-0 truncate">
+                          <h4 className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest mb-1">
+                            {deliveryMethod === 'group' ? '¡Grupos Verificados!' : '¡Encontrado!'}
+                          </h4>
+                          {deliveryMethod === 'gamepass' ? (
+                            <>
+                              <p className="text-sm font-black text-white truncate">{selectedGamepass?.name}</p>
+                              <p className="text-xs text-white/50">{selectedGamepass?.price} R$</p>
+                            </>
+                          ) : (
+                            <>
+                              <p className="text-sm font-black text-white truncate">{selectedUser?.name}</p>
+                              <p className="text-xs text-white/50">Grupos obligatorios unidos</p>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                        <CheckCircle2 size={16} className="text-emerald-400" />
+                      </div>
+                    </div>
+
+                    <button 
+                      onClick={async () => {
+                        // Actualizar el checkout con el nuevo usuario
+                        const newState = {
+                          ...state,
+                          username: selectedUser.name,
+                          userId: selectedUser.id,
+                        };
+                        
+                        // Solo agregar datos de gamepass si es método gamepass
+                        if (deliveryMethod === 'gamepass' && selectedGamepass) {
+                          newState.gamepassId = selectedGamepass.id;
+                          newState.gamepassName = selectedGamepass.name;
+                          newState.gamepassPrice = selectedGamepass.price;
+                          newState.universeId = selectedGamepass.universeId;
+                          newState.placeId = selectedGamepass.placeId;
+                        }
+                        
+                        // Actualizar usuario actual
+                        setCurrentUser({ name: selectedUser.name, id: selectedUser.id });
+                        
+                        // Actualizar avatar
+                        try {
+                          const avatarUrl = `${BASE_URL}/users/avatar/${selectedUser.id || selectedUser.userId}`;
+                          setUserAvatar(avatarUrl);
+                        } catch (error) {
+                          console.error('Error actualizando avatar:', error);
+                        }
+                        
+                        // Cerrar modal
+                        setIsChangeUserModalOpen(false);
+                        
+                        // Navegar con el nuevo state
+                        navigate('/checkout', { 
+                          state: newState,
+                          replace: true 
+                        });
+                      }}
+                      className="w-full p-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-black text-sm transition-all shadow-[0_12px_24px_rgba(16,185,129,0.4)] flex items-center justify-center gap-3 tracking-wider"
+                    >
+                      <CheckCircle2 size={18} />
+                      <span>Confirmar y Continuar</span>
+                    </button>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           </div>

@@ -154,6 +154,12 @@ export default function RobuxCatalog() {
   const [isJoined, setIsJoined] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isGroupDropdownOpen, setIsGroupDropdownOpen] = useState(false);
+  
+  // Coupon States
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<any>(null);
+  const [couponError, setCouponError] = useState('');
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
 
   useEffect(() => {
     const fetchRobuxPacks = async () => {
@@ -327,6 +333,74 @@ export default function RobuxCatalog() {
       setIsGamepassModalOpen(true);
     }
   };
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) {
+      setCouponError('Ingresa un código de cupón');
+      return;
+    }
+
+    setIsValidatingCoupon(true);
+    setCouponError('');
+
+    try {
+      const user = JSON.parse(localStorage.getItem('pixel_user') || '{}');
+      const userId = user.id ? String(user.id) : null;
+      
+      console.log('🎫 Validando cupón:', { code: couponCode, userId, user });
+      
+      const res = await fetch(`${SERVER_URL}/api/coupons/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: couponCode,
+          subtotal: parseFloat(currentPrice),
+          userId: userId
+        })
+      });
+
+      const data = await res.json();
+      
+      if (data.success) {
+        setAppliedCoupon(data.coupon);
+        setCouponError('');
+      } else {
+        setCouponError(data.error || 'Cupón inválido');
+        setAppliedCoupon(null);
+      }
+    } catch (error) {
+      setCouponError('Error al validar el cupón');
+      setAppliedCoupon(null);
+    } finally {
+      setIsValidatingCoupon(false);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponCode('');
+    setCouponError('');
+  };
+
+  // Calcular precio final con cupón
+  const calculateFinalPrice = () => {
+    const subtotal = parseFloat(currentPrice);
+    if (!appliedCoupon) return subtotal;
+
+    let discount = 0;
+    if (appliedCoupon.discountType === 'percentage') {
+      discount = (subtotal * parseFloat(appliedCoupon.discountValue)) / 100;
+    } else if (appliedCoupon.discountType === 'balance') {
+      discount = Math.min(appliedCoupon.remainingBalance, subtotal);
+    } else {
+      discount = parseFloat(appliedCoupon.discountValue);
+    }
+    
+    return Math.max(0, subtotal - discount);
+  };
+
+  const finalPrice = calculateFinalPrice();
+  const discountAmount = parseFloat(currentPrice) - finalPrice;
 
   useEffect(() => {
     if (gamepassStep === 2 && selectedUser) {
@@ -1736,13 +1810,75 @@ export default function RobuxCatalog() {
                     </div>
                   </div>
                   
-                  <div className="p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl flex items-center justify-between cursor-pointer hover:bg-white/[0.04] transition-all">
-                    <div className="flex items-center gap-3">
-                      <LucideTag size={16} className="text-white/20" />
-                      <span className="text-[11px] font-black text-white tracking-widest uppercase">¿Tienes un código?</span>
-                    </div>
-                    <span className="text-[11px] font-bold text-white/20">Aplícalo aquí</span>
+                  {/* Coupon Section */}
+                  <div className="space-y-3">
+                    <h4 className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em] ml-1">Cupón de descuento</h4>
+                    {!appliedCoupon ? (
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="Código de cupón..."
+                          value={couponCode}
+                          onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                          className="flex-1 bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-blue-500/40 focus:bg-blue-500/5 transition-all"
+                        />
+                        <button
+                          onClick={handleApplyCoupon}
+                          disabled={isValidatingCoupon || !couponCode.trim()}
+                          className="px-6 py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all flex items-center gap-2"
+                        >
+                          {isValidatingCoupon ? <LoadingSpinner /> : <LucideTag size={14} />}
+                          {isValidatingCoupon ? 'Validando...' : 'Aplicar'}
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                            <LucideTag size={14} className="text-emerald-400" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-black text-white">{appliedCoupon.code}</p>
+                            <p className="text-[10px] text-emerald-400 font-bold">
+                              {appliedCoupon.discountType === 'percentage' 
+                                ? `${appliedCoupon.discountValue}% de descuento`
+                                : appliedCoupon.discountType === 'balance'
+                                ? `Saldo: ${selectedCurrencyData.symbol}${discountAmount.toFixed(2)}`
+                                : `Descuento fijo: ${selectedCurrencyData.symbol}${appliedCoupon.discountValue}`
+                              }
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={handleRemoveCoupon}
+                          className="text-white/40 hover:text-red-400 transition-colors"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    )}
+                    {couponError && (
+                      <p className="text-red-400 text-xs font-bold ml-1">{couponError}</p>
+                    )}
                   </div>
+
+                  {/* Price Summary */}
+                  {appliedCoupon && (
+                    <div className="p-4 bg-white/[0.02] border border-white/[0.06] rounded-xl space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-white/40 font-medium">Subtotal</span>
+                        <span className="text-white/60 font-bold">{selectedCurrencyData.symbol}{parseFloat(currentPrice).toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-emerald-400 font-medium">Descuento</span>
+                        <span className="text-emerald-400 font-bold">-{selectedCurrencyData.symbol}{discountAmount.toFixed(2)}</span>
+                      </div>
+                      <div className="pt-2 border-t border-white/5 flex justify-between">
+                        <span className="text-white font-black text-base">Total</span>
+                        <span className="text-white font-black text-lg">{selectedCurrencyData.symbol}{finalPrice.toFixed(2)}</span>
+                      </div>
+                    </div>
+                  )}
                   
                   <button 
                     onClick={() => {
@@ -1753,12 +1889,17 @@ export default function RobuxCatalog() {
                         navigate('/checkout', { 
                           state: { 
                             amount: displayAmount,
-                            totalPrice: parseFloat(currentPrice),
+                            totalPrice: appliedCoupon ? finalPrice : parseFloat(currentPrice),
+                            originalPrice: parseFloat(currentPrice),
                             currency: currency,
                             username: selectedUser?.name || 'Usuario',
                             userId: selectedUser?.id || '0',
                             method: 'gamepass',
-                            gamepassId: selectedGamepass?.id
+                            gamepassId: selectedGamepass?.id,
+                            coupon: appliedCoupon ? {
+                              ...appliedCoupon,
+                              discountAmount: discountAmount
+                            } : null
                           } 
                         });
                       }, 1000);
@@ -2343,13 +2484,75 @@ export default function RobuxCatalog() {
                     </div>
                   </div>
 
-                  <div className="p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl flex items-center justify-between cursor-pointer hover:bg-white/[0.04] transition-all">
-                    <div className="flex items-center gap-3">
-                      <LucideTag size={16} className="text-white/20" />
-                      <span className="text-[11px] font-black text-white tracking-widest uppercase">¿Tienes un código?</span>
-                    </div>
-                    <span className="text-[11px] font-bold text-white/20">Aplícalo aquí</span>
+                  {/* Coupon Section */}
+                  <div className="space-y-3">
+                    <h4 className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em] ml-1">Cupón de descuento</h4>
+                    {!appliedCoupon ? (
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="Código de cupón..."
+                          value={couponCode}
+                          onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                          className="flex-1 bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-blue-500/40 focus:bg-blue-500/5 transition-all"
+                        />
+                        <button
+                          onClick={handleApplyCoupon}
+                          disabled={isValidatingCoupon || !couponCode.trim()}
+                          className="px-6 py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all flex items-center gap-2"
+                        >
+                          {isValidatingCoupon ? <LoadingSpinner /> : <LucideTag size={14} />}
+                          {isValidatingCoupon ? 'Validando...' : 'Aplicar'}
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                            <LucideTag size={14} className="text-emerald-400" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-black text-white">{appliedCoupon.code}</p>
+                            <p className="text-[10px] text-emerald-400 font-bold">
+                              {appliedCoupon.discountType === 'percentage' 
+                                ? `${appliedCoupon.discountValue}% de descuento`
+                                : appliedCoupon.discountType === 'balance'
+                                ? `Saldo: ${selectedCurrencyData.symbol}${discountAmount.toFixed(2)}`
+                                : `Descuento fijo: ${selectedCurrencyData.symbol}${appliedCoupon.discountValue}`
+                              }
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={handleRemoveCoupon}
+                          className="text-white/40 hover:text-red-400 transition-colors"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    )}
+                    {couponError && (
+                      <p className="text-red-400 text-xs font-bold ml-1">{couponError}</p>
+                    )}
                   </div>
+
+                  {/* Price Summary */}
+                  {appliedCoupon && (
+                    <div className="p-4 bg-white/[0.02] border border-white/[0.06] rounded-xl space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-white/40 font-medium">Subtotal</span>
+                        <span className="text-white/60 font-bold">{selectedCurrencyData.symbol}{parseFloat(currentPrice).toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-emerald-400 font-medium">Descuento</span>
+                        <span className="text-emerald-400 font-bold">-{selectedCurrencyData.symbol}{discountAmount.toFixed(2)}</span>
+                      </div>
+                      <div className="pt-2 border-t border-white/5 flex justify-between">
+                        <span className="text-white font-black text-base">Total</span>
+                        <span className="text-white font-black text-lg">{selectedCurrencyData.symbol}{finalPrice.toFixed(2)}</span>
+                      </div>
+                    </div>
+                  )}
 
                   <button 
                     onClick={() => {
@@ -2360,11 +2563,16 @@ export default function RobuxCatalog() {
                         navigate('/checkout', { 
                           state: { 
                             amount: displayAmount,
-                            totalPrice: parseFloat(currentPrice),
+                            totalPrice: appliedCoupon ? finalPrice : parseFloat(currentPrice),
+                            originalPrice: parseFloat(currentPrice),
                             currency: currency,
                             username: selectedUser?.name || 'Usuario',
                             userId: selectedUser?.id || '0',
-                            method: 'group'
+                            method: 'group',
+                            coupon: appliedCoupon ? {
+                              ...appliedCoupon,
+                              discountAmount: discountAmount
+                            } : null
                           } 
                         });
                       }, 1500);

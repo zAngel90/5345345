@@ -864,7 +864,7 @@ const OrderDetails = () => {
                           href={`https://www.roblox.com/game-pass/${order.gamepassId}`} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                          className="relative z-10 pointer-events-auto w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center justify-center gap-2 cursor-pointer"
                         >
                            <ShoppingCart size={14} /> Comprar Gamepass
                         </a>
