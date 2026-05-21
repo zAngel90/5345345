@@ -24,7 +24,8 @@ import {
   Zap,
   TrendingUp,
   HelpCircle,
-  ShoppingBag as ShoppingBagIcon
+  ShoppingBag as ShoppingBagIcon,
+  X
 } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RobloxAPI, StoreAPI, AuthAPI, SERVER_URL, OrdersAPI, CouponsAPI } from '../services/api';
@@ -144,6 +145,7 @@ export default function Account() {
   const [coupons, setCoupons] = useState<any[]>([]);
   const [isLoadingCoupons, setIsLoadingCoupons] = useState(false);
   const [copiedId, setCopiedId] = useState<number | null>(null);
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -438,7 +440,7 @@ export default function Account() {
                             )}
                           </div>
                           <button 
-                            onClick={() => fileInputRef.current?.click()}
+                            onClick={() => setIsAvatarModalOpen(true)}
                             disabled={isUpdating}
                             className="absolute -bottom-2 -right-2 size-10 bg-blue-600 rounded-2xl flex items-center justify-center text-white border-4 border-[#0d0c22] group-hover:scale-110 transition-transform shadow-xl disabled:opacity-50"
                           >
@@ -464,26 +466,6 @@ export default function Account() {
                           </div>
                           <p className="text-white/30 font-medium mb-4">{user.email}</p>
 
-                          {/* Avatar Selector Gallery */}
-                          <div className="space-y-2 mb-6">
-                            <p className="text-[10px] font-black text-white/20 uppercase tracking-widest">O elige un avatar predeterminado</p>
-                            <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                              {[1, 2, 3, 4, 5, 6].map((num) => {
-                                const avatarUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=pixel${num * 42}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
-                                return (
-                                  <button
-                                    key={num}
-                                    onClick={() => handleUpdateProfile({ avatar: avatarUrl })}
-                                    className={`size-12 rounded-xl overflow-hidden border-2 transition-all hover:scale-110 active:scale-90 ${
-                                      user.avatar === avatarUrl ? 'border-blue-500 ring-4 ring-blue-500/20' : 'border-white/5 hover:border-white/20'
-                                    }`}
-                                  >
-                                    <img src={avatarUrl} alt="Avatar option" className="size-full object-cover" />
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
                           
                           {/* Progress Section */}
                           {typeof progress.next === 'number' && progress.next > 0 ? (
@@ -1042,6 +1024,82 @@ export default function Account() {
 
       {/* Footer Spacer */}
       <div className="h-80" />
+
+      {/* Modal de Selección de Avatar */}
+      <AnimatePresence>
+        {isAvatarModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setIsAvatarModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-gradient-to-b from-[#0d0c22] to-[#0a0919] border border-white/10 rounded-3xl p-6 max-w-md w-full shadow-2xl"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-black text-white">Seleccionar Avatar</h3>
+                <button
+                  onClick={() => setIsAvatarModalOpen(false)}
+                  className="size-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Opción de subir foto */}
+              <div className="mb-6">
+                <button
+                  onClick={() => {
+                    fileInputRef.current?.click();
+                    setIsAvatarModalOpen(false);
+                  }}
+                  className="w-full p-4 rounded-2xl border-2 border-dashed border-white/10 hover:border-blue-500/50 bg-white/[0.02] hover:bg-blue-500/5 transition-all group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="size-12 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-all">
+                      <Camera size={20} className="text-blue-400" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-bold text-white">Subir foto personalizada</p>
+                      <p className="text-xs text-white/40">JPG, PNG o GIF</p>
+                    </div>
+                  </div>
+                </button>
+              </div>
+
+              {/* Avatares predeterminados */}
+              <div className="space-y-3">
+                <p className="text-xs font-black text-white/40 uppercase tracking-widest">O elige un avatar predeterminado</p>
+                <div className="grid grid-cols-4 gap-3">
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => {
+                    const avatarUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=pixel${num * 42}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+                    return (
+                      <button
+                        key={num}
+                        onClick={() => {
+                          handleUpdateProfile({ avatar: avatarUrl });
+                          setIsAvatarModalOpen(false);
+                        }}
+                        className={`aspect-square rounded-2xl overflow-hidden border-2 transition-all hover:scale-105 active:scale-95 ${
+                          user.avatar === avatarUrl ? 'border-blue-500 ring-4 ring-blue-500/20' : 'border-white/10 hover:border-white/30'
+                        }`}
+                      >
+                        <img src={avatarUrl} alt="Avatar option" className="w-full h-full object-cover" />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
