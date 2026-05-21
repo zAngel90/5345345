@@ -392,7 +392,7 @@ const OrderDetails = () => {
         </div>
 
         {/* Order Stepper (REINSTATED) */}
-        <div className="bg-gradient-to-br from-[#1a1835]/80 via-[#13102a]/70 to-[#0f0d22]/80 border border-purple-500/10 rounded-[28px] p-6 mb-6 relative overflow-hidden backdrop-blur-xl" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.5)' }}>
+        <div className="bg-gradient-to-br from-[#1a1835]/80 via-[#13102a]/70 to-[#0f0d22]/80 border border-purple-500/10 rounded-[28px] p-6 mb-6 relative overflow-hidden backdrop-blur-xl">
           <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent opacity-50"></div>
           <div className="relative flex items-center justify-between max-w-3xl mx-auto">
             {/* Steps */}
@@ -442,7 +442,7 @@ const OrderDetails = () => {
 
         {/* MM2 Delivery Control - Only for MM2 orders */}
         {(order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) && (
-          <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] overflow-hidden relative backdrop-blur-xl mb-6" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 20px rgba(139,92,246,0.1)' }}>
+          <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] overflow-hidden relative backdrop-blur-xl mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_50%)]"></div>
             
@@ -579,7 +579,7 @@ const OrderDetails = () => {
 
         {/* MM2 Private Server Card - Shows when admin approves */}
         {order.mm2DeliveryStatus === 'ready' && order.mm2PrivateServer && (
-          <div className="bg-gradient-to-br from-red-900/40 via-red-800/30 to-red-900/40 border border-red-500/30 rounded-[28px] overflow-hidden relative backdrop-blur-xl mb-6" style={{ boxShadow: '0 8px 32px rgba(220,38,38,0.3), 0 0 0 1px rgba(239,68,68,0.2), inset 0 1px 0 rgba(255,255,255,0.1)' }}>
+          <div className="bg-gradient-to-br from-red-900/40 via-red-800/30 to-red-900/40 border border-red-500/30 rounded-[28px] overflow-hidden relative backdrop-blur-xl mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-red-500/[0.08] via-orange-500/[0.05] to-transparent opacity-60"></div>
             <div className="absolute top-2 right-2 w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_12px_rgba(52,211,153,0.8)] animate-pulse"></div>
             
@@ -641,7 +641,7 @@ const OrderDetails = () => {
           {/* Main Content (Left) - 7 Columns */}
           <div className="lg:col-span-7 space-y-4">
             {/* Product Summary */}
-            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] p-6 hover:border-purple-500/20 transition-all duration-300 relative overflow-hidden backdrop-blur-xl group" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 20px rgba(139,92,246,0.1)' }}>
+            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] p-6 hover:border-purple-500/20 transition-all duration-300 relative overflow-hidden backdrop-blur-xl group">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
@@ -689,7 +689,7 @@ const OrderDetails = () => {
 
             </div>
             {/* Delivery Information Box */}
-            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] overflow-hidden relative backdrop-blur-xl group" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 20px rgba(139,92,246,0.1)' }}>
+            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] overflow-hidden relative backdrop-blur-xl group">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="p-5 border-b border-white/5 bg-white/[0.01] flex items-center gap-3">
@@ -875,7 +875,7 @@ const OrderDetails = () => {
             </div>
 
             {/* Bottom Chat Bar Summary */}
-            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[24px] p-3 flex items-center justify-between hover:border-purple-500/20 transition-all cursor-pointer group relative overflow-hidden backdrop-blur-xl" style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.08)' }} onClick={() => scrollToBottom()}>
+            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[24px] p-3 flex items-center justify-between hover:border-purple-500/20 transition-all cursor-pointer group relative overflow-hidden backdrop-blur-xl" onClick={() => scrollToBottom()}>
                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.03] to-transparent opacity-40"></div>
                <div className="relative z-10 flex items-center justify-between w-full">
                <div className="flex items-center gap-3 min-w-0">
@@ -897,7 +897,7 @@ const OrderDetails = () => {
           {/* Sidebar (Right) - 5 Columns */}
           <div className="lg:col-span-5 space-y-4">
             {/* Payment Proof Card */}
-            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] p-5 relative overflow-hidden backdrop-blur-xl" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 20px rgba(139,92,246,0.1)' }}>
+            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] p-5 relative overflow-hidden backdrop-blur-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
               <div className="relative z-10">
               <div className="flex items-center gap-2 mb-4">
@@ -1072,7 +1072,6 @@ const OrderDetails = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
               className="bg-gradient-to-br from-[#1a1835] via-[#13102a] to-[#0f0d22] border border-blue-500/20 rounded-3xl p-8 max-w-md w-full relative overflow-hidden"
-              style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.1), inset 0 1px 0 rgba(255,255,255,0.1)' }}
             >
               {/* Close Button */}
               <button

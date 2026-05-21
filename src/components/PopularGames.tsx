@@ -107,9 +107,15 @@ export default function PopularGames() {
   if (isLoading) return null;
 
   return (
-    <section id="games" className="pt-0 pb-8 md:py-24 section-glow bg-pixel-bg">
+    <section id="games" className="pt-24 pb-8 md:py-24 section-glow relative bg-pixel-bg">
+      {/* Gradiente de transición desde el Hero - Ultra suave */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{
+        height: '500px',
+        zIndex: 50,
+        background: 'linear-gradient(to bottom, transparent 0%, rgba(13, 12, 34, 0.15) 20%, rgba(13, 12, 34, 0.35) 35%, rgba(13, 12, 34, 0.55) 50%, rgba(13, 12, 34, 0.75) 65%, rgba(13, 12, 34, 0.9) 80%, rgb(13, 12, 34) 100%)'
+      }}></div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85%] bg-pixel-primaryStart/5 blur-[150px] rounded-full pointer-events-none z-0"></div>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-[60]">
         <div className="bg-pixel-panel/60 rounded-2xl md:rounded-[3rem] p-4 md:p-6 lg:p-10 border border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 md:mb-8 gap-4">
             <div className="flex gap-3 items-start">

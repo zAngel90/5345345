@@ -45,9 +45,7 @@ export default function HowItWorks() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="how-it-works" className="pt-0 pb-8 md:py-24 section-glow bg-pixel-bg">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-pixel-primaryEnd/5 blur-[140px] rounded-full pointer-events-none z-0"></div>
+    <section id="how-it-works" className="pt-0 pb-8 md:py-24 -mt-40">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Section */}

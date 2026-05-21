@@ -226,21 +226,11 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-5">
+      <nav className="fixed top-4 left-8 right-8 z-50 max-w-[1600px] mx-auto">
         <div
-          className="w-[calc(100%-2rem)] max-w-[1400px] pointer-events-auto relative z-50 mx-auto overflow-visible transform-gpu rounded-3xl border border-white/10"
-          style={{ 
-            backfaceVisibility: 'hidden', 
-            transform: 'translateZ(0)',
-            backgroundColor: 'rgba(13, 12, 34, 0.95)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
-            WebkitFontSmoothing: 'antialiased',
-            filter: 'none' 
-          }}
+          className="backdrop-blur-md bg-transparent border border-white/[0.08] rounded-2xl px-6 py-3 shadow-[0_0_20px_rgba(255,255,255,0.1),inset_0_1px_1px_rgba(255,255,255,0.15)]"
         >
-          <div className="w-full max-w-[1400px] mx-auto flex items-center justify-between px-6 py-2.5">
+          <div className="flex items-center justify-between">
             
             {/* Mobile View: Menu (Left), Logo (Center), Actions (Right) */}
             <div className="flex lg:hidden items-center justify-between w-full">
@@ -402,25 +392,11 @@ export default function Navbar() {
                 <img src="https://i.postimg.cc/5tSsMDgK/logo-4x.png" alt="Pixel Store" className="h-10 w-auto object-contain" />
               </Link>
 
-              <div className="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5 relative overflow-visible">
-                <motion.div
-                  layoutId="nav-lamp"
-                  className="absolute bottom-0 h-full z-0 flex flex-col items-center justify-end pointer-events-none"
-                  initial={false}
-                  animate={{
-                    left: `${NAV_ITEMS.findIndex(i => i.id === (hoveredNav || activeNav)) * (100 / NAV_ITEMS.length)}%`,
-                    width: `${100 / NAV_ITEMS.length}%`
-                  }}
-                  transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                >
-                  <div className="w-full h-full max-w-[80px] mx-auto" style={{ background: 'radial-gradient(circle at bottom, rgba(96,165,250,0.15) 0%, transparent 70%)' }} />
-                  <div className="w-8 h-[2.5px] bg-blue-400 rounded-full shadow-[0_-2px_15px_3px_rgba(96,165,250,0.6),0_0_30px_4px_rgba(96,165,250,0.3)]" />
-                </motion.div>
-
+              <div className="flex items-center gap-1 bg-white/5 backdrop-blur-sm px-1.5 py-1.5 rounded-full border border-white/[0.08] -my-1 shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)] relative">
                 {NAV_ITEMS.map((item) => (
                   <div 
                     key={item.id} 
-                    className="relative group"
+                    className="relative"
                     onMouseEnter={() => {
                       setHoveredNav(item.id);
                       if (item.isDropdown) setIsDropdownOpen(true);
@@ -432,14 +408,21 @@ export default function Navbar() {
                   >
                     <Link
                       to={item.href}
-                      className={`relative px-6 py-2.5 rounded-full text-sm font-bold transition-colors duration-300 flex items-center gap-2 z-10 ${
-                        activeNav === item.id ? 'text-white' : 'text-gray-400 hover:text-white'
+                      className={`relative px-4 py-1.5 text-base font-semibold transition-colors duration-300 flex items-center gap-2 z-10 ${
+                        activeNav === item.id ? 'text-white' : 'text-white/70 hover:text-white'
                       }`}
                       onClick={() => setActiveNav(item.id)}
                     >
-                      <item.icon size={14} />
                       {item.label}
                       {item.isDropdown && <ChevronDown size={14} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />}
+                      {(activeNav === item.id || hoveredNav === item.id) && (
+                        <motion.span
+                          layoutId="nav-indicator"
+                          className="absolute bottom-0 left-1/2 w-8 h-0.5 bg-[#00d4ff] rounded-full"
+                          style={{ marginLeft: '-16px' }}
+                          transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                        />
+                      )}
                     </Link>
 
                     {item.isDropdown && (
@@ -538,13 +521,13 @@ export default function Navbar() {
                 ))}
               </div>
 
-              <div className="flex items-center gap-3 relative">
+              <div className="flex items-center gap-4 relative">
                 <div className="relative" ref={notifRef}>
-                  <button onClick={(e) => { e.stopPropagation(); setShowNotifications(!showNotifications); }} className={`p-2 transition-all hover:scale-110 active:scale-95 relative rounded-full ${showNotifications ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}>
-                    <Bell size={18} />
+                  <button onClick={(e) => { e.stopPropagation(); setShowNotifications(!showNotifications); }} className="relative p-1.5 text-white hover:text-white/90 transition-colors">
+                    <Bell className="w-6 h-6 fill-white" />
                     {(unreadCount + orderNotifCount) > 0 && (
-                      <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 bg-blue-500 rounded-full flex items-center justify-center text-[9px] font-black text-white shadow-[0_0_10px_rgba(59,130,246,0.6)] border-2 border-[#0D0B1E]">
-                        {(unreadCount + orderNotifCount) > 9 ? '+9' : (unreadCount + orderNotifCount)}
+                      <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1">
+                        {(unreadCount + orderNotifCount) > 9 ? '10' : (unreadCount + orderNotifCount)}
                       </span>
                     )}
                   </button>
@@ -688,24 +671,21 @@ export default function Navbar() {
                   )}</AnimatePresence>
                 </div>
 
-                <button 
-                  onClick={() => isLoggedIn ? navigate('/account') : setIsAuthModalOpen(true)}
-                  className="flex items-center gap-2 bg-white/5 border border-white/10 text-white px-4 py-2 rounded-full font-bold text-[11px] uppercase tracking-wider hover:bg-white/10 transition-all active:scale-95"
+                <Link
+                  to="/orders"
+                  className="hidden sm:flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors"
                 >
-                  <ShoppingCart size={13} strokeWidth={2.5} /> Mis Pedidos
-                </button>
+                  Mis Compras
+                </Link>
 
                 {isLoggedIn ? (
                   <div className="relative" ref={profileRef}>
-                    <button onClick={(e) => { e.stopPropagation(); setShowProfile(!showProfile); if (showNotifications) setShowNotifications(false); }} className="flex items-center justify-center p-0.5 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 transition-all hover:scale-105 relative shadow-[0_0_15px_rgba(37,99,235,0.3)]">
-                      <div className="relative size-9 rounded-full overflow-hidden border-2 border-[#0D0B1E]">
-                        <img 
-                          src={user?.avatar?.startsWith('http') ? user.avatar : `${SERVER_URL}${user?.avatar || '/avatar.png'}`} 
-                          alt="Avatar" 
-                          className="size-full object-cover" 
-                        />
-                      </div>
-                      <div className="absolute bottom-0.5 right-0.5 size-2.5 bg-emerald-500 rounded-full border-2 border-[#0D0B1E]"></div>
+                    <button onClick={(e) => { e.stopPropagation(); setShowProfile(!showProfile); if (showNotifications) setShowNotifications(false); }} className="w-10 h-10 rounded-lg bg-[#1a2744] border-2 border-[#2a3654] flex items-center justify-center overflow-hidden -my-1 hover:scale-105 transition-transform">
+                      <img 
+                        src={user?.avatar?.startsWith('http') ? user.avatar : `${SERVER_URL}${user?.avatar || '/avatar.png'}`} 
+                        alt="Avatar" 
+                        className="size-full object-cover" 
+                      />
                     </button>
                     <AnimatePresence>{showProfile && (
                       <motion.div 
