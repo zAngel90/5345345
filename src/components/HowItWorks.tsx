@@ -73,7 +73,7 @@ export default function HowItWorks() {
                 key={index} 
                 whileHover={window.innerWidth >= 768 ? { y: -12, scale: 1.02 } : {}}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="rounded-xl md:rounded-[3rem] p-4 md:p-6 lg:p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-auto md:min-w-0 min-h-[180px] md:min-h-[320px] border md:transition-all duration-500 bg-gradient-to-br from-[#090971]/70 to-[#000041]/60 backdrop-blur-sm md:backdrop-blur-2xl border-[#090971]/40 md:hover:border-[#090971]/60 flex-shrink-0"
+                className="rounded-xl md:rounded-[3rem] p-4 md:p-6 lg:p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-auto md:min-w-0 min-h-[180px] md:min-h-[320px] border md:transition-all duration-500 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm md:backdrop-blur-2xl border-white/10 md:hover:border-white/20 flex-shrink-0"
               >
               {/* Animated Light Streak on Hover */}
               <div className="hidden md:block absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out"></div>
