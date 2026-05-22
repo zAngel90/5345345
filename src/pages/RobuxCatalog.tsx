@@ -486,7 +486,7 @@ export default function RobuxCatalog() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="container mx-auto px-4 py-4 lg:py-8 pb-32 max-w-[1000px] relative z-10"
+        className="container mx-auto px-4 py-4 lg:py-8 pb-32 max-w-[1100px] relative z-10"
       >
         {/* Breadcrumb */}
         <motion.div variants={itemVariants} className="mb-5 lg:mb-8 mt-24">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, CheckCircle, Star, Shield, Gamepad2, Sword, Crown, Monitor } from 'lucide-react';
+import { Search, CheckCircle, Star, Shield, Gamepad2, Sword, Crown, Monitor, ArrowRight, Clock } from 'lucide-react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { StoreAPI, SERVER_URL } from '../services/api';
 import { useNavigate } from 'react-router-dom';
@@ -17,11 +17,25 @@ const FortniteIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Generate random stars outside component to prevent regeneration
+const stars = Array.from({ length: 50 }, (_, i) => ({
+  id: i,
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 100}%`,
+  size: Math.random() * 2 + 1,
+  duration: Math.random() * 3 + 2,
+  delay: Math.random() * 2
+}));
+
 export default function Hero() {
   const [games, setGames] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [allGames, setAllGames] = useState<any[]>([]);
+  const [allProducts, setAllProducts] = useState<any[]>([]);
   const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
   
@@ -46,16 +60,6 @@ export default function Hero() {
     x.set(clampedX);
   };
 
-  // Generate random stars
-  const stars = Array.from({ length: 50 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    top: `${Math.random() * 100}%`,
-    size: Math.random() * 2 + 1,
-    duration: Math.random() * 3 + 2,
-    delay: Math.random() * 2
-  }));
-
   useEffect(() => {
     const fetchGames = async () => {
       try {
@@ -65,18 +69,20 @@ export default function Hero() {
           StoreAPI.getGamesConfig()
         ]);
 
-        const productsData = Array.isArray(prodRes) ? prodRes : (prodRes.success ? prodRes.data : []);
-
         if (popRes.success && gamesRes.success) {
           const config = popRes.data;
-          const allProducts = productsData;
-          const allGames = gamesRes.data || [];
+          const productsData = Array.isArray(prodRes) ? prodRes : (prodRes.success ? prodRes.data : []);
+          const gamesData = gamesRes.data || [];
+
+          // Guardar para búsqueda
+          setAllGames(gamesData);
+          setAllProducts(productsData);
 
           if (config && config.length > 0) {
             const mapped = config.map((item: any) => {
               const gId = item.gameId || item.categoryId;
-              const game = allGames.find((g: any) => g.id === gId);
-              const productCount = allProducts.filter((p: any) => p.game === gId).length;
+              const game = gamesData.find((g: any) => g.id === gId);
+              const productCount = productsData.filter((p: any) => p.game === gId).length;
               
               return {
                 name: game?.name || 'Juego',
@@ -115,11 +121,87 @@ export default function Hero() {
     return () => el.removeEventListener('wheel', handleWheel);
   }, [games]);
 
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
+  const handleSearch = (item?: any) => {
+    if (item) {
+      if (item.type === 'game') {
+        navigate(`/catalog?game=${item.id}`);
+      } else if (item.type === 'product') {
+        navigate(`/catalog?search=${encodeURIComponent(item.name)}`);
+      } else if (item.type === 'robux') {
+        navigate('/robux');
+      }
+      setSearchQuery('');
+      setIsSearchDropdownOpen(false);
+    } else if (searchQuery.trim()) {
       navigate(`/catalog?search=${encodeURIComponent(searchQuery)}`);
+      setIsSearchDropdownOpen(false);
     }
   };
+
+  useEffect(() => {
+    if (searchQuery.trim().length > 0) {
+      const query = searchQuery.toLowerCase();
+      const results: any[] = [];
+
+      // Buscar en juegos
+      allGames.forEach(game => {
+        if (game.name.toLowerCase().includes(query)) {
+          results.push({
+            type: 'game',
+            id: game.id,
+            name: game.name,
+            image: game.image,
+            category: 'Juego'
+          });
+        }
+      });
+
+      // Buscar en productos
+      allProducts.slice(0, 5).forEach(product => {
+        if (product.name.toLowerCase().includes(query)) {
+          results.push({
+            type: 'product',
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            category: 'Producto'
+          });
+        }
+      });
+
+      // Agregar Robux si coincide
+      if ('robux'.includes(query)) {
+        results.unshift({
+          type: 'robux',
+          id: 'robux',
+          name: 'Robux',
+          image: '/images/robux-logo.svg',
+          category: 'Moneda'
+        });
+      }
+
+      setSearchResults(results.slice(0, 6));
+    } else {
+      // Mostrar resultados por defecto (juegos populares + Robux)
+      const defaultResults: any[] = [
+        {
+          type: 'robux',
+          id: 'robux',
+          name: 'Robux',
+          image: '/images/robux-logo.svg',
+          category: 'Moneda'
+        },
+        ...games.slice(0, 5).map(game => ({
+          type: 'game',
+          id: game.id,
+          name: game.name,
+          image: game.image,
+          category: 'Juego'
+        }))
+      ];
+      setSearchResults(defaultResults);
+    }
+  }, [searchQuery, allGames, allProducts, games]);
 
   return (
     <>
@@ -133,7 +215,7 @@ export default function Hero() {
         </div>
       )}
       {!isLoading && (
-    <section className="relative min-h-screen flex flex-col overflow-hidden pb-20">
+    <section className="relative min-h-screen flex flex-col overflow-x-hidden pb-20">
       {/* Background Image */}
       <div
         className="absolute inset-0 z-0"
@@ -142,18 +224,23 @@ export default function Hero() {
           backgroundSize: "cover",
           backgroundPosition: "center top",
           backgroundRepeat: "no-repeat",
+          filter: "blur(3px)"
         }}
       />
       {/* Purple-Blue Aura from Bottom - Extra smooth fade */}
       <div className="absolute inset-0 z-[1]" style={{
-        background: 'linear-gradient(to top, rgba(26, 31, 58, 0.9) 0%, rgba(26, 31, 58, 0.85) 10%, rgba(30, 42, 90, 0.75) 20%, rgba(30, 42, 90, 0.65) 30%, rgba(30, 42, 90, 0.5) 40%, rgba(30, 42, 90, 0.35) 50%, rgba(30, 42, 90, 0.22) 60%, rgba(30, 42, 90, 0.12) 70%, rgba(30, 42, 90, 0.05) 80%, rgba(30, 42, 90, 0.02) 90%, transparent 100%)'
+        background: 'linear-gradient(to top, rgba(9, 9, 113, 0.9) 0%, rgba(9, 9, 113, 0.85) 10%, rgba(0, 0, 65, 0.75) 20%, rgba(0, 0, 65, 0.65) 30%, rgba(0, 0, 65, 0.5) 40%, rgba(0, 0, 65, 0.35) 50%, rgba(0, 0, 65, 0.22) 60%, rgba(0, 0, 65, 0.12) 70%, rgba(0, 0, 65, 0.05) 80%, rgba(0, 0, 65, 0.02) 90%, transparent 100%)'
       }} />
       {/* Purple-Blue Aura from Left Side */}
-      <div className="absolute inset-y-0 left-0 w-2/5 z-[1] opacity-100 blur-2xl bg-gradient-to-r from-[#1a1f3a]/85 via-[#1e2a5a]/75 via-50% to-transparent" />
+      <div className="absolute inset-y-0 -left-20 w-2/5 z-[1] opacity-100 blur-2xl bg-gradient-to-r from-[#090971]/85 via-[#000041]/75 via-50% to-transparent" />
       {/* Purple-Blue Aura from Right Side */}
-      <div className="absolute inset-y-0 right-0 w-2/5 z-[1] opacity-100 blur-2xl bg-gradient-to-l from-[#1a1f3a]/85 via-[#1e2a5a]/75 via-50% to-transparent" />
+      <div className="absolute inset-y-0 -right-20 w-2/5 z-[1] opacity-100 blur-2xl bg-gradient-to-l from-[#090971]/95 via-[#000041]/85 via-50% to-transparent" />
+      {/* Corner Overlays - Bottom Left */}
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/2 z-[1] opacity-100 blur-3xl bg-gradient-to-tr from-[#090971]/90 via-[#000041]/70 via-40% to-transparent" />
+      {/* Corner Overlays - Bottom Right */}
+      <div className="absolute bottom-0 right-0 w-1/3 h-1/2 z-[1] opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/95 via-[#000041]/75 via-40% to-transparent" />
       {/* Overlay gradient */}
-      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-transparent via-[#0d1230]/10 to-transparent" />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-transparent via-[#090971]/10 to-transparent" />
       
       {/* Bottom fade to background color - Hides the hard edge */}
       <div className="absolute bottom-0 left-0 right-0 h-96 z-[3] pointer-events-none" style={{
@@ -189,19 +276,15 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-20">
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-2 text-center" style={{
-          textShadow: '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0 0 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7)'
-        }}>
-          <span className="text-white">Compra Robux, Items</span>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-2 text-center text-white">
+          Compra Robux, Items
         </h1>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-center drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-center">
           <span className="bg-gradient-to-r from-[#00d4ff] to-[#0099ff] bg-clip-text text-transparent">Fornite al Mejor Precio</span>
         </h2>
 
         {/* Subtitle */}
-        <p className="text-white text-sm md:text-base mb-6 max-w-xl mx-auto text-center leading-relaxed font-bold" style={{
-          textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 0 15px rgba(0,0,0,0.9)'
-        }}>
+        <p className="text-white/90 text-sm md:text-base mb-6 max-w-xl mx-auto text-center leading-relaxed font-medium">
           Entrega rápida, precios bajos y atención 24/7. Paga con
           <br />
           Yape, BCP, Plin, Transferencia y Otros.
@@ -235,7 +318,7 @@ export default function Hero() {
         </div>
 
         {/* Search Bar */}
-        <div className="w-full max-w-2xl mb-5">
+        <div className="w-full max-w-2xl mb-5 relative">
           <div className="flex items-center bg-white/5 backdrop-blur-md border border-white/[0.08] rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)] overflow-hidden">
             <div className="flex items-center gap-3 flex-1 px-5 py-3.5">
               <Search className="w-5 h-5 text-white/50" />
@@ -245,15 +328,87 @@ export default function Hero() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                onFocus={() => setIsSearchDropdownOpen(true)}
+                onBlur={() => setTimeout(() => setIsSearchDropdownOpen(false), 150)}
                 className="flex-1 bg-transparent text-white placeholder-white/50 outline-none text-sm"
               />
             </div>
             <button 
-              onClick={handleSearch}
+              onClick={() => handleSearch()}
               className="px-6 py-3.5 bg-[#0099ff] text-white font-semibold hover:bg-[#0088ee] transition-colors text-sm rounded-xl m-1"
             >
               Buscar
             </button>
+          </div>
+
+          {/* Dropdown de resultados */}
+          <div
+            className={`absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-white/5 backdrop-blur-md border border-white/[0.08] rounded-2xl overflow-hidden origin-top transition-all duration-[400ms] shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)] ${
+              isSearchDropdownOpen && searchResults.length > 0
+                ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+                : 'opacity-0 -translate-y-2 scale-[0.98] pointer-events-none'
+            }`}
+            style={{
+              transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
+              backdropFilter: 'blur(12px)',
+              animation: isSearchDropdownOpen ? 'containerVibrate 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards' : 'none',
+              animationDelay: '0.15s'
+            }}
+            onMouseDown={(e) => e.preventDefault()}
+          >
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/5">
+              <Search size={13} className="text-white/60" />
+              <span className="text-[10px] font-bold text-white/80 uppercase tracking-wider">{searchQuery.trim() ? 'Resultados' : 'Sugerencias'}</span>
+            </div>
+            
+            <div className="max-h-[280px] overflow-y-auto scrollbar-hide">
+              {searchResults.map((result: any, idx: number) => (
+                <React.Fragment key={result.id}>
+                  <button
+                    onClick={() => handleSearch(result)}
+                    className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group rounded-xl ${
+                      isSearchDropdownOpen ? 'animate-[itemSlideIn_1.1s_cubic-bezier(0.22,1,0.36,1)_both]' : ''
+                    }`}
+                    style={{
+                      animationDelay: '0.08s'
+                    }}
+                  >
+                    <div className={`w-10 h-10 rounded-2xl overflow-hidden bg-blue-500/10 border border-blue-500/20 shrink-0 group-hover:border-blue-500/40 transition-all ${
+                      isSearchDropdownOpen ? 'animate-[avatarAppear_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
+                    }`}
+                    style={{
+                      animationDelay: '0.08s'
+                    }}>
+                      <img
+                        src={result.image ? (result.image.startsWith('http') ? result.image : `${SERVER_URL}${result.image}`) : '/images/robux-logo.svg'}
+                        alt={result.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => { 
+                          (e.target as HTMLImageElement).src = '/images/robux-logo.svg'; 
+                        }}
+                      />
+                    </div>
+                    <div className={`flex-1 min-w-0 flex flex-col gap-1.5 ${
+                      isSearchDropdownOpen ? 'animate-[textTurbulence_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
+                    }`}
+                    style={{
+                      animationDelay: '0.08s'
+                    }}>
+                      <div className="bg-white px-2 py-1 rounded-lg w-fit max-w-full">
+                        <p className="text-xs font-bold text-black truncate">{result.name}</p>
+                      </div>
+                      <div className="bg-white/80 px-2 py-0.5 rounded-md w-fit">
+                        <p className="text-[10px] font-semibold text-black/70 truncate">{result.category}</p>
+                      </div>
+                    </div>
+                    <ArrowRight size={14} className="text-white/10 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all shrink-0" />
+                  </button>
+                  {idx < searchResults.length - 1 && (
+                    <div className="border-t border-white/[0.04]" />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         </div>
 
