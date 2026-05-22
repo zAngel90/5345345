@@ -244,7 +244,7 @@ export default function Hero() {
       
       {/* Bottom fade to background color - Hides the hard edge */}
       <div className="absolute bottom-0 left-0 right-0 h-96 z-[3] pointer-events-none" style={{
-        background: 'linear-gradient(to bottom, transparent 0%, rgba(9, 9, 113, 0.4) 20%, rgba(9, 9, 113, 0.7) 40%, rgba(9, 9, 113, 0.9) 60%, rgba(9, 9, 113, 0.95) 80%, rgb(9, 9, 113) 100%)'
+        background: 'linear-gradient(to bottom, transparent 0%, rgba(10, 10, 46, 0.4) 20%, rgba(10, 10, 46, 0.7) 40%, rgba(10, 10, 46, 0.9) 60%, rgba(10, 10, 46, 0.95) 80%, rgb(10, 10, 46) 100%)'
       }} />
 
       {/* Animated Stars - Desktop only */}

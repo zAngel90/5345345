@@ -120,7 +120,7 @@ export default function Footer() {
                 <div 
                     className="absolute -top-[300px] left-0 right-0 h-[300px] pointer-events-none z-50"
                     style={{
-                        background: 'linear-gradient(to top, #090971 0%, #090971 20%, rgba(9, 9, 113, 0.95) 40%, rgba(9, 9, 113, 0.7) 60%, transparent 100%)',
+                        background: 'linear-gradient(to top, #0a0a2e 0%, #0a0a2e 20%, rgba(10, 10, 46, 0.95) 40%, rgba(10, 10, 46, 0.7) 60%, transparent 100%)',
                         backdropFilter: 'blur(8px)',
                         maskImage: 'linear-gradient(to top, black 20%, transparent 100%)',
                         WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 100%)'
