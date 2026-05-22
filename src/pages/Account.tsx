@@ -341,9 +341,17 @@ export default function Account() {
       initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="min-h-screen bg-[#0d0c22] pt-20 pb-20 px-4 md:px-8 lg:px-12"
+      className="min-h-screen pt-20 pb-20 px-4 md:px-8 lg:px-12 relative"
     >
-      <div className="max-w-[1400px] mx-auto">
+      {/* Corner Overlays */}
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-br from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
+        <div className="absolute top-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-bl from-[#090971]/55 via-[#000041]/40 via-30% to-transparent" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tr from-[#090971]/45 via-[#000041]/30 via-30% to-transparent" />
+        <div className="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
+      </div>
+      
+      <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Header */}
         <div className="mb-10">
           <h1 className="text-4xl font-black text-white tracking-tight">Mi Cuenta</h1>

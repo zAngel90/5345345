@@ -5,39 +5,30 @@ import { Link2, ChevronLeft, ChevronRight, UserPlus, MousePointerClick, CreditCa
 const steps = [
   {
     num: "01",
-    title: "Crea tu cuenta",
-    desc: "Regístrate en segundos y accede a todos los productos disponibles de inmediato.",
-    icon: UserPlus,
+    title: "Elige tu producto",
+    desc: "Selecciona la cantidad de Robux o el ítem que necesitas desde nuestro catálogo verificado.",
+    icon: MousePointerClick,
     active: true,
     color: "text-[#4D00FF]",
     borderColor: "border-[#4D00FF]/30"
   },
   {
     num: "02",
-    title: "Elige tu producto",
-    desc: "Selecciona la cantidad de Robux o el ítem que necesitas desde nuestro catálogo verificado.",
-    icon: MousePointerClick,
+    title: "Realiza tu pago",
+    desc: "Paga de forma segura con los métodos disponibles. Tu transacción está protegida en todo momento.",
+    icon: CreditCard,
     active: false,
     color: "text-[#2B00E0]",
     borderColor: "border-[#2B00E0]/30"
   },
   {
     num: "03",
-    title: "Realiza tu pago",
-    desc: "Paga de forma segura con los métodos disponibles. Tu transacción está protegida en todo momento.",
-    icon: CreditCard,
-    active: false,
-    color: "text-[#7B2FFF]",
-    borderColor: "border-[#7B2FFF]/30"
-  },
-  {
-    num: "04",
     title: "Recibe tu pedido",
     desc: "Tu entrega llega en minutos con seguimiento en tiempo real en tu cuenta.",
     icon: Package,
     active: false,
-    color: "text-[#1400AC]",
-    borderColor: "border-[#1400AC]/30"
+    color: "text-[#7B2FFF]",
+    borderColor: "border-[#7B2FFF]/30"
   }
 ];
 
@@ -45,19 +36,16 @@ export default function HowItWorks() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="how-it-works" className="pt-0 pb-8 md:py-24 -mt-20">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="how-it-works" className="pt-0 pb-8 md:py-24 -mt-20 relative overflow-hidden">
+      {/* Side Overlays - Left (diagonal towards top) */}
+      <div className="absolute top-1/2 bottom-0 left-0 w-1/3 z-[1] opacity-100 blur-3xl bg-gradient-to-tr from-[#090971]/90 via-[#000041]/75 via-35% to-transparent pointer-events-none" />
+      {/* Side Overlays - Right (diagonal towards top) */}
+      <div className="absolute top-1/2 bottom-0 right-0 w-1/3 z-[1] opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/95 via-[#000041]/80 via-35% to-transparent pointer-events-none" />
+      
+      <div className="mx-auto px-4 sm:px-6 lg:px-20 relative z-10">
         
         {/* Header Section */}
-        <div className="flex flex-col mb-6 md:mb-12">
-          {/* Top Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0D0B1E]/80 border border-pixel-primary/40 mb-6 w-max">
-            <Link2 size={14} className="text-pixel-accent" />
-            <span className="text-[10px] font-bold tracking-widest text-pixel-accent uppercase">
-              Descubre cómo funciona
-            </span>
-          </div>
-          
+        <div className="flex flex-col mb-6 md:mb-12 text-center">
           {/* Title */}
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black leading-[1.1] tracking-tight">
             <span className="text-[#F3E8D6]">Tu guía para comprar</span><br />
@@ -67,13 +55,13 @@ export default function HowItWorks() {
 
         {/* Carrusel horizontal en móviles, Grid en desktop */}
         <div className="overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
-          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 pb-4 md:pb-0">
+          <div className="flex md:grid md:grid-cols-3 gap-3 md:gap-4 pb-4 md:pb-0 w-full md:ml-20">
             {steps.map((step, index) => (
               <motion.div 
                 key={index} 
                 whileHover={window.innerWidth >= 768 ? { y: -12, scale: 1.02 } : {}}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="rounded-xl md:rounded-[3rem] p-4 md:p-6 lg:p-8 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-auto md:min-w-0 min-h-[180px] md:min-h-[320px] border md:transition-all duration-500 bg-gradient-to-br from-[#090971]/70 to-[#000041]/60 backdrop-blur-sm md:backdrop-blur-2xl border-[#090971]/40 md:hover:border-[#090971]/60 flex-shrink-0"
+                className="rounded-xl md:rounded-[3rem] p-4 md:p-8 lg:p-10 flex flex-col relative overflow-hidden select-none group/card cursor-pointer w-[75vw] max-w-[280px] md:w-full md:min-w-[400px] min-h-[180px] md:min-h-[280px] border md:transition-all duration-500 bg-gradient-to-br from-[#090971]/70 to-[#000041]/60 backdrop-blur-sm md:backdrop-blur-2xl border-[#090971]/40 md:hover:border-[#090971]/60 flex-shrink-0"
               >
               {/* Animated Light Streak on Hover */}
               <div className="hidden md:block absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out"></div>

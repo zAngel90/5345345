@@ -444,8 +444,16 @@ export default function RobuxCatalog() {
       initial={{ opacity: 0, filter: 'blur(10px)' }}
       animate={{ opacity: 1, filter: 'blur(0px)' }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="min-h-screen bg-[#0d0c22] relative selection:bg-blue-500/30 selection:text-blue-200 font-sans text-white"
+      className="min-h-screen relative selection:bg-blue-500/30 selection:text-blue-200 font-sans text-white"
     >
+      {/* Corner Overlays */}
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-br from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
+        <div className="absolute top-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-bl from-[#090971]/55 via-[#000041]/40 via-30% to-transparent" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tr from-[#090971]/45 via-[#000041]/30 via-30% to-transparent" />
+        <div className="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
+      </div>
+      
       {/* Background Gradients - Simplified to avoid scroll bugs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true" style={{
         background: `radial-gradient(ellipse 70% 50% at 50% 0%, rgba(59, 130, 246, 0.05), transparent 50%),
@@ -708,11 +716,9 @@ export default function RobuxCatalog() {
 
             {/* FAQ Box inside Main Column */}
             <motion.div variants={itemVariants} className="hidden lg:block border-t border-white/[0.04] pt-8">
-              <div className="relative rounded-2xl overflow-hidden bg-[#0d0c22]">
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-[#090971]/20 via-black to-black">
                 <div className="absolute inset-0 z-0">
-                  <img src="/images/epic1.jpg" className="w-full h-full object-cover opacity-20" alt="FAQ Background" />
-                  <div className="absolute inset-0 bg-[#0d0c22]/60"></div>
-                  <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, transparent, #0d0c22 95%)' }}></div>
+                  <img src="/images/epic1.jpg" className="w-full h-full object-cover opacity-5" alt="FAQ Background" />
                 </div>
                 <div className="relative z-10 p-6">
                   <div className="flex items-center gap-2.5 mb-5">
@@ -760,8 +766,8 @@ export default function RobuxCatalog() {
 
           {/* Sidebar - Hidden on mobile */}
           <motion.div variants={itemVariants} className="hidden lg:block w-full lg:w-[320px] shrink-0 lg:sticky lg:top-24 space-y-6">
-            <div className="relative rounded-2xl overflow-hidden bg-white/[0.02] backdrop-blur-sm" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
-              <div className="p-6 bg-white/[0.02] backdrop-blur-sm">
+            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-[#090971]/20 via-black to-black" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
+              <div className="p-6">
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-2 text-white/40">
                     <ShoppingCart size={14} />
@@ -848,7 +854,7 @@ export default function RobuxCatalog() {
             </div>
 
             {/* Recent Purchases Section in Sidebar */}
-            <div className="rounded-2xl bg-white/[0.02] backdrop-blur-sm px-3 pt-4 pb-3" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
+            <div className="rounded-2xl bg-gradient-to-r from-[#090971]/20 via-black to-black px-3 pt-4 pb-3" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div>

@@ -110,7 +110,7 @@ export default function Footer() {
     const isHome = location.pathname === '/';
 
     return (
-        <footer className="relative z-50">
+        <footer className="relative z-10">
             {/* 
                 MÁSCARA DE TRANSICIÓN DEFINITIVA
                 Eliminamos cualquier contenedor absoluto separado y usamos un único bloque 
@@ -118,9 +118,9 @@ export default function Footer() {
             */}
             {isHome && (
                 <div 
-                    className="absolute -top-[300px] left-0 right-0 h-[300px] pointer-events-none z-50"
+                    className="absolute -top-[300px] left-0 right-0 h-[300px] pointer-events-none z-20"
                     style={{
-                        background: 'linear-gradient(to top, #0a0a2e 0%, #0a0a2e 20%, rgba(10, 10, 46, 0.95) 40%, rgba(10, 10, 46, 0.7) 60%, transparent 100%)',
+                        background: 'linear-gradient(to top, #000000 0%, #000000 20%, rgba(0, 0, 0, 0.95) 40%, rgba(0, 0, 0, 0.7) 60%, transparent 100%)',
                         backdropFilter: 'blur(8px)',
                         maskImage: 'linear-gradient(to top, black 20%, transparent 100%)',
                         WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 100%)'
@@ -130,9 +130,24 @@ export default function Footer() {
 
             {isHome && (
                 <div
-                    className="relative overflow-hidden"
+                    className="relative overflow-hidden border-t border-b border-blue-400/30"
                 >
-                    <GalaxyBackground />
+                    {/* Background Image */}
+                    <div 
+                        className="absolute inset-0 z-0 opacity-20 blur-sm"
+                        style={{
+                            backgroundImage: "url('https://i.postimg.cc/nhkYSCJ0/image.png')",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat"
+                        }}
+                    />
+                    
+                    {/* Corner Overlays */}
+                    <div className="absolute inset-0 z-[1] pointer-events-none">
+                        <div className="absolute top-0 left-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-br from-[#090971]/90 via-[#000041]/75 via-30% to-transparent" />
+                        <div className="absolute top-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-bl from-[#090971]/95 via-[#000041]/80 via-30% to-transparent" />
+                    </div>
 
                     <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
                         <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black mb-4 leading-tight">
@@ -146,10 +161,19 @@ export default function Footer() {
                         </p>
                         <a
                             href="/catalog"
-                            className="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold text-lg rounded-full shadow-[0_0_32px_rgba(37,99,235,0.5)] hover:shadow-[0_0_48px_rgba(37,99,235,0.7)] hover:-translate-y-1 transition-all duration-300"
+                            className="group relative inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 text-white font-black text-lg rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:-translate-y-1 shadow-[0_10px_40px_rgba(59,130,246,0.4),0_0_0_1px_rgba(96,165,250,0.3),inset_0_1px_0_rgba(255,255,255,0.3)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.6),0_0_0_2px_rgba(96,165,250,0.5),inset_0_1px_0_rgba(255,255,255,0.4)]"
+                            style={{
+                                textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+                            }}
                         >
-                            <ArrowRight size={20} />
-                            Ir al catálogo
+                            {/* Shine effect */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                            
+                            {/* 3D depth effect */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent opacity-50" />
+                            
+                            <ArrowRight size={22} className="relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                            <span className="relative z-10">Ir al catálogo</span>
                         </a>
                     </div>
 
@@ -160,7 +184,11 @@ export default function Footer() {
 
             {/* ── Footer Links ── */}
             <div className="relative overflow-hidden">
-                <GalaxyBackground />
+                {/* Corner Overlays */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                    <div className="absolute bottom-0 left-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tr from-[#090971]/85 via-[#000041]/70 via-30% to-transparent" />
+                    <div className="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/90 via-[#000041]/75 via-30% to-transparent" />
+                </div>
 
                 <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
 

@@ -72,10 +72,18 @@ const faqs = [
 ];
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section id="faq" className="pt-0 pb-24 md:pt-10 md:pb-40 relative overflow-hidden">
+      {/* Background layer for overlays */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Corner Overlays - Top Left (extended downwards) */}
+        <div className="absolute -top-80 h-[70%] left-0 w-1/3 opacity-100 blur-3xl bg-gradient-to-br from-[#090971] via-[#000041]/90 via-30% to-transparent" />
+        {/* Corner Overlays - Top Right (extended downwards) */}
+        <div className="absolute -top-80 h-[70%] right-0 w-1/3 opacity-100 blur-3xl bg-gradient-to-bl from-[#090971] via-[#000041]/95 via-30% to-transparent" />
+      </div>
+      
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Main FAQ Container (The "Grid" container requested) */}

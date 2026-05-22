@@ -206,7 +206,7 @@ export default function Hero() {
   return (
     <>
       {isLoading && (
-        <div className="min-h-screen flex items-center justify-center bg-[#0d0c22]">
+        <div className="min-h-screen flex items-center justify-center">
           <div className="flex gap-2">
             <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
             <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
@@ -218,7 +218,7 @@ export default function Hero() {
     <section className="relative min-h-screen flex flex-col overflow-x-hidden pb-20">
       {/* Background Image */}
       <div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 opacity-30"
         style={{
           backgroundImage: `url('https://i.postimg.cc/wjNMvZfd/wallpaper-PC.png')`,
           backgroundSize: "cover",
@@ -227,24 +227,20 @@ export default function Hero() {
           filter: "blur(3px)"
         }}
       />
-      {/* Purple-Blue Aura from Bottom - Extra smooth fade */}
-      <div className="absolute inset-0 z-[1]" style={{
-        background: 'linear-gradient(to top, rgba(9, 9, 113, 0.9) 0%, rgba(9, 9, 113, 0.85) 10%, rgba(0, 0, 65, 0.75) 20%, rgba(0, 0, 65, 0.65) 30%, rgba(0, 0, 65, 0.5) 40%, rgba(0, 0, 65, 0.35) 50%, rgba(0, 0, 65, 0.22) 60%, rgba(0, 0, 65, 0.12) 70%, rgba(0, 0, 65, 0.05) 80%, rgba(0, 0, 65, 0.02) 90%, transparent 100%)'
-      }} />
       {/* Purple-Blue Aura from Left Side */}
-      <div className="absolute inset-y-0 -left-20 w-2/5 z-[1] opacity-100 blur-2xl bg-gradient-to-r from-[#090971]/85 via-[#000041]/75 via-50% to-transparent" />
+      <div className="absolute inset-y-0 -left-20 w-2/5 z-[1] opacity-100 blur-2xl bg-gradient-to-r from-[#090971]/40 via-[#000041]/30 via-50% to-transparent" />
       {/* Purple-Blue Aura from Right Side */}
-      <div className="absolute inset-y-0 -right-20 w-2/5 z-[1] opacity-100 blur-2xl bg-gradient-to-l from-[#090971]/95 via-[#000041]/85 via-50% to-transparent" />
+      <div className="absolute inset-y-0 -right-20 w-2/5 z-[1] opacity-100 blur-2xl bg-gradient-to-l from-[#090971]/45 via-[#000041]/35 via-50% to-transparent" />
       {/* Corner Overlays - Bottom Left */}
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/2 z-[1] opacity-100 blur-3xl bg-gradient-to-tr from-[#090971]/90 via-[#000041]/70 via-40% to-transparent" />
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/2 z-[1] opacity-100 blur-3xl bg-gradient-to-tr from-[#090971]/60 via-[#000041]/45 via-40% to-transparent" />
       {/* Corner Overlays - Bottom Right */}
-      <div className="absolute bottom-0 right-0 w-1/3 h-1/2 z-[1] opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/95 via-[#000041]/75 via-40% to-transparent" />
+      <div className="absolute bottom-0 right-0 w-1/3 h-1/2 z-[1] opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/65 via-[#000041]/50 via-40% to-transparent" />
       {/* Overlay gradient */}
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-transparent via-[#090971]/10 to-transparent" />
       
-      {/* Bottom fade to background color - Hides the hard edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-96 z-[3] pointer-events-none" style={{
-        background: 'linear-gradient(to bottom, transparent 0%, rgba(10, 10, 46, 0.4) 20%, rgba(10, 10, 46, 0.7) 40%, rgba(10, 10, 46, 0.9) 60%, rgba(10, 10, 46, 0.95) 80%, rgb(10, 10, 46) 100%)'
+      {/* Bottom fade to background color - Smooth transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-[500px] z-[3] pointer-events-none" style={{
+        background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.1) 10%, rgba(0, 0, 0, 0.3) 25%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0.7) 55%, rgba(0, 0, 0, 0.85) 70%, rgba(0, 0, 0, 0.95) 85%, rgb(0, 0, 0) 100%)'
       }} />
 
       {/* Animated Stars - Desktop only */}
@@ -276,11 +272,11 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-20">
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-2 text-center text-white">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-2 text-center text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
           Compra Robux, Items
         </h1>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-center">
-          <span className="bg-gradient-to-r from-[#00d4ff] to-[#0099ff] bg-clip-text text-transparent">Fornite al Mejor Precio</span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
+          <span className="bg-gradient-to-r from-[#60a5fa] to-[#3b82f6] bg-clip-text text-transparent" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.2)' }}>Fornite al Mejor Precio</span>
         </h2>
 
         {/* Subtitle */}
@@ -343,12 +339,13 @@ export default function Hero() {
 
           {/* Dropdown de resultados */}
           <div
-            className={`absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-white/5 backdrop-blur-md border border-white/[0.08] rounded-2xl overflow-hidden origin-top transition-all duration-[400ms] shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)] ${
+            className={`absolute top-[calc(100%+8px)] left-0 right-0 z-50 backdrop-blur-md border border-white/[0.08] rounded-2xl overflow-hidden origin-top transition-all duration-[400ms] shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)] ${
               isSearchDropdownOpen && searchResults.length > 0
                 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
                 : 'opacity-0 -translate-y-2 scale-[0.98] pointer-events-none'
             }`}
             style={{
+              background: 'rgba(0, 0, 0, 0.98)',
               transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
               backdropFilter: 'blur(12px)',
               animation: isSearchDropdownOpen ? 'containerVibrate 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards' : 'none',
@@ -356,7 +353,9 @@ export default function Hero() {
             }}
             onMouseDown={(e) => e.preventDefault()}
           >
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/5">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#090971]/20 via-transparent to-transparent pointer-events-none"></div>
+            <div className="relative z-10">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10">
               <Search size={13} className="text-white/60" />
               <span className="text-[10px] font-bold text-white/80 uppercase tracking-wider">{searchQuery.trim() ? 'Resultados' : 'Sugerencias'}</span>
             </div>
@@ -408,6 +407,7 @@ export default function Hero() {
                   )}
                 </React.Fragment>
               ))}
+            </div>
             </div>
           </div>
         </div>

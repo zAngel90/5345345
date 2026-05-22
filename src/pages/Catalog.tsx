@@ -248,11 +248,14 @@ export default function Catalog() {
       initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="min-h-screen bg-pixel-bg pt-28 px-4 selection:bg-blue-500/30"
+      className="min-h-screen pt-28 px-4 selection:bg-blue-500/30 relative"
     >
-      {/* Background Gradients - Simplified to avoid scroll bugs */}
-      <div className="fixed inset-0 pointer-events-none select-none z-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-gradient-radial from-blue-500/10 to-transparent opacity-30" />
+      {/* Corner Overlays */}
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-br from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
+        <div className="absolute top-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-bl from-[#090971]/55 via-[#000041]/40 via-30% to-transparent" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tr from-[#090971]/45 via-[#000041]/30 via-30% to-transparent" />
+        <div className="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
       </div>
 
       <div className="max-w-[1140px] mx-auto relative z-10">

@@ -271,12 +271,14 @@ export default function Navbar() {
                       onClick={(e) => e.stopPropagation()}
                       className="lg:hidden fixed inset-x-4 top-16 border border-white/10 rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60] max-h-[80vh] overflow-y-auto"
                       style={{ 
-                        background: 'rgba(13, 11, 30, 0.98)',
+                        background: 'rgba(0, 0, 0, 0.98)',
                         backdropFilter: 'blur(30px)',
                         WebkitBackdropFilter: 'blur(30px)',
                         boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5)'
                       } as React.CSSProperties}
                     >
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#090971]/20 via-transparent to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
                       <div className="flex items-center justify-between mb-3 px-2 pt-1">
                         <h3 className="text-sm font-bold text-white tracking-tight">Notificaciones</h3>
                         <button 
@@ -361,6 +363,7 @@ export default function Navbar() {
                           </div>
                         )}
                       </div>
+                      </div>
                     </motion.div>
                   )}</AnimatePresence>
                 </div>
@@ -435,12 +438,14 @@ export default function Navbar() {
                             transition={{ duration: 0.8, ease: [0.05, 0.7, 0.1, 1.0] }}
                             className="absolute top-full left-0 pt-2 z-50 w-full min-w-[220px]"
                           >
-                            <div className="bg-[#0D0C22]/95 backdrop-blur-2xl border border-white/5 rounded-[20px] p-1.5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] ring-1 ring-white/5 overflow-hidden">
+                            <div className="relative bg-black backdrop-blur-2xl border border-white/5 rounded-[20px] p-1.5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] ring-1 ring-white/5 overflow-hidden">
+                              <div className="absolute inset-0 bg-gradient-to-r from-[#090971]/20 via-transparent to-transparent pointer-events-none"></div>
+                              <div className="relative z-10">
                               <div className="space-y-0.5">
                                 {/* Robux */}
                                 <Link
                                   to="/catalog/robux"
-                                  className="flex items-center gap-2 px-2 py-2 rounded-xl hover:bg-emerald-500/10 transition-all group relative border border-transparent hover:border-emerald-500/20"
+                                  className="flex items-center gap-2 px-2 py-2 rounded-xl hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-transparent transition-all group relative border border-transparent hover:border-emerald-500/20"
                                   onClick={() => setIsDropdownOpen(false)}
                                 >
                                   <div className="size-8 rounded-lg overflow-hidden bg-emerald-500/10 shrink-0 border border-emerald-500/20 group-hover:border-emerald-500/40 transition-all duration-300 flex items-center justify-center">
@@ -456,7 +461,7 @@ export default function Navbar() {
                                 {/* Items In-Game */}
                                 <Link
                                   to="/catalog"
-                                  className="flex items-center gap-2 px-2 py-2 rounded-xl hover:bg-blue-500/10 transition-all group relative border border-transparent hover:border-blue-500/20"
+                                  className="flex items-center gap-2 px-2 py-2 rounded-xl hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-transparent transition-all group relative border border-transparent hover:border-blue-500/20"
                                   onClick={() => setIsDropdownOpen(false)}
                                 >
                                   <div className="size-8 rounded-lg overflow-hidden bg-blue-500/10 shrink-0 border border-blue-500/20 group-hover:border-blue-500/40 transition-all duration-300 flex items-center justify-center">
@@ -512,6 +517,7 @@ export default function Navbar() {
                                   </Link>
                                 </div>
                               </div>
+                              </div>
                             </div>
                           </motion.div>
                         )}
@@ -537,14 +543,16 @@ export default function Navbar() {
                       animate={{ opacity: 1, scale: 1, y: 0 }} 
                       exit={{ opacity: 0, scale: 0.95, y: 10 }} 
                       transition={{ type: 'spring', stiffness: 450, damping: 30 }} 
-                      className="absolute top-full right-0 mt-3 w-[300px] border border-white/10 rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60]"
+                      className="absolute top-full right-0 mt-3 w-[300px] border border-white/10 rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60] overflow-hidden"
                       style={{ 
-                        background: 'rgba(13, 11, 30, 0.98)',
+                        background: 'rgba(0, 0, 0, 0.98)',
                         backdropFilter: 'blur(30px)',
                         WebkitBackdropFilter: 'blur(30px)',
                         boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5)'
                       } as React.CSSProperties}
                     >
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#090971]/20 via-transparent to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
                       <div className="flex items-center justify-between mb-3 px-2 pt-1">
                         <h3 className="text-sm font-bold text-white tracking-tight">Notificaciones</h3>
                         <button 
@@ -667,6 +675,7 @@ export default function Navbar() {
                           </div>
                         )}
                       </div>
+                      </div>
                     </motion.div>
                   )}</AnimatePresence>
                 </div>
@@ -695,12 +704,14 @@ export default function Navbar() {
                         transition={{ type: 'spring', stiffness: 500, damping: 20, mass: 0.8 }} 
                         className="absolute top-full right-0 mt-3 w-[280px] border border-white/10 rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] z-[70] ring-1 ring-white/5 overflow-hidden"
                         style={{ 
-                          background: 'rgba(13, 11, 30, 0.98)',
+                          background: 'rgba(0, 0, 0, 0.98)',
                           backdropFilter: 'blur(30px)',
                           WebkitBackdropFilter: 'blur(30px)',
                           boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5)'
                         } as React.CSSProperties}
                       >
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#090971]/20 via-transparent to-transparent pointer-events-none"></div>
+                        <div className="relative z-10">
                         <div className="p-4 flex items-center gap-3 border-b border-white/5">
                         <div className="size-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center relative overflow-hidden">
                           <img 
@@ -727,7 +738,7 @@ export default function Navbar() {
                             { icon: ShoppingCart, label: 'Mis Pedidos', href: '/orders' }, 
                             { icon: Users, label: 'Referidos', href: '/referrals' }
                           ].map((item, i) => (
-                            <Link key={i} to={item.href} onClick={() => setShowProfile(false)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-white/5 transition-all group text-left">
+                            <Link key={i} to={item.href} onClick={() => setShowProfile(false)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-transparent transition-all group text-left">
                               <div className="size-8 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors"><item.icon size={16} className="text-gray-500 group-hover:text-blue-400" /></div>
                               <span className="text-xs font-bold text-gray-400 group-hover:text-white transition-colors">{item.label}</span>
                             </Link>
@@ -744,6 +755,7 @@ export default function Navbar() {
                             <div className="size-8 rounded-xl bg-red-500/5 flex items-center justify-center group-hover:bg-red-500/10 transition-colors"><LogOut size={16} className="text-red-500/50 group-hover:text-red-500" /></div>
                             <span className="text-xs font-bold text-red-500/70 group-hover:text-red-500 transition-colors">Cerrar Sesión</span>
                           </button>
+                        </div>
                         </div>
                       </motion.div>
                     )}</AnimatePresence>
