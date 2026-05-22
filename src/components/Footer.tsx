@@ -120,7 +120,7 @@ export default function Footer() {
                 <div 
                     className="absolute -top-[300px] left-0 right-0 h-[300px] pointer-events-none z-50"
                     style={{
-                        background: 'linear-gradient(to top, #0d0c22 0%, #0d0c22 20%, rgba(13, 12, 34, 0.95) 40%, rgba(13, 12, 34, 0.7) 60%, transparent 100%)',
+                        background: 'linear-gradient(to top, #090971 0%, #090971 20%, rgba(9, 9, 113, 0.95) 40%, rgba(9, 9, 113, 0.7) 60%, transparent 100%)',
                         backdropFilter: 'blur(8px)',
                         maskImage: 'linear-gradient(to top, black 20%, transparent 100%)',
                         WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 100%)'
@@ -131,7 +131,6 @@ export default function Footer() {
             {isHome && (
                 <div
                     className="relative overflow-hidden"
-                    style={{ background: 'linear-gradient(180deg, #0d0c22 0%, #161530 100%)' }}
                 >
                     <GalaxyBackground />
 
@@ -160,7 +159,7 @@ export default function Footer() {
             )}
 
             {/* ── Footer Links ── */}
-            <div className="relative overflow-hidden" style={{ background: '#0d0c22' }}>
+            <div className="relative overflow-hidden">
                 <GalaxyBackground />
 
                 <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">

@@ -12,9 +12,9 @@ module.exports = {
       },
       colors: {
         pixel: {
-          bg: '#0d0c22',
-          panel: '#161530',
-          panelHover: '#14103A',
+          bg: '#090971',
+          panel: '#000041',
+          panelHover: '#090971',
           border: '#1E1A4A',
           primary: '#1400AC',
           primaryStart: '#1400AC',

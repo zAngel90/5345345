@@ -45,7 +45,7 @@ export default function HowItWorks() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="how-it-works" className="pt-0 pb-8 md:py-24 -mt-40">
+    <section id="how-it-works" className="pt-0 pb-8 md:py-24 -mt-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Section */}

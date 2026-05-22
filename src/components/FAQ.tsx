@@ -75,7 +75,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="pt-0 pb-24 md:pt-10 md:pb-40 bg-pixel-bg relative overflow-hidden">
+    <section id="faq" className="pt-0 pb-24 md:pt-10 md:pb-40 relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Main FAQ Container (The "Grid" container requested) */}

@@ -71,7 +71,7 @@ export default function Testimonials() {
   if (reviews.length === 0) return null;
 
   return (
-    <section id="testimonials" className="py-24 relative overflow-hidden z-10 bg-pixel-bg">
+    <section id="testimonials" className="py-24 relative overflow-hidden z-10">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
         <h2 className="text-4xl md:text-6xl font-display font-black mb-4 text-white">
           Miles confían en <span className="text-transparent bg-clip-text bg-gradient-to-r from-pixel-primaryEnd to-pixel-accent">Pixel Store</span>
