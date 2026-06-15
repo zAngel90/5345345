@@ -86,7 +86,7 @@ export default function Mm2Tab({ items, setItems, onSave, onTriggerUpload, isSav
                   placeholder="Nombre del Item" 
                 />
                 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-4 gap-2">
                   <div className="space-y-1">
                     <label className="text-[9px] font-black text-white/20 uppercase ml-1">Precio PEN</label>
                     <input 
@@ -95,6 +95,16 @@ export default function Mm2Tab({ items, setItems, onSave, onTriggerUpload, isSav
                       onChange={(e) => updateItem(idx, 'price', parseFloat(e.target.value))} 
                       className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-emerald-400 text-xs font-bold" 
                       placeholder="0.00" 
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-black text-white/20 uppercase ml-1">Precio Robux</label>
+                    <input 
+                      type="number" 
+                      value={item.robuxPrice || ''} 
+                      onChange={(e) => updateItem(idx, 'robuxPrice', e.target.value ? parseInt(e.target.value) : undefined)} 
+                      className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-blue-400 text-xs font-bold" 
+                      placeholder="0" 
                     />
                   </div>
                   <div className="space-y-1">
