@@ -409,6 +409,17 @@ const Checkout = () => {
   };
 
   const getDiscountAmount = () => {
+    // Si viene desde el state, usamos el descuento que vino calculado o recalculamos si falta
+    if (state.coupon) {
+      if (state.coupon.discountAmount) return state.coupon.discountAmount;
+      if (state.coupon.discountType === 'percentage') {
+        return parseFloat(((baseTotal * state.coupon.discountValue) / 100).toFixed(2));
+      } else if (state.coupon.discountValue) {
+        return Math.min(state.coupon.discountValue, baseTotal);
+      }
+    }
+    
+    // Si se aplicó manualmente dentro del checkout
     if (!appliedCoupon) return 0;
     if (appliedCoupon.discountType === 'percentage') {
       return parseFloat(((baseTotal * appliedCoupon.discountValue) / 100).toFixed(2));
