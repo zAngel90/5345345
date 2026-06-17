@@ -166,7 +166,7 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
                 </td>
                 <td className="py-5">
                   <div className="flex flex-col">
-                    {order.type === 'mm2' || order.type === 'trade_limited' || (order.cart && order.cart.length > 0 && order.cart.some((item: any) => 
+                    {order.type === 'mm2' || order.type === 'trade_limited' || order.type?.includes(':') || (order.cart && order.cart.length > 0 && order.cart.some((item: any) => 
                       String(item.game || '').toLowerCase().includes('mm2') || 
                       String(item.game || '').toLowerCase().includes('limited')
                     )) ? (
@@ -182,7 +182,7 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
                           </button>
                         </div>
                         <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">
-                          {order.type === 'mm2' ? 'Murder Mystery 2' : order.type === 'trade_limited' ? 'Limiteds (Trade)' : 'Limiteds'}
+                          {order.type === 'mm2' ? 'Murder Mystery 2' : order.type === 'trade_limited' ? 'Limiteds (Trade)' : order.type?.includes(':') ? order.type.split(':')[1] : 'Limiteds'}
                         </span>
                       </>
                     ) : (
@@ -371,7 +371,7 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
                         <div className="flex-1">
                           <p className="text-sm font-bold text-white">{item?.name}</p>
                           <p className="text-[11px] font-bold uppercase mt-1 text-white/60">
-                            {item?.game || (selectedOrderItems.type === 'mm2' ? 'Murder Mystery 2' : 'Roblox Limiteds')}
+                            {item?.game || (selectedOrderItems.type === 'mm2' ? 'Murder Mystery 2' : selectedOrderItems.type?.includes(':') ? selectedOrderItems.type.split(':')[0].replace(/-/g, ' ') : 'Roblox Limiteds')}
                           </p>
                         </div>
                         {item?.price && (

@@ -184,10 +184,19 @@ export const OrdersAPI = {
   },
 
   /**
-   * Request MM2 delivery
+   * Request MM2 delivery (legacy)
    */
   requestMM2Delivery: async (orderId: string) => {
     return fetchAPI(`/orders/${orderId}/mm2-delivery`, {
+      method: 'POST',
+    });
+  },
+
+  /**
+   * Request generic delivery (any game category)
+   */
+  requestDelivery: async (orderId: string) => {
+    return fetchAPI(`/orders/${orderId}/delivery-request`, {
       method: 'POST',
     });
   }
@@ -292,6 +301,12 @@ export const StoreAPI = {
       body: JSON.stringify(data)
     });
   },
+  updateDelivery: async (orderId: string, data: any) => {
+    return fetchAPI(`/admin/orders/${orderId}/delivery`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  },
   getMM2ServerConfig: async () => {
     return fetchAPI('/admin/mm2-server-config');
   },
@@ -299,6 +314,19 @@ export const StoreAPI = {
     return fetchAPI('/admin/mm2-server-config', {
       method: 'POST',
       body: JSON.stringify({ mm2PrivateServerUrl })
+    });
+  }
+};
+
+// Site Status API
+export const SiteStatusAPI = {
+  getSiteStatus: async () => {
+    return fetchAPI('/admin/site-status');
+  },
+  updateSiteStatus: async (data: { siteStatus: string, siteMessage?: string }) => {
+    return fetchAPI('/admin/site-status', {
+      method: 'POST',
+      body: JSON.stringify(data)
     });
   }
 };

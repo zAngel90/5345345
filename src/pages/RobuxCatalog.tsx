@@ -2022,11 +2022,6 @@ export default function RobuxCatalog() {
                     </button>
                   )}
 
-                  <button className="w-full flex items-center justify-center gap-2 p-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-white/40 hover:text-white/60 hover:bg-white/[0.05] transition-all text-xs font-bold shadow-sm">
-                    <LucideTag size={14} className="opacity-40" />
-                    ¿Tienes un código? <span className="text-white/60">Aplícalo aquí</span>
-                  </button>
-
                   <button 
                     onClick={() => {
                       if (selectedUser) {

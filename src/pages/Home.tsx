@@ -27,7 +27,7 @@ import {
   ArrowUpRight,
   CheckCircle2
 } from 'lucide-react';
-import { StoreAPI, ReviewsAPI, SERVER_URL } from '../services/api';
+import { StoreAPI, ReviewsAPI, SERVER_URL, SiteStatusAPI } from '../services/api';
 
 // ==========================================
 // HELPERS & CONSTANTS
@@ -939,6 +939,21 @@ function FAQ() {
 
 export default function Home() {
   const [heroLoaded, setHeroLoaded] = useState(false);
+  const [siteStatus, setSiteStatus] = useState<'online' | 'offline'>('online');
+
+  useEffect(() => {
+    const loadSiteStatus = async () => {
+      try {
+        const res = await SiteStatusAPI.getSiteStatus();
+        if (res.success) {
+          setSiteStatus(res.data.siteStatus || 'online');
+        }
+      } catch (error) {
+        setSiteStatus('online');
+      }
+    };
+    loadSiteStatus();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setHeroLoaded(true), 100);
@@ -968,6 +983,27 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Site Status LED Indicator - Bottom Right */}
+      <div className="fixed bottom-4 right-4 z-[9999] flex items-center gap-2 px-3 py-1.5 rounded-full border backdrop-blur-md" style={{
+        backgroundColor: siteStatus === 'online' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+        borderColor: siteStatus === 'online' ? 'rgba(34, 197, 94, 0.3)' : 'rgba(239, 68, 68, 0.3)'
+      }}>
+        <div className="relative w-2 h-2">
+          <div className="absolute inset-0 rounded-full" style={{
+            backgroundColor: siteStatus === 'online' ? '#22c55e' : '#ef4444',
+            boxShadow: `0 0 8px ${siteStatus === 'online' ? '#22c55e' : '#ef4444'}`
+          }} />
+          {siteStatus === 'online' && (
+            <div className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: '#22c55e' }} />
+          )}
+        </div>
+        <span className="text-[10px] font-black uppercase tracking-widest" style={{
+          color: siteStatus === 'online' ? '#22c55e' : '#ef4444'
+        }}>
+          {siteStatus === 'online' ? 'Online' : 'Offline'}
+        </span>
+      </div>
     </motion.div>
   );
 }

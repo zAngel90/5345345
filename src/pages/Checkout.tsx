@@ -171,8 +171,27 @@ const Checkout = () => {
   const [groupVerificationResults, setGroupVerificationResults] = useState<any>(null);
   const [isVerifyingGroups, setIsVerifyingGroups] = useState(false);
   const [requiredGroups, setRequiredGroups] = useState<any[]>([]);
+  const [gamesConfig, setGamesConfig] = useState<any[]>([]);
   const deliveryMethod = state.method || 'gamepass'; // 'gamepass' o 'group'
   const gamepassRequiredPrice = Math.ceil(amount / 0.7); // Precio con comisión de Roblox (30%)
+
+  // Helper: detect if cart has items from a delivery-enabled category
+  const getDeliveryType = (cartItems: any[], games: any[]): string | null => {
+    for (const item of cartItems) {
+      const game = games.find(g => g.id === item.game || g.slug === item.game || g.name?.toLowerCase() === String(item.game).toLowerCase());
+      if (game && game.categories) {
+        for (const cat of game.categories) {
+          const catName = typeof cat === 'string' ? cat : cat.name;
+          const catDeliveryEnabled = typeof cat === 'string' ? false : cat.deliveryEnabled;
+          if (catDeliveryEnabled && item.category === catName) {
+            const gameSlug = game.slug || game.id;
+            return `${gameSlug}:${catName}`;
+          }
+        }
+      }
+    }
+    return null;
+  };
 
   // Sync currentUser if username/userId changes
   useEffect(() => {
@@ -204,6 +223,21 @@ const Checkout = () => {
       }
     };
     fetchGroupsConfig();
+  }, []);
+
+  // Cargar configuración de juegos para detectar categorías con delivery
+  useEffect(() => {
+    const fetchGamesConfig = async () => {
+      try {
+        const res = await StoreAPI.getGamesConfig();
+        if (res.success) {
+          setGamesConfig(res.data || []);
+        }
+      } catch (error) {
+        console.error('Error fetching games config:', error);
+      }
+    };
+    fetchGamesConfig();
   }, []);
 
   // Verificar grupos automáticamente al llegar al paso 2 (group)
@@ -345,8 +379,10 @@ const Checkout = () => {
 
   const getPrices = () => {
     if (state?.totalPrice !== undefined && state?.currency) {
+      // If coupon came from modal and totalPrice already has discount applied, use originalPrice as base
+      const base = state.coupon && state.originalPrice ? state.originalPrice : state.totalPrice;
       return {
-        displayTotal: state.totalPrice,
+        displayTotal: base,
         displayCurrency: state.currency
       };
     }
@@ -373,7 +409,7 @@ const Checkout = () => {
 
   // Detectar cupón aplicado desde el modal de Robux
   useEffect(() => {
-    if (state.coupon && state.coupon.code) {
+    if (state.coupon && state.coupon.code && !isMM2 && !isLimiteds) {
       console.log('🎫 Cupón detectado desde modal:', state.coupon);
       setAppliedCoupon(state.coupon);
       setCode(state.coupon.code);
@@ -481,9 +517,20 @@ const Checkout = () => {
           formData.append('fortniteData', JSON.stringify(state.fortniteData));
         }
       } else if (isMM2 && cart.length > 0) {
-        formData.append('type', 'mm2');
+        // Check if this is a generic delivery category
+        const deliveryType = getDeliveryType(cart, gamesConfig);
+        if (deliveryType) {
+          formData.append('type', deliveryType);
+        } else {
+          formData.append('type', 'mm2');
+        }
         formData.append('cart', JSON.stringify(cart));
       } else if (fromWebview && cart.length > 0) {
+        // Check if this is a generic delivery category
+        const deliveryType = getDeliveryType(cart, gamesConfig);
+        if (deliveryType) {
+          formData.append('type', deliveryType);
+        }
         formData.append('cart', JSON.stringify(cart));
       }
       formData.append('receipt', receipt);
@@ -1295,79 +1342,83 @@ const Checkout = () => {
                         )}
                       </div>
 
-                      {!showDiscount ? (
-                        <button
-                          onClick={() => setShowDiscount(true)}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl mb-4 transition-all bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.06] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]"
-                        >
-                          <Tag className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-                          <span className="text-xs text-white/90 font-bold uppercase tracking-wider">¿Tienes un código?</span>
-                          <span className="text-[10px] text-white/30 font-medium uppercase tracking-widest">Aplícalo aquí</span>
-                        </button>
-                      ) : (
-                        <div className="mb-4 bg-[#1e293b]/40 border border-white/5 rounded-2xl p-3 shadow-lg relative overflow-hidden">
-                          <div className="absolute top-[-30px] right-[-30px] size-20 bg-blue-500/10 rounded-full blur-xl"></div>
-                          {appliedCoupon ? (
-                            <div className="flex items-center justify-between bg-emerald-500/5 border border-emerald-500/20 rounded-xl px-3.5 py-2.5">
-                              <div className="flex items-center gap-2.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></div>
-                                <div>
-                                  <span className="block text-[10px] font-black text-white tracking-wider uppercase">{appliedCoupon.code}</span>
-                                  <span className="block text-[9px] text-emerald-400 font-black uppercase mt-0.5 tracking-widest">
-                                    -{appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountValue}%` : `${appliedCoupon.discountValue} ${displayCurrency}`} OFF
-                                  </span>
-                                </div>
-                              </div>
-                              <button
-                                onClick={handleRemoveCoupon}
-                                className="p-1.5 text-white/30 hover:text-red-400 hover:bg-white/5 rounded-lg transition-colors"
-                              >
-                                <X size={14} />
-                              </button>
-                            </div>
+                      {(!isMM2 && !isLimiteds) && (
+                        <>
+                          {!showDiscount ? (
+                            <button
+                              onClick={() => setShowDiscount(true)}
+                              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl mb-4 transition-all bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.06] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]"
+                            >
+                              <Tag className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                              <span className="text-xs text-white/90 font-bold uppercase tracking-wider">¿Tienes un código?</span>
+                              <span className="text-[10px] text-white/30 font-medium uppercase tracking-widest">Aplícalo aquí</span>
+                            </button>
                           ) : (
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between mb-1.5">
-                                <span className="text-[9px] font-black text-white/40 uppercase tracking-widest ml-1">Aplicar Cupón</span>
-                                <button 
-                                  type="button"
-                                  onClick={(e) => { 
-                                    e.preventDefault();
-                                    e.stopPropagation(); 
-                                    setShowDiscount(false); 
-                                    setCode(''); 
-                                    setCouponError(''); 
-                                  }} 
-                                  className="relative z-10 p-1.5 text-white/30 hover:text-white hover:bg-white/10 rounded-lg transition-all font-black cursor-pointer shrink-0"
-                                >
-                                  <X size={14} />
-                                </button>
-                              </div>
-                              <div className="flex gap-2">
-                                <div className="flex-1 relative">
-                                  <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20 pointer-events-none" />
-                                  <input
-                                    type="text"
-                                    value={code}
-                                    onChange={e => setCode(e.target.value.toUpperCase())}
-                                    placeholder="CÓDIGO"
-                                    className="w-full rounded-xl pl-9 pr-3 py-2.5 text-xs text-white bg-black/30 border border-white/5 placeholder:text-white/20 focus:border-blue-500/50 focus:outline-none transition-all font-black font-mono tracking-wider"
-                                  />
+                            <div className="mb-4 bg-[#1e293b]/40 border border-white/5 rounded-2xl p-3 shadow-lg relative overflow-hidden">
+                              <div className="absolute top-[-30px] right-[-30px] size-20 bg-blue-500/10 rounded-full blur-xl"></div>
+                              {appliedCoupon ? (
+                                <div className="flex items-center justify-between bg-emerald-500/5 border border-emerald-500/20 rounded-xl px-3.5 py-2.5">
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></div>
+                                    <div>
+                                      <span className="block text-[10px] font-black text-white tracking-wider uppercase">{appliedCoupon.code}</span>
+                                      <span className="block text-[9px] text-emerald-400 font-black uppercase mt-0.5 tracking-widest">
+                                        -{appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountValue}%` : `${appliedCoupon.discountValue} ${displayCurrency}`} OFF
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <button
+                                    onClick={handleRemoveCoupon}
+                                    className="p-1.5 text-white/30 hover:text-red-400 hover:bg-white/5 rounded-lg transition-colors"
+                                  >
+                                    <X size={14} />
+                                  </button>
                                 </div>
-                                <button
-                                  onClick={handleValidateCoupon}
-                                  disabled={isValidatingCoupon || !code.trim()}
-                                  className="px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-blue-600 text-white disabled:opacity-50 transition-all flex items-center justify-center min-w-[80px] shadow-md"
-                                >
-                                  {isValidatingCoupon ? <Loader2 className="animate-spin" size={12} /> : 'Validar'}
-                                </button>
-                              </div>
-                              {couponError && (
-                                <p className="text-[8px] font-black text-red-400 uppercase tracking-widest px-1 mt-1">{couponError}</p>
+                              ) : (
+                                <div className="space-y-2">
+                                  <div className="flex items-center justify-between mb-1.5">
+                                    <span className="text-[9px] font-black text-white/40 uppercase tracking-widest ml-1">Aplicar Cupón</span>
+                                    <button 
+                                      type="button"
+                                      onClick={(e) => { 
+                                        e.preventDefault();
+                                        e.stopPropagation(); 
+                                        setShowDiscount(false); 
+                                        setCode(''); 
+                                        setCouponError(''); 
+                                      }} 
+                                      className="relative z-10 p-1.5 text-white/30 hover:text-white hover:bg-white/10 rounded-lg transition-all font-black cursor-pointer shrink-0"
+                                    >
+                                      <X size={14} />
+                                    </button>
+                                  </div>
+                                  <div className="flex gap-2">
+                                    <div className="flex-1 relative">
+                                      <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20 pointer-events-none" />
+                                      <input
+                                        type="text"
+                                        value={code}
+                                        onChange={e => setCode(e.target.value.toUpperCase())}
+                                        placeholder="CÓDIGO"
+                                        className="w-full rounded-xl pl-9 pr-3 py-2.5 text-xs text-white bg-black/30 border border-white/5 placeholder:text-white/20 focus:border-blue-500/50 focus:outline-none transition-all font-black font-mono tracking-wider"
+                                      />
+                                    </div>
+                                    <button
+                                      onClick={handleValidateCoupon}
+                                      disabled={isValidatingCoupon || !code.trim()}
+                                      className="px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-blue-600 text-white disabled:opacity-50 transition-all flex items-center justify-center min-w-[80px] shadow-md"
+                                    >
+                                      {isValidatingCoupon ? <Loader2 className="animate-spin" size={12} /> : 'Validar'}
+                                    </button>
+                                  </div>
+                                  {couponError && (
+                                    <p className="text-[8px] font-black text-red-400 uppercase tracking-widest px-1 mt-1">{couponError}</p>
+                                  )}
+                                </div>
                               )}
                             </div>
                           )}
-                        </div>
+                        </>
                       )}
 
                       {!selected && (

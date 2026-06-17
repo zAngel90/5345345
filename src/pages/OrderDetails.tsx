@@ -51,6 +51,10 @@ interface Order {
   mm2DeliveryStatus?: 'pending' | 'requested' | 'ready' | 'completed';
   mm2PrivateServer?: string;
   mm2RequestedAt?: string;
+  // Generic delivery fields (any game category)
+  deliveryStatus?: 'pending' | 'requested' | 'ready' | 'completed';
+  deliveryServerUrl?: string;
+  deliveryRequestedAt?: string;
   fortniteData?: {
     fortniteUsername: string;
     platform: string;
@@ -66,6 +70,27 @@ const OrderDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  
+  // Helper: check if order type requires delivery (MM2 legacy or generic category)
+  const requiresDelivery = (o: Order | null): boolean => {
+    if (!o) return false;
+    if (o.type === 'mm2' || o.type === 'murder-mystery-2') return true;
+    if (o.type && o.type.includes(':')) return true;
+    if (o.deliveryStatus) return true;
+    return false;
+  };
+  
+  // Get delivery status (generic or legacy MM2)
+  const getDeliveryStatus = (): 'pending' | 'requested' | 'ready' | 'completed' | null => {
+    if (!order) return null;
+    return order.deliveryStatus || getDeliveryStatus() || null;
+  };
+  
+  // Get delivery server URL (generic or legacy MM2)
+  const getDeliveryServerUrl = (): string => {
+    if (!order) return '';
+    return order.deliveryServerUrl || getDeliveryServerUrl() || '';
+  };
   
   // Chat States
   const [chat, setChat] = useState<any>(null);
@@ -111,10 +136,14 @@ const OrderDetails = () => {
     setMM2TimeLeft(900); // Reset to 15 minutes
     
     try {
-      // Send request to backend to notify admin
-      await OrdersAPI.requestMM2Delivery(orderId!);
+      // Try generic delivery first, fallback to MM2 endpoint for legacy orders
+      try {
+        await OrdersAPI.requestDelivery(orderId!);
+      } catch (genericError) {
+        await OrdersAPI.requestMM2Delivery(orderId!);
+      }
     } catch (error) {
-      console.error('Error requesting MM2 delivery:', error);
+      console.error('Error requesting delivery:', error);
     }
   };
 
@@ -175,8 +204,8 @@ const OrderDetails = () => {
       console.log('🔄 Order Updated:', updatedOrder);
       setOrder(updatedOrder);
       
-      // Close MM2 modal if delivery is ready
-      if (updatedOrder.mm2DeliveryStatus === 'ready') {
+      // Close delivery modal if delivery is ready
+      if (updatedOrder.deliveryStatus === 'ready' || updatedOrder.mm2DeliveryStatus === 'ready') {
         setShowMM2Modal(false);
       }
     };
@@ -440,8 +469,8 @@ const OrderDetails = () => {
           </div>
         </div>
 
-        {/* MM2 Delivery Control - Only for MM2 orders */}
-        {(order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) && (
+        {/* Delivery Control - For MM2 and In-Game category deliveries */}
+        {requiresDelivery(order) && (
           <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] overflow-hidden relative backdrop-blur-xl mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_50%)]"></div>
@@ -460,94 +489,94 @@ const OrderDetails = () => {
                 {/* Step 1: Esperando cliente */}
                 <div className="flex flex-col items-center gap-2 flex-1">
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all ${
-                    order.mm2DeliveryStatus === 'pending' || !order.mm2DeliveryStatus
+                    getDeliveryStatus() === 'pending' || !getDeliveryStatus()
                       ? 'bg-blue-500 text-white shadow-blue-500/30 ring-4 ring-blue-500/20'
                       : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                   }`}>
                     <Clock size={20} />
                   </div>
                   <span className={`text-[9px] font-black uppercase tracking-widest text-center ${
-                    order.mm2DeliveryStatus === 'pending' || !order.mm2DeliveryStatus ? 'text-blue-400' : 'text-white/40'
+                    getDeliveryStatus() === 'pending' || !getDeliveryStatus() ? 'text-blue-400' : 'text-white/40'
                   }`}>Esperando<br/>cliente</span>
                 </div>
 
                 {/* Connector */}
                 <div className="flex-1 h-0.5 mx-2 bg-white/5 rounded-full">
                   <div className={`h-full transition-all ${
-                    ['requested', 'ready', 'completed'].includes(order.mm2DeliveryStatus || '') ? 'w-full bg-blue-500' : 'w-0'
+                    ['requested', 'ready', 'completed'].includes(getDeliveryStatus() || '') ? 'w-full bg-blue-500' : 'w-0'
                   } rounded-full`}></div>
                 </div>
 
                 {/* Step 2: Solicitado */}
                 <div className="flex flex-col items-center gap-2 flex-1">
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                    order.mm2DeliveryStatus === 'requested'
+                    getDeliveryStatus() === 'requested'
                       ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30 ring-4 ring-blue-500/20'
-                      : ['ready', 'completed'].includes(order.mm2DeliveryStatus || '')
+                      : ['ready', 'completed'].includes(getDeliveryStatus() || '')
                       ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                       : 'bg-white/5 text-white/20 border border-white/10'
                   }`}>
                     <User size={20} />
                   </div>
                   <span className={`text-[9px] font-black uppercase tracking-widest text-center ${
-                    order.mm2DeliveryStatus === 'requested' ? 'text-blue-400' : 
-                    ['ready', 'completed'].includes(order.mm2DeliveryStatus || '') ? 'text-white/40' : 'text-white/20'
+                    getDeliveryStatus() === 'requested' ? 'text-blue-400' : 
+                    ['ready', 'completed'].includes(getDeliveryStatus() || '') ? 'text-white/40' : 'text-white/20'
                   }`}>Solicitado</span>
                 </div>
 
                 {/* Connector */}
                 <div className="flex-1 h-0.5 mx-2 bg-white/5 rounded-full">
                   <div className={`h-full transition-all ${
-                    ['ready', 'completed'].includes(order.mm2DeliveryStatus || '') ? 'w-full bg-blue-500' : 'w-0'
+                    ['ready', 'completed'].includes(getDeliveryStatus() || '') ? 'w-full bg-blue-500' : 'w-0'
                   } rounded-full`}></div>
                 </div>
 
                 {/* Step 3: Servidor Listo */}
                 <div className="flex flex-col items-center gap-2 flex-1">
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                    order.mm2DeliveryStatus === 'ready'
+                    getDeliveryStatus() === 'ready'
                       ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/30 ring-4 ring-amber-500/20'
-                      : order.mm2DeliveryStatus === 'completed'
+                      : getDeliveryStatus() === 'completed'
                       ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                       : 'bg-white/5 text-white/20 border border-white/10'
                   }`}>
                     <Zap size={20} />
                   </div>
                   <span className={`text-[9px] font-black uppercase tracking-widest text-center ${
-                    order.mm2DeliveryStatus === 'ready' ? 'text-amber-400' :
-                    order.mm2DeliveryStatus === 'completed' ? 'text-white/40' : 'text-white/20'
+                    getDeliveryStatus() === 'ready' ? 'text-amber-400' :
+                    getDeliveryStatus() === 'completed' ? 'text-white/40' : 'text-white/20'
                   }`}>Servidor<br/>Listo</span>
                 </div>
 
                 {/* Connector */}
                 <div className="flex-1 h-0.5 mx-2 bg-white/5 rounded-full">
                   <div className={`h-full transition-all ${
-                    order.mm2DeliveryStatus === 'completed' ? 'w-full bg-emerald-500' : 'w-0'
+                    getDeliveryStatus() === 'completed' ? 'w-full bg-emerald-500' : 'w-0'
                   } rounded-full`}></div>
                 </div>
 
                 {/* Step 4: Completado */}
                 <div className="flex flex-col items-center gap-2 flex-1">
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                    order.mm2DeliveryStatus === 'completed'
+                    getDeliveryStatus() === 'completed'
                       ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 ring-4 ring-emerald-500/20'
                       : 'bg-white/5 text-white/20 border border-white/10'
                   }`}>
                     <CheckCircle2 size={20} />
                   </div>
                   <span className={`text-[9px] font-black uppercase tracking-widest text-center ${
-                    order.mm2DeliveryStatus === 'completed' ? 'text-emerald-400' : 'text-white/20'
+                    getDeliveryStatus() === 'completed' ? 'text-emerald-400' : 'text-white/20'
                   }`}>Completado</span>
                 </div>
               </div>
 
               {/* Ready Button or Status Message */}
-              {order.mm2DeliveryStatus === 'completed' ? (
+              {getDeliveryStatus() === 'completed' ? (
                 <div className="w-full py-3 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 rounded-xl font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2">
                   <CheckCircle2 size={18} />
                   Entrega Completada
                 </div>
-              ) : order.mm2DeliveryStatus === 'ready' ? (
+              ) : getDeliveryStatus() === 'ready' ? (
                 <div className="w-full py-3 bg-blue-500/20 border border-blue-500/30 text-blue-400 rounded-xl font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2">
                   <Info size={18} />
                   Servidor privado disponible abajo
@@ -555,11 +584,11 @@ const OrderDetails = () => {
               ) : (
                 <button 
                   onClick={handleMM2Ready}
-                  disabled={showMM2Modal || order.mm2DeliveryStatus === 'requested'}
+                  disabled={showMM2Modal || getDeliveryStatus() === 'requested'}
                   className="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-black text-sm uppercase tracking-wider transition-all shadow-lg shadow-amber-500/30 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ShieldCheck size={18} />
-                  {order.mm2DeliveryStatus === 'requested' ? 'Solicitud enviada' : 'Estoy listo para la entrega'}
+                  {getDeliveryStatus() === 'requested' ? 'Solicitud enviada' : 'Estoy listo para la entrega'}
                 </button>
               )}
 
@@ -569,7 +598,7 @@ const OrderDetails = () => {
                   <Info size={16} />
                 </div>
                 <div>
-                  <h4 className="text-xs font-black text-white uppercase tracking-tight mb-1">Cuenta de entrega MM2</h4>
+                  <h4 className="text-xs font-black text-white uppercase tracking-tight mb-1">Cuenta de entrega</h4>
                   <p className="text-[10px] text-white/40 leading-relaxed">El staff está configurando la entrega. Pronto podrás solicitar tu pedido arriba.</p>
                 </div>
               </div>
@@ -577,8 +606,8 @@ const OrderDetails = () => {
           </div>
         )}
 
-        {/* MM2 Private Server Card - Shows when admin approves */}
-        {order.mm2DeliveryStatus === 'ready' && order.mm2PrivateServer && (
+        {/* Private Server Card - Shows when admin approves */}
+        {getDeliveryStatus() === 'ready' && getDeliveryServerUrl() && (
           <div className="bg-gradient-to-br from-red-900/40 via-red-800/30 to-red-900/40 border border-red-500/30 rounded-[28px] overflow-hidden relative backdrop-blur-xl mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-red-500/[0.08] via-orange-500/[0.05] to-transparent opacity-60"></div>
             <div className="absolute top-2 right-2 w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_12px_rgba(52,211,153,0.8)] animate-pulse"></div>
@@ -586,10 +615,10 @@ const OrderDetails = () => {
             {/* Header */}
             <div className="p-5 border-b border-white/5 bg-white/[0.02] flex items-center gap-3 relative z-10">
               <div className="w-10 h-10 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 border border-red-500/30">
-                <img src="https://www.peekstore.com/_next/image?url=%2Fmm2-logo.webp&w=64&q=75" className="w-6 h-6 object-contain" alt="MM2" />
+                <Truck size={20} />
               </div>
               <div className="flex-1">
-                <h3 className="text-base font-black uppercase tracking-tight text-white">Servidor Privado MM2</h3>
+                <h3 className="text-base font-black uppercase tracking-tight text-white">Servidor Privado</h3>
                 <p className="text-[9px] text-white/40 font-bold uppercase tracking-widest">Únete para recibir tus ítems</p>
               </div>
             </div>
@@ -606,13 +635,13 @@ const OrderDetails = () => {
                 <div className="flex items-center gap-2 p-3 bg-black/20 border border-white/10 rounded-lg mb-3">
                   <input 
                     type="text" 
-                    value={order.mm2PrivateServer} 
+                    value={getDeliveryServerUrl()} 
                     readOnly 
                     className="flex-1 bg-transparent text-[10px] text-white/60 font-mono outline-none"
                   />
                   <button 
                     onClick={() => {
-                      navigator.clipboard.writeText(order.mm2PrivateServer!);
+                      navigator.clipboard.writeText(getDeliveryServerUrl()!);
                       setCopiedField('mm2server');
                       setTimeout(() => setCopiedField(null), 2000);
                     }}
@@ -624,7 +653,7 @@ const OrderDetails = () => {
 
                 {/* Join Button */}
                 <a 
-                  href={order.mm2PrivateServer} 
+                  href={getDeliveryServerUrl()} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full py-3 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white rounded-xl font-black text-sm uppercase tracking-wider transition-all shadow-lg shadow-red-500/30 flex items-center justify-center gap-2"

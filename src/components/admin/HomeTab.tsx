@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Save, Image as ImageIcon, Loader2 } from 'lucide-react';
-import { StoreAPI } from '../../services/api';
+import { Plus, Trash2, Save, Image as ImageIcon, Loader2, Wifi, WifiOff } from 'lucide-react';
+import { StoreAPI, SiteStatusAPI } from '../../services/api';
 
 interface HomeTabProps {
   SERVER_URL: string;
@@ -9,8 +9,10 @@ interface HomeTabProps {
 export default function HomeTab({ SERVER_URL }: HomeTabProps) {
   const [categories, setCategories] = useState<any[]>([]);
   const [allCategories, setAllCategories] = useState<any[]>([]);
+  const [siteStatus, setSiteStatus] = useState<'online' | 'offline'>('online');
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isSavingSiteStatus, setIsSavingSiteStatus] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadIndex, setUploadIndex] = useState<number | null>(null);
 
@@ -20,16 +22,33 @@ export default function HomeTab({ SERVER_URL }: HomeTabProps) {
 
   const fetchData = async () => {
     try {
-      const [popRes, gamesRes] = await Promise.all([
+      const [popRes, gamesRes, statusRes] = await Promise.all([
         StoreAPI.getHomePopularCategories(),
-        StoreAPI.getGamesConfig()
+        StoreAPI.getGamesConfig(),
+        SiteStatusAPI.getSiteStatus()
       ]);
       if (popRes.success) setCategories(popRes.data || []);
       if (gamesRes.success) setAllCategories(gamesRes.data || []);
+      if (statusRes.success) setSiteStatus(statusRes.data.siteStatus || 'online');
     } catch (err) {
       console.error('Error fetching home config:', err);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleToggleSiteStatus = async () => {
+    setIsSavingSiteStatus(true);
+    const newStatus = siteStatus === 'online' ? 'offline' : 'online';
+    try {
+      const res = await SiteStatusAPI.updateSiteStatus({ siteStatus: newStatus });
+      if (res.success) {
+        setSiteStatus(newStatus);
+      }
+    } catch (error) {
+      console.error('Error updating site status:', error);
+    } finally {
+      setIsSavingSiteStatus(false);
     }
   };
 
@@ -85,6 +104,31 @@ export default function HomeTab({ SERVER_URL }: HomeTabProps) {
   return (
     <div className="space-y-8">
       <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept="image/*" />
+      
+      {/* Site Status Toggle */}
+      <div className="bg-white/5 border border-white/10 rounded-3xl p-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${siteStatus === 'online' ? 'bg-emerald-500/10' : 'bg-red-500/10'}`}>
+            {siteStatus === 'online' ? <Wifi className="w-6 h-6 text-emerald-400" /> : <WifiOff className="w-6 h-6 text-red-400" />}
+          </div>
+          <div>
+            <h4 className="text-white font-black">Estado del Sitio</h4>
+            <p className="text-white/30 text-sm">Controla si la tienda está visible para los usuarios</p>
+          </div>
+        </div>
+        <button
+          onClick={handleToggleSiteStatus}
+          disabled={isSavingSiteStatus}
+          className={`px-6 py-3 rounded-2xl font-black text-sm transition-all shadow-lg disabled:opacity-50 flex items-center gap-2 ${
+            siteStatus === 'online'
+              ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
+              : 'bg-red-600 hover:bg-red-500 text-white shadow-red-600/20'
+          }`}
+        >
+          {isSavingSiteStatus ? <Loader2 size={16} className="animate-spin" /> : null}
+          {siteStatus === 'online' ? 'Online' : 'Offline'}
+        </button>
+      </div>
       
       <div>
         <div className="flex items-center justify-between mb-6">

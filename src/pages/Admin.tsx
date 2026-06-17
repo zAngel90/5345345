@@ -43,7 +43,7 @@ import Mm2Tab from '../components/admin/Mm2Tab';
 import CurrenciesTab from '../components/admin/CurrenciesTab';
 import ChatsTab from '../components/admin/ChatsTab';
 import OrdersTab from '../components/admin/OrdersTab';
-import MM2DeliveriesTab from '../components/admin/MM2DeliveriesTab';
+import DeliveriesTab from '../components/admin/DeliveriesTab';
 import PaymentMethodsTab from '../components/admin/PaymentMethodsTab';
 import HomeTab from '../components/admin/HomeTab';
 import CategoryIconsTab from '../components/admin/CategoryIconsTab';
@@ -53,7 +53,7 @@ import FortniteTab from '../components/admin/FortniteTab';
 const TABS = [
   { id: 'dashboard', label: 'Panel General', icon: LayoutDashboard, category: 'Main' },
   { id: 'orders', label: 'Pedidos', icon: History, category: 'Operaciones' },
-  { id: 'mm2-deliveries', label: 'Entregas MM2', icon: Package, category: 'Operaciones' },
+  { id: 'deliveries', label: 'Entregas In-Game', icon: Package, category: 'Operaciones' },
   { id: 'fortnite', label: 'Fortnite', icon: Zap, category: 'Operaciones' },
   { id: 'chats', label: 'Soporte Chat', icon: MessageSquare, category: 'Operaciones' },
   { id: 'products', label: 'Paquetes Robux', icon: ShoppingBag, category: 'Tienda' },
@@ -584,8 +584,8 @@ export default function Admin() {
                       <OrdersTab orders={orders} onContactClient={handleContactClient} />
                     )}
 
-                    {activeTab === 'mm2-deliveries' && (
-                      <MM2DeliveriesTab orders={orders} />
+                    {activeTab === 'deliveries' && (
+                      <DeliveriesTab orders={orders} games={games} />
                     )}
 
                     {activeTab === 'fortnite' && (
