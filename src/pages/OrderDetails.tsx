@@ -80,16 +80,27 @@ const OrderDetails = () => {
     return false;
   };
   
+  // Helper: check if order is in-game items
+  const isIngameOrder = (o: Order | null): boolean => {
+    if (!o) return false;
+    if (o.type === 'ingame') return true;
+    if (o.cart && o.cart.some((item: any) => {
+      const g = String(item.game || '').toLowerCase();
+      return !g.includes('mm2') && !g.includes('murder') && !g.includes('limited') && !g.includes('unique') && !g.includes('robux') && g.length > 0;
+    })) return true;
+    return false;
+  };
+  
   // Get delivery status (generic or legacy MM2)
   const getDeliveryStatus = (): 'pending' | 'requested' | 'ready' | 'completed' | null => {
     if (!order) return null;
-    return order.deliveryStatus || getDeliveryStatus() || null;
+    return order.deliveryStatus || null;
   };
   
   // Get delivery server URL (generic or legacy MM2)
   const getDeliveryServerUrl = (): string => {
     if (!order) return '';
-    return order.deliveryServerUrl || getDeliveryServerUrl() || '';
+    return order.deliveryServerUrl || '';
   };
   
   // Chat States
@@ -684,6 +695,8 @@ const OrderDetails = () => {
                       <ShoppingCart className="w-8 h-8 text-blue-400" />
                     ) : (order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) ? (
                       <img src="https://www.peekstore.com/_next/image?url=%2Fmm2-logo.webp&w=64&q=75" className="w-full h-full object-contain rounded-lg" alt="MM2" />
+                    ) : isIngameOrder(order) ? (
+                      <ShoppingCart className="w-8 h-8 text-green-400" />
                     ) : (
                       <img src="/images/robux-logo.svg" className="w-8 h-8 object-contain brightness-0 invert opacity-90" alt="" />
                     )}
@@ -696,12 +709,14 @@ const OrderDetails = () => {
                         `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
                       ) : (order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) ? (
                         `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
+                      ) : isIngameOrder(order) ? (
+                        `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} In-Game`
                       ) : (
                         `${order.amount.toLocaleString()} Robux`
                       )}
                     </h2>
                     <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5">
-                      <LucideTag size={10} /> {order.type === 'trade_limited' || (order.cart && order.cart.length > 0 && !String(order.cart[0].game || '').toLowerCase().includes('robux')) ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'}` : `Cantidad: ${order.amount}`}
+                      <LucideTag size={10} /> {order.type === 'trade_limited' || order.type === 'fortnite' || order.type === 'mm2' || isIngameOrder(order) ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'}` : `Cantidad: ${order.amount}`}
                     </p>
                     <div className="flex items-center gap-2 mt-2">
                        <span className="text-[9px] font-black text-white/20 uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded-md border border-white/5">BCP Yape</span>
@@ -823,6 +838,43 @@ const OrderDetails = () => {
                       </div>
                     )}
                   </div>
+                ) : isIngameOrder(order) ? (
+                  <div className="space-y-3">
+                    {/* In-Game Items */}
+                    <div className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl flex items-center justify-between">
+                       <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center text-green-400">
+                             <Zap size={14} />
+                          </div>
+                          <div>
+                            <p className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-0.5">Método de Entrega</p>
+                            <h4 className="text-xs font-bold uppercase tracking-tight">{order.method === 'gamepass' ? 'Gamepass' : 'Grupo'}</h4>
+                          </div>
+                       </div>
+                    </div>
+                    
+                    {/* In-Game Items List */}
+                    {order.cart && order.cart.length > 0 && (
+                      <div className="space-y-2">
+                        {order.cart.map((item: any, idx: number) => (
+                          <div 
+                            key={idx} 
+                            className="flex items-center gap-3 p-2.5 rounded-2xl bg-green-500/10 border border-green-500/30"
+                          >
+                            <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
+                              <img src={item?.img || item?.image || item?.thumbnail} alt="" className="w-full h-full object-contain p-1" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-green-400">
+                                {item?.game || 'In-Game'}
+                              </p>
+                              <p className="text-xs font-bold text-white truncate">{item?.name}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <>
                     {/* Method Row - Only for Robux */}
@@ -876,7 +928,7 @@ const OrderDetails = () => {
                 </div>
 
                 {/* Status/Required Row - Only for Robux gamepass */}
-                {order.method === 'gamepass' && !(order.type === 'trade_limited' || order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited') || String(item.game || '').toLowerCase().includes('mm2')))) && (
+                {order.method === 'gamepass' && !(order.type === 'trade_limited' || order.type === 'mm2' || order.type === 'fortnite' || isIngameOrder(order) || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited') || String(item.game || '').toLowerCase().includes('mm2')))) && (
                   <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-2xl">
                      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div className="flex flex-col gap-1.5">
