@@ -460,7 +460,7 @@ export default function Navbar() {
 
                                 {/* Items In-Game */}
                                 <Link
-                                  to="/catalog"
+                                  to="/catalog/ingame"
                                   className="flex items-center gap-2 px-2 py-2 rounded-xl hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-transparent transition-all group relative border border-transparent hover:border-blue-500/20"
                                   onClick={() => setIsDropdownOpen(false)}
                                 >

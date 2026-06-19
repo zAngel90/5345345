@@ -58,6 +58,7 @@ function AppContent() {
           <Route path="/groups" element={<Groups />} />
           <Route path="/account" element={<Account />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/catalog/ingame" element={<GameItems />} />
           <Route path="/catalog/ingame/:gameId" element={<GameItems />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/fortnite" element={<Fortnite />} />

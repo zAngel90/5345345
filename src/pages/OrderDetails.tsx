@@ -330,6 +330,29 @@ const OrderDetails = () => {
     }
   };
 
+  const renderMessageWithLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+    
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a 
+            key={index} 
+            href={part} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline break-all"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {part}
+          </a>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0d0c22] pt-24 pb-12 px-4 sm:px-6">
@@ -1030,7 +1053,9 @@ const OrderDetails = () => {
                      </div>
                      <div>
                         <h3 className="text-xs font-black uppercase tracking-tight">Chat de Soporte</h3>
-                        <p className="text-[8px] text-white/30 font-bold uppercase tracking-widest">Asistente</p>
+                        <p className="text-[8px] text-white/30 font-bold uppercase tracking-widest">
+                          {order.username || order.userId ? `${order.username || 'Usuario'} (ID: ${order.userId || 'N/A'})` : 'Cargando...'}
+                        </p>
                      </div>
                   </div>
                   <div className="px-2 py-1 bg-white/5 rounded-full flex items-center gap-1.5">
@@ -1061,7 +1086,7 @@ const OrderDetails = () => {
                              </div>
                            )}
                            <div className={`max-w-[85%] p-3 rounded-xl ${isMe ? 'bg-blue-600 text-white rounded-tr-none shadow-md shadow-blue-600/10' : 'bg-[#1a1b3a] text-white/90 rounded-tl-none border border-white/5'}`}>
-                              <p className="text-[11px] font-medium leading-relaxed">{msg.text}</p>
+                              <p className="text-[11px] font-medium leading-relaxed">{renderMessageWithLinks(msg.text)}</p>
                               <p className={`text-[7px] mt-1.5 font-black uppercase tracking-widest text-right ${isMe ? 'text-white/40' : 'text-white/20'}`}>{msg.time}</p>
                            </div>
                         </div>

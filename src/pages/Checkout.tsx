@@ -379,8 +379,8 @@ const Checkout = () => {
 
   const getPrices = () => {
     if (state?.totalPrice !== undefined && state?.currency) {
-      // If coupon came from modal and totalPrice already has discount applied, use originalPrice as base
-      const base = state.coupon && state.originalPrice ? state.originalPrice : state.totalPrice;
+      // Base price should always be the original (pre-discount) price
+      const base = state.originalPrice || state.totalPrice;
       return {
         displayTotal: base,
         displayCurrency: state.currency
@@ -445,18 +445,10 @@ const Checkout = () => {
   };
 
   const getDiscountAmount = () => {
-    // Si viene desde el state, usamos el descuento que vino calculado o recalculamos si falta
-    if (state.coupon) {
-      if (state.coupon.discountAmount) return state.coupon.discountAmount;
-      if (state.coupon.discountType === 'percentage') {
-        return parseFloat(((baseTotal * state.coupon.discountValue) / 100).toFixed(2));
-      } else if (state.coupon.discountValue) {
-        return Math.min(state.coupon.discountValue, baseTotal);
-      }
-    }
-    
-    // Si se aplicó manualmente dentro del checkout
+    // Si el cupón fue removido, no aplicar descuento
     if (!appliedCoupon) return 0;
+    
+    // Calcular descuento basado en el cupón aplicado
     if (appliedCoupon.discountType === 'percentage') {
       return parseFloat(((baseTotal * appliedCoupon.discountValue) / 100).toFixed(2));
     } else {

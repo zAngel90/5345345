@@ -123,7 +123,7 @@ const SIDEBAR_SECTIONS = [
     title: 'ACTIVIDAD',
     items: [
       { id: 'pedidos', label: 'Mis Pedidos', icon: ShoppingBag },
-      { id: 'descuentos', label: 'Descuentos', icon: Tag }
+      { id: 'descuentos', label: 'Cupones', icon: Tag }
     ]
   },
   {
