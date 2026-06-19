@@ -168,12 +168,26 @@ export default function Account() {
   }, [navigate]);
 
   useEffect(() => {
+    console.log('🔍 useEffect cupones - activeTab:', activeTab);
     if (activeTab === 'descuentos') {
       setIsLoadingCoupons(true);
-      CouponsAPI.getPublicCoupons()
-        .then(data => setCoupons(data || []))
-        .catch(err => console.error('Error al cargar cupones:', err))
-        .finally(() => setIsLoadingCoupons(false));
+      const token = localStorage.getItem('pixel_token');
+      console.log('🎫 Token presente:', !!token);
+      if (!token) {
+        setIsLoadingCoupons(false);
+        console.log('❌ No hay token, saliendo');
+        return;
+      }
+      Promise.all([
+        CouponsAPI.getMyCoupons().catch(err => { console.error('❌ Error cupones personales:', err); return []; }),
+        CouponsAPI.getPublicCoupons().catch(err => { console.error('❌ Error cupones públicos:', err); return []; })
+      ]).then(([mine, public_]) => {
+        console.log('✅ Cupones personales:', mine);
+        console.log('✅ Cupones públicos:', public_);
+        const combined = [...(mine || []), ...(public_ || [])];
+        console.log('📊 Total cupones:', combined.length, combined);
+        setCoupons(combined);
+      }).finally(() => setIsLoadingCoupons(false));
     }
   }, [activeTab]);
 
@@ -752,7 +766,7 @@ export default function Account() {
                           </div>
                           
                           <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none uppercase transition-colors">
-                            {c.discountType === 'percentage' ? `${c.discountValue}% OFF` : `-$${c.discountValue}`}
+                            {c.discountType === 'percentage' ? `${c.discountValue}% OFF` : c.discountType === 'balance' ? `$${(c.remainingBalance ?? c.initialBalance ?? 0).toFixed(2)}` : `-$${c.discountValue}`}
                           </h3>
                           <p className="text-[10px] md:text-xs text-white/40 font-bold uppercase tracking-wider mt-2">
                             Válido para toda la tienda
