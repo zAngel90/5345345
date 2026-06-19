@@ -102,14 +102,16 @@ export default function GameItems() {
       }
 
       if (event.data?.action === 'checkout') {
-        const { user, cart, total, currency, ...rest } = event.data;
+        const { user, cart, total, totalPrice, originalPrice, currency, ...rest } = event.data;
         navigate('/checkout', { 
           state: { 
             username: user.displayName || user.name,
             userId: user.id,
-            amount: total,
+            amount: originalPrice || total,
             cart: cart,
             currency: currency || 'COP',
+            totalPrice: totalPrice || total,
+            originalPrice: originalPrice,
             fromWebview: true,
             ...rest
           } 
