@@ -53,7 +53,7 @@ import FortniteTab from '../components/admin/FortniteTab';
 const TABS = [
   { id: 'dashboard', label: 'Panel General', icon: LayoutDashboard, category: 'Main' },
   { id: 'orders', label: 'Pedidos', icon: History, category: 'Operaciones' },
-  { id: 'deliveries', label: 'Entregas In-Game', icon: Package, category: 'Operaciones' },
+  { id: 'deliveries', label: 'Entregas Especiales', icon: Package, category: 'Operaciones' },
   { id: 'fortnite', label: 'Fortnite', icon: Zap, category: 'Operaciones' },
   { id: 'chats', label: 'Soporte Chat', icon: MessageSquare, category: 'Operaciones' },
   { id: 'products', label: 'Paquetes Robux', icon: ShoppingBag, category: 'Tienda' },

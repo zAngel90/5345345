@@ -315,8 +315,8 @@ export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
       {/* Header with Stats and Filters */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-2xl font-black text-white">Entregas In-Game</h2>
-          <p className="text-xs text-white/40 mt-1">Gestiona las entregas de todas las categorías con servidor privado</p>
+          <h2 className="text-2xl font-black text-white">Entregas Especiales</h2>
+          <p className="text-xs text-white/40 mt-1">Gestiona las entregas de MM2 e In-Game con servidor privado</p>
         </div>
       </div>
 

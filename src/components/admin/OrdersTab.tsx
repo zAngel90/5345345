@@ -12,7 +12,9 @@ import {
   User,
   CreditCard,
   X,
-  AlertTriangle
+  AlertTriangle,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { StoreAPI, SERVER_URL } from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -60,12 +62,25 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
   };
 
   const visibleOrders = orders.filter(o => !hiddenOrderIds.includes(o.id));
-  const sortedOrders = [...visibleOrders].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  const filteredByType = visibleOrders.filter(o => {
+    if (!o.type) return true;
+    if (o.type === 'mm2' || o.type === 'murder-mystery-2') return false;
+    if (o.type === 'trade_limited') return false;
+    if (typeof o.type === 'string' && o.type.includes(':')) return false;
+    return true;
+  });
+  const sortedOrders = [...filteredByType].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
   const filteredOrders = sortedOrders.filter(order =>
     order.id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     order.username?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const PER_PAGE = 15;
+  const totalPages = Math.max(1, Math.ceil(filteredOrders.length / PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedOrders = filteredOrders.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
 
   const handleUpdateStatus = async (orderId: string, status: string) => {
     try {
@@ -140,7 +155,7 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
             </tr>
           </thead>
           <tbody>
-            {filteredOrders.map((order) => (
+            {paginatedOrders.map((order) => (
               <tr key={order.id} className="bg-white/[0.02] border border-white/5 rounded-2xl group hover:bg-white/[0.04] transition-all">
                 <td className="py-5 pl-6">
                   <div className="flex items-center gap-3">
@@ -166,45 +181,62 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
                 </td>
                 <td className="py-5">
                   <div className="flex flex-col">
-                    {order.type === 'mm2' || order.type === 'trade_limited' || order.type?.includes(':') || (order.cart && order.cart.length > 0 && order.cart.some((item: any) => 
-                      String(item.game || '').toLowerCase().includes('mm2') || 
-                      String(item.game || '').toLowerCase().includes('limited')
-                    )) ? (
-                      <>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-white">{order.cart?.length || 1} {order.cart?.length === 1 ? 'Item' : 'Ítems'}</span>
-                          <button
-                            onClick={() => setSelectedOrderItems(order)}
-                            className="p-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all"
-                            title="Ver items"
-                          >
-                            <Eye size={12} />
-                          </button>
-                        </div>
-                        <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">
-                          {order.type === 'mm2' ? 'Murder Mystery 2' : order.type === 'trade_limited' ? 'Limiteds (Trade)' : order.type?.includes(':') ? order.type.split(':')[1] : 'Limiteds'}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="text-xs font-bold text-white">{order.amount?.toLocaleString()} Robux</span>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Entrega: {order.method}</span>
-                          {order.gamepassId && (
-                            <a 
-                              href={`https://www.roblox.com/game-pass/${order.gamepassId}/`} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="px-1.5 py-0.5 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1"
-                              title="Ver Gamepass"
-                            >
-                              <span className="text-[8px] font-black uppercase tracking-tighter">Link</span>
-                              <ExternalLink size={8} />
-                            </a>
-                          )}
-                        </div>
-                      </>
-                    )}
+                    {(() => {
+                      const t = order.type;
+                      const hasCart = order.cart && order.cart.length > 0;
+                      if (!t) {
+                        if (hasCart) {
+                          return (
+                            <>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-bold text-white">{order.cart.length} {order.cart.length === 1 ? 'Item' : 'Ítems'}</span>
+                                <button onClick={() => setSelectedOrderItems(order)} className="p-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all" title="Ver items"><Eye size={12} /></button>
+                              </div>
+                              <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">In-Game</span>
+                            </>
+                          );
+                        }
+                        return (
+                          <>
+                            <span className="text-xs font-bold text-white">{order.amount?.toLocaleString()} Robux</span>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                              <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Entrega: {order.method}</span>
+                              {order.gamepassId && (
+                                <a href={`https://www.roblox.com/game-pass/${order.gamepassId}/`} target="_blank" rel="noopener noreferrer" className="px-1.5 py-0.5 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1" title="Ver Gamepass">
+                                  <span className="text-[8px] font-black uppercase tracking-tighter">Link</span>
+                                  <ExternalLink size={8} />
+                                </a>
+                              )}
+                            </div>
+                          </>
+                        );
+                      }
+                      if (t === 'fortnite') {
+                        return (
+                          <>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-bold text-white">{order.cart?.length || 1} {order.cart?.length === 1 ? 'Item' : 'Ítems'}</span>
+                              <button onClick={() => setSelectedOrderItems(order)} className="p-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all" title="Ver items"><Eye size={12} /></button>
+                            </div>
+                            <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Fortnite</span>
+                          </>
+                        );
+                      }
+                      return (
+                        <>
+                          <span className="text-xs font-bold text-white">{order.amount?.toLocaleString()} Robux</span>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Entrega: {order.method}</span>
+                            {order.gamepassId && (
+                              <a href={`https://www.roblox.com/game-pass/${order.gamepassId}/`} target="_blank" rel="noopener noreferrer" className="px-1.5 py-0.5 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1" title="Ver Gamepass">
+                                <span className="text-[8px] font-black uppercase tracking-tighter">Link</span>
+                                <ExternalLink size={8} />
+                              </a>
+                            )}
+                          </div>
+                        </>
+                      );
+                    })()}
                   </div>
                 </td>
                 <td className="py-5">
@@ -264,6 +296,49 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
           </tbody>
         </table>
       </div>
+
+      {/* Paginacion */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between pt-4 border-t border-white/5">
+          <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">
+            {filteredOrders.length} pedidos — Página {safePage} de {totalPages}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setCurrentPage(Math.max(1, safePage - 1))}
+              disabled={safePage <= 1}
+              className="p-2 bg-white/5 border border-white/10 rounded-xl text-white/40 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const start = Math.max(1, Math.min(safePage - 2, totalPages - 4));
+              const page = start + i;
+              if (page > totalPages) return null;
+              return (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`w-9 h-9 rounded-xl text-xs font-bold transition-all ${
+                    page === safePage
+                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                      : 'bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {page}
+                </button>
+              );
+            })}
+            <button
+              onClick={() => setCurrentPage(Math.min(totalPages, safePage + 1))}
+              disabled={safePage >= totalPages}
+              className="p-2 bg-white/5 border border-white/10 rounded-xl text-white/40 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Modal de Comprobante */}
       <AnimatePresence>

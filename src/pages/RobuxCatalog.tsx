@@ -152,8 +152,8 @@ export default function RobuxCatalog() {
   const [existingGamepasses, setExistingGamepasses] = useState<any[]>([]);
   const [selectedGamepass, setSelectedGamepass] = useState<any>(null);
   const [isJoined, setIsJoined] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isGroupDropdownOpen, setIsGroupDropdownOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   
   // Coupon States
   const [couponCode, setCouponCode] = useState('');
@@ -194,6 +194,30 @@ export default function RobuxCatalog() {
     };
     fetchRobuxPacks();
   }, []);
+
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      setIsSearching(true);
+      try {
+        const result = await RobloxAPI.searchUser(searchQuery.trim());
+        if (result?.data?.length > 0) {
+          setSearchResults(result.data.slice(0, 6));
+        } else {
+          setSearchResults([]);
+        }
+      } catch {
+        setSearchResults([]);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [requiredGroups, setRequiredGroups] = useState<any[]>([]);
   const [groupVerificationResults, setGroupVerificationResults] = useState<any>(null);
@@ -1134,8 +1158,8 @@ export default function RobuxCatalog() {
                   </div>
                 </div>
                 
-                <div className="space-y-5">
-                  <div className="relative mt-4">
+                <div className="space-y-4">
+                  <div className="relative">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 z-10">
                       <Search size={16} />
                     </div>
@@ -1143,63 +1167,39 @@ export default function RobuxCatalog() {
                       type="text" 
                       placeholder="Usuario de Roblox..." 
                       value={searchQuery}
-                      onFocus={() => setIsDropdownOpen(true)}
-                      onBlur={() => setTimeout(() => setIsDropdownOpen(false), 150)}
                       onChange={(e) => {
                         setSearchQuery(e.target.value);
                         if (selectedUser) setSelectedUser(null);
                         setGamepassError(null);
-                        setIsDropdownOpen(true);
                       }}
-                      className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-blue-500/40 focus:bg-blue-500/5 transition-all shadow-inner relative z-0"
+                      className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-blue-500/40 focus:bg-blue-500/5 transition-all shadow-inner"
                     />
-                    
-                    {/* Dropdown animado */}
-                    <div
-                      className={`absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-gradient-to-b from-[#0d0c22] to-[#0a0919] border border-blue-500/20 rounded-2xl overflow-hidden origin-top transition-all duration-[400ms] shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${
-                        isDropdownOpen && recentUsers.length > 0 && !selectedUser
-                          ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
-                          : 'opacity-0 -translate-y-2 scale-[0.98] pointer-events-none'
-                      }`}
-                      style={{
-                        transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
-                        backdropFilter: 'blur(12px)',
-                        animation: isDropdownOpen ? 'containerVibrate 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards' : 'none',
-                        animationDelay: '0.15s'
-                      }}
-                      onMouseDown={(e) => e.preventDefault()}
-                    >
-                      <div className="flex items-center gap-2 px-4 py-3 border-b border-blue-500/10 bg-blue-500/5">
-                        <Clock size={13} className="text-blue-400/60" />
-                        <span className="text-[10px] font-bold text-blue-400/80 uppercase tracking-wider">Recientes</span>
-                      </div>
-                      
-                      <div className="max-h-[280px] overflow-y-auto scrollbar-hide">
-                        {recentUsers.map((u: any, idx: number) => (
-                          <React.Fragment key={u.id}>
+                  </div>
+
+                  {/* Real-time search results */}
+                  {searchQuery.trim().length > 0 && (
+                    <div className="space-y-1">
+                      {isSearching ? (
+                        <div className="flex items-center justify-center py-8">
+                          <div className="w-6 h-6 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+                        </div>
+                      ) : searchResults.length > 0 ? (
+                        <div className="bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden">
+                          {searchResults.map((u: any, idx: number) => (
                             <button
-                              onClick={() => { 
-                                setSelectedUser(u); 
+                              key={u.id}
+                              onClick={() => {
+                                setSelectedUser(u);
                                 setSearchQuery(u.name);
+                                saveRecentUser(u);
                                 setGamepassError(null);
                                 setGamepassStep(2);
-                                setIsDropdownOpen(false);
                               }}
-                              className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group rounded-xl ${
-                                isDropdownOpen ? 'animate-[itemSlideIn_1.1s_cubic-bezier(0.22,1,0.36,1)_both]' : ''
-                              }`}
-                              style={{
-                                animationDelay: '0.08s'
-                              }}
+                              className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group ${idx < searchResults.length - 1 ? 'border-b border-white/[0.04]' : ''}`}
                             >
-                              <div className={`w-10 h-10 rounded-2xl overflow-hidden bg-blue-500/10 border border-blue-500/20 shrink-0 group-hover:border-blue-500/40 transition-all ${
-                                isDropdownOpen ? 'animate-[avatarAppear_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
-                              }`}
-                              style={{
-                                animationDelay: '0.08s'
-                              }}>
+                              <div className="w-10 h-10 rounded-2xl overflow-hidden bg-blue-500/10 border border-blue-500/20 shrink-0">
                                 <img
-                                  src={(u.id || u.userId) ? `${BASE_URL}/users/avatar/${u.id || u.userId}` : `https://ui-avatars.com/api/?name=${u.name || 'User'}&background=0D8ABC&color=fff`}
+                                  src={u.id ? `${BASE_URL}/users/avatar/${u.id}` : `https://ui-avatars.com/api/?name=${u.name || 'User'}&background=0D8ABC&color=fff`}
                                   alt={u.name}
                                   className="w-full h-full object-cover"
                                   onError={(e) => { 
@@ -1207,27 +1207,61 @@ export default function RobuxCatalog() {
                                   }}
                                 />
                               </div>
-                              <div className={`flex-1 min-w-0 ${
-                                isDropdownOpen ? 'animate-[textTurbulence_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
-                              }`}
-                              style={{
-                                animationDelay: '0.08s'
-                              }}>
+                              <div className="flex-1 min-w-0">
                                 <p className="text-sm font-semibold text-white truncate group-hover:text-blue-400 transition-colors">{u.displayName || u.name}</p>
-                                <p className="text-xs text-white/40 truncate group-hover:text-white/60 transition-colors">@{u.name}</p>
+                                <p className="text-xs text-white/40 truncate">@{u.name}</p>
                               </div>
                               <ArrowRight size={14} className="text-white/10 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all shrink-0" />
                             </button>
-                            {idx < recentUsers.length - 1 && (
-                              <div className="border-t border-white/[0.04]" />
-                            )}
-                          </React.Fragment>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="py-6 flex flex-col items-center justify-center gap-2 opacity-40">
+                          <p className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center">
+                            Usuario no encontrado
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Recent Users Grid */}
+                  {recentUsers.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-black text-white/30 tracking-[0.2em] uppercase mb-3">RECIENTES</p>
+                      <div className="grid grid-cols-4 gap-2">
+                        {recentUsers.slice(0, 4).map((u: any) => (
+                          <button
+                            key={u.id}
+                            onClick={() => {
+                              setSelectedUser(u);
+                              setSearchQuery(u.name);
+                              saveRecentUser(u);
+                              setGamepassError(null);
+                              setGamepassStep(2);
+                            }}
+                            className="flex flex-col items-center gap-2 p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl hover:bg-blue-500/10 hover:border-blue-500/30 transition-all group"
+                          >
+                            <div className="w-12 h-12 rounded-full overflow-hidden bg-blue-500/10 border-2 border-white/10 group-hover:border-blue-500/40 transition-all">
+                              <img
+                                src={u.id ? `${BASE_URL}/users/avatar/${u.id}` : `https://ui-avatars.com/api/?name=${u.name || 'User'}&background=0D8ABC&color=fff`}
+                                alt={u.name}
+                                className="w-full h-full object-cover"
+                                onError={(e) => { 
+                                  (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${u.name || 'User'}&background=0D8ABC&color=fff`; 
+                                }}
+                              />
+                            </div>
+                            <div className="text-center min-w-0 w-full">
+                              <p className="text-[10px] font-bold text-white/70 truncate group-hover:text-white transition-colors">{u.name}</p>
+                            </div>
+                          </button>
                         ))}
                       </div>
                     </div>
-                  </div>
-                  
-                  {!selectedUser && !searchQuery.trim() && recentUsers.length === 0 && !isDropdownOpen && (
+                  )}
+
+                  {!selectedUser && !searchQuery.trim() && recentUsers.length === 0 && (
                     <div className="py-6 flex flex-col items-center justify-center gap-3 opacity-40">
                       <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center border border-blue-500/20">
                          <Search size={24} className="text-blue-500/40" />
@@ -2093,9 +2127,8 @@ export default function RobuxCatalog() {
                   </div>
                 </div>
 
-                <div className="space-y-5">
-                  {/* Step 2: Search User */}
-                  <div className="relative mt-4">
+                <div className="space-y-4">
+                  <div className="relative">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 z-10">
                       <Search size={16} />
                     </div>
@@ -2103,61 +2136,37 @@ export default function RobuxCatalog() {
                       type="text" 
                       placeholder="Usuario de Roblox..." 
                       value={searchQuery}
-                      onFocus={() => setIsGroupDropdownOpen(true)}
-                      onBlur={() => setTimeout(() => setIsGroupDropdownOpen(false), 150)}
                       onChange={(e) => {
                         setSearchQuery(e.target.value);
                         if (selectedUser) setSelectedUser(null);
                         setGroupError(null);
-                        setIsGroupDropdownOpen(true);
                       }}
-                      className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-blue-500/40 focus:bg-blue-500/5 transition-all shadow-inner relative z-0"
+                      className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-blue-500/40 focus:bg-blue-500/5 transition-all shadow-inner"
                     />
-                    
-                    {/* Dropdown animado */}
-                    <div 
-                      className={`absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-gradient-to-b from-[#0d0c22] to-[#0a0919] border border-blue-500/20 rounded-2xl overflow-hidden origin-top transition-all duration-[400ms] shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${
-                        isGroupDropdownOpen && recentUsers.length > 0 && !selectedUser
-                          ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
-                          : 'opacity-0 -translate-y-2 scale-[0.98] pointer-events-none'
-                      }`}
-                      style={{
-                        transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
-                        backdropFilter: 'blur(12px)',
-                        animation: isGroupDropdownOpen ? 'containerVibrate 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards' : 'none',
-                        animationDelay: '0.15s'
-                      }}
-                      onMouseDown={(e) => e.preventDefault()}
-                    >
-                      <div className="flex items-center gap-2 px-4 py-3 border-b border-blue-500/10 bg-blue-500/5">
-                        <Clock size={13} className="text-blue-400/60" />
-                        <span className="text-[10px] font-bold text-blue-400/80 uppercase tracking-wider">Recientes</span>
-                      </div>
-                      
-                      <div className="max-h-[280px] overflow-y-auto scrollbar-hide">
-                        {recentUsers.map((u: any, idx: number) => (
-                          <React.Fragment key={u.id}>
+                  </div>
+
+                  {/* Real-time search results */}
+                  {searchQuery.trim().length > 0 && (
+                    <div className="space-y-1">
+                      {isSearching ? (
+                        <div className="flex items-center justify-center py-8">
+                          <div className="w-6 h-6 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+                        </div>
+                      ) : searchResults.length > 0 ? (
+                        <div className="bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden">
+                          {searchResults.map((u: any, idx: number) => (
                             <button
-                              onClick={() => { 
-                                setSelectedUser(u); 
+                              key={u.id}
+                              onClick={() => {
+                                setSelectedUser(u);
                                 setSearchQuery(u.name);
+                                saveRecentUser(u);
                                 setGroupError(null);
                                 handleVerifyGroups();
-                                setIsGroupDropdownOpen(false);
                               }}
-                              className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group rounded-xl ${
-                                isGroupDropdownOpen ? 'animate-[itemSlideIn_1.1s_cubic-bezier(0.22,1,0.36,1)_both]' : ''
-                              }`}
-                              style={{
-                                animationDelay: '0.08s'
-                              }}
+                              className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group ${idx < searchResults.length - 1 ? 'border-b border-white/[0.04]' : ''}`}
                             >
-                              <div className={`w-10 h-10 rounded-2xl overflow-hidden bg-blue-500/10 border border-blue-500/20 shrink-0 group-hover:border-blue-500/40 transition-all ${
-                                isGroupDropdownOpen ? 'animate-[avatarAppear_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
-                              }`}
-                              style={{
-                                animationDelay: '0.08s'
-                              }}>
+                              <div className="w-10 h-10 rounded-2xl overflow-hidden bg-blue-500/10 border border-blue-500/20 shrink-0">
                                 <img
                                   src={`${BASE_URL}/users/avatar/${u.id}`}
                                   alt={u.name}
@@ -2167,27 +2176,61 @@ export default function RobuxCatalog() {
                                   }}
                                 />
                               </div>
-                              <div className={`flex-1 min-w-0 ${
-                                isGroupDropdownOpen ? 'animate-[textTurbulence_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
-                              }`}
-                              style={{
-                                animationDelay: '0.08s'
-                              }}>
+                              <div className="flex-1 min-w-0">
                                 <p className="text-sm font-semibold text-white truncate group-hover:text-blue-400 transition-colors">{u.displayName || u.name}</p>
-                                <p className="text-xs text-white/40 truncate group-hover:text-white/60 transition-colors">@{u.name}</p>
+                                <p className="text-xs text-white/40 truncate">@{u.name}</p>
                               </div>
                               <ArrowRight size={14} className="text-white/10 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all shrink-0" />
                             </button>
-                            {idx < recentUsers.length - 1 && (
-                              <div className="border-t border-white/[0.04]" />
-                            )}
-                          </React.Fragment>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="py-6 flex flex-col items-center justify-center gap-2 opacity-40">
+                          <p className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center">
+                            Usuario no encontrado
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Recent Users Grid */}
+                  {recentUsers.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-black text-white/30 tracking-[0.2em] uppercase mb-3">RECIENTES</p>
+                      <div className="grid grid-cols-4 gap-2">
+                        {recentUsers.slice(0, 4).map((u: any) => (
+                          <button
+                            key={u.id}
+                            onClick={() => {
+                              setSelectedUser(u);
+                              setSearchQuery(u.name);
+                              saveRecentUser(u);
+                              setGroupError(null);
+                              handleVerifyGroups();
+                            }}
+                            className="flex flex-col items-center gap-2 p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl hover:bg-blue-500/10 hover:border-blue-500/30 transition-all group"
+                          >
+                            <div className="w-12 h-12 rounded-full overflow-hidden bg-blue-500/10 border-2 border-white/10 group-hover:border-blue-500/40 transition-all">
+                              <img
+                                src={`${BASE_URL}/users/avatar/${u.id}`}
+                                alt={u.name}
+                                className="w-full h-full object-cover"
+                                onError={(e) => { 
+                                  (e.target as HTMLImageElement).src = 'https://tr.rbxcdn.com/30DAY-AvatarHeadshot-7CD8F7C85B3C840748F735B16F6D2687-Png/150/150/AvatarHeadshot/Webp/noFilter'; 
+                                }}
+                              />
+                            </div>
+                            <div className="text-center min-w-0 w-full">
+                              <p className="text-[10px] font-bold text-white/70 truncate group-hover:text-white transition-colors">{u.name}</p>
+                            </div>
+                          </button>
                         ))}
                       </div>
                     </div>
-                  </div>
-                  
-                  {!selectedUser && !searchQuery.trim() && recentUsers.length === 0 && !isGroupDropdownOpen && (
+                  )}
+
+                  {!selectedUser && !searchQuery.trim() && recentUsers.length === 0 && (
                     <div className="py-6 flex flex-col items-center justify-center gap-3 opacity-40">
                       <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center border border-blue-500/20">
                          <Search size={24} className="text-blue-500/40" />
@@ -2211,48 +2254,6 @@ export default function RobuxCatalog() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-
-                  {searchQuery.trim().length > 0 && (
-                    <button 
-                        onClick={async () => {
-                          if (isLoading) return;
-                          setIsLoading(true);
-                          setGroupError(null);
-                          try {
-                            const result = await RobloxAPI.searchUser(searchQuery.trim());
-                            if (result && result.data && result.data.length > 0) {
-                              // Limpiar estados anteriores para asegurar búsqueda limpia
-                              setExistingGamepasses([]);
-                              setSelectedUser(null);
-                              
-                              const user = result.data[0];
-                              setSelectedUser(user);
-                              saveRecentUser(user);
-                              handleVerifyGroups();
-                            } else {
-                              setGroupError('Usuario no encontrado. Verifica el nombre exacto de Roblox.');
-                            }
-                          } catch (error) {
-                            console.error(error);
-                            setGroupError('Error al buscar el usuario.');
-                          } finally {
-                            setIsLoading(false);
-                          }
-                        }}
-                        className="w-full p-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black text-sm transition-all shadow-[0_8px_20px_rgba(37,99,235,0.2)] flex items-center justify-center gap-3 uppercase tracking-wider mt-4"
-                      >
-                        {isLoading ? (
-                          <>
-                            <LoadingSpinner />
-                            <span>Buscando...</span>
-                          </>
-                        ) : (
-                          <>
-                            Buscar Usuario <ArrowRight size={16} strokeWidth={3} />
-                          </>
-                        )}
-                      </button>
-                    )}
                 </div>
               </motion.div>
             )}

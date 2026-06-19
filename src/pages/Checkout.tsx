@@ -542,6 +542,7 @@ const Checkout = () => {
         {isFetching ? (
           <CheckoutLoader key="loader" />
         ) : (
+          <>
           <motion.div
             key="checkout-content"
             initial={{ opacity: 0, filter: 'blur(20px)', scale: 1.05 }}
@@ -667,7 +668,7 @@ const Checkout = () => {
                 )}
 
                 {/* Grid */}
-                <div className={`grid grid-cols-1 ${isSpecialGame ? 'lg:flex-1 lg:h-full lg:grid-cols-[420px_1fr] relative' : 'lg:grid-cols-[38%_62%] lg:divide-x lg:divide-white/[0.04]'} transition-all duration-500 pb-8 lg:pb-0`}>
+                <div className={`grid grid-cols-1 ${isSpecialGame ? 'lg:flex-1 lg:h-full lg:grid-cols-[420px_1fr] relative' : 'lg:grid-cols-[38%_62%] lg:divide-x lg:divide-white/[0.04]'} transition-all duration-500 pb-[140px] lg:pb-0`}>
                   {/* Border line for special game */}
                   {isSpecialGame && <div className="hidden lg:block absolute top-0 bottom-0 left-[420px] w-[1px] bg-white/[0.06] z-30" />}
                   
@@ -1118,22 +1119,7 @@ const Checkout = () => {
                               </div>
                             </div>
                           )}
-                          <div className="border-t border-white/[0.06] pt-4 space-y-2">
-                            <div className="flex justify-between text-sm">
-                              <span className="text-white/40">Subtotal</span>
-                              <span className="text-white/60">{baseTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
-                            </div>
-                            <div className="flex justify-between items-baseline">
-                              <span className="text-sm font-bold text-white">Total</span>
-                              <div className="text-right">
-                                <div className="flex items-baseline justify-end gap-1">
-                                  <span className="text-xl font-black text-white">{finalTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
-                                  <span className="text-xs text-white/50 font-bold">{displayCurrency}</span>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="text-[9px] text-white/25 uppercase tracking-widest text-right font-black">precio final</div>
-                          </div>
+
                         </div>
                       </motion.div>
 
@@ -1572,20 +1558,6 @@ const Checkout = () => {
                                   </div>
                                 )}
 
-                                <button
-                                  onClick={handleSubmitOrder}
-                                  disabled={isLoading || !receipt}
-                                  className={`w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-3 relative overflow-hidden group/btn ${isLoading || !receipt
-                                    ? 'bg-white/5 text-white/20 cursor-not-allowed border-2 border-white/5'
-                                    : 'bg-blue-600 text-white border-2 border-white/20 shadow-[0_6px_0_0_#1d4ed8] hover:shadow-[0_2px_0_0_#1d4ed8] hover:translate-y-[4px] active:translate-y-[6px] active:shadow-none'
-                                    }`}
-                                >
-                                  {isLoading ? <Loader2 size={18} className="animate-spin" /> : <ArrowRight size={18} />}
-                                  {isLoading ? 'Procesando...' : 'Confirmar Pedido'}
-                                </button>
-                              </div>
-                              <div className="mt-4 text-center text-[9px] text-white/20 uppercase tracking-widest flex items-center justify-center gap-1.5">
-                                <Lock className="w-3 h-3" /> Pago seguro procesado por Stripe
                               </div>
                             </div>
                           </motion.div>
@@ -1593,66 +1565,85 @@ const Checkout = () => {
                       </AnimatePresence>
                       </div>
                     </div>
-                    
-                    {/* Total a pagar - GRID FOOTER for special game */}
+
+                    {/* Footer desktop */}
                     {isSpecialGame && (
-                      <div className="relative z-30">
+                      <div className="hidden lg:block relative z-30">
                         <div className="w-full max-w-[892px] px-6 lg:px-8 py-6 mx-0 relative z-10">
                           <div className="rounded-3xl border border-white/[0.06] bg-[#111827]/60 px-5 py-4">
-
-                              {/* Breakdown if discount applied */}
-                              {appliedCoupon && (
-                                <div className="space-y-2 pb-3 mb-3 border-b border-white/[0.04]">
-                                  <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-widest text-white/40">
-                                    <span>Subtotal</span>
-                                    <span>{baseTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
-                                  </div>
-                                  <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-widest text-emerald-400">
-                                    <span className="flex items-center gap-1"><Tag size={10} /> Descuento ({appliedCoupon.code})</span>
-                                    <span>-{discountAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
-                                  </div>
+                            {appliedCoupon && (
+                              <div className="space-y-2 pb-3 mb-3 border-b border-white/[0.04]">
+                                <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-widest text-white/40">
+                                  <span>Subtotal</span>
+                                  <span>{baseTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
                                 </div>
-                              )}
-
-                              <div className="flex items-center justify-between border-b border-white/[0.05] pb-3 mb-3">
-                                <span className="text-[10px] font-bold text-white/30 uppercase tracking-[0.15em]">Total a pagar</span>
-                                <div className="text-right">
-                                  <div className="flex items-baseline justify-end gap-1">
-                                    <span className="text-2xl font-black text-white">{finalTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
-                                    <span className="text-[10px] text-white/40 font-bold uppercase">{displayCurrency}</span>
-                                  </div>
+                                <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-widest text-emerald-400">
+                                  <span className="flex items-center gap-1"><Tag size={10} /> Descuento ({appliedCoupon.code})</span>
+                                  <span>-{discountAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
                                 </div>
                               </div>
-
-                              {!selected ? (
-                                <div className="text-center">
-                                  <div className="text-[11px] text-white/30 font-medium">Selecciona un método de pago para continuar</div>
-                                  <div className="flex items-center justify-center gap-1.5 mt-2 text-white/10">
-                                    <Lock className="w-3 h-3" />
-                                    <span className="text-[9px] font-bold uppercase tracking-widest">Tu información está segura</span>
-                                  </div>
+                            )}
+                            <div className="flex items-center justify-between border-b border-white/[0.05] pb-3 mb-3">
+                              <span className="text-[10px] font-bold text-white/30 uppercase tracking-[0.15em]">Total a pagar</span>
+                              <div className="text-right">
+                                <div className="flex items-baseline justify-end gap-1">
+                                  <span className="text-2xl font-black text-white">{finalTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
+                                  <span className="text-[10px] text-white/40 font-bold uppercase">{displayCurrency}</span>
                                 </div>
-                              ) : (
-                                <div className="text-center">
-                                  <div className="flex items-center justify-center gap-2 text-blue-400/60">
-                                    <div className="w-1 h-1 rounded-full bg-blue-400 animate-pulse" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest">Completa el pago con {paymentMethods.find(m => m.id === selected)?.name}</span>
-                                  </div>
-                                  <div className="flex items-center justify-center gap-1.5 mt-1.5 text-white/10">
-                                    <Lock className="w-3 h-3" />
-                                    <span className="text-[9px] font-bold uppercase tracking-widest">Tu información está segura</span>
-                                  </div>
-                                </div>
-                              )}
+                              </div>
                             </div>
+                            <button
+                              onClick={handleSubmitOrder}
+                              disabled={isLoading || !receipt || !selected}
+                              className={`w-full py-3 rounded-xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-3 relative overflow-hidden group/btn ${isLoading || !receipt || !selected
+                                ? 'bg-white/5 text-white/20 cursor-not-allowed border-2 border-white/5'
+                                : 'bg-blue-600 text-white border-2 border-white/20 shadow-[0_6px_0_0_#1d4ed8] hover:shadow-[0_2px_0_0_#1d4ed8] hover:translate-y-[4px] active:translate-y-[6px] active:shadow-none'
+                                }`}
+                            >
+                              {isLoading ? <Loader2 size={18} className="animate-spin" /> : <ArrowRight size={18} />}
+                              {isLoading ? 'Procesando...' : 'Confirmar Pedido'}
+                            </button>
                           </div>
                         </div>
-                      )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </motion.div>
+          
+          {isSpecialGame && (
+            <div className="fixed bottom-0 left-0 right-0 z-[60] lg:hidden border-t border-white/10 bg-[#0F172A]">
+              <div className="px-4 py-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-white/70 uppercase tracking-wider">Total a pagar</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-xl font-black text-white">{finalTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
+                    <span className="text-[10px] text-white/50 font-bold uppercase">{displayCurrency}</span>
+                  </div>
+                </div>
+                {appliedCoupon && (
+                  <div className="flex items-center justify-between text-[9px] text-emerald-400 font-black uppercase tracking-widest mb-2">
+                    <span className="flex items-center gap-1"><Tag size={10} /> Descuento ({appliedCoupon.code})</span>
+                    <span>-{discountAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
+                  </div>
+                )}
+                <button
+                  onClick={handleSubmitOrder}
+                  disabled={isLoading || !receipt || !selected}
+                  className={`w-full py-3 rounded-xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-3 relative overflow-hidden group/btn ${isLoading || !receipt || !selected
+                    ? 'bg-white/5 text-white/20 cursor-not-allowed border-2 border-white/5'
+                    : 'bg-blue-600 text-white border-2 border-white/20 shadow-[0_6px_0_0_#1d4ed8] hover:shadow-[0_2px_0_0_#1d4ed8] hover:translate-y-[4px] active:translate-y-[6px] active:shadow-none'
+                    }`}
+                >
+                  {isLoading ? <Loader2 size={18} className="animate-spin" /> : <ArrowRight size={18} />}
+                  {isLoading ? 'Procesando...' : 'Confirmar Pedido'}
+                </button>
+              </div>
+            </div>
+          )}
+          </>
         )}
       </AnimatePresence>
 
