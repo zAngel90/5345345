@@ -57,7 +57,7 @@ export default function RobuxTab({ packages, setPackages, pricePer1000, setPrice
               onChange={(e) => setPricePer1000(parseFloat(e.target.value))} 
               className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-3 text-white font-bold" 
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 text-xs font-bold uppercase">PEN</span>
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 text-xs font-bold uppercase">S/</span>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default function RobuxTab({ packages, setPackages, pricePer1000, setPrice
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[9px] font-black text-white/20 uppercase tracking-widest ml-1">Precio por 1 Robux (PEN)</label>
+                  <label className="text-[9px] font-black text-white/20 uppercase tracking-widest ml-1">Precio por 1 Robux (S/)</label>
                   <input 
                     type="number" 
                     step="0.001" 
@@ -130,7 +130,7 @@ export default function RobuxTab({ packages, setPackages, pricePer1000, setPrice
                 <input type="number" value={pkg.amount} onChange={(e) => updatePackage(idx, 'amount', parseInt(e.target.value))} className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-sm" />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-white/20 uppercase tracking-widest ml-1">Precio (PEN)</label>
+                <label className="text-[10px] font-black text-white/20 uppercase tracking-widest ml-1">Precio (S/)</label>
                 <input type="number" step="0.01" value={pkg.price} onChange={(e) => updatePackage(idx, 'price', parseFloat(e.target.value))} className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-sm" />
               </div>
               <div className="flex items-center gap-4 pt-6">

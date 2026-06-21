@@ -90,7 +90,7 @@ export default function LimitedsTab({ limiteds, setLimiteds, onSave, onTriggerUp
                 
                 <div className="grid grid-cols-4 gap-2">
                   <div className="space-y-1">
-                    <label className="text-[9px] font-black text-white/20 uppercase ml-1">Precio PEN</label>
+                    <label className="text-[9px] font-black text-white/20 uppercase ml-1">Precio S/</label>
                     <input 
                       type="number" 
                       value={item.price} 

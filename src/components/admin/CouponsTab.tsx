@@ -184,14 +184,14 @@ export default function CouponsTab() {
               className="w-full bg-[#0d0c22]/60 border border-white/10 focus:border-blue-500/50 rounded-xl px-4 py-3.5 text-white text-sm outline-none transition-colors appearance-none"
             >
               <option value="percentage">Porcentaje (%)</option>
-              <option value="fixed">Valor Fijo (USD)</option>
-              <option value="balance">Saldo ($) — se descuenta por uso</option>
+              <option value="fixed">Valor Fijo (S/)</option>
+              <option value="balance">Saldo (S/) — se descuenta por uso</option>
             </select>
           </div>
 
           {newCoupon.discountType === 'balance' ? (
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest ml-1">Saldo Inicial ($)</label>
+              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest ml-1">Saldo Inicial (S/)</label>
               <div className="relative">
                 <input 
                   type="number" placeholder="Ej: 50.00" value={newCoupon.initialBalance} required min="0.01" step="0.01"
@@ -204,7 +204,7 @@ export default function CouponsTab() {
           ) : (
             <div className="space-y-2">
               <label className="text-[10px] font-black text-white/40 uppercase tracking-widest ml-1">
-                Valor ({newCoupon.discountType === 'percentage' ? '%' : 'USD'})
+                Valor ({newCoupon.discountType === 'percentage' ? '%' : 'S/'})
               </label>
               <div className="relative">
                 <input 
@@ -438,8 +438,8 @@ export default function CouponsTab() {
                         <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                           <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-black">
                             {coupon.discountType === 'percentage' ? `${coupon.discountValue}% OFF`
-                              : coupon.discountType === 'balance' ? `Saldo $${(coupon.remainingBalance ?? 0).toFixed(2)} / $${(coupon.initialBalance ?? 0).toFixed(2)}`
-                              : `-$${coupon.discountValue}`}
+                              : coupon.discountType === 'balance' ? `Saldo S/${(coupon.remainingBalance ?? 0).toFixed(2)} / S/${(coupon.initialBalance ?? 0).toFixed(2)}`
+                              : `-S/${coupon.discountValue}`}
                           </span>
                           {coupon.isPublic && (
                             <span className="text-[8px] text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded uppercase font-black tracking-widest">Público</span>
@@ -454,7 +454,7 @@ export default function CouponsTab() {
                         <span className="block text-[9px] font-black text-white/30 uppercase tracking-widest">Estadísticas</span>
                         {coupon.discountType === 'balance' ? (
                           <span className="block text-xs font-bold text-white">
-                            ${(coupon.remainingBalance ?? 0).toFixed(2)} <span className="text-white/40 font-medium">restante</span>
+                            S/ {(coupon.remainingBalance ?? 0).toFixed(2)} <span className="text-white/40 font-medium">restante</span>
                           </span>
                         ) : (
                           <span className="block text-xs font-bold text-white">

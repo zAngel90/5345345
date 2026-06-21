@@ -47,7 +47,7 @@ export default function CurrenciesTab({ currencies, setCurrencies, onSave, isSav
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-black text-white mb-2">Tasas de Cambio</h2>
-        <p className="text-white/40 text-sm">Configura las monedas y sus valores respecto al Sol (PEN).</p>
+        <p className="text-white/40 text-sm">Configura las monedas y sus valores respecto al Sol (S/).</p>
       </div>
 
       <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-6">
@@ -69,7 +69,7 @@ export default function CurrenciesTab({ currencies, setCurrencies, onSave, isSav
             className="bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none"
           />
           <input 
-            type="number" placeholder="Tasa vs PEN (Ej: 0.27)" value={newCurrency.rate}
+            type="number" placeholder="Tasa vs S/ (Ej: 0.27)" value={newCurrency.rate}
             onChange={(e) => setNewCurrency({...newCurrency, rate: parseFloat(e.target.value)})}
             className="bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none"
           />
@@ -116,7 +116,7 @@ export default function CurrenciesTab({ currencies, setCurrencies, onSave, isSav
                     />
                 </div>
                 <div className="hidden md:block">
-                    <span className="text-[10px] text-white/30 uppercase font-black">1 PEN = {curr.rate} {curr.code}</span>
+                    <span className="text-[10px] text-white/30 uppercase font-black">1 S/ = {curr.rate} {curr.code}</span>
                 </div>
                 <div className="flex justify-end">
                     <button 

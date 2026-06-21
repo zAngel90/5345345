@@ -82,7 +82,7 @@ const BannerTilt = ({ navigate }: { navigate: any }) => {
           <div className="flex flex-col items-stretch md:items-end gap-3 w-full md:w-auto mt-4 md:mt-0">
             <div className="hidden md:block text-right mb-1">
               <span className="text-white/70 text-sm font-medium uppercase tracking-widest text-[10px]">Desde</span>
-              <p className="text-white font-black text-2xl">S/28.00 <span className="text-xs">PEN</span></p>
+              <p className="text-white font-black text-2xl">S/28.00</p>
             </div>
             <button
               className="h-11 md:h-12 px-8 bg-white text-blue-700 font-black rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-50 transition-all uppercase tracking-wide text-[13px] w-full md:w-auto shadow-lg"
@@ -94,6 +94,27 @@ const BannerTilt = ({ navigate }: { navigate: any }) => {
       </div>
     </div>
   );
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20
+    }
+  }
 };
 
 export default function Catalog() {
@@ -245,9 +266,9 @@ export default function Catalog() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, filter: 'blur(10px)' }}
+      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen pt-28 px-4 selection:bg-blue-500/30 relative"
     >
       {/* Corner Overlays */}
@@ -258,30 +279,38 @@ export default function Catalog() {
         <div className="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
       </div>
 
-      <div className="max-w-[1140px] mx-auto relative z-10">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-[1140px] mx-auto relative z-10"
+      >
 
         {/* Robux Banner Hero - Exact Tilt-Button Implementation */}
-        <div className="relative mb-14 group perspective-1000">
+        <motion.div variants={itemVariants} className="relative mb-14 group perspective-1000">
           <BannerTilt navigate={navigate} />
-        </div>
+        </motion.div>
 
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10" />
-        {/* Section Header: In-Game Items + Currency Selector */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/15">
-              <Gamepad2 className="text-indigo-400" size={20} />
+        <motion.div variants={itemVariants}>
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10" />
+          {/* Section Header: In-Game Items + Currency Selector */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/15">
+                <Gamepad2 className="text-indigo-400" size={20} />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-white uppercase tracking-tight">In-Game Items</h2>
+                <p className="text-white/50 text-sm">Buy items, fruits, gamepasses and more</p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-xl font-bold text-white uppercase tracking-tight">In-Game Items</h2>
-              <p className="text-white/50 text-sm">Buy items, fruits, gamepasses and more</p>
-            </div>
+
           </div>
+        </motion.div>
 
-        </div>
-
-        {/* Search Bar + Nav Arrows in same row */}
-        <div className="flex items-center gap-3 mb-8">
+        <motion.div variants={itemVariants}>
+          {/* Search Bar + Nav Arrows in same row */}
+          <div className="flex items-center gap-3 mb-8">
           <div className="relative flex-1 group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-blue-400 transition-colors" size={18} />
             <input
@@ -302,10 +331,12 @@ export default function Catalog() {
               </button>
             </div>
           )}
-        </div>
+          </div>
+        </motion.div>
 
-        {/* Games Section */}
-        <div className="relative mb-20">
+        <motion.div variants={itemVariants}>
+          {/* Games Section */}
+          <div className="relative mb-20">
           <div
             ref={carouselRef}
             className={`${isExpanded || search ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4' : 'flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-1 px-1 select-none'}`}
@@ -522,7 +553,9 @@ export default function Catalog() {
             </div>
           )}
         </div>
+        </motion.div>
 
+        <motion.div variants={itemVariants}>
         {/* Featured Sections (From Screenshot) */}
         {!search && isLoading && (
           <div className="space-y-20">
@@ -650,11 +683,15 @@ export default function Catalog() {
                 animationId = requestAnimationFrame(animate);
               }}
             >
-              {section.items.map((item: any) => (
-                <div
+              {section.items.map((item: any, idx: number) => (
+                <motion.div
                   key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20, delay: idx * 0.05 }}
                   onClick={(e) => {
-                    const slider = e.currentTarget.parentElement;
+                    const slider = (e.target as HTMLElement).closest('[data-dragging]');
                     if (slider?.getAttribute('data-dragging') === 'true') {
                       e.preventDefault();
                       e.stopPropagation();
@@ -690,7 +727,7 @@ export default function Catalog() {
                       <div className="flex items-center justify-between gap-2 sm:gap-3">
                         <p className="text-emerald-400 font-black text-sm sm:text-base md:text-lg">
                           {activeCurrency === 'USD' ? '$' : (activeCurrency === 'PEN' ? 'S/' : '$')}
-                          {convertPrice(item.price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {activeCurrency}
+                          {convertPrice(item.price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </p>
                         <button className="relative px-3 h-7 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-lg transition-all flex items-center justify-center gap-1.5 group/btn overflow-hidden"
                           style={{
@@ -717,13 +754,14 @@ export default function Catalog() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         ))}
+        </motion.div>
         <div className="h-40" />
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

@@ -122,7 +122,7 @@ const SIDEBAR_SECTIONS = [
   {
     title: 'ACTIVIDAD',
     items: [
-      { id: 'pedidos', label: 'Mis Pedidos', icon: ShoppingBag },
+      { id: 'pedidos', label: 'Mis Compras', icon: ShoppingBag },
       { id: 'descuentos', label: 'Cupones', icon: Tag }
     ]
   },
@@ -766,7 +766,7 @@ export default function Account() {
                           </div>
                           
                           <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none uppercase transition-colors">
-                            {c.discountType === 'percentage' ? `${c.discountValue}% OFF` : c.discountType === 'balance' ? `$${(c.remainingBalance ?? c.initialBalance ?? 0).toFixed(2)}` : `-$${c.discountValue}`}
+                            {c.discountType === 'percentage' ? `${c.discountValue}% OFF` : c.discountType === 'balance' ? `S/${(c.remainingBalance ?? c.initialBalance ?? 0).toFixed(2)}` : `-S/${c.discountValue}`}
                           </h3>
                           <p className="text-[10px] md:text-xs text-white/40 font-bold uppercase tracking-wider mt-2">
                             Válido para toda la tienda

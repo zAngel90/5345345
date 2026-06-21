@@ -30,7 +30,8 @@ import {
   XCircle,
   Ticket,
   Package,
-  Filter
+  Filter,
+  Star
 } from 'lucide-react';
 import { RobloxAPI, StoreAPI, ChatAPI, AuthAPI, SERVER_URL } from '../services/api';
 
@@ -48,6 +49,7 @@ import PaymentMethodsTab from '../components/admin/PaymentMethodsTab';
 import HomeTab from '../components/admin/HomeTab';
 import CategoryIconsTab from '../components/admin/CategoryIconsTab';
 import CouponsTab from '../components/admin/CouponsTab';
+import ReviewsTab from '../components/admin/ReviewsTab';
 import FortniteTab from '../components/admin/FortniteTab';
 
 const TABS = [
@@ -60,6 +62,7 @@ const TABS = [
   { id: 'limiteds', label: 'Limiteds / Trade', icon: Crown, category: 'Tienda' },
   { id: 'mm2', label: 'Murder Mystery 2', icon: Zap, category: 'Tienda' },
   { id: 'coupons', label: 'Cupones Descuento', icon: Ticket, category: 'Tienda' },
+  { id: 'reviews', label: 'Reseñas', icon: Star, category: 'Tienda' },
   { id: 'games', label: 'Juegos & Items', icon: Gamepad2, category: 'Tienda' },
   { id: 'groups', label: 'Grupos Roblox', icon: Users, category: 'Configuración' },
   { id: 'currencies', label: 'Tasas y Monedas', icon: Globe, category: 'Configuración' },
@@ -526,10 +529,12 @@ export default function Admin() {
                       </div>
                     )}
 
-                    {activeTab === 'coupons' && (
+{activeTab === 'coupons' && (
                       <CouponsTab />
                     )}
-
+                    {activeTab === 'reviews' && (
+                      <ReviewsTab />
+                    )}
                     {activeTab === 'chats' && (
                       <div className="bg-[#05050f]/50 -mx-8 -my-8 h-[calc(100vh-160px)]">
                         <ChatsTab />
@@ -581,7 +586,7 @@ export default function Admin() {
                     )}
 
                     {activeTab === 'orders' && (
-                      <OrdersTab orders={orders} onContactClient={handleContactClient} />
+                      <OrdersTab orders={orders} onContactClient={handleContactClient} onRefresh={fetchData} />
                     )}
 
                     {activeTab === 'deliveries' && (
@@ -643,7 +648,7 @@ export default function Admin() {
                   
                   <div className="grid grid-cols-3 gap-5">
                     <div className="space-y-2">
-                       <label className="text-[10px] font-black text-white/40 uppercase tracking-widest ml-1">Precio (PEN)</label>
+                       <label className="text-[10px] font-black text-white/40 uppercase tracking-widest ml-1">Precio (S/)</label>
                        <div className="relative">
                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 font-bold">S/</span>
                          <input type="number" value={editingProduct.price} onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) })} placeholder="0.00" className="w-full bg-white/5 border border-white/10 rounded-2xl pl-8 pr-5 py-4 text-sm text-white focus:border-blue-500/50 outline-none transition-colors" />
@@ -805,7 +810,7 @@ export default function Admin() {
                         <img src={product.image?.startsWith('http') ? product.image : `${SERVER_URL}${product.image}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="" />
                       </div>
                       <h4 className="text-white font-bold text-sm truncate mb-1">{product.name}</h4>
-                      <p className="text-emerald-400 font-black text-[11px] bg-emerald-500/10 inline-block px-2 py-0.5 rounded-md">S/ {product.price} PEN</p>
+                      <p className="text-emerald-400 font-black text-[11px] bg-emerald-500/10 inline-block px-2 py-0.5 rounded-md">S/ {product.price}</p>
                       
                       <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all translate-y-[-10px] group-hover:translate-y-0">
                         <button onClick={() => { setEditingProduct(product); setShowProductModal(true); }} className="p-2 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-500 transition-colors">

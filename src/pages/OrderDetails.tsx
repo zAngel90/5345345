@@ -626,16 +626,6 @@ const OrderDetails = () => {
                 </button>
               )}
 
-              {/* MM2 Account Info */}
-              <div className="mt-4 p-3 bg-white/[0.02] border border-white/5 rounded-xl flex items-start gap-3">
-                <div className="w-8 h-8 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-400 shrink-0">
-                  <Info size={16} />
-                </div>
-                <div>
-                  <h4 className="text-xs font-black text-white uppercase tracking-tight mb-1">Cuenta de entrega</h4>
-                  <p className="text-[10px] text-white/40 leading-relaxed">El staff está configurando la entrega. Pronto podrás solicitar tu pedido arriba.</p>
-                </div>
-              </div>
             </div>
           </div>
         )}
@@ -748,7 +738,7 @@ const OrderDetails = () => {
                 </div>
                 <div className="text-right">
                   <div className="text-2xl font-black tracking-tighter text-blue-400">
-                    {order.total.toFixed(2)} <span className="text-xs font-bold text-white/20">{order.currency}</span>
+                    S/ {order.total.toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -794,18 +784,21 @@ const OrderDetails = () => {
                             <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                               <img src={item?.image || item?.img} alt="" className="w-full h-full object-cover" />
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-blue-400">
-                                Skin Fortnite
-                              </p>
-                              <p className="text-xs font-bold text-white truncate">{item?.name}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ) : (order.type === 'trade_limited' || order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited') || String(item.game || '').toLowerCase().includes('mm2')))) ? (
+                             <div className="flex-1 min-w-0">
+                               <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-blue-400">
+                                 Skin Fortnite
+                               </p>
+                               <p className="text-xs font-bold text-white truncate">{item?.name}</p>
+                             </div>
+                             {item?.price != null && (
+                               <span className="text-[10px] font-black text-emerald-400 shrink-0">S/ {item.price.toFixed(2)}</span>
+                             )}
+                           </div>
+                         ))}
+                       </div>
+                     )}
+                   </div>
+                 ) : (order.type === 'trade_limited' || order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited') || String(item.game || '').toLowerCase().includes('mm2')))) ? (
                   <div className="space-y-3">
                     {/* Target Items (Items a recibir) - Lista Expandida */}
                     {order.cart && order.cart.length > 0 ? (
@@ -826,17 +819,20 @@ const OrderDetails = () => {
                               <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                                 <img src={item?.img || item?.image} alt="" className="w-full h-full object-contain p-1" />
                               </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-white/50">
-                                  Item a recibir
-                                </p>
-                                <p className="text-xs font-bold text-white truncate">{item?.name}</p>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ) : order.targetItem && (
+                               <div className="flex-1 min-w-0">
+                                 <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-white/50">
+                                   Item a recibir
+                                 </p>
+                                 <p className="text-xs font-bold text-white truncate">{item?.name}</p>
+                               </div>
+                               {item?.price != null && (
+                                 <span className="text-[10px] font-black text-emerald-400 shrink-0">S/ {item.price.toFixed(2)}</span>
+                               )}
+                             </div>
+                           );
+                         })}
+                       </div>
+                     ) : order.targetItem && (
                       <div className="flex items-center gap-3 p-2.5 bg-pink-500/20 border border-pink-500/50 rounded-2xl">
                         <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                           <img src={order.targetItem?.img || order.targetItem?.image} alt="" className="w-full h-full object-contain p-1" />
@@ -887,18 +883,21 @@ const OrderDetails = () => {
                             <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                               <img src={item?.img || item?.image || item?.thumbnail} alt="" className="w-full h-full object-contain p-1" />
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-green-400">
-                                {item?.game || 'In-Game'}
-                              </p>
-                              <p className="text-xs font-bold text-white truncate">{item?.name}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ) : (
+                             <div className="flex-1 min-w-0">
+                               <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-green-400">
+                                 {item?.game || 'In-Game'}
+                               </p>
+                               <p className="text-xs font-bold text-white truncate">{item?.name}</p>
+                             </div>
+                             {item?.price != null && (
+                               <span className="text-[10px] font-black text-emerald-400 shrink-0">S/ {item.price.toFixed(2)}</span>
+                             )}
+                           </div>
+                         ))}
+                       </div>
+                     )}
+                   </div>
+                 ) : (
                   <>
                     {/* Method Row - Only for Robux */}
                     <div className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl flex items-center justify-between">
@@ -1097,10 +1096,10 @@ const OrderDetails = () => {
 
                {/* Chat Input */}
                <div className="p-3 bg-[#0d0c22] border-t border-white/5">
-                  {chat?.status === 'Finalizado' ? (
-                    <div className="py-2.5 px-3 bg-red-500/10 border border-red-500/20 rounded-xl flex flex-col items-center text-center">
-                       <span className="text-[9px] font-black text-red-500 uppercase tracking-widest mb-0.5">Este chat ha sido finalizado</span>
-                    </div>
+                   {chat?.status === 'Finalizado' || order?.status === 'completed' || order?.status === 'cancelled' ? (
+                     <div className="py-2.5 px-3 bg-red-500/10 border border-red-500/20 rounded-xl flex flex-col items-center text-center">
+                        <span className="text-[9px] font-black text-red-500 uppercase tracking-widest mb-0.5">Este chat ha sido finalizado</span>
+                     </div>
                   ) : (
                     <form onSubmit={handleSendMessage} className="relative flex items-center gap-2">
                        <input 

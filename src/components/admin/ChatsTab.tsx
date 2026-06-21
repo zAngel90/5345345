@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Hash, User, ShoppingBag, Clock, Image as ImageIcon, Paperclip, Loader2 } from 'lucide-react';
+import { Send, Hash, User, ShoppingBag, Clock, Image as ImageIcon, Paperclip, Loader2, Search } from 'lucide-react';
 import { ChatAPI, SERVER_URL, socket } from '../../services/api';
 
 export default function ChatsTab() {
@@ -9,6 +9,7 @@ export default function ChatsTab() {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [adminUser, setAdminUser] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const activeChatRef = useRef<any>(null);
 
@@ -191,11 +192,21 @@ export default function ChatsTab() {
     <div className="grid grid-cols-1 lg:grid-cols-[350px_1fr] gap-6 h-[700px]">
       {/* Chats List */}
       <div className="bg-white/[0.02] border border-white/5 rounded-3xl flex flex-col overflow-hidden">
-        <div className="p-6 border-b border-white/5 bg-white/[0.01]">
+        <div className="p-6 border-b border-white/5 bg-white/[0.01] space-y-3">
           <h3 className="text-lg font-black text-white flex items-center gap-2">
             <Hash size={20} className="text-blue-500" />
             Conversaciones
           </h3>
+          <div className="relative">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/20" />
+            <input
+              type="text"
+              placeholder="Buscar por pedido, ID o usuario..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder:text-white/20 outline-none focus:border-blue-500/50 transition-all"
+            />
+          </div>
         </div>
         
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
@@ -208,7 +219,19 @@ export default function ChatsTab() {
               <p className="text-sm font-bold text-white">No hay chats activos</p>
             </div>
           ) : (
-            chats.map(chat => (
+            chats
+              .filter(chat => {
+                if (!searchQuery.trim()) return true;
+                const q = searchQuery.trim().toLowerCase();
+                return (
+                  String(chat.orderId || '').toLowerCase().includes(q) ||
+                  String(chat.id || '').toLowerCase().includes(q) ||
+                  (chat.title || '').toLowerCase().includes(q) ||
+                  (chat.username || '').toLowerCase().includes(q)
+                );
+              })
+              .sort((a, b) => (b.id || 0) - (a.id || 0))
+              .map(chat => (
               <div 
                 key={chat.id}
                 onClick={() => setActiveChat(chat)}

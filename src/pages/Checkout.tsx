@@ -1341,7 +1341,7 @@ const Checkout = () => {
                                     <div>
                                       <span className="block text-[10px] font-black text-white tracking-wider uppercase">{appliedCoupon.code}</span>
                                       <span className="block text-[9px] text-emerald-400 font-black uppercase mt-0.5 tracking-widest">
-                                        -{appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountValue}%` : `${appliedCoupon.discountValue} ${displayCurrency}`} OFF
+                                        -{appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountValue}%` : `S/${appliedCoupon.discountValue}`} OFF
                                       </span>
                                     </div>
                                   </div>
@@ -1575,11 +1575,11 @@ const Checkout = () => {
                               <div className="space-y-2 pb-3 mb-3 border-b border-white/[0.04]">
                                 <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-widest text-white/40">
                                   <span>Subtotal</span>
-                                  <span>{baseTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
+                                  <span>S/ {baseTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
                                 </div>
                                 <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-widest text-emerald-400">
                                   <span className="flex items-center gap-1"><Tag size={10} /> Descuento ({appliedCoupon.code})</span>
-                                  <span>-{discountAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
+                                  <span>-S/ {discountAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
                                 </div>
                               </div>
                             )}
@@ -1587,8 +1587,7 @@ const Checkout = () => {
                               <span className="text-[10px] font-bold text-white/30 uppercase tracking-[0.15em]">Total a pagar</span>
                               <div className="text-right">
                                 <div className="flex items-baseline justify-end gap-1">
-                                  <span className="text-2xl font-black text-white">{finalTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
-                                  <span className="text-[10px] text-white/40 font-bold uppercase">{displayCurrency}</span>
+                                  <span className="text-2xl font-black text-white">S/ {finalTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
                                 </div>
                               </div>
                             </div>
@@ -1619,14 +1618,13 @@ const Checkout = () => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-white/70 uppercase tracking-wider">Total a pagar</span>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-xl font-black text-white">{finalTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
-                    <span className="text-[10px] text-white/50 font-bold uppercase">{displayCurrency}</span>
+                    <span className="text-xl font-black text-white">S/ {finalTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
                   </div>
                 </div>
                 {appliedCoupon && (
                   <div className="flex items-center justify-between text-[9px] text-emerald-400 font-black uppercase tracking-widest mb-2">
                     <span className="flex items-center gap-1"><Tag size={10} /> Descuento ({appliedCoupon.code})</span>
-                    <span>-{discountAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
+                    <span>-S/ {discountAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
                   </div>
                 )}
                 <button
@@ -1711,7 +1709,7 @@ const Checkout = () => {
                             <img src={`https://tr.rbxcdn.com/30DAY-AvatarHeadshot-7CD8F7C85B3C840748F735B16F6D2687-Png/150/150/AvatarHeadshot/Webp/noFilter`} alt="" />
                           </div>
                           <div className="min-w-0">
-                            <h4 className="text-sm font-bold text-white leading-tight">{user.name}</h4>
+                            <h4 className="text-sm font-bold text-white leading-tight">{user.displayName || user.name}</h4>
                             <p className="text-white/30 text-[10px]">@{user.name}</p>
                           </div>
                         </div>
@@ -2329,8 +2327,8 @@ const Checkout = () => {
                             </>
                           ) : (
                             <>
-                              <p className="text-sm font-black text-white truncate">{selectedUser?.name}</p>
-                              <p className="text-xs text-white/50">Grupos obligatorios unidos</p>
+                              <p className="text-sm font-black text-white truncate">{selectedUser?.displayName || selectedUser?.name}</p>
+                              <p className="text-xs text-white/40">@{selectedUser?.name}</p>
                             </>
                           )}
                         </div>

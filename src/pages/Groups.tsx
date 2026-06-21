@@ -19,6 +19,27 @@ interface Group {
   isMandatory?: boolean;
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20
+    }
+  }
+};
+
 export default function Groups() {
   const [username, setUsername] = useState('');
   const [groups, setGroups] = useState<any[]>([]);
@@ -88,9 +109,9 @@ export default function Groups() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.9, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+      initial={{ opacity: 0, filter: 'blur(10px)' }}
+      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen pt-24 pb-20 px-6 lg:px-12 relative"
     >
       {/* Corner Overlays */}
@@ -101,11 +122,17 @@ export default function Groups() {
         <div className="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
       </div>
       
-      <div className="max-w-[1400px] mx-auto relative z-10">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-[1400px] mx-auto relative z-10"
+      >
         
         <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12 items-start">
           
           {/* Left Column: Info & Verification */}
+          <motion.div variants={itemVariants}>
           <aside className="space-y-8 lg:sticky lg:top-32">
             <div className="space-y-4">
               <h1 className="text-4xl font-black text-white leading-tight uppercase tracking-tight">
@@ -214,8 +241,10 @@ export default function Groups() {
               Volver a Comprar Robux
             </Link>
           </aside>
+          </motion.div>
 
           {/* Right Column: Groups Grid */}
+          <motion.div variants={itemVariants}>
           <main className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <h2 className="text-2xl font-bold text-white uppercase tracking-tight">Grupos disponibles</h2>
@@ -315,9 +344,10 @@ export default function Groups() {
               )}
             </div>
           </main>
+          </motion.div>
 
         </div>
-      </div>
+      </motion.div>
 
       {/* Footer Spacer */}
       <div className="h-80" />

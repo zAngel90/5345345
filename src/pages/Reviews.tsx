@@ -225,6 +225,27 @@ const ReviewCard = ({ review }: { review: Review }) => {
   );
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20
+    }
+  }
+};
+
 export default function Reviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
@@ -378,8 +399,9 @@ export default function Reviews() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.9, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
+      initial={{ opacity: 0, filter: 'blur(10px)' }}
+      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen relative overflow-x-hidden"
     >
       {/* Corner Overlays */}
@@ -390,16 +412,22 @@ export default function Reviews() {
         <div className="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-100 blur-3xl bg-gradient-to-tl from-[#090971]/50 via-[#000041]/35 via-30% to-transparent" />
       </div>
 
-      <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-10 lg:px-16 xl:px-24 pt-20 sm:pt-32 pb-36 md:pb-20 relative z-10">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-[1400px] w-full mx-auto px-4 sm:px-10 lg:px-16 xl:px-24 pt-20 sm:pt-32 pb-36 md:pb-20 relative z-10"
+      >
         
         {/* Header Section */}
-        <motion.header className="mb-6 lg:mb-12">
+        <motion.header variants={itemVariants} className="mb-6 lg:mb-12">
           <h1 className="text-3xl lg:text-5xl font-display font-black text-white tracking-tight leading-tight mb-1">
             Reseñas
           </h1>
           <p className="text-white/40 text-sm lg:text-lg">Lo que nuestros clientes dicen de nosotros.</p>
         </motion.header>
 
+        <motion.div variants={itemVariants}>
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[340px_1fr] gap-4 lg:gap-8">
           
           {/* Sidebar */}
@@ -644,9 +672,10 @@ export default function Reviews() {
             )}
           </div>
         </div>
+        </motion.div>
 
         <div className="h-40" />
-      </div>
+      </motion.div>
 
       {/* Write Review Modal */}
       <AnimatePresence>

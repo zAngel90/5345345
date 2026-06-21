@@ -1253,7 +1253,8 @@ export default function RobuxCatalog() {
                               />
                             </div>
                             <div className="text-center min-w-0 w-full">
-                              <p className="text-[10px] font-bold text-white/70 truncate group-hover:text-white transition-colors">{u.name}</p>
+                              <p className="text-[10px] font-bold text-white/70 truncate group-hover:text-white transition-colors">{u.displayName || u.name}</p>
+                              <p className="text-[7px] text-white/30 truncate">@{u.name}</p>
                             </div>
                           </button>
                         ))}
@@ -1388,7 +1389,8 @@ export default function RobuxCatalog() {
                         </div>
                         <div className="min-w-0">
                           <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-none mb-1">Comprando Robux para</p>
-                          <h4 className="text-xs font-black text-white truncate leading-none">@{selectedUser?.name}</h4>
+                          <h4 className="text-xs font-black text-white truncate leading-none">{selectedUser?.displayName || selectedUser?.name}</h4>
+                          <p className="text-[9px] text-white/30 font-medium">@{selectedUser?.name}</p>
                         </div>
                       </div>
 
@@ -1839,6 +1841,7 @@ export default function RobuxCatalog() {
                               <CheckCircle2 size={10} strokeWidth={4} />
                             </div>
                           </div>
+                          <p className="text-[10px] text-white/40 font-medium mt-0.5">@{selectedUser?.name}</p>
                         </div>
                       </div>
                       <button 
@@ -2025,10 +2028,10 @@ export default function RobuxCatalog() {
                         </div>
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <h4 className="text-sm font-black text-white uppercase tracking-tight">{selectedUser.name}</h4>
+                            <h4 className="text-sm font-black text-white uppercase tracking-tight">{selectedUser?.displayName || selectedUser?.name}</h4>
                             <CheckCircle2 size={14} className="text-emerald-500 fill-emerald-500/10" strokeWidth={3} />
                           </div>
-                          <p className="text-white/30 text-[10px] font-bold">Cuenta Verificada</p>
+                          <p className="text-white/30 text-[10px] font-bold">@{selectedUser?.name}</p>
                         </div>
                       </div>
                       <button 
@@ -2222,7 +2225,8 @@ export default function RobuxCatalog() {
                               />
                             </div>
                             <div className="text-center min-w-0 w-full">
-                              <p className="text-[10px] font-bold text-white/70 truncate group-hover:text-white transition-colors">{u.name}</p>
+                              <p className="text-[10px] font-bold text-white/70 truncate group-hover:text-white transition-colors">{u.displayName || u.name}</p>
+                              <p className="text-[7px] text-white/30 truncate">@{u.name}</p>
                             </div>
                           </button>
                         ))}
@@ -2467,12 +2471,13 @@ export default function RobuxCatalog() {
                         </div>
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <h4 className="text-sm font-black text-white tracking-tight">{selectedUser?.name || 'Usuario'}</h4>
+                            <h4 className="text-sm font-black text-white tracking-tight">{selectedUser?.displayName || selectedUser?.name || 'Usuario'}</h4>
                             <div className="w-3.5 h-3.5 bg-emerald-500 rounded-full flex items-center justify-center text-[8px] text-white">
                               <CheckCircle2 size={10} strokeWidth={4} />
                             </div>
                           </div>
-                          <p className="text-white/30 text-[10px] font-bold">
+                          <p className="text-white/30 text-[10px] font-bold">@{selectedUser?.name}</p>
+                          <p className="text-white/20 text-[8px] font-bold mt-0.5">
                             {requiredGroups.find(g => g.isMandatory)?.name || 'Grupos Verificados'}
                           </p>
                         </div>

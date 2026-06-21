@@ -14,12 +14,13 @@ import {
   X,
   AlertTriangle,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  RefreshCw
 } from 'lucide-react';
 import { StoreAPI, SERVER_URL } from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function OrdersTab({ orders, onContactClient }: { orders: any[], onContactClient: (orderId: string, userId: string, username: string) => void }) {
+export default function OrdersTab({ orders, onContactClient, onRefresh }: { orders: any[], onContactClient: (orderId: string, userId: string, username: string) => void, onRefresh?: () => void }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedReceipt, setSelectedReceipt] = useState<string | null>(null);
   const [selectedOrderItems, setSelectedOrderItems] = useState<any | null>(null);
@@ -137,6 +138,16 @@ export default function OrdersTab({ orders, onContactClient }: { orders: any[], 
               title="Restaurar ocultos"
             >
               Restaurar
+            </button>
+          )}
+          {onRefresh && (
+            <button 
+              onClick={onRefresh}
+              className="px-4 py-3 bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500 hover:text-white rounded-2xl transition-all whitespace-nowrap text-xs font-black uppercase tracking-widest flex items-center gap-2"
+              title="Actualizar pedidos"
+            >
+              <RefreshCw size={14} />
+              Actualizar
             </button>
           )}
         </div>

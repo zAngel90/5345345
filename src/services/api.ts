@@ -410,6 +410,11 @@ export const ReviewsAPI = {
       method: 'POST',
       body: formData
     });
+  },
+  deleteReview: async (id: number) => {
+    return fetchAPI(`/reviews/${id}`, {
+      method: 'DELETE'
+    });
   }
 };
 
