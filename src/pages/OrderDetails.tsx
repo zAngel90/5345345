@@ -27,7 +27,8 @@ import {
   Star,
   PenLine,
   Camera,
-  Loader2
+  Loader2,
+  Gamepad2
 } from 'lucide-react';
 import { OrdersAPI, SERVER_URL, RobloxAPI, ChatAPI, socket, ReviewsAPI } from '../services/api';
 
@@ -455,8 +456,8 @@ const OrderDetails = () => {
         </div>
 
         {/* Order Stepper (REINSTATED) */}
-        <div className="bg-gradient-to-br from-[#1a1835]/80 via-[#13102a]/70 to-[#0f0d22]/80 border border-purple-500/10 rounded-[28px] p-6 mb-6 relative overflow-hidden backdrop-blur-xl">
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent opacity-50"></div>
+        <div className="bg-gradient-to-br from-[#1a1b2e]/80 via-[#131428]/70 to-[#0f1022]/80 border border-white/5 rounded-[28px] p-6 mb-6 relative overflow-hidden backdrop-blur-xl">
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-500/3 to-transparent opacity-50"></div>
           <div className="relative flex items-center justify-between max-w-3xl mx-auto">
             {/* Steps */}
             <div className="flex flex-col items-center gap-2 relative z-10">
@@ -505,9 +506,9 @@ const OrderDetails = () => {
 
         {/* Delivery Control - For MM2 and In-Game category deliveries */}
         {requiresDelivery(order) && (
-          <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] overflow-hidden relative backdrop-blur-xl mb-6">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_50%)]"></div>
+          <div className="bg-gradient-to-br from-[#1a1b2e]/90 via-[#131428]/80 to-[#0f1022]/90 border border-white/5 rounded-[28px] overflow-hidden relative backdrop-blur-xl mb-6">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/[0.04] via-blue-500/[0.02] to-transparent opacity-40"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.06),transparent_50%)]"></div>
             
             {/* Header */}
             <div className="p-5 border-b border-white/5 bg-white/[0.01] flex items-center gap-3 relative z-10">
@@ -694,22 +695,22 @@ const OrderDetails = () => {
           {/* Main Content (Left) - 7 Columns */}
           <div className="lg:col-span-7 space-y-4">
             {/* Product Summary */}
-            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] p-6 hover:border-purple-500/20 transition-all duration-300 relative overflow-hidden backdrop-blur-xl group">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
+            <div className="bg-gradient-to-br from-[#1a1b2e]/90 via-[#131428]/80 to-[#0f1022]/90 border border-white/5 rounded-[28px] p-6 hover:border-white/10 transition-all duration-300 relative overflow-hidden backdrop-blur-xl group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/[0.04] via-blue-500/[0.02] to-transparent opacity-40"></div>
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-[#1a1835] border border-white/5 rounded-2xl flex items-center justify-center shadow-inner relative group p-2">
+                  <div className="w-14 h-14 bg-white/[0.03] border border-white/10 rounded-2xl flex items-center justify-center relative group p-3">
                     <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
                     {order.type === 'trade_limited' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited'))) ? (
-                      <ShoppingCart className="w-8 h-8 text-blue-400" />
+                      <Gamepad2 className="w-8 h-8 text-blue-400" />
                     ) : order.type === 'fortnite' ? (
-                      <ShoppingCart className="w-8 h-8 text-blue-400" />
+                      <Gamepad2 className="w-8 h-8 text-blue-400" />
                     ) : (order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) ? (
                       <img src="https://www.peekstore.com/_next/image?url=%2Fmm2-logo.webp&w=64&q=75" className="w-full h-full object-contain rounded-lg" alt="MM2" />
                     ) : isIngameOrder(order) ? (
-                      <ShoppingCart className="w-8 h-8 text-green-400" />
+                      <Gamepad2 className="w-8 h-8 text-green-400" />
                     ) : (
                       <img src="/images/robux-logo.svg" className="w-8 h-8 object-contain brightness-0 invert opacity-90" alt="" />
                     )}
@@ -731,9 +732,7 @@ const OrderDetails = () => {
                     <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5">
                       <LucideTag size={10} /> {order.type === 'trade_limited' || order.type === 'fortnite' || order.type === 'mm2' || isIngameOrder(order) ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'}` : `Cantidad: ${order.amount}`}
                     </p>
-                    <div className="flex items-center gap-2 mt-2">
-                       <span className="text-[9px] font-black text-white/20 uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded-md border border-white/5">BCP Yape</span>
-                    </div>
+
                   </div>
                 </div>
                 <div className="text-right">
@@ -746,9 +745,9 @@ const OrderDetails = () => {
 
             </div>
             {/* Delivery Information Box */}
-            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] overflow-hidden relative backdrop-blur-xl group">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="bg-gradient-to-br from-[#1a1b2e]/90 via-[#131428]/80 to-[#0f1022]/90 border border-white/5 rounded-[28px] overflow-hidden relative backdrop-blur-xl group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/[0.04] via-blue-500/[0.02] to-transparent opacity-40"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.06),transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="p-5 border-b border-white/5 bg-white/[0.01] flex items-center gap-3">
                 <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400">
                    <Truck size={16} />
@@ -779,7 +778,7 @@ const OrderDetails = () => {
                         {order.cart.map((item: any, idx: number) => (
                           <div 
                             key={idx} 
-                            className="flex items-center gap-3 p-2.5 rounded-2xl bg-blue-500/10 border border-blue-500/30"
+                            className="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.02] border border-white/[0.06]"
                           >
                             <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                               <img src={item?.image || item?.img} alt="" className="w-full h-full object-cover" />
@@ -791,7 +790,7 @@ const OrderDetails = () => {
                                <p className="text-xs font-bold text-white truncate">{item?.name}</p>
                              </div>
                              {item?.price != null && (
-                               <span className="text-[10px] font-black text-emerald-400 shrink-0">S/ {item.price.toFixed(2)}</span>
+                               <span className="text-[10px] font-black text-white shrink-0">S/ {item.price.toFixed(2)}</span>
                              )}
                            </div>
                          ))}
@@ -808,37 +807,31 @@ const OrderDetails = () => {
                           return (
                             <div 
                               key={idx} 
-                              className="flex items-center gap-3 p-2.5 rounded-2xl"
-                              style={{
-                                backgroundColor: `${itemColor}20`,
-                                borderWidth: '1px',
-                                borderStyle: 'solid',
-                                borderColor: `${itemColor}80`
-                              }}
+                              className="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.02] border border-white/[0.06]"
                             >
                               <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                                 <img src={item?.img || item?.image} alt="" className="w-full h-full object-contain p-1" />
                               </div>
                                <div className="flex-1 min-w-0">
-                                 <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-white/50">
-                                   Item a recibir
-                                 </p>
-                                 <p className="text-xs font-bold text-white truncate">{item?.name}</p>
-                               </div>
+                                  <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-white/40">
+                                    Item a recibir
+                                  </p>
+                                  <p className="text-xs font-bold text-white truncate">{item?.name}</p>
+                                </div>
                                {item?.price != null && (
-                                 <span className="text-[10px] font-black text-emerald-400 shrink-0">S/ {item.price.toFixed(2)}</span>
+                        <span className="text-[10px] font-black text-white shrink-0">S/ {item.price.toFixed(2)}</span>
                                )}
                              </div>
                            );
                          })}
                        </div>
-                     ) : order.targetItem && (
-                      <div className="flex items-center gap-3 p-2.5 bg-pink-500/20 border border-pink-500/50 rounded-2xl">
+                      ) : order.targetItem && (
+                      <div className="flex items-center gap-3 p-2.5 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
                         <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                           <img src={order.targetItem?.img || order.targetItem?.image} alt="" className="w-full h-full object-contain p-1" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-[9px] text-pink-400 font-black uppercase tracking-widest mb-0.5">Item a recibir</p>
+                          <p className="text-[9px] text-white/40 font-black uppercase tracking-widest mb-0.5">Item a recibir</p>
                           <p className="text-xs font-bold text-white truncate">{order.targetItem?.name}</p>
                         </div>
                       </div>
@@ -846,7 +839,7 @@ const OrderDetails = () => {
                     
                     {/* Trade Item (Tu Item) */}
                     {order.tradeItem && (
-                      <div className="flex items-center gap-3 p-2.5 bg-blue-500/10 border border-blue-500/30 rounded-2xl">
+                      <div className="flex items-center gap-3 p-2.5 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
                         <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                           <img src={order.tradeItem.thumbnail || order.tradeItem.img || order.tradeItem.image} alt="" className="w-full h-full object-contain p-1" />
                         </div>
@@ -862,8 +855,8 @@ const OrderDetails = () => {
                     {/* In-Game Items */}
                     <div className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl flex items-center justify-between">
                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center text-green-400">
-                             <Zap size={14} />
+                          <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400">
+                             <Gamepad2 size={14} />
                           </div>
                           <div>
                             <p className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-0.5">Método de Entrega</p>
@@ -878,19 +871,19 @@ const OrderDetails = () => {
                         {order.cart.map((item: any, idx: number) => (
                           <div 
                             key={idx} 
-                            className="flex items-center gap-3 p-2.5 rounded-2xl bg-green-500/10 border border-green-500/30"
+                            className="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.02] border border-white/[0.06]"
                           >
                             <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                               <img src={item?.img || item?.image || item?.thumbnail} alt="" className="w-full h-full object-contain p-1" />
                             </div>
                              <div className="flex-1 min-w-0">
-                               <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-green-400">
-                                 {item?.game || 'In-Game'}
-                               </p>
-                               <p className="text-xs font-bold text-white truncate">{item?.name}</p>
-                             </div>
+                                <p className="text-[9px] font-black uppercase tracking-widest mb-0.5 text-white/40">
+                                  {item?.game || 'In-Game'}
+                                </p>
+                                <p className="text-xs font-bold text-white truncate">{item?.name}</p>
+                              </div>
                              {item?.price != null && (
-                               <span className="text-[10px] font-black text-emerald-400 shrink-0">S/ {item.price.toFixed(2)}</span>
+                               <span className="text-[10px] font-black text-white shrink-0">S/ {item.price.toFixed(2)}</span>
                              )}
                            </div>
                          ))}
@@ -978,8 +971,8 @@ const OrderDetails = () => {
             </div>
 
             {/* Bottom Chat Bar Summary */}
-            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[24px] p-3 flex items-center justify-between hover:border-purple-500/20 transition-all cursor-pointer group relative overflow-hidden backdrop-blur-xl" onClick={() => scrollToBottom()}>
-               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.03] to-transparent opacity-40"></div>
+            <div className="bg-gradient-to-br from-[#1a1b2e]/90 via-[#131428]/80 to-[#0f1022]/90 border border-white/5 rounded-[24px] p-3 flex items-center justify-between hover:border-white/10 transition-all cursor-pointer group relative overflow-hidden backdrop-blur-xl" onClick={() => scrollToBottom()}>
+               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/[0.03] to-transparent opacity-40"></div>
                <div className="relative z-10 flex items-center justify-between w-full">
                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400 shrink-0">
@@ -1000,8 +993,8 @@ const OrderDetails = () => {
           {/* Sidebar (Right) - 5 Columns */}
           <div className="lg:col-span-5 space-y-4">
             {/* Payment Proof Card */}
-            <div className="bg-gradient-to-br from-[#1a1835]/90 via-[#13102a]/80 to-[#0f0d22]/90 border border-purple-500/10 rounded-[28px] p-5 relative overflow-hidden backdrop-blur-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.05] via-blue-500/[0.03] to-transparent opacity-40"></div>
+            <div className="bg-gradient-to-br from-[#1a1b2e]/90 via-[#131428]/80 to-[#0f1022]/90 border border-white/5 rounded-[28px] p-5 relative overflow-hidden backdrop-blur-xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/[0.04] via-blue-500/[0.02] to-transparent opacity-40"></div>
               <div className="relative z-10">
               <div className="flex items-center gap-2 mb-4">
                  <div className="w-6 h-6 bg-blue-500/10 rounded-md flex items-center justify-center text-blue-400">
@@ -1176,7 +1169,7 @@ const OrderDetails = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-br from-[#1a1835] via-[#13102a] to-[#0f0d22] border border-blue-500/20 rounded-3xl p-8 max-w-md w-full relative overflow-hidden"
+              className="bg-gradient-to-br from-[#1a1b2e] via-[#131428] to-[#0f1022] border border-blue-500/20 rounded-3xl p-8 max-w-md w-full relative overflow-hidden"
             >
               {/* Close Button */}
               <button

@@ -9,7 +9,7 @@ import {
   ChevronDown,
   Info,
   CheckCircle2,
-  ArrowLeft,
+
   Users,
   Crown,
   Star,
@@ -520,14 +520,8 @@ export default function RobuxCatalog() {
         animate="visible"
         className="container mx-auto px-4 py-4 lg:py-8 pb-32 max-w-[1100px] relative z-10"
       >
-        {/* Breadcrumb */}
         <motion.div variants={itemVariants} className="mb-5 lg:mb-8 mt-24">
           <div className="flex flex-col gap-3">
-            <a className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 text-xs transition-all duration-200 group w-fit" href="/catalog">
-              <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
-              <span className="font-medium">Catálogo</span>
-            </a>
-            
             <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-emerald-500/5 border border-emerald-500/10 w-fit">
               <div className="relative">
                 <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
@@ -599,7 +593,7 @@ export default function RobuxCatalog() {
                       )}
                       <button
                         onClick={() => { setSelectedAmount(Number(pkg.amount)); setCustomAmount(''); }}
-                        className={`relative w-full rounded-xl border transition-all duration-200 flex flex-col items-center justify-center gap-0.5 group cursor-pointer overflow-hidden ${selectedAmount === Number(pkg.amount) && !customAmount
+                        className={`relative w-full rounded-xl border transition-all duration-200 flex flex-col items-center justify-center gap-0.5 group cursor-pointer overflow-hidden hover:scale-[1.02] active:scale-[0.98] ${selectedAmount === Number(pkg.amount) && !customAmount
                           ? 'pt-4 pb-3 px-3 bg-blue-500/[0.08] border-blue-500/50'
                           : 'py-3.5 px-3 bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12]'
                           }`}
@@ -638,7 +632,7 @@ export default function RobuxCatalog() {
               {/* Custom Input */}
               <motion.div 
                 variants={itemVariants} 
-                className={`relative rounded-xl border transition-all duration-300 flex items-center gap-3 overflow-hidden p-3 sm:p-4 ${
+                className={`relative rounded-xl border transition-all duration-300 flex items-center gap-3 overflow-hidden p-3 sm:p-4 hover:scale-[1.01] ${
                   customAmount 
                     ? 'bg-blue-500/[0.05] border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.1)]' 
                     : 'bg-white/[0.02] border-white/[0.06] hover:border-white/[0.12]'

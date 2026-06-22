@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, CreditCard, Smartphone, Wallet, DollarSign, X, ChevronDown, ChevronUp, ChevronLeft, Tag, CheckCircle2, Loader2, Copy, Check, ArrowRight, ArrowLeft, Users, Search, Search as SearchIcon, HelpCircle, Shield, Info, TrendingUp, Zap, Star, Clock, Lock, Globe, ExternalLink, AlertCircle, Package, FileText, ImageIcon } from 'lucide-react';
+import { ShoppingCart, CreditCard, Smartphone, Wallet, DollarSign, X, ChevronDown, ChevronUp, ChevronLeft, Tag, CheckCircle2, Loader2, Copy, Check, ArrowRight, ArrowLeft, Users, Search, Search as SearchIcon, HelpCircle, Shield, Info, TrendingUp, Zap, Star, Clock, Lock, Globe, ExternalLink, AlertCircle, Package, FileText, ImageIcon, Gamepad2 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { RobloxAPI, StoreAPI, OrdersAPI, BASE_URL, SERVER_URL, CouponsAPI } from '../services/api';
 
@@ -634,7 +634,7 @@ const Checkout = () => {
                 </>
               )}
               
-              <div className={`w-full ${isSpecialGame ? 'lg:flex-1 lg:h-full max-w-[1400px] flex flex-col relative z-10' : 'max-w-[950px] bg-white/[0.02] rounded-[32px] border border-white/[0.05] shadow-2xl overflow-hidden flex flex-col'} transition-all duration-500`}>
+              <div className={`w-full ${isSpecialGame ? 'lg:flex-1 lg:h-full max-w-[1400px] flex flex-col relative z-10' : 'max-w-[950px] bg-white/[0.02] rounded-[32px] border border-white/[0.05] shadow-lg overflow-hidden flex flex-col'} transition-all duration-500`}>
 
                 {/* Desktop header (Solo si no es special game) */}
                 {!isSpecialGame && (
@@ -760,7 +760,7 @@ const Checkout = () => {
                                 <div className="bg-white/[0.03] border border-white/10 rounded-[24px] p-4">
                                   <div className="flex items-center gap-3 mb-4">
                                     <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                                      <ShoppingCart className="w-6 h-6 text-blue-400" />
+                                      <Gamepad2 className="w-6 h-6 text-blue-400" />
                                     </div>
                                     <div className="flex-1">
                                       <div className="text-sm font-black text-white uppercase tracking-tight mb-1">
@@ -805,7 +805,7 @@ const Checkout = () => {
                                   {cart.map((item, idx) => (
                                     <div key={idx} className="bg-white/[0.02] border border-white/[0.06] rounded-[20px] p-3">
                                       <div className="flex items-center gap-3">
-                                        <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0 overflow-hidden">
+                                         <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                                           <img
                                             src={item?.image || item?.img}
                                             alt=""
@@ -838,7 +838,7 @@ const Checkout = () => {
                                 <div className="bg-white/[0.03] border border-white/10 rounded-[24px] p-4">
                                   <div className="flex items-center gap-3 mb-4">
                                     <div className="w-14 h-14 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center shrink-0">
-                                      <ShoppingCart className="w-6 h-6 text-blue-400" />
+                                      <Gamepad2 className="w-6 h-6 text-pink-400" />
                                     </div>
                                     <div className="flex-1">
                                       <div className="text-sm font-black text-white uppercase tracking-tight mb-1">
@@ -877,7 +877,7 @@ const Checkout = () => {
                                   {cart.map((item, idx) => (
                                     <div key={idx} className="bg-white/[0.02] border border-white/[0.06] rounded-[20px] p-3">
                                       <div className="flex items-center gap-3">
-                                        <div className="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center shrink-0 overflow-hidden">
+                                        <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                                           <img
                                             src={item?.img || item?.image}
                                             alt=""
@@ -1012,12 +1012,12 @@ const Checkout = () => {
                               {/* Target Items (To Buy) - Lista Expandida */}
                               <div className="space-y-2">
                                 {cart.map((item, idx) => (
-                                  <div key={idx} className="flex items-center gap-3 p-2.5 bg-pink-500/20 border border-pink-500/50 rounded-2xl">
+                                  <div key={idx} className="flex items-center gap-3 p-2.5 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
                                     <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                                       <img src={item?.img || item?.image} alt="" className="w-full h-full object-contain p-1" />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                      <p className="text-[9px] text-pink-400 font-black uppercase tracking-widest mb-0.5">Item a recibir</p>
+                                      <p className="text-[9px] text-white/40 font-black uppercase tracking-widest mb-0.5">Item a recibir</p>
                                       <p className="text-xs font-bold text-white truncate">{item?.name}</p>
                                     </div>
                                   </div>
@@ -1073,7 +1073,7 @@ const Checkout = () => {
                                 {cart.map((item, idx) => (
                                   <div key={idx} className="bg-white/[0.02] border border-white/[0.06] rounded-[20px] p-3">
                                     <div className="flex items-center gap-3">
-                                      <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0 overflow-hidden">
+                                      <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
                                         <img
                                           src={item?.img || item?.image}
                                           alt=""

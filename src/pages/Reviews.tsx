@@ -416,7 +416,7 @@ export default function Reviews() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-[1400px] w-full mx-auto px-4 sm:px-10 lg:px-16 xl:px-24 pt-20 sm:pt-32 pb-36 md:pb-20 relative z-10"
+        className="max-w-[1400px] w-full mx-auto px-4 sm:px-10 lg:px-16 xl:px-24 pt-32 pb-36 md:pb-20 relative z-10"
       >
         
         {/* Header Section */}

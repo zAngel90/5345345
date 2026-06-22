@@ -269,7 +269,7 @@ export default function Catalog() {
       initial={{ opacity: 0, filter: 'blur(10px)' }}
       animate={{ opacity: 1, filter: 'blur(0px)' }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="min-h-screen pt-28 px-4 selection:bg-blue-500/30 relative"
+      className="min-h-screen pt-32 px-4 selection:bg-blue-500/30 relative"
     >
       {/* Corner Overlays */}
       <div className="fixed inset-0 -z-10 pointer-events-none">

@@ -378,7 +378,7 @@ function Hero() {
             ))}
           </div>
 
-          <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-20">
+          <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-32">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-2 text-center text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
               Compra Robux, Items
             </h1>

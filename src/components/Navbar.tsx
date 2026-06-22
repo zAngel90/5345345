@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingCart, Menu, X, User, Bell, ChevronDown, ChevronRight, Gamepad2, Crown, Diamond, Home, LayoutGrid, Star, Users, Wallet, LogOut, Globe, Package, Shield, Gem, Sword } from 'lucide-react';
+import { ShoppingCart, Menu, X, User, Bell, ChevronDown, ChevronRight, Gamepad2, Crown, Diamond, Home, LayoutGrid, Star, Users, Wallet, LogOut, Globe, Package, Shield, Gem, Sword, CheckCircle2, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { StoreAPI, AuthAPI, ChatAPI, socket, OrdersAPI, SERVER_URL } from '../services/api';
@@ -543,7 +543,7 @@ export default function Navbar() {
                       animate={{ opacity: 1, scale: 1, y: 0 }} 
                       exit={{ opacity: 0, scale: 0.95, y: 10 }} 
                       transition={{ type: 'spring', stiffness: 450, damping: 30 }} 
-                      className="absolute top-full right-0 mt-3 w-[300px] border border-white/10 rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60] overflow-hidden"
+                      className="absolute top-full right-0 mt-3 w-[380px] border border-white/10 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60] overflow-hidden"
                       style={{ 
                         background: 'rgba(0, 0, 0, 0.98)',
                         backdropFilter: 'blur(30px)',
@@ -553,7 +553,7 @@ export default function Navbar() {
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-[#090971]/20 via-transparent to-transparent pointer-events-none"></div>
                       <div className="relative z-10">
-                      <div className="flex items-center justify-between mb-3 px-2 pt-1">
+                      <div className="flex items-center justify-between mb-4 px-3 pt-1">
                         <h3 className="text-sm font-bold text-white tracking-tight">Notificaciones</h3>
                         <button 
                           onClick={handleClearNotifications}
@@ -564,8 +564,8 @@ export default function Navbar() {
                       </div>
 
                       {/* Notification Tabs */}
-                      <div className="px-1 mb-3">
-                        <div className="flex items-center p-1 bg-white/5 border border-white/5 rounded-2xl gap-1">
+                      <div className="px-2 mb-4">
+                        <div className="flex items-center p-1.5 bg-white/5 border border-white/5 rounded-2xl gap-1.5">
                           {[
                             { id: 'todas', label: 'Todas', badge: unreadCount + orderNotifCount },
                             { id: 'pedidos', label: 'Pedidos', badge: orderNotifCount },
@@ -595,28 +595,28 @@ export default function Navbar() {
                         </div>
                       </div>
 
-                      <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar pr-1 mt-1">
+                      <div className="space-y-4 max-h-[300px] overflow-y-auto custom-scrollbar pr-1 mt-3">
                         {/* Notificaciones de Pedidos Reales */}
                         {(notifTab === 'todas' || notifTab === 'pedidos') && (
-                          <div className="space-y-1">
+                          <div className="space-y-3">
                             {orders.filter(o => !o.seen).length > 0 ? (
                               orders.filter(o => !o.seen).slice(0, 3).map(order => (
                                 <div 
                                   key={order.id}
                                   onClick={() => { setShowNotifications(false); navigate('/account'); }}
-                                  className="p-3 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-pointer group flex gap-3 items-start"
+                                  className="p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-pointer group flex gap-4 items-start"
                                 >
                                   <div className={`size-9 rounded-xl flex items-center justify-center shrink-0 border ${
-                                    order.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-                                  }`}>
-                                    <Package size={16} />
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <div className="flex justify-between items-start">
-                                      <h4 className="text-[12px] font-black text-white group-hover:text-blue-400 transition-colors capitalize">Pedido {order.status}</h4>
-                                      <span className="text-[9px] font-bold text-white/20">{new Date(order.createdAt).toLocaleDateString()}</span>
-                                    </div>
-                                    <p className="text-[10px] text-white/40 mt-0.5 leading-tight truncate">
+                                     order.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : order.status === 'cancelled' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                                   }`}>
+                                     {order.status === 'completed' ? <CheckCircle2 size={16} /> : order.status === 'cancelled' ? <X size={16} /> : <Clock size={16} />}
+                                   </div>
+                                   <div className="flex-1 min-w-0 ml-2">
+                                     <div className="flex justify-between items-start">
+                                       <h4 className="text-[12px] font-black text-white group-hover:text-blue-400 transition-colors capitalize">Pedido {order.status}</h4>
+                                       <span className="text-[9px] font-bold text-white/20">{new Date(order.createdAt).toLocaleDateString()}</span>
+                                     </div>
+                                     <p className="text-[10px] text-white/40 mt-0.5 leading-tight truncate">
                                       ID: {order.id} • {
                                         order.type === 'fortnite' 
                                           ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`

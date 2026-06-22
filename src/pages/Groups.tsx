@@ -11,7 +11,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { RobloxAPI } from '../services/api';
+import { RobloxAPI, SERVER_URL } from '../services/api';
 
 interface Group {
   id: string;
@@ -88,11 +88,19 @@ export default function Groups() {
       const searchRes = await RobloxAPI.searchUser(username);
       if (searchRes.data && searchRes.data.length > 0) {
         const user = searchRes.data[0];
-        // 2. Verificar sus grupos
+        // 2. Obtener perfil completo con avatar
+        let avatarUrl = '';
+        try {
+          const avatarRes = await fetch(`${SERVER_URL}/api/users/avatar/${user.id}`);
+          if (avatarRes.ok) {
+            avatarUrl = avatarRes.url;
+          }
+        } catch (e) {}
+        // 3. Verificar sus grupos
         const checkRes = await RobloxAPI.checkUserGroups(user.id);
         if (checkRes.success) {
           setVerificationResults({
-            user,
+            user: { ...user, avatarUrl: avatarUrl || `${SERVER_URL}/api/users/avatar/${user.id}` },
             results: checkRes.data.details
           });
         }
@@ -112,7 +120,7 @@ export default function Groups() {
       initial={{ opacity: 0, filter: 'blur(10px)' }}
       animate={{ opacity: 1, filter: 'blur(0px)' }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="min-h-screen pt-24 pb-20 px-6 lg:px-12 relative"
+      className="min-h-screen pt-32 pb-20 px-6 lg:px-12 relative"
     >
       {/* Corner Overlays */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -214,7 +222,7 @@ export default function Groups() {
                   className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-2xl"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <img src={verificationResults.user.avatarUrl} className="size-8 rounded-full border border-white/10" alt="" />
+                    <img src={verificationResults.user.avatarUrl} className="size-8 rounded-full border border-white/10" alt="" onError={(e) => { (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(verificationResults.user.name) + '&background=0D8ABC&color=fff'; }} />
                     <div>
                       <p className="text-xs font-black text-white">{verificationResults.user.name}</p>
                       <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold">Estado de cuenta</p>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, ShieldCheck, ExternalLink, Trash2, Save, Users } from 'lucide-react';
+import { Plus, ShieldCheck, ExternalLink, Trash2, Save, Users, ChevronUp, ChevronDown } from 'lucide-react';
 
 import { SERVER_URL } from '../../services/api';
 
@@ -52,6 +52,20 @@ export default function GroupsTab({ groups, setGroups, onSave, isSaving, isLoadi
     setGroups(groups.map(g => g.id === id ? { ...g, isMandatory: !g.isMandatory } : g));
   };
 
+  const handleMoveUp = (index: number) => {
+    if (index === 0) return;
+    const newGroups = [...groups];
+    [newGroups[index - 1], newGroups[index]] = [newGroups[index], newGroups[index - 1]];
+    setGroups(newGroups);
+  };
+
+  const handleMoveDown = (index: number) => {
+    if (index === groups.length - 1) return;
+    const newGroups = [...groups];
+    [newGroups[index], newGroups[index + 1]] = [newGroups[index + 1], newGroups[index]];
+    setGroups(newGroups);
+  };
+
   return (
     <div className="space-y-8">
       <div>
@@ -86,9 +100,13 @@ export default function GroupsTab({ groups, setGroups, onSave, isSaving, isLoadi
       </div>
 
       <div className="space-y-3">
-        {groups.map((group) => (
+        {groups.map((group, index) => (
           <div key={group.id} className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
             <div className="flex items-center gap-4">
+              <div className="flex flex-col gap-1">
+                <button onClick={() => handleMoveUp(index)} disabled={index === 0} className={`p-1 rounded-lg transition-colors ${index === 0 ? 'text-white/10 cursor-not-allowed' : 'text-white/30 hover:text-white hover:bg-white/5'}`}><ChevronUp size={14} /></button>
+                <button onClick={() => handleMoveDown(index)} disabled={index === groups.length - 1} className={`p-1 rounded-lg transition-colors ${index === groups.length - 1 ? 'text-white/10 cursor-not-allowed' : 'text-white/30 hover:text-white hover:bg-white/5'}`}><ChevronDown size={14} /></button>
+              </div>
               <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center text-blue-500 font-bold text-xs overflow-hidden">
                 <img src={group.iconUrl || `https://www.roblox.com/headshot-thumbnail/image?userId=${group.id}&width=150&height=150&format=png`} className="w-full h-full object-cover" alt="" />
               </div>
