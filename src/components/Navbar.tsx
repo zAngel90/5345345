@@ -681,7 +681,7 @@ export default function Navbar() {
                 </div>
 
                 <Link
-                  to="/orders"
+                  to="/account?tab=pedidos"
                   className="hidden sm:flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors"
                 >
                   Mis Compras
@@ -735,8 +735,7 @@ export default function Navbar() {
                         <div className="px-2 pb-2 space-y-0.5 mt-2">
                           {[ 
                             { icon: User, label: 'Mi Perfil', href: '/account' }, 
-                            { icon: ShoppingCart, label: 'Mis Compras', href: '/orders' }, 
-                            { icon: Users, label: 'Referidos', href: '/referrals' }
+                            { icon: ShoppingCart, label: 'Mis Compras', href: '/account?tab=pedidos' }
                           ].map((item, i) => (
                             <Link key={i} to={item.href} onClick={() => setShowProfile(false)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-transparent transition-all group text-left">
                               <div className="size-8 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors"><item.icon size={16} className="text-gray-500 group-hover:text-blue-400" /></div>
