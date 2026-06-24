@@ -552,15 +552,15 @@ export default function RobuxCatalog() {
                 <h1 className="text-xl md:text-4xl font-black tracking-tight mb-0.5 md:mb-1.5 text-white uppercase">COMPRA TUS ROBUX</h1>
                 <p className="text-white/35 text-xs md:text-sm mb-2 md:mb-3">Elige tu cantidad. método de entrega y recibe tus robux.</p>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold text-emerald-400 border border-emerald-500/40 bg-emerald-500/5 shadow-[0_0_8px_rgba(16,185,129,0.4)]">
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold text-white border border-emerald-500/40 bg-emerald-500/5 shadow-[0_0_8px_rgba(16,185,129,0.4)]">
                     <Shield size={12} />
                     Mejor precio
                   </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold text-amber-400 border border-amber-500/40 bg-amber-500/5 shadow-[0_0_8px_rgba(245,158,11,0.2)]">
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold text-white border border-amber-500/40 bg-amber-500/5 shadow-[0_0_8px_rgba(245,158,11,0.2)]">
                     <Zap size={12} />
                     Entrega rápida
                   </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold text-blue-400 border border-blue-500/40 bg-blue-500/5 shadow-[0_0_8px_rgba(59,130,246,0.2)]">
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold text-white border border-blue-500/40 bg-blue-500/5 shadow-[0_0_8px_rgba(59,130,246,0.2)]">
                     <CheckCircle2 size={12} />
                     +50 000 ventas
                   </span>
@@ -578,16 +578,16 @@ export default function RobuxCatalog() {
                   {Array.isArray(robuxPackages) && robuxPackages.map((pkg) => (
                     <div key={pkg.id} className="relative">
                       {pkg.popular && (
-                        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10">
-                          <span className="text-[10px] px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold tracking-wide shadow-lg shadow-orange-500/30 whitespace-nowrap flex items-center gap-1">
-                            <Crown size={10} /> Popular
+                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-10">
+                          <span className="text-[9px] px-1.5 py-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold tracking-wide shadow-lg shadow-orange-500/30 whitespace-nowrap flex items-center gap-1">
+                            <Crown size={8} /> Popular
                           </span>
                         </div>
                       )}
                       {pkg.bestValue && (
-                        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10">
-                          <span className="text-[10px] px-3 py-0.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold tracking-wide shadow-lg shadow-emerald-500/30 whitespace-nowrap flex items-center gap-1">
-                            <Star size={10} /> Mejor valor
+                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-10">
+                          <span className="text-[9px] px-1.5 py-0 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold tracking-wide shadow-lg shadow-emerald-500/30 whitespace-nowrap flex items-center gap-1">
+                            <Star size={8} /> Mejor valor
                           </span>
                         </div>
                       )}
@@ -632,10 +632,10 @@ export default function RobuxCatalog() {
               {/* Custom Input */}
               <motion.div 
                 variants={itemVariants} 
-                className={`relative rounded-xl border transition-all duration-300 flex items-center gap-3 overflow-hidden p-3 sm:p-4 hover:scale-[1.01] ${
+                className={`relative rounded-xl transition-all duration-300 flex items-center gap-3 overflow-hidden p-3 sm:p-4 hover:scale-[1.01] ${
                   customAmount 
-                    ? 'bg-blue-500/[0.05] border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.1)]' 
-                    : 'bg-white/[0.02] border-white/[0.06] hover:border-white/[0.12]'
+                    ? 'bg-[#060a20] border border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.1)]' 
+                    : 'bg-[#060a20] border border-white/[0.06] hover:border-white/[0.12]'
                 }`}
               >
                 <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-300 ${
@@ -683,7 +683,7 @@ export default function RobuxCatalog() {
               </motion.div>
 
             {/* Method & Currency */}
-            <motion.div variants={itemVariants} className="grid sm:grid-cols-2 gap-5 sm:gap-6">
+            <motion.div variants={itemVariants} className="bg-[#060a20] border border-white/[0.06] rounded-2xl p-5 grid sm:grid-cols-2 gap-5 sm:gap-6">
               {/* Tab Selector Method */}
               <div className="hidden lg:block">
                 <div className="flex items-center gap-2 mb-3">
@@ -734,10 +734,8 @@ export default function RobuxCatalog() {
 
             {/* FAQ Box inside Main Column */}
             <motion.div variants={itemVariants} className="hidden lg:block border-t border-white/[0.04] pt-8">
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-[#090971]/20 via-black to-black">
-                <div className="absolute inset-0 z-0">
-                  <img src="/images/epic1.jpg" className="w-full h-full object-cover opacity-5" alt="FAQ Background" />
-                </div>
+              <div className="relative rounded-2xl overflow-hidden bg-[#060a20] border border-white/[0.06]">
+
                 <div className="relative z-10 p-6">
                   <div className="flex items-center gap-2.5 mb-5">
                     <div className="p-2 bg-blue-500/10 rounded-xl border border-blue-500/15">
@@ -784,7 +782,7 @@ export default function RobuxCatalog() {
 
           {/* Sidebar - Hidden on mobile */}
           <motion.div variants={itemVariants} className="hidden lg:block w-full lg:w-[320px] shrink-0 lg:sticky lg:top-24 space-y-6">
-            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-[#090971]/20 via-black to-black" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
+            <div className="relative rounded-2xl overflow-hidden bg-[#060a20] border border-white/[0.06]" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
               <div className="p-6">
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-2 text-white/40">
@@ -815,7 +813,7 @@ export default function RobuxCatalog() {
                   </div>
                 </div>
 
-                <div className="space-y-3 mb-6 py-4 border-y border-white/[0.04]">
+                <div className="rounded-2xl bg-[#060a20] border border-white/[0.06] p-4 mb-6 space-y-3">
                   <div className="flex justify-between text-xs">
                     <span className="text-white/30">Precio por cada 1,000</span>
                     <span className="text-white/60 font-medium">{(dynamicPricePer1000 * selectedCurrencyData.rate).toFixed(2)} {currency}</span>
@@ -852,8 +850,7 @@ export default function RobuxCatalog() {
 
                 <button
                   onClick={handlePurchase}
-                  className="relative w-full h-[52px] px-8 font-extrabold rounded-xl bg-[#3B82F6] text-white flex items-center justify-center gap-2.5 transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] active:scale-[0.98] uppercase tracking-wider text-sm cursor-pointer"
-                  style={{ boxShadow: '0 4px 0 #1D4ED8, 0 8px 20px rgba(59, 130, 246, 0.25)' }}
+                  className="relative w-full h-[52px] px-8 font-extrabold rounded-xl bg-[#0a1035] text-white flex items-center justify-center gap-2.5 transition-all duration-200 hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] hover:border-cyan-400 active:scale-[0.98] uppercase tracking-wider text-sm cursor-pointer border border-cyan-400/30"
                 >
                   <ShoppingCart size={16} />
                   Comprar ahora
@@ -872,11 +869,10 @@ export default function RobuxCatalog() {
             </div>
 
             {/* Recent Purchases Section in Sidebar */}
-            <div className="rounded-2xl bg-gradient-to-r from-[#090971]/20 via-black to-black px-3 pt-4 pb-3" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
+            <div className="rounded-2xl bg-[#060a20] border border-white/[0.06] px-3 pt-4 pb-3" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div>
-                  <h3 className="text-[11px] font-bold text-white tracking-widest uppercase opacity-40">Últimas compras</h3>
+                  <h3 className="text-[11px] font-bold text-white tracking-widest uppercase opacity-70">Compras recientes</h3>
                 </div>
                 <span className="text-[9px] font-bold text-blue-400/50 uppercase tracking-widest">En vivo</span>
               </div>
@@ -908,13 +904,12 @@ export default function RobuxCatalog() {
                           <span className="text-[9px] text-white/20 uppercase font-medium tracking-wider">{timeAgo(item.createdAt)}</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1.5 bg-blue-500/5 px-2.5 py-1.5 rounded-lg border border-blue-500/10">
-                        <span className="text-xs font-black text-blue-400">+{item.amount?.toLocaleString() || '0'}</span>
+                      <div className="flex items-center gap-1.5 bg-white/5 px-2.5 py-1.5 rounded-lg border border-white/10">
+                        <span className="text-xs font-black text-white">+{item.amount?.toLocaleString() || '0'}</span>
                         <div className="relative w-3.5 h-3.5">
                           <img
                             src="/images/robux-logo.svg"
-                            style={{ filter: 'brightness(0) saturate(100%) invert(42%) sepia(93%) saturate(1352%) hue-rotate(199deg) brightness(109%) contrast(95%)' }}
-                            className="w-full h-full object-contain opacity-80"
+                            className="w-full h-full object-contain opacity-80 brightness-0 invert"
                             alt=""
                           />
                         </div>
