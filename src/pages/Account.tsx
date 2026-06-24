@@ -29,7 +29,9 @@ import {
   X,
   Target,
   Search,
-  Clock
+  Clock,
+  Gamepad2,
+  Sword
 } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RobloxAPI, StoreAPI, AuthAPI, SERVER_URL, OrdersAPI, CouponsAPI } from '../services/api';
@@ -424,28 +426,28 @@ export default function Account() {
     const t = (type || '').toLowerCase();
     if (t === 'fortnite') {
       return {
-        Icon: Shield,
+        Icon: Gamepad2,
         bg: 'from-purple-500/20 to-blue-500/20 border-purple-500/30 text-purple-400',
         title: 'Skin Fortnite'
       };
     }
     if (t === 'mm2') {
       return {
-        Icon: Target,
-        bg: 'from-rose-500/20 to-orange-500/20 border-rose-500/30 text-rose-400',
+        Icon: Sword,
+        bg: 'from-rose-500/20 to-red-500/20 border-rose-500/30 text-red-400',
         title: 'Items MM2'
       };
     }
     if (t === 'trade_limited') {
       return {
         Icon: Crown,
-        bg: 'from-amber-500/20 to-yellow-500/20 border-amber-500/30 text-amber-400',
+        bg: 'from-amber-500/20 to-yellow-500/20 border-amber-500/30 text-yellow-400',
         title: 'Item Limited'
       };
     }
     return {
       Icon: RobuxLogoIcon,
-      bg: 'from-blue-500/20 to-indigo-500/20 border-blue-500/30 text-blue-400',
+      bg: 'from-emerald-500/20 to-teal-500/20 border-emerald-500/30 text-emerald-400',
       title: 'Robux'
     };
   };
@@ -948,7 +950,7 @@ export default function Account() {
                                         <div className="flex items-center justify-between md:justify-end gap-6 border-t border-white/5 md:border-t-0 pt-3 md:pt-0 shrink-0 relative z-10">
                                           <div className="text-left md:text-right">
                                             <p className="text-base md:text-lg font-black text-white tracking-tight">
-                                              {order.total} {order.currency}
+                                              {order.currency === 'PEN' ? `S/ ${order.total}` : `${order.total} ${order.currency}`}
                                             </p>
                                             <p className="text-[10px] text-white/30 font-bold uppercase tracking-wider mt-0.5 flex items-center gap-1 justify-start md:justify-end">
                                               <Clock size={10} />
