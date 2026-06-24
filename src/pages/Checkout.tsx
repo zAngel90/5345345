@@ -144,6 +144,84 @@ const Checkout = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [countries, setCountries] = useState<any[]>([]);
+
+  const hasPlayedSound = useRef(false);
+
+  useEffect(() => {
+    if (!isFetching) {
+      let isPlayed = false;
+
+      const playChime = () => {
+        if (isPlayed || hasPlayedSound.current) return;
+        try {
+          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          if (AudioContextClass) {
+            const audioCtx = new AudioContextClass();
+            
+            const runChime = () => {
+              const now = audioCtx.currentTime;
+              const gainNode = audioCtx.createGain();
+              gainNode.gain.setValueAtTime(0, now);
+              gainNode.gain.linearRampToValueAtTime(0.40, now + 0.08); // Volumen aumentado a 0.40
+              gainNode.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+              
+              const osc1 = audioCtx.createOscillator();
+              osc1.type = 'sine';
+              osc1.frequency.setValueAtTime(880, now); // A5 (La5)
+              
+              const osc2 = audioCtx.createOscillator();
+              osc2.type = 'sine';
+              osc2.frequency.setValueAtTime(1318.51, now); // E6 (Mi6)
+              
+              osc1.connect(gainNode);
+              osc2.connect(gainNode);
+              gainNode.connect(audioCtx.destination);
+              
+              osc1.start(now);
+              osc2.start(now);
+              osc1.stop(now + 1.5);
+              osc2.stop(now + 1.5);
+              
+              isPlayed = true;
+              hasPlayedSound.current = true;
+              
+              // Remover event listeners tras reproducirse con éxito
+              document.removeEventListener('click', handleFirstInteraction);
+              document.removeEventListener('keydown', handleFirstInteraction);
+            };
+
+            if (audioCtx.state === 'suspended') {
+              audioCtx.resume().then(runChime).catch(() => {});
+            } else {
+              runChime();
+            }
+          }
+        } catch (err) {
+          console.log('Error de síntesis de audio:', err);
+        }
+      };
+
+      const handleFirstInteraction = () => {
+        playChime();
+      };
+
+      // Intentar reproducir inmediatamente
+      playChime();
+
+      // Si el navegador bloqueó el autoplay (y por ende isPlayed sigue false),
+      // escuchamos la primera interacción del usuario en la pantalla
+      if (!isPlayed && !hasPlayedSound.current) {
+        document.addEventListener('click', handleFirstInteraction);
+        document.addEventListener('keydown', handleFirstInteraction);
+      }
+
+      return () => {
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('keydown', handleFirstInteraction);
+      };
+    }
+  }, [isFetching]);
+
   const [selectedCountry, setSelectedCountry] = useState<string>('PE');
   const [isCountrySelectorOpen, setIsCountrySelectorOpen] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);

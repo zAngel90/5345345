@@ -19,13 +19,17 @@ import {
   Tag,
   Star,
   ChevronRight,
+  ChevronLeft,
   Leaf,
   DollarSign,
   Zap,
   TrendingUp,
   HelpCircle,
   ShoppingBag as ShoppingBagIcon,
-  X
+  X,
+  Target,
+  Search,
+  Clock
 } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RobloxAPI, StoreAPI, AuthAPI, SERVER_URL, OrdersAPI, CouponsAPI } from '../services/api';
@@ -134,6 +138,19 @@ const SIDEBAR_SECTIONS = [
   }
 ];
 
+const RobuxLogoIcon = ({ size, className }: { size?: number, className?: string }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 91.99 100.06" 
+    width={size} 
+    height={size} 
+    className={className}
+    fill="currentColor"
+  >
+    <path d="M82,17.72A19.94,19.94,0,0,1,92,35V65.08A19.92,19.92,0,0,1,82,82.33L56,97.39a19.94,19.94,0,0,1-19.91,0L10,82.33A19.91,19.91,0,0,1,0,65.08V35A19.93,19.93,0,0,1,10,17.72L36,2.67A19.89,19.89,0,0,1,56,2.67ZM39.53,9.5,14.13,24.17a12.92,12.92,0,0,0-6.46,11.2V64.69a12.93,12.93,0,0,0,6.46,11.2l25.4,14.66a12.93,12.93,0,0,0,12.93,0l25.4-14.66a12.93,12.93,0,0,0,6.46-11.2V35.37a12.92,12.92,0,0,0-6.46-11.2L52.46,9.5a12.93,12.93,0,0,0-12.93,0ZM51.3,17.7l20,11.56a10.64,10.64,0,0,1,5.32,9.21V61.6a10.61,10.61,0,0,1-5.32,9.20l-20,11.57a10.61,10.61,0,0,1-10.62,0l-20-11.57a10.6,10.6,0,0,1-5.31-9.2V38.47a10.63,10.63,0,0,1,5.31-9.21l20-11.56a10.61,10.61,0,0,1,10.62,0ZM34.5,61.53h23v-23h-23Z"/>
+  </svg>
+);
+
 export default function Account() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -147,6 +164,14 @@ export default function Account() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('todos');
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 5;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedFilter]);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('pixel_user');
@@ -349,6 +374,135 @@ export default function Account() {
   if (!user) return null;
 
   const progress = getProgress();
+
+  const formatTimeAgo = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      const now = new Date();
+      const diffMs = now.getTime() - date.getTime();
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+      const diffHr = Math.floor(diffMin / 60);
+      const diffDays = Math.floor(diffHr / 24);
+
+      if (diffSec < 60) return 'justo ahora';
+      if (diffMin < 60) return `hace ${diffMin} ${diffMin === 1 ? 'minuto' : 'minutos'}`;
+      if (diffHr < 24) return `hace ${diffHr} ${diffHr === 1 ? 'hora' : 'horas'}`;
+      if (diffDays < 7) return `hace ${diffDays} ${diffDays === 1 ? 'día' : 'días'}`;
+      return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+    } catch (e) {
+      return '';
+    }
+  };
+
+  const getStatusSteps = (status: string) => {
+    const s = (status || '').toLowerCase();
+    if (s === 'completed') return 4;
+    if (s === 'processing' || s === 'in_progress') return 3;
+    if (s === 'pending') return 1;
+    return 1;
+  };
+
+  const getStatusLabel = (status: string) => {
+    const s = (status || '').toLowerCase();
+    if (s === 'completed') return 'Completado';
+    if (s === 'processing' || s === 'in_progress') return 'Procesando';
+    if (s === 'pending') return 'En revisión';
+    if (s === 'cancelled') return 'Cancelado';
+    return status;
+  };
+
+  const getStatusColor = (status: string) => {
+    const s = (status || '').toLowerCase();
+    if (s === 'completed') return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
+    if (s === 'processing' || s === 'in_progress') return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
+    if (s === 'pending') return 'text-indigo-400 bg-indigo-500/10 border-indigo-500/20';
+    return 'text-white/40 bg-white/5 border-white/10';
+  };
+
+  const getOrderIcon = (type: string) => {
+    const t = (type || '').toLowerCase();
+    if (t === 'fortnite') {
+      return {
+        Icon: Shield,
+        bg: 'from-purple-500/20 to-blue-500/20 border-purple-500/30 text-purple-400',
+        title: 'Skin Fortnite'
+      };
+    }
+    if (t === 'mm2') {
+      return {
+        Icon: Target,
+        bg: 'from-rose-500/20 to-orange-500/20 border-rose-500/30 text-rose-400',
+        title: 'Items MM2'
+      };
+    }
+    if (t === 'trade_limited') {
+      return {
+        Icon: Crown,
+        bg: 'from-amber-500/20 to-yellow-500/20 border-amber-500/30 text-amber-400',
+        title: 'Item Limited'
+      };
+    }
+    return {
+      Icon: RobuxLogoIcon,
+      bg: 'from-blue-500/20 to-indigo-500/20 border-blue-500/30 text-blue-400',
+      title: 'Robux'
+    };
+  };
+
+  const renderProgressSteps = (status: string) => {
+    const activeSteps = getStatusSteps(status);
+    return (
+      <div className="flex gap-1 items-center">
+        {[1, 2, 3, 4].map((step) => {
+          const isActive = step <= activeSteps;
+          return (
+            <div 
+              key={step} 
+              className={`h-1 w-6 md:w-8 rounded-full transition-all duration-500 ${
+                isActive 
+                  ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.5)]' 
+                  : 'bg-white/10'
+              }`} 
+            />
+          );
+        })}
+      </div>
+    );
+  };
+
+  const getFilteredOrders = () => {
+    return orders.filter(order => {
+      const matchesSearch = searchQuery.trim() === '' || 
+        order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (order.type || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (order.cart?.some((item: any) => (item.name || '').toLowerCase().includes(searchQuery.toLowerCase()))) ||
+        (order.amount && `${order.amount} robux`.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      if (!matchesSearch) return false;
+
+      const status = (order.status || '').toLowerCase();
+      if (selectedFilter === 'todos') return true;
+      if (selectedFilter === 'procesando') {
+        return status === 'processing' || status === 'in_progress';
+      }
+      if (selectedFilter === 'revision') {
+        return status === 'pending';
+      }
+      if (selectedFilter === 'completados') {
+        return status === 'completed';
+      }
+      return true;
+    });
+  };
+
+  const getFilterCounts = () => {
+    let todos = orders.length;
+    let procesando = orders.filter(o => o.status === 'processing' || o.status === 'in_progress').length;
+    let revision = orders.filter(o => o.status === 'pending').length;
+    let completados = orders.filter(o => o.status === 'completed').length;
+    return { todos, procesando, revision, completados };
+  };
 
   return (
     <motion.div
@@ -618,78 +772,265 @@ export default function Account() {
 
             {activeTab === 'pedidos' && (
               <div className="space-y-6">
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-blue-500/10 border border-blue-500/20 rounded-xl">
+                      <ShoppingBag className="text-blue-400" size={20} />
+                    </div>
+                    <div>
+                      <h1 className="text-xl font-black text-white tracking-wide uppercase">Mis Pedidos</h1>
+                      <p className="text-[11px] text-white/40 font-bold uppercase tracking-wider">Historial de compras y estado de entregas</p>
+                    </div>
+                  </div>
+                  <span className="text-xs text-white/30 font-medium">
+                    {getFilteredOrders().length} {getFilteredOrders().length === 1 ? 'pedido' : 'pedidos'} en total
+                  </span>
+                </div>
+
+                {/* Search and Filters Bar */}
+                <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between bg-white/[0.02] border border-white/5 rounded-3xl p-4">
+                  {/* Search Bar */}
+                  <div className="relative flex-1">
+                    <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                    <input
+                      type="text"
+                      placeholder="Buscar pedido..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-3 text-sm text-white placeholder:text-white/20 outline-none focus:border-blue-500/50 transition-all"
+                    />
+                  </div>
+
+                  {/* Filters tabs (Pills) */}
+                  <div className="flex flex-wrap gap-2 items-center">
+                    {(['todos', 'procesando', 'revision', 'completados'] as const).map((filter) => {
+                      const label = filter === 'todos' ? 'Todos' :
+                                    filter === 'procesando' ? 'Procesando' :
+                                    filter === 'revision' ? 'En revisión' : 'Completados';
+                      
+                      const count = filter === 'todos' ? getFilterCounts().todos :
+                                    filter === 'procesando' ? getFilterCounts().procesando :
+                                    filter === 'revision' ? getFilterCounts().revision : getFilterCounts().completados;
+
+                      const isActive = selectedFilter === filter;
+
+                      return (
+                        <button
+                          key={filter}
+                          onClick={() => setSelectedFilter(filter)}
+                          className={`px-4 py-2 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 border ${
+                            isActive
+                              ? 'bg-blue-500/10 text-blue-400 border-blue-500/20 shadow-[0_0_12px_rgba(59,130,246,0.15)]'
+                              : 'text-white/40 border-transparent hover:text-white hover:bg-white/5'
+                          }`}
+                        >
+                          {label}
+                          {count > 0 && (
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded-md ${
+                              isActive ? 'bg-blue-500/20 text-blue-300' : 'bg-white/5 text-white/40'
+                            }`}>
+                              {count}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {isLoadingOrders ? (
                   <div className="grid grid-cols-1 gap-4">
                     <Skeleton className="h-28 w-full rounded-3xl" />
                     <Skeleton className="h-28 w-full rounded-3xl" />
                     <Skeleton className="h-28 w-full rounded-3xl" />
                   </div>
-                ) : orders.length > 0 ? (
-                  <div className="grid grid-cols-1 gap-4">
-                    {orders.map((order) => (
-                      <div 
-                        key={order.id} 
-                        onClick={() => navigate(`/order/${order.id}`)}
-                        className="bg-white/[0.03] border border-white/5 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:bg-white/[0.05] hover:border-blue-500/30 transition-all cursor-pointer group"
-                      >
-                        <div className="flex items-center gap-6">
-                          <div className="size-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 shrink-0 group-hover:scale-110 transition-transform">
-                            <ShoppingBag size={24} />
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-3 mb-1">
-                              <h4 className="font-black text-white">#{order.id}</h4>
-                              <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${order.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400' :
-                                  order.status === 'pending' ? 'bg-amber-500/10 text-amber-400' :
-                                    'bg-white/5 text-white/40'
-                                }`}>
-                                {order.status === 'completed' ? 'Completado' : order.status === 'pending' ? 'Pendiente' : order.status}
-                              </span>
+                ) : getFilteredOrders().length > 0 ? (
+                  <div className="space-y-8">
+                    {(() => {
+                      const filteredOrders = getFilteredOrders();
+                      const indexOfLastOrder = currentPage * ordersPerPage;
+                      const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+                      const currentOrdersPage = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder);
+                      const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
+                      
+                      return (
+                        <>
+                          {/* Group by status (En revisión, Procesando, Completados) */}
+                          {(['revision', 'procesando', 'completados'] as const).map((statusGroup) => {
+                            const groupOrders = currentOrdersPage.filter(order => {
+                              const status = (order.status || '').toLowerCase();
+                              if (statusGroup === 'revision') return status === 'pending';
+                              if (statusGroup === 'procesando') return status === 'processing' || status === 'in_progress';
+                              if (statusGroup === 'completados') return status === 'completed';
+                              return false;
+                            });
+
+                            if (groupOrders.length === 0) return null;
+
+                            const groupTitle = statusGroup === 'revision' ? 'EN REVISIÓN' :
+                                               statusGroup === 'procesando' ? 'PROCESANDO' : 'COMPLETADOS';
+
+                            return (
+                              <div key={statusGroup} className="space-y-4">
+                                <h3 className="text-[10px] font-black text-blue-400 tracking-[0.2em] px-2 uppercase">
+                                  {groupTitle}
+                                </h3>
+                                <div className="grid grid-cols-1 gap-4">
+                                  {groupOrders.map((order) => {
+                                    const iconInfo = getOrderIcon(order.type);
+                                    const orderTitle = order.type === 'fortnite' 
+                                      ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
+                                      : order.type === 'mm2'
+                                        ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
+                                        : order.type === 'trade_limited'
+                                          ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
+                                          : `${order.amount} Robux`;
+
+                                    return (
+                                      <motion.div
+                                        key={order.id}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        onClick={() => navigate(`/order/${order.id}`)}
+                                        className="group bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12] rounded-3xl py-8 px-6 md:py-10 md:px-8 min-h-[140px] md:min-h-[160px] flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                                      >
+                                        {/* Premium Background Circles (Matching Tiers/Profile Banner) */}
+                                        <div className="absolute top-[-20%] right-[-10%] w-[180px] h-[150px] bg-white/[0.02] rounded-[100%] rotate-[-25deg] pointer-events-none group-hover:bg-white/[0.04] transition-all duration-700" />
+                                        <div className="absolute bottom-[-20%] left-[-5%] w-[150px] h-[120px] bg-white/[0.01] rounded-[100%] rotate-[15deg] pointer-events-none group-hover:bg-white/[0.02] transition-all duration-700" />
+                                        <div className="absolute top-[20%] right-[30%] w-[120px] h-[100px] bg-white/[0.005] rounded-[100%] rotate-[-10deg] pointer-events-none group-hover:bg-white/[0.01] transition-all duration-700" />
+                                        
+                                        {/* Subtle Glow Wash */}
+                                        <div className="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-500" />
+                                        <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-indigo-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-indigo-500/8 transition-colors duration-500" />
+
+                                        {/* Left/Middle Content */}
+                                        <div className="flex items-center gap-4 flex-1 min-w-0 relative z-10">
+                                          {/* Icon Box */}
+                                          <div className={`size-14 md:size-16 rounded-2xl bg-gradient-to-br ${iconInfo.bg} flex items-center justify-center shrink-0 border transition-transform duration-300 group-hover:scale-105 shadow-lg`}>
+                                            <iconInfo.Icon size={26} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]" />
+                                          </div>
+
+                                          {/* Info text & badge */}
+                                          <div className="flex-1 min-w-0 space-y-1">
+                                            <div className="flex flex-wrap items-center gap-2">
+                                              <h4 className="text-sm md:text-base font-bold text-white tracking-wide truncate">
+                                                {orderTitle}
+                                              </h4>
+                                              <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest shrink-0">
+                                                #{order.id}
+                                              </span>
+                                            </div>
+
+                                            {/* Status pill & Steps */}
+                                            <div className="flex flex-wrap items-center gap-3 mt-1.5">
+                                              <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-black uppercase tracking-wider ${getStatusColor(order.status)}`}>
+                                                <span className="relative flex h-1.5 w-1.5">
+                                                  {order.status !== 'cancelled' && (
+                                                    <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                                                      order.status === 'completed' ? 'bg-emerald-400' : 'bg-blue-400'
+                                                    }`} />
+                                                  )}
+                                                  <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${
+                                                    order.status === 'completed' ? 'bg-emerald-500' : order.status === 'cancelled' ? 'bg-red-500' : 'bg-blue-500'
+                                                  }`} />
+                                                </span>
+                                                {getStatusLabel(order.status)}
+                                              </div>
+
+                                              {/* Step Progress Bar */}
+                                              {order.status !== 'cancelled' && renderProgressSteps(order.status)}
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        {/* Right side Price, Time and Actions */}
+                                        <div className="flex items-center justify-between md:justify-end gap-6 border-t border-white/5 md:border-t-0 pt-3 md:pt-0 shrink-0 relative z-10">
+                                          <div className="text-left md:text-right">
+                                            <p className="text-base md:text-lg font-black text-white tracking-tight">
+                                              {order.total} {order.currency}
+                                            </p>
+                                            <p className="text-[10px] text-white/30 font-bold uppercase tracking-wider mt-0.5 flex items-center gap-1 justify-start md:justify-end">
+                                              <Clock size={10} />
+                                              {formatTimeAgo(order.createdAt)}
+                                            </p>
+                                          </div>
+
+                                          {/* Action Buttons */}
+                                          <div className="flex items-center gap-2">
+                                            <button
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                navigate('/chat', { state: { orderId: order.id } });
+                                              }}
+                                              className="p-2.5 rounded-xl bg-white/5 hover:bg-blue-500/10 text-white/40 hover:text-blue-400 border border-white/10 hover:border-blue-500/20 transition-all"
+                                              title="Chat Soporte"
+                                            >
+                                              <MessageSquare size={16} />
+                                            </button>
+                                            <ChevronRight size={18} className="text-white/20 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                                          </div>
+                                        </div>
+                                      </motion.div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            );
+                          })}
+
+                          {/* Pagination Controls */}
+                          {totalPages > 1 && (
+                            <div className="flex items-center justify-center gap-2 mt-8 pt-4 border-t border-white/5">
+                              <button
+                                disabled={currentPage === 1}
+                                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                className="p-2.5 rounded-xl bg-white/5 hover:bg-blue-500/10 text-white/40 hover:text-blue-400 border border-white/10 hover:border-blue-500/20 disabled:opacity-20 disabled:pointer-events-none transition-all flex items-center justify-center shrink-0"
+                              >
+                                <ChevronLeft size={16} />
+                              </button>
+                              
+                              <div className="flex items-center gap-1">
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+                                  <button
+                                    key={pageNumber}
+                                    onClick={() => setCurrentPage(pageNumber)}
+                                    className={`size-10 rounded-xl font-bold text-xs transition-all border flex items-center justify-center ${
+                                      currentPage === pageNumber
+                                        ? 'bg-blue-500/10 text-blue-400 border-blue-500/20 shadow-[0_0_8px_rgba(59,130,246,0.15)]'
+                                        : 'text-white/40 border-transparent hover:text-white hover:bg-white/5'
+                                    }`}
+                                  >
+                                    {pageNumber}
+                                  </button>
+                                ))}
+                              </div>
+
+                              <button
+                                disabled={currentPage === totalPages}
+                                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                className="p-2.5 rounded-xl bg-white/5 hover:bg-blue-500/10 text-white/40 hover:text-blue-400 border border-white/10 hover:border-blue-500/20 disabled:opacity-20 disabled:pointer-events-none transition-all flex items-center justify-center shrink-0"
+                              >
+                                <ChevronRight size={16} />
+                              </button>
                             </div>
-                            <p className="text-xs text-white/40 font-bold uppercase tracking-wider">
-                              {order.type === 'fortnite' 
-                                ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
-                                : order.type === 'mm2'
-                                  ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
-                                  : order.type === 'trade_limited'
-                                    ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
-                                    : `${order.amount} Robux`
-                              } • {new Date(order.createdAt).toLocaleDateString()}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4 w-full md:w-auto">
-                          <div className="text-right flex-grow md:flex-grow-0">
-                            <p className="text-[10px] font-black text-white/20 uppercase tracking-widest">Total Pagado</p>
-                            <p className="text-lg font-black text-white">${order.total} {order.currency}</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate('/chat', { state: { orderId: order.id } });
-                              }}
-                              className="p-3 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-all"
-                              title="Chat Soporte"
-                            >
-                              <MessageSquare size={18} />
-                            </button>
-                            <div className="p-3 bg-blue-500/10 text-blue-400 rounded-xl opacity-0 group-hover:opacity-100 transition-all">
-                               <ChevronRight size={18} />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                          )}
+                        </>
+                      );
+                    })()}
                   </div>
                 ) : (
-                  <div className="bg-white/[0.03] border border-white/5 rounded-[2.5rem] p-12 text-center">
-                    <div className="size-20 bg-blue-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 text-blue-400">
-                      <ShoppingBag size={40} />
+                  /* Empty state */
+                  <div className="bg-white/[0.03] border border-white/5 rounded-[2.5rem] p-12 text-center relative overflow-hidden group/empty shadow-2xl">
+                    <div className="absolute top-[-10%] right-[-15%] w-[50%] h-[50%] bg-blue-500/5 rounded-full blur-[60px] pointer-events-none" />
+                    <div className="absolute bottom-[-15%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 rounded-full blur-[50px] pointer-events-none" />
+                    
+                    <div className="size-20 bg-blue-500/10 border border-blue-500/20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-blue-400 shadow-inner group-hover/empty:scale-105 transition-transform duration-300">
+                      <ShoppingBag size={40} className="drop-shadow-[0_0_8px_rgba(59,130,246,0.3)]" />
                     </div>
-                    <h3 className="text-xl font-black text-white mb-2">No tienes pedidos aún</h3>
-                    <p className="text-sm text-white/30 max-w-xs mx-auto mb-8">Cuando realices tu primera compra, aparecerá aquí para que puedas seguir su estado.</p>
-                    <button onClick={() => navigate('/catalog')} className="px-8 py-3 bg-white text-black rounded-xl font-black text-sm hover:scale-105 transition-all">Explorar Catálogo</button>
+                    <h3 className="text-xl font-black text-white mb-2 uppercase tracking-tight">No se encontraron pedidos</h3>
+                    <p className="text-sm text-white/30 max-w-xs mx-auto mb-8 leading-relaxed font-medium">No hay compras que coincidan con tu búsqueda o filtro actual.</p>
+                    <button onClick={() => navigate('/catalog')} className="px-8 py-3 bg-white hover:bg-white/90 text-black rounded-xl font-black text-sm hover:scale-105 active:scale-95 transition-all shadow-xl">Explorar Catálogo</button>
                   </div>
                 )}
               </div>
