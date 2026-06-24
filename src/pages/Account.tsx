@@ -893,22 +893,22 @@ export default function Account() {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         onClick={() => navigate(`/order/${order.id}`)}
-                                        className="group bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12] rounded-3xl py-8 px-6 md:py-10 md:px-8 min-h-[140px] md:min-h-[160px] flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                                        className="group bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12] rounded-3xl py-3.5 px-4 md:py-4 md:px-6 min-h-[80px] md:min-h-[90px] flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300 cursor-pointer relative overflow-hidden"
                                       >
                                         {/* Premium Background Circles (Matching Tiers/Profile Banner) */}
-                                        <div className="absolute top-[-20%] right-[-10%] w-[180px] h-[150px] bg-white/[0.02] rounded-[100%] rotate-[-25deg] pointer-events-none group-hover:bg-white/[0.04] transition-all duration-700" />
-                                        <div className="absolute bottom-[-20%] left-[-5%] w-[150px] h-[120px] bg-white/[0.01] rounded-[100%] rotate-[15deg] pointer-events-none group-hover:bg-white/[0.02] transition-all duration-700" />
-                                        <div className="absolute top-[20%] right-[30%] w-[120px] h-[100px] bg-white/[0.005] rounded-[100%] rotate-[-10deg] pointer-events-none group-hover:bg-white/[0.01] transition-all duration-700" />
+                                        <div className="absolute top-[-20%] right-[-10%] w-[130px] h-[110px] bg-white/[0.02] rounded-[100%] rotate-[-25deg] pointer-events-none group-hover:bg-white/[0.04] transition-all duration-700" />
+                                        <div className="absolute bottom-[-20%] left-[-5%] w-[110px] h-[90px] bg-white/[0.01] rounded-[100%] rotate-[15deg] pointer-events-none group-hover:bg-white/[0.02] transition-all duration-700" />
+                                        <div className="absolute top-[20%] right-[30%] w-[90px] h-[70px] bg-white/[0.005] rounded-[100%] rotate-[-10deg] pointer-events-none group-hover:bg-white/[0.01] transition-all duration-700" />
                                         
                                         {/* Subtle Glow Wash */}
-                                        <div className="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-500" />
-                                        <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-indigo-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-indigo-500/8 transition-colors duration-500" />
+                                        <div className="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-500" />
+                                        <div className="absolute -bottom-12 -left-12 w-24 h-24 bg-indigo-500/5 rounded-full blur-xl pointer-events-none group-hover:bg-indigo-500/8 transition-colors duration-500" />
 
                                         {/* Left/Middle Content */}
                                         <div className="flex items-center gap-4 flex-1 min-w-0 relative z-10">
                                           {/* Icon Box */}
-                                          <div className={`size-14 md:size-16 rounded-2xl bg-gradient-to-br ${iconInfo.bg} flex items-center justify-center shrink-0 border transition-transform duration-300 group-hover:scale-105 shadow-lg`}>
-                                            <iconInfo.Icon size={26} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]" />
+                                          <div className={`size-11 md:size-12 rounded-xl bg-gradient-to-br ${iconInfo.bg} flex items-center justify-center shrink-0 border transition-transform duration-300 group-hover:scale-105 shadow-lg`}>
+                                            <iconInfo.Icon size={20} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]" />
                                           </div>
 
                                           {/* Info text & badge */}
