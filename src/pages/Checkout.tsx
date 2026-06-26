@@ -601,6 +601,8 @@ const Checkout = () => {
         const deliveryType = getDeliveryType(cart, gamesConfig);
         if (deliveryType) {
           formData.append('type', deliveryType);
+        } else {
+          formData.append('type', 'ingame');
         }
         formData.append('cart', JSON.stringify(cart));
       }
