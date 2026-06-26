@@ -899,7 +899,7 @@ const Checkout = () => {
                                           <p className="text-[9px] text-blue-400 font-bold uppercase">Skin</p>
                                         </div>
                                         <div className="text-right">
-                                          <span className="text-[10px] font-black text-white/40">{((item?.price || 0) * (item?.quantity || 1)).toLocaleString('es-PE', { minimumFractionDigits: 2 })} {displayCurrency}</span>
+                                          <span className="text-[10px] font-black text-white/40">S/ {((item?.price || 0) * (item?.quantity || 1)).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -974,7 +974,7 @@ const Checkout = () => {
                                           <p className="text-[9px] text-blue-400 font-bold uppercase">{item?.rarity || item?.category || 'In-Game'}</p>
                                         </div>
                                         <div className="text-right">
-                                          <span className="text-[10px] font-black text-white/40">{((item?.price || 0) * (item?.qty || 1)).toLocaleString('es-PE', { minimumFractionDigits: 0 })} {displayCurrency}</span>
+                                          <span className="text-[10px] font-black text-white/40">S/ {((item?.price || 0) * (item?.qty || 1)).toLocaleString('es-PE', { minimumFractionDigits: 0 })}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -1178,7 +1178,7 @@ const Checkout = () => {
                                         <p className="text-[11px] font-black text-white truncate leading-tight mb-1">{item?.name}</p>
                                       </div>
                                       <div className="text-right">
-                                        <span className="text-[10px] font-black text-white/40">{((item?.price || 0) * (item?.qty || 1)).toLocaleString('es-PE', { minimumFractionDigits: 0 })} {displayCurrency}</span>
+                                        <span className="text-[10px] font-black text-white/40">S/ {((item?.price || 0) * (item?.qty || 1)).toLocaleString('es-PE', { minimumFractionDigits: 0 })}</span>
                                       </div>
                                     </div>
                                   </div>

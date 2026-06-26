@@ -1925,6 +1925,7 @@ export default function RobuxCatalog() {
                             originalPrice: parseFloat(currentPrice),
                             currency: currency,
                             username: selectedUser?.name || 'Usuario',
+                            displayName: selectedUser?.displayName || selectedUser?.name || 'Usuario',
                             userId: selectedUser?.id || '0',
                             method: 'gamepass',
                             gamepassId: selectedGamepass?.id,
@@ -2563,6 +2564,7 @@ export default function RobuxCatalog() {
                             originalPrice: parseFloat(currentPrice),
                             currency: currency,
                             username: selectedUser?.name || 'Usuario',
+                            displayName: selectedUser?.displayName || selectedUser?.name || 'Usuario',
                             userId: selectedUser?.id || '0',
                             method: 'group',
                             coupon: appliedCoupon ? {
