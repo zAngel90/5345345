@@ -32,7 +32,7 @@ import {
   Gamepad2,
   Crown
 } from 'lucide-react';
-import { OrdersAPI, SERVER_URL, RobloxAPI, ChatAPI, socket, ReviewsAPI } from '../services/api';
+import { OrdersAPI, SERVER_URL, BASE_URL, RobloxAPI, ChatAPI, socket, ReviewsAPI } from '../services/api';
 
 interface Order {
   id: string;
@@ -85,6 +85,7 @@ const OrderDetails = () => {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [expandedGames, setExpandedGames] = useState<Record<string, boolean>>({});
+  const [gamesMap, setGamesMap] = useState<Record<string, any>>({});
 
   // Helper: check if order type requires delivery (MM2 legacy or generic category)
   const requiresDelivery = (o: Order | null): boolean => {
@@ -154,8 +155,18 @@ const OrderDetails = () => {
                     className="w-full flex items-center justify-between p-4 text-left transition-colors hover:bg-white/[0.02] cursor-pointer"
                   >
                     <div className="flex items-center gap-3 font-semibold">
-                      <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-center text-blue-400">
-                        <Gamepad2 size={18} />
+                      <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-center overflow-hidden">
+                        {(() => {
+                          const gameData = gamesMap[gameSlug];
+                          let gameImg = gameData?.image;
+                          if (gameImg) {
+                            if (!gameImg.startsWith('http')) {
+                              gameImg = `${SERVER_URL}${gameImg.startsWith('/') ? '' : '/'}${gameImg}`;
+                            }
+                            return <img src={gameImg} alt="" className="w-full h-full object-contain p-1" />;
+                          }
+                          return <Gamepad2 size={18} className="text-blue-400" />;
+                        })()}
                       </div>
                       <div>
                         <h3 className="text-sm font-bold text-white">{gameName}</h3>
@@ -343,10 +354,17 @@ const OrderDetails = () => {
   useEffect(() => {
     const fetchOrderData = async () => {
       try {
-        const [orderRes, chatRes] = await Promise.all([
+        const [orderRes, chatRes, gamesRes] = await Promise.all([
           OrdersAPI.getOrderById(orderId!),
-          ChatAPI.getChatByOrderId(orderId!)
+          ChatAPI.getChatByOrderId(orderId!),
+          fetch(`${BASE_URL}/admin/games-config`).then(r => r.json()).catch(() => ({ success: false, data: [] }))
         ]);
+
+        if (gamesRes.success) {
+          const map: Record<string, any> = {};
+          gamesRes.data.forEach((g: any) => { map[g.id] = g; });
+          setGamesMap(map);
+        }
 
         if (orderRes.success) {
           console.log('📦 Order Data:', orderRes.data);
