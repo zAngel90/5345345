@@ -266,7 +266,7 @@ export default function RobuxCatalog() {
       try {
         const res = await OrdersAPI.getRecentOrders();
         if (res.success) {
-          setRecentPurchases(res.data);
+          setRecentPurchases((res.data || []).filter((o: any) => o.type === 'robux' || !o.type));
         }
       } catch (err) {
         console.error('Error fetching recent orders:', err);

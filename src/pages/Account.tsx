@@ -445,6 +445,13 @@ export default function Account() {
         title: 'Item Limited'
       };
     }
+    if (t === 'ingame' || t.includes(':')) {
+      return {
+        Icon: Gamepad2,
+        bg: 'from-blue-500/20 to-indigo-500/20 border-blue-500/30 text-blue-400',
+        title: 'In-Game'
+      };
+    }
     return {
       Icon: RobuxLogoIcon,
       bg: 'from-emerald-500/20 to-teal-500/20 border-emerald-500/30 text-emerald-400',
@@ -887,7 +894,9 @@ export default function Account() {
                                         ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
                                         : order.type === 'trade_limited'
                                           ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
-                                          : `${order.amount} Robux`;
+                                          : order.type === 'ingame' || (order.type || '').includes(':')
+                                            ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} In-Game`
+                                            : `${order.amount} Robux`;
 
                                     return (
                                       <motion.div

@@ -113,6 +113,7 @@ const Checkout = () => {
   const isFortnite = state.type === 'fortnite';
   const amount: number = Number(state.amount) || (isTrade ? 0 : 1700);
   const username: string = state.username || '';
+  const displayName: string = state.displayName || '';
   const userId: string = state.userId || '';
   const cart: any[] = state.cart || [];
   const fromWebview: boolean = state.fromWebview || !!state.action;
@@ -230,7 +231,7 @@ const Checkout = () => {
   const [code, setCode] = useState('');
   const [statIndex, setStatIndex] = useState(0);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState({ name: username, id: userId });
+  const [currentUser, setCurrentUser] = useState({ name: username, displayName: displayName, id: userId });
   const [userAvatar, setUserAvatar] = useState('');
 
   // Estados para modal de cambio de usuario
@@ -273,7 +274,7 @@ const Checkout = () => {
 
   // Sync currentUser if username/userId changes
   useEffect(() => {
-    setCurrentUser({ name: username, id: userId });
+    setCurrentUser({ name: username, displayName: displayName, id: userId });
   }, [username, userId]);
 
   // Cargar usuarios recientes
@@ -787,48 +788,42 @@ const Checkout = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="flex items-center gap-2 pl-[60px] pt-1">
-                                  <div className="w-5 h-5 rounded-full bg-white/5 border border-white/10 overflow-hidden shrink-0">
-                                    <img
-                                      src={userAvatar || `https://ui-avatars.com/api/?name=${username}&background=random`}
-                                      className="w-full h-full object-cover"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <span className="text-[9px] font-bold text-white/60">@{username}</span>
-                                </div>
-                              </div>
-
-                              {/* Items to Receive - Lista Expandida */}
-                              <div className="space-y-2">
-                                {cart.map((item, idx) => {
-                                  const itemColor = item?.color || '#ec4899'; // Default pink si no tiene color
-                                  return (
-                                    <div 
-                                      key={idx} 
-                                      className="flex items-center gap-3 p-2.5 rounded-2xl"
-                                      style={{
-                                        backgroundColor: `${itemColor}20`,
-                                        borderWidth: '1px',
-                                        borderStyle: 'solid',
-                                        borderColor: `${itemColor}80`
-                                      }}
-                                    >
-                                      <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
-                                        <img src={item?.img || item?.image} alt="" className="w-full h-full object-contain p-1" />
-                                      </div>
-                                      <div className="flex-1 min-w-0">
-                                        <p 
-                                          className="text-[9px] font-black uppercase tracking-widest mb-0.5"
-                                          style={{ color: itemColor }}
-                                        >
-                                          Item a recibir
-                                        </p>
-                                        <p className="text-xs font-bold text-white truncate">{item?.name}</p>
-                                      </div>
+                                  <div className="flex items-center gap-2 pl-[60px] pt-1">
+                                    <div className="w-5 h-5 rounded-full bg-white/5 border border-white/10 overflow-hidden shrink-0">
+                                      <img
+                                        src={userAvatar || `https://ui-avatars.com/api/?name=${username}&background=random`}
+                                        className="w-full h-full object-cover"
+                                        alt=""
+                                      />
                                     </div>
-                                  );
-                                })}
+                                    <div className="flex flex-col">
+                                      <span className="text-[9px] font-bold text-white leading-tight">{displayName || username}</span>
+                                      <span className="text-[8px] text-white/40">@{username}</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* MM2 Category Label for items */}
+                                <p className="text-[9px] text-blue-400 font-bold uppercase tracking-widest px-1 mb-1">Categoría: {cart[0]?.category || 'Objeto'}</p>
+
+                                {/* Items to Receive - Lista Expandida */}
+                              <div className="space-y-2">
+                                {cart.map((item, idx) => (
+                                  <div 
+                                    key={idx} 
+                                    className="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.02] border border-white/[0.06]"
+                                  >
+                                    <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
+                                      <img src={item?.img || item?.image} alt="" className="w-full h-full object-contain p-1" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-[9px] font-black text-white/40 uppercase tracking-widest mb-0.5">
+                                        {item?.category || 'Item'}
+                                      </p>
+                                      <p className="text-xs font-bold text-white truncate">{item?.name}</p>
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           ) : isFortnite ? (
@@ -873,7 +868,10 @@ const Checkout = () => {
                                           alt=""
                                         />
                                       </div>
-                                      <span className="text-[10px] font-bold text-white/60">@{state.fortniteData?.fortniteUsername || username}</span>
+                                      <div className="flex flex-col">
+                                        <span className="text-[10px] font-bold text-white leading-tight">{state.fortniteData?.fortniteUsername || username}</span>
+                                        <span className="text-[8px] text-white/40">@{state.fortniteData?.fortniteUsername || username}</span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -945,7 +943,10 @@ const Checkout = () => {
                                           alt=""
                                         />
                                       </div>
-                                      <span className="text-[10px] font-bold text-white/60">@{username}</span>
+                                      <div className="flex flex-col">
+                                        <span className="text-[10px] font-bold text-white leading-tight">{displayName || username}</span>
+                                        <span className="text-[8px] text-white/40">@{username}</span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -1040,7 +1041,10 @@ const Checkout = () => {
                                       alt=""
                                     />
                                   </div>
-                                  <span className="text-[9px] font-bold text-white/60">@{username}</span>
+                                  <div className="flex flex-col">
+                                    <span className="text-[9px] font-bold text-white leading-tight">{displayName || username}</span>
+                                    <span className="text-[8px] text-white/40">@{username}</span>
+                                  </div>
                                 </div>
                               </div>
 
@@ -1083,7 +1087,10 @@ const Checkout = () => {
                                       alt=""
                                     />
                                   </div>
-                                  <span className="text-[9px] font-bold text-white/60">@{username}</span>
+                                  <div className="flex flex-col">
+                                    <span className="text-[9px] font-bold text-white leading-tight">{displayName || username}</span>
+                                    <span className="text-[8px] text-white/40">@{username}</span>
+                                  </div>
                                 </div>
                               </div>
 
@@ -1142,7 +1149,10 @@ const Checkout = () => {
                                       alt=""
                                     />
                                   </div>
-                                  <span className="text-[9px] font-bold text-white/60">@{username}</span>
+                                  <div className="flex flex-col">
+                                    <span className="text-[9px] font-bold text-white leading-tight">{displayName || username}</span>
+                                    <span className="text-[8px] text-white/40">@{username}</span>
+                                  </div>
                                 </div>
                               </div>
 
@@ -1162,11 +1172,10 @@ const Checkout = () => {
                                         />
                                       </div>
                                       <div className="flex-1 min-w-0">
-                                        <p className="text-[9px] text-white/30 font-bold uppercase tracking-tight mb-0.5">
-                                          {item?.game || 'In-Game Item'}
+                                        <p className="text-[9px] text-blue-400 font-bold uppercase tracking-tight mb-0.5">
+                                          {item?.category || 'Item'}
                                         </p>
                                         <p className="text-[11px] font-black text-white truncate leading-tight mb-1">{item?.name}</p>
-                                        <p className="text-[9px] text-blue-400 font-bold uppercase">{item?.category || 'Item'}</p>
                                       </div>
                                       <div className="text-right">
                                         <span className="text-[10px] font-black text-white/40">{((item?.price || 0) * (item?.qty || 1)).toLocaleString('es-PE', { minimumFractionDigits: 0 })} {displayCurrency}</span>
@@ -1177,25 +1186,28 @@ const Checkout = () => {
                               </div>
                             </div>
                           ) : (
-                            <div className="flex items-start gap-3 mb-5">
-                              <div className="w-12 h-12 rounded-xl bg-[#1e3a5f] border border-blue-500/20 flex items-center justify-center shrink-0">
-                                <img src="/images/robux-logo.svg" alt="Robux" className="w-7 h-7" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-1.5 mb-1.5">
-                                  <span className="text-sm font-bold text-white">{amount.toLocaleString('es-CO')} Robux</span>
-                                  <svg className="w-3.5 h-3.5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                                <div className="flex items-start gap-3 mb-5">
+                                  <div className="w-12 h-12 rounded-xl bg-[#1e3a5f] border border-blue-500/20 flex items-center justify-center shrink-0">
+                                    <img src="/images/robux-logo.svg" alt="Robux" className="w-7 h-7" />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-1.5 mb-1.5">
+                                      <span className="text-sm font-bold text-white">{amount.toLocaleString('es-CO')} Robux</span>
+                                      <svg className="w-3.5 h-3.5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 mb-1">
+                                      <svg className="w-3 h-3 text-white/30 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" /></svg>
+                                      <span className="text-xs text-white/40">Cantidad: {amount.toLocaleString('es-CO')}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 mt-2">
+                                      <svg className="w-3 h-3 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                                      <div className="flex flex-col">
+                                        <span className="text-[9px] font-bold text-white/80 leading-tight">{displayName || username}</span>
+                                        <span className="text-[8px] text-white/40">@{username}</span>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="flex items-center gap-1.5 mb-1">
-                                  <svg className="w-3 h-3 text-white/30 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" /></svg>
-                                  <span className="text-xs text-white/40">Cantidad: {amount.toLocaleString('es-CO')}</span>
-                                </div>
-                                <div className="flex items-center gap-1.5 mt-2">
-                                  <svg className="w-3 h-3 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                                  <span className="text-xs text-emerald-400 font-semibold">@{username}</span>
-                                </div>
-                              </div>
-                            </div>
                           )}
 
                         </div>
@@ -1359,26 +1371,29 @@ const Checkout = () => {
                   <div className={isSpecialGame ? "lg:h-full lg:grid lg:grid-rows-[1fr_auto] relative z-20 px-4 py-4 lg:py-0 lg:px-0" : "flex flex-col px-4 lg:px-6 py-4 lg:py-6 overflow-y-auto custom-scrollbar"}>
                     <div className={isSpecialGame ? "lg:h-0 lg:min-h-full lg:overflow-y-auto scrollbar-hide" : ""}>
                       <div className={isSpecialGame ? "w-full max-w-[892px] lg:px-6 lg:px-8 lg:pt-10 lg:pb-6 mx-0" : ""}>
-                      <div className="flex items-center gap-3 px-3 py-2 rounded-2xl mb-3" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(59,130,246,0.35)' }}>
-                        <div className="w-8 h-8 rounded-full bg-[#1e293b] border border-white/[0.10] overflow-hidden shrink-0 flex items-center justify-center">
-                          <img
-                            src={
-                              isFortnite 
-                                ? (storeUser?.avatar?.startsWith('http') 
-                                    ? storeUser.avatar 
-                                    : storeUser?.avatar 
-                                      ? `${SERVER_URL}${storeUser.avatar}` 
-                                      : `https://ui-avatars.com/api/?name=${state.fortniteData?.fortniteUsername || username}&background=random`)
-                                : (userAvatar || `${SERVER_URL}/api/users/avatar/${userId}`)
-                            }
-                            alt={isFortnite ? state.fortniteData?.fortniteUsername || username : username} 
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=User&background=random';
-                            }}
-                          />
-                        </div>
-                        <span className="flex-1 text-xs font-medium text-white/90">@{isFortnite ? state.fortniteData?.fortniteUsername || username : username}</span>
+                        <div className="flex items-center gap-3 px-3 py-2 rounded-2xl mb-3" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(59,130,246,0.35)' }}>
+                          <div className="w-8 h-8 rounded-full bg-[#1e293b] border border-white/[0.10] overflow-hidden shrink-0 flex items-center justify-center">
+                            <img
+                              src={
+                                isFortnite 
+                                  ? (storeUser?.avatar?.startsWith('http') 
+                                      ? storeUser.avatar 
+                                      : storeUser?.avatar 
+                                        ? `${SERVER_URL}${storeUser.avatar}` 
+                                        : `https://ui-avatars.com/api/?name=${state.fortniteData?.fortniteUsername || username}&background=random`)
+                                  : (userAvatar || `${SERVER_URL}/api/users/avatar/${userId}`)
+                              }
+                              alt={isFortnite ? state.fortniteData?.fortniteUsername || username : username} 
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=User&background=random';
+                              }}
+                            />
+                          </div>
+                          <div className="flex flex-col flex-1 min-w-0">
+                            <span className="text-xs font-bold text-white leading-tight truncate">{isFortnite ? (state.fortniteData?.fortniteUsername || username) : (displayName || username)}</span>
+                            <span className="text-[9px] text-white/40 truncate">@{isFortnite ? state.fortniteData?.fortniteUsername || username : username}</span>
+                          </div>
                         {/* Solo mostrar botón de cambiar usuario para Robux normales (no in-game, MM2 o limiteds) */}
                         {!isIngame && !isMM2 && !isLimiteds && !isTrade && !isFortnite && (
                           <button
@@ -1566,7 +1581,7 @@ const Checkout = () => {
                               </button>
                             </div>
 
-                            <div className={`border p-6 shadow-2xl ${isSpecialGame ? 'bg-white/[0.02] border-x border-t border-white/[0.06] border-b-0 rounded-t-3xl rounded-b-none mt-4' : 'bg-[#0F172A]/80 rounded-3xl border-white/[0.06]'}`}>
+                            <div className={`border p-6 shadow-lg ${isSpecialGame ? 'bg-white/[0.02] border-x border-t border-white/[0.06] border-b-0 rounded-t-3xl rounded-b-none mt-4' : 'bg-[#0F172A]/80 rounded-3xl border-white/[0.06]'}`}>
                               <div className="text-center mb-6">
                                 <div className="text-lg font-black text-white mb-1">Pagar con {paymentMethods.find(m => m.id === selected)?.name}</div>
                                 <div className="text-xs text-white/40">Sigue las instrucciones de abajo y sube tu comprobante.</div>
@@ -1673,8 +1688,8 @@ const Checkout = () => {
                               onClick={handleSubmitOrder}
                               disabled={isLoading || !receipt || !selected}
                               className={`w-full py-3 rounded-xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-3 relative overflow-hidden group/btn ${isLoading || !receipt || !selected
-                                ? 'bg-white/5 text-white/20 cursor-not-allowed border-2 border-white/5'
-                                : 'bg-blue-600 text-white border-2 border-white/20 shadow-[0_6px_0_0_#1d4ed8] hover:shadow-[0_2px_0_0_#1d4ed8] hover:translate-y-[4px] active:translate-y-[6px] active:shadow-none'
+                                ? 'bg-white/5 text-white/20 cursor-not-allowed border border-white/5'
+                                : 'bg-[#0a1035] text-white border border-cyan-400/30 hover:bg-[#0f1545] active:scale-[0.98]'
                                 }`}
                             >
                               {isLoading ? <Loader2 size={18} className="animate-spin" /> : <ArrowRight size={18} />}
@@ -1709,8 +1724,8 @@ const Checkout = () => {
                   onClick={handleSubmitOrder}
                   disabled={isLoading || !receipt || !selected}
                   className={`w-full py-3 rounded-xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-3 relative overflow-hidden group/btn ${isLoading || !receipt || !selected
-                    ? 'bg-white/5 text-white/20 cursor-not-allowed border-2 border-white/5'
-                    : 'bg-blue-600 text-white border-2 border-white/20 shadow-[0_6px_0_0_#1d4ed8] hover:shadow-[0_2px_0_0_#1d4ed8] hover:translate-y-[4px] active:translate-y-[6px] active:shadow-none'
+                    ? 'bg-white/5 text-white/20 cursor-not-allowed border border-white/5'
+                    : 'bg-[#0a1035] text-white border border-cyan-400/30 hover:bg-[#0f1545] active:scale-[0.98]'
                     }`}
                 >
                   {isLoading ? <Loader2 size={18} className="animate-spin" /> : <ArrowRight size={18} />}
@@ -2422,6 +2437,7 @@ const Checkout = () => {
                         const newState = {
                           ...state,
                           username: selectedUser.name,
+                          displayName: selectedUser.displayName || selectedUser.name,
                           userId: selectedUser.id,
                         };
                         
@@ -2454,7 +2470,7 @@ const Checkout = () => {
                           replace: true 
                         });
                       }}
-                      className="w-full p-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-black text-sm transition-all shadow-[0_12px_24px_rgba(16,185,129,0.4)] flex items-center justify-center gap-3 tracking-wider"
+                      className="w-full p-4 bg-[#0a1035] hover:bg-[#0f1545] text-white rounded-2xl font-black text-sm transition-all border border-cyan-400/30 flex items-center justify-center gap-3 tracking-wider active:scale-[0.98]"
                     >
                       <CheckCircle2 size={18} />
                       <span>Confirmar y Continuar</span>
