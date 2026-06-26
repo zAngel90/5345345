@@ -736,7 +736,7 @@ const OrderDetails = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-black tracking-tighter text-blue-400">
+                  <div className="text-2xl font-black tracking-tighter text-white">
                     S/ {order.total.toFixed(2)}
                   </div>
                 </div>
@@ -802,8 +802,7 @@ const OrderDetails = () => {
                     {/* Target Items (Items a recibir) - Lista Expandida */}
                     {order.cart && order.cart.length > 0 ? (
                       <div className="space-y-2">
-                        {order.cart.map((item: any, idx: number) => {
-                          const itemColor = item?.color || '#ec4899'; // Default pink si no tiene color
+                          {order.cart.map((item: any, idx: number) => {
                           return (
                             <div 
                               key={idx} 

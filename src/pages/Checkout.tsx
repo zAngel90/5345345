@@ -755,9 +755,9 @@ const Checkout = () => {
                   <div className={isSpecialGame ? "lg:h-full lg:overflow-y-auto custom-scrollbar relative z-20 px-4 py-4 lg:py-10 lg:px-0" : "flex flex-col p-4 lg:p-6 border-b lg:border-b-0 border-white/[0.04]"}>
                     <div className={isSpecialGame ? "w-full max-w-[420px] mx-auto lg:px-6 lg:px-8" : ""}>
                       <motion.div
-                        className="relative bg-gradient-to-br from-[#111827]/80 via-[#1a2332]/70 to-[#111827]/80 border border-white/[0.08] rounded-2xl lg:rounded-[32px] p-4 lg:p-6 mb-4 lg:mb-6 overflow-hidden cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl"
+                        className="relative bg-gradient-to-br from-[#111827]/80 via-[#1a2332]/70 to-[#111827]/80 border border-white/[0.08] rounded-2xl lg:rounded-[32px] p-4 lg:p-6 mb-4 lg:mb-6 overflow-hidden cursor-default backdrop-blur-xl"
                         style={{
-                          boxShadow: '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 0 1px rgba(59,130,246,0.05)'
+                          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.05)'
                         }}
                       >
                         <div className="relative z-10">

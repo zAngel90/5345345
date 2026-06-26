@@ -881,11 +881,11 @@ export default function Account() {
                                                statusGroup === 'procesando' ? 'PROCESANDO' : 'COMPLETADOS';
 
                             return (
-                              <div key={statusGroup} className="space-y-4">
+                              <div key={statusGroup} className="space-y-5">
                                 <h3 className="text-[10px] font-black text-blue-400 tracking-[0.2em] px-2 uppercase">
                                   {groupTitle}
                                 </h3>
-                                <div className="grid grid-cols-1 gap-4">
+                                <div className="grid grid-cols-1 gap-5">
                                   {groupOrders.map((order) => {
                                     const iconInfo = getOrderIcon(order.type);
                                     const orderTitle = order.type === 'fortnite' 
@@ -904,7 +904,7 @@ export default function Account() {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         onClick={() => navigate(`/order/${order.id}`)}
-                                        className="group bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12] rounded-3xl py-3.5 px-4 md:py-4 md:px-6 min-h-[80px] md:min-h-[90px] flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                                        className="group bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12] rounded-3xl py-6 px-5 md:py-7 md:px-7 min-h-[130px] md:min-h-[140px] flex flex-col md:flex-row md:items-center justify-between gap-5 transition-all duration-300 cursor-pointer relative overflow-hidden"
                                       >
                                         {/* Premium Background Circles (Matching Tiers/Profile Banner) */}
                                         <div className="absolute top-[-20%] right-[-10%] w-[130px] h-[110px] bg-white/[0.02] rounded-[100%] rotate-[-25deg] pointer-events-none group-hover:bg-white/[0.04] transition-all duration-700" />
