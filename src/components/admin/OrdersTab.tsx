@@ -233,6 +233,17 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                           </>
                         );
                       }
+                      if (t === 'ingame' || (hasCart && typeof t === 'string' && t.includes(':'))) {
+                        return (
+                          <>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-bold text-white">{order.cart?.length || 1} {order.cart?.length === 1 ? 'Item' : 'Ítems'}</span>
+                              <button onClick={() => setSelectedOrderItems(order)} className="p-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all" title="Ver items"><Eye size={12} /></button>
+                            </div>
+                            <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">In-Game</span>
+                          </>
+                        );
+                      }
                       return (
                         <>
                           <span className="text-xs font-bold text-white">{order.amount?.toLocaleString()} Robux</span>
