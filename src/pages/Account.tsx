@@ -400,16 +400,17 @@ export default function Account() {
   const getStatusSteps = (status: string) => {
     const s = (status || '').toLowerCase();
     if (s === 'completed') return 4;
-    if (s === 'processing' || s === 'in_progress') return 3;
+    if (s === 'in_progress') return 3;
     if (s === 'pending') return 1;
+    if (s === 'cancelled') return 0;
     return 1;
   };
 
   const getStatusLabel = (status: string) => {
     const s = (status || '').toLowerCase();
+    if (s === 'pending') return 'Pendiente';
+    if (s === 'in_progress') return 'En Progreso';
     if (s === 'completed') return 'Completado';
-    if (s === 'processing' || s === 'in_progress') return 'Procesando';
-    if (s === 'pending') return 'En revisión';
     if (s === 'cancelled') return 'Cancelado';
     return status;
   };
@@ -417,8 +418,9 @@ export default function Account() {
   const getStatusColor = (status: string) => {
     const s = (status || '').toLowerCase();
     if (s === 'completed') return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
-    if (s === 'processing' || s === 'in_progress') return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
-    if (s === 'pending') return 'text-indigo-400 bg-indigo-500/10 border-indigo-500/20';
+    if (s === 'in_progress') return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
+    if (s === 'pending') return 'text-amber-400 bg-amber-500/10 border-amber-500/20';
+    if (s === 'cancelled') return 'text-red-400 bg-red-500/10 border-red-500/20';
     return 'text-white/40 bg-white/5 border-white/10';
   };
 
@@ -492,25 +494,21 @@ export default function Account() {
 
       const status = (order.status || '').toLowerCase();
       if (selectedFilter === 'todos') return true;
-      if (selectedFilter === 'procesando') {
-        return status === 'processing' || status === 'in_progress';
-      }
-      if (selectedFilter === 'revision') {
-        return status === 'pending';
-      }
-      if (selectedFilter === 'completados') {
-        return status === 'completed';
-      }
+      if (selectedFilter === 'pendiente') return status === 'pending';
+      if (selectedFilter === 'procesando') return status === 'in_progress';
+      if (selectedFilter === 'completados') return status === 'completed';
+      if (selectedFilter === 'cancelados') return status === 'cancelled';
       return true;
     });
   };
 
   const getFilterCounts = () => {
     let todos = orders.length;
-    let procesando = orders.filter(o => o.status === 'processing' || o.status === 'in_progress').length;
-    let revision = orders.filter(o => o.status === 'pending').length;
+    let pendiente = orders.filter(o => o.status === 'pending').length;
+    let procesando = orders.filter(o => o.status === 'in_progress').length;
     let completados = orders.filter(o => o.status === 'completed').length;
-    return { todos, procesando, revision, completados };
+    let cancelados = orders.filter(o => o.status === 'cancelled').length;
+    return { todos, pendiente, procesando, completados, cancelados };
   };
 
   return (
@@ -813,14 +811,17 @@ export default function Account() {
 
                   {/* Filters tabs (Pills) */}
                   <div className="flex flex-wrap gap-2 items-center">
-                    {(['todos', 'procesando', 'revision', 'completados'] as const).map((filter) => {
+                    {(['todos', 'pendiente', 'procesando', 'completados', 'cancelados'] as const).map((filter) => {
                       const label = filter === 'todos' ? 'Todos' :
+                                    filter === 'pendiente' ? 'Pendiente' :
                                     filter === 'procesando' ? 'Procesando' :
-                                    filter === 'revision' ? 'En revisión' : 'Completados';
+                                    filter === 'completados' ? 'Completados' : 'Cancelados';
                       
-                      const count = filter === 'todos' ? getFilterCounts().todos :
-                                    filter === 'procesando' ? getFilterCounts().procesando :
-                                    filter === 'revision' ? getFilterCounts().revision : getFilterCounts().completados;
+                      const c = getFilterCounts();
+                      const count = filter === 'todos' ? c.todos :
+                                    filter === 'pendiente' ? c.pendiente :
+                                    filter === 'procesando' ? c.procesando :
+                                    filter === 'completados' ? c.completados : c.cancelados;
 
                       const isActive = selectedFilter === filter;
 
@@ -865,20 +866,22 @@ export default function Account() {
                       
                       return (
                         <>
-                          {/* Group by status (En revisión, Procesando, Completados) */}
-                          {(['revision', 'procesando', 'completados'] as const).map((statusGroup) => {
+                          {/* Group by status */}
+                          {(['pendiente', 'procesando', 'completados', 'cancelados'] as const).map((statusGroup) => {
                             const groupOrders = currentOrdersPage.filter(order => {
                               const status = (order.status || '').toLowerCase();
-                              if (statusGroup === 'revision') return status === 'pending';
-                              if (statusGroup === 'procesando') return status === 'processing' || status === 'in_progress';
+                              if (statusGroup === 'pendiente') return status === 'pending';
+                              if (statusGroup === 'procesando') return status === 'in_progress';
                               if (statusGroup === 'completados') return status === 'completed';
+                              if (statusGroup === 'cancelados') return status === 'cancelled';
                               return false;
                             });
 
                             if (groupOrders.length === 0) return null;
 
-                            const groupTitle = statusGroup === 'revision' ? 'EN REVISIÓN' :
-                                               statusGroup === 'procesando' ? 'PROCESANDO' : 'COMPLETADOS';
+                            const groupTitle = statusGroup === 'pendiente' ? 'PENDIENTE' :
+                                               statusGroup === 'procesando' ? 'EN PROCESO' :
+                                               statusGroup === 'completados' ? 'COMPLETADOS' : 'CANCELADOS';
 
                             return (
                               <div key={statusGroup} className="space-y-5">
@@ -939,11 +942,11 @@ export default function Account() {
                                                 <span className="relative flex h-1.5 w-1.5">
                                                   {order.status !== 'cancelled' && (
                                                     <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                                                      order.status === 'completed' ? 'bg-emerald-400' : 'bg-blue-400'
+                                                      order.status === 'completed' ? 'bg-emerald-400' : order.status === 'pending' ? 'bg-amber-400' : 'bg-blue-400'
                                                     }`} />
                                                   )}
                                                   <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${
-                                                    order.status === 'completed' ? 'bg-emerald-500' : order.status === 'cancelled' ? 'bg-red-500' : 'bg-blue-500'
+                                                    order.status === 'completed' ? 'bg-emerald-500' : order.status === 'cancelled' ? 'bg-red-500' : order.status === 'pending' ? 'bg-amber-500' : 'bg-blue-500'
                                                   }`} />
                                                 </span>
                                                 {getStatusLabel(order.status)}

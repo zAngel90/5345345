@@ -805,9 +805,6 @@ const Checkout = () => {
                                   </div>
                                 </div>
 
-                                {/* MM2 Category Label for items */}
-                                <p className="text-[9px] text-blue-400 font-bold uppercase tracking-widest px-1 mb-1">Categoría: {cart[0]?.category || 'Objeto'}</p>
-
                                 {/* Items to Receive - Lista Expandida */}
                               <div className="space-y-2">
                                 {cart.map((item, idx) => (
