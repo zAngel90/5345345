@@ -263,7 +263,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                 </td>
                 <td className="py-5">
                   <div className="flex flex-col">
-                    <span className="text-sm font-black text-emerald-400">${order.total?.toLocaleString()} {order.currency}</span>
+                    <span className="text-sm font-black text-emerald-400">S/ {order.total?.toLocaleString()}</span>
                     <span className="text-[10px] text-white/20 flex items-center gap-1">
                       <CreditCard size={10} /> {order.paymentMethodId}
                     </span>
@@ -473,8 +473,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                         </div>
                         {item?.price && (
                           <div className="text-right">
-                            <p className="text-sm font-black text-white">${item.price}</p>
-                            <p className="text-[10px] text-white/40">{selectedOrderItems.currency}</p>
+                            <p className="text-sm font-black text-white">S/ {item.price}</p>
                           </div>
                         )}
                       </div>

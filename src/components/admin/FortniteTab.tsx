@@ -240,7 +240,7 @@ const FortniteTab: React.FC<FortniteTabProps> = ({ showToast }) => {
                   </div>
                   <div>
                     <p className="text-white/40 text-xs mb-1">Total Pagado</p>
-                    <p className="text-white font-bold">S/ {order.total.toFixed(2)} {order.currency}</p>
+                    <p className="text-white font-bold">S/ {order.total.toFixed(2)}</p>
                   </div>
                   <div>
                     <p className="text-white/40 text-xs mb-1">Total V-Bucks</p>

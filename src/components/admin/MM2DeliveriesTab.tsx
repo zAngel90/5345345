@@ -298,7 +298,7 @@ export default function MM2DeliveriesTab({ orders }: MM2DeliveriesTabProps) {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between px-1">
                     <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">Items ({order.cart?.length || 0})</p>
-                    <p className="text-xs font-black text-white">{order.total} {order.currency}</p>
+                    <p className="text-xs font-black text-white">S/ {order.total}</p>
                   </div>
                   {order.cart && order.cart.length > 0 && order.cart.map((item: any, idx: number) => {
                     const itemColor = item?.color || '#ec4899';

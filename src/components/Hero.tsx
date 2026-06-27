@@ -272,11 +272,11 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-20">
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-2 text-center text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-2 text-center text-white" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}>
           Compra Robux, Items
         </h1>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
-          <span className="bg-gradient-to-r from-[#60a5fa] to-[#3b82f6] bg-clip-text text-transparent" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.2)' }}>Fornite al Mejor Precio</span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 text-center">
+          <span className="bg-gradient-to-r from-[#60a5fa] to-[#3b82f6] bg-clip-text text-transparent" style={{ textShadow: '0 2px 12px rgba(59,130,246,0.4)' }}>Fornite al Mejor Precio</span>
         </h2>
 
         {/* Subtitle */}
