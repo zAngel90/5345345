@@ -6,10 +6,8 @@ import {
   CheckCircle, 
   Star, 
   Shield, 
-  Gamepad2, 
   Sword, 
   Crown, 
-  Monitor, 
   ArrowRight, 
   Clock,
   Link2, 
@@ -518,16 +516,16 @@ function Hero() {
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               <button 
                 onClick={() => navigate('/catalog?category=robux')}
-                className="flex items-center gap-2 px-5 py-3 bg-[#1a3a2e]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#1a3a2e]/50 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
+                className="flex items-center gap-2 px-5 py-3 bg-[#1a3a2e]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#1a3a2e]/50 transition-colors shadow-[0_0_10px rgba(255,255,255,0.05),inset_0_1px_1px rgba(255,255,255,0.1)]"
               >
-                <Gamepad2 className="w-5 h-5" />
+                <img src="/images/robux-logo.svg" className="w-5 h-5 object-contain brightness-0 invert" alt="" />
                 Robux
               </button>
               <button 
                 onClick={() => navigate('/catalog')}
-                className="flex items-center gap-2 px-5 py-3 bg-[#1e3a5f]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#1e3a5f]/50 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
+                className="flex items-center gap-2 px-5 py-3 bg-[#1e3a5f]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#1e3a5f]/50 transition-colors shadow-[0_0_10px rgba(255,255,255,0.05),inset_0_1px_1px rgba(255,255,255,0.1)]"
               >
-                <Monitor className="w-5 h-5" />
+                <img src="/images/ingame.svg" className="w-5 h-5 brightness-0 invert" alt="" />
                 Items In-Game
               </button>
               <button 
