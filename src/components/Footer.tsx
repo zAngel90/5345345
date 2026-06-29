@@ -230,7 +230,7 @@ export default function Footer() {
                             <h4 className="text-xs font-bold tracking-widest text-gray-500 uppercase mb-5">Tienda</h4>
                             <ul className="space-y-3">
                                 <li><a href="/catalog" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><ShoppingBag size={14} /> Catálogo</a></li>
-                                <li><a href="/catalog/robux" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><Diamond size={14} /> Robux</a></li>
+                                <li><a href="/catalog/robux" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><img src="/images/robux-logo.svg" className="w-3.5 h-3.5 object-contain brightness-0 invert opacity-60" alt="" /> Robux</a></li>
                                 <li><a href="/reviews" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><Star size={14} /> Reseñas</a></li>
                             </ul>
                         </div>

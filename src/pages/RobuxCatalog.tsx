@@ -1798,10 +1798,10 @@ export default function RobuxCatalog() {
                 </div>
                 
                 <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-blue-600/10 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-blue-600/20 shadow-inner">
-                    <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                       <div className="w-6 h-6 border-2 border-white rounded-full flex items-center justify-center">
-                         <div className="w-3 h-3 bg-white rounded-full"></div>
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-blue-500/20 shadow-inner">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500/30 to-blue-600/20 rounded-xl flex items-center justify-center shadow-lg">
+                       <div className="w-6 h-6">
+                         <img src="/images/robux-logo.svg" className="w-full h-full object-contain brightness-0 invert" alt="Robux" />
                        </div>
                     </div>
                   </div>
@@ -2432,8 +2432,8 @@ export default function RobuxCatalog() {
                 </div>
 
                 <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-amber-500/10 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-amber-500/20 shadow-inner">
-                    <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-blue-500/20 shadow-inner">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500/30 to-blue-600/20 rounded-xl flex items-center justify-center shadow-lg">
                       <img 
                         src="/images/robux-logo.svg" 
                         className="w-6 h-6 object-contain brightness-0 invert" 
