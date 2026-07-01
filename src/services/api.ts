@@ -315,6 +315,33 @@ export const StoreAPI = {
       method: 'POST',
       body: JSON.stringify({ mm2PrivateServerUrl })
     });
+  },
+  getSocialLinks: async () => {
+    return fetchAPI('/admin/social-links-config');
+  },
+  updateSocialLinks: async (links: any) => {
+    return fetchAPI('/admin/social-links-config', {
+      method: 'POST',
+      body: JSON.stringify({ links })
+    });
+  },
+  getFaqs: async () => {
+    return fetchAPI('/admin/faq-config');
+  },
+  updateFaqs: async (faqs: any) => {
+    return fetchAPI('/admin/faq-config', {
+      method: 'POST',
+      body: JSON.stringify({ faqs })
+    });
+  },
+  getDeliveryMethods: async () => {
+    return fetchAPI('/admin/delivery-methods-config');
+  },
+  updateDeliveryMethods: async (deliveryMethods: any) => {
+    return fetchAPI('/admin/delivery-methods-config', {
+      method: 'POST',
+      body: JSON.stringify({ deliveryMethods })
+    });
   }
 };
 

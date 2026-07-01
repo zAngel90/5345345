@@ -9,7 +9,6 @@ import {
   ChevronRight,
   ChevronLeft,
   LayoutGrid,
-  Plus,
   Sword,
   Diamond,
   Star,
@@ -126,8 +125,7 @@ export default function Catalog() {
   const [activeCurrency, setActiveCurrency] = useState('PEN');
   const [isLoading, setIsLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [otherGameSearch, setOtherGameSearch] = useState('');
-  const [showOtherGameSearch, setShowOtherGameSearch] = useState(false);
+
   const carouselRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -300,8 +298,8 @@ export default function Catalog() {
                 <Gamepad2 className="text-indigo-400" size={20} />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white uppercase tracking-tight">In-Game Items</h2>
-                <p className="text-white/50 text-sm">Buy items, fruits, gamepasses and more</p>
+                <h2 className="text-xl font-bold text-white uppercase tracking-tight">Artículos In-Game</h2>
+                <p className="text-white/50 text-sm">Compra artículos, frutas, gamepasses y más</p>
               </div>
             </div>
 
@@ -315,7 +313,7 @@ export default function Catalog() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-blue-400 transition-colors" size={18} />
             <input
               type="text"
-              placeholder="Search a game..."
+              placeholder="Buscar un juego..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full h-12 pl-12 pr-4 bg-white/[0.04] border border-white/[0.08] rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-white/20 focus:bg-white/[0.06] transition-all"
@@ -405,110 +403,6 @@ export default function Catalog() {
               animationId = requestAnimationFrame(animate);
             }}
           >
-            <div data-card className={`${isExpanded || search ? '' : 'flex-shrink-0 snap-start w-[140px] sm:w-[260px]'} relative group`}>
-              <div className="absolute -inset-1 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl pointer-events-none bg-white/[0.04]" />
-              <div className="relative overflow-hidden rounded-2xl bg-[#0F1419] border border-dashed border-white/[0.08] group-hover:border-white/[0.15] transition-all duration-300 h-full flex flex-col min-h-[140px] sm:min-h-[160px]">
-                {!showOtherGameSearch ? (
-                  <div className="flex flex-col h-full cursor-pointer" onClick={() => setShowOtherGameSearch(true)}>
-                    <div className="relative aspect-square overflow-hidden flex items-center justify-center bg-gradient-to-br from-white/[0.02] to-transparent">
-                      <div className="flex flex-col items-center gap-3">
-                        <div className="w-10 md:w-16 h-10 md:h-16 rounded-xl md:rounded-2xl bg-white/[0.04] border border-dashed border-white/[0.1] flex items-center justify-center group-hover:bg-white/[0.08] group-hover:border-white/[0.15] transition-all">
-                          <Plus className="w-5 md:w-7 h-5 md:h-7 text-white/20 group-hover:text-white/50" />
-                        </div>
-                        <span className="text-white/20 text-[10px] md:text-[11px] font-medium uppercase tracking-wider">Search</span>
-                      </div>
-                    </div>
-                    <div className="p-3 md:p-4 mt-auto">
-                      <h3 className="text-white/50 font-bold text-xs md:text-[15px] truncate uppercase">Other game</h3>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-white/25 text-[10px] md:text-xs">Any Roblox game</span>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-col h-full p-3 sm:p-4">
-                    <div className="relative mb-3">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={14} />
-                      <input
-                        autoFocus
-                        type="text"
-                        placeholder="Buscar juego..."
-                        className="w-full h-9 pl-9 pr-8 bg-white/5 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500/50 transition-all"
-                        value={otherGameSearch}
-                        onChange={(e) => setOtherGameSearch(e.target.value)}
-                      />
-                      {otherGameSearch && (
-                        <button onClick={() => setOtherGameSearch('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors">
-                          <Plus className="rotate-45" size={14} />
-                        </button>
-                      )}
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto scrollbar-hide space-y-2 max-h-[200px]">
-                      <AnimatePresence mode="popLayout">
-                        {otherGameSearch.length < 2 ? (
-                          <motion.p
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            className="text-[10px] text-white/20 text-center py-10 uppercase font-bold tracking-widest"
-                          >
-                            Escribe al menos 2 letras<br />para buscar
-                          </motion.p>
-                        ) : games.filter(g => g.hidden && g.name.toLowerCase().includes(otherGameSearch.toLowerCase())).length === 0 ? (
-                          <motion.p
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            className="text-[10px] text-white/20 text-center py-10 uppercase font-bold tracking-widest"
-                          >
-                            No encontrado
-                          </motion.p>
-                        ) : (
-                          games
-                            .filter(g => g.hidden && g.name.toLowerCase().includes(otherGameSearch.toLowerCase()))
-                            .map((g, idx) => (
-                              <motion.div
-                                key={g.id}
-                                layout
-                                initial={{ opacity: 0, y: -15, scale: 0.9 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{
-                                  type: 'spring',
-                                  stiffness: 400,
-                                  damping: 15,
-                                  mass: 0.8,
-                                  delay: idx * 0.05
-                                }}
-                                onClick={() => navigate(`/catalog/ingame/${g.id}?add_game=1`)}
-                                className="flex items-center gap-2 p-2 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.08] hover:border-white/10 transition-all cursor-pointer group/item"
-                              >
-                                <div className="w-8 h-8 rounded-lg overflow-hidden bg-white/5 shrink-0">
-                                  <img src={g.image ? (g.image.startsWith('http') ? g.image : `${SERVER_URL}${g.image}`) : ''} className="w-full h-full object-cover" alt="" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-[11px] font-bold text-white truncate">{g.name}</p>
-                                  <p className="text-[9px] text-white/30 uppercase">Roblox</p>
-                                </div>
-                                <Plus size={14} className="text-white/20 group-hover/item:text-blue-500 transition-colors" />
-                              </motion.div>
-                            ))
-                        )}
-                      </AnimatePresence>
-                    </div>
-
-                    <button
-                      onClick={() => { setShowOtherGameSearch(false); setOtherGameSearch(''); }}
-                      className="mt-3 py-2 text-[10px] font-bold text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest"
-                    >
-                      Cerrar
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-
             {filteredGames.map((game) => {
               const formattedImage = game.image ? (game.image.startsWith('http') ? game.image : `${SERVER_URL}${game.image}`) : '';
               return (
@@ -531,7 +425,7 @@ export default function Catalog() {
                       <h3 className="text-white font-bold text-xs md:text-[15px] leading-snug truncate group-hover:text-blue-400 transition-colors uppercase tracking-tight">{game.name}</h3>
                       <div className="flex items-center justify-between mt-1">
                         <span className="text-white/35 text-[10px] md:text-xs font-medium uppercase tracking-tighter">
-                          {products.filter(p => p.game === game.id).length} items
+                          {products.filter(p => p.game === game.id).length} artículos
                         </span>
                         <div className="flex items-center gap-1 text-white/25 group-hover:text-blue-400/80 transition-colors">
                           <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -547,7 +441,7 @@ export default function Catalog() {
           {!search && (
             <div className="mt-8 flex justify-center">
               <button onClick={() => setIsExpanded(!isExpanded)} className="w-full md:w-auto px-10 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white/60 text-xs font-bold uppercase tracking-widest hover:bg-white/[0.08] hover:text-white/80 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg">
-                {isExpanded ? 'View less' : 'View all games'}
+                {isExpanded ? 'Ver menos' : 'Ver todos los juegos'}
                 <ChevronRight size={16} className={isExpanded ? '-rotate-90' : ''} />
               </button>
             </div>
@@ -701,12 +595,12 @@ export default function Catalog() {
                   }}
                   className="flex-shrink-0 snap-start w-[220px] sm:w-[280px] md:w-[330px] group cursor-pointer"
                 >
-                  <div className="relative rounded-2xl bg-white/[0.02] border border-white/[0.05] p-3 sm:p-4 md:p-5 transition-all duration-500 hover:bg-white/[0.04] hover:border-white/[0.1] hover:translate-y-[-4px] overflow-hidden flex flex-col">
+                  <div className="relative rounded-2xl bg-white/[0.02] border border-white/[0.05] p-2.5 sm:p-3 md:p-4 transition-all duration-500 hover:bg-white/[0.04] hover:border-white/[0.1] hover:translate-y-[-4px] overflow-hidden flex flex-col">
                     {/* Glow effect */}
                     <div className="absolute -inset-20 bg-gradient-radial from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                     {/* Header Badges */}
-                    <div className="flex justify-between items-start mb-4 relative z-10">
+                    <div className="flex justify-between items-start mb-3 relative z-10">
                       <span className="px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wider backdrop-blur-xl border" style={{ color: item.color, borderColor: `${item.color}40`, background: `linear-gradient(135deg, ${item.color}15, ${item.color}08)`, boxShadow: `0 4px 12px ${item.color}20, inset 0 1px 0 ${item.color}30` }}>
                         {item.rarity}
                       </span>
@@ -717,7 +611,7 @@ export default function Catalog() {
                     </div>
 
                     {/* Image */}
-                    <div className="relative mb-3 sm:mb-4 md:mb-5 group-hover:scale-105 transition-transform duration-700 ease-out z-10 flex items-center justify-center h-[140px] sm:h-[180px] md:h-[220px]">
+                    <div className="relative mb-2 sm:mb-3 md:mb-4 group-hover:scale-105 transition-transform duration-700 ease-out z-10 flex items-center justify-center h-[170px] sm:h-[210px] md:h-[260px]">
                       <img src={item.image} className="max-w-full max-h-full object-contain filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]" alt={item.name} />
                     </div>
 

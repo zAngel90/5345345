@@ -54,13 +54,18 @@ export default function GamesTab({ games, setGames, products, onSave, onTriggerU
     setGames(newGames);
   };
 
-  const updateCategoryConfig = (gameId: string, catIndex: number, field: keyof CategoryConfig, value: any) => {
+  const updateCategoryConfig = (gameId: string, catName: string, field: keyof CategoryConfig, value: any) => {
     const game = games.find(g => g.id === gameId);
     if (!game) return;
 
     const rawCats = game.categories || [];
     const normalized = rawCats.map(normalizeCategory);
-    normalized[catIndex] = { ...normalized[catIndex], [field]: value };
+    const idx = normalized.findIndex(c => c.name === catName);
+    if (idx === -1) {
+      normalized.push({ name: catName, deliveryEnabled: false, deliveryServerUrl: '' });
+    }
+    const targetIdx = idx === -1 ? normalized.length - 1 : idx;
+    normalized[targetIdx] = { ...normalized[targetIdx], [field]: value };
 
     const newGames = games.map(g => g.id === gameId ? { ...g, categories: normalized } : g);
     setGames(newGames);
@@ -190,7 +195,7 @@ export default function GamesTab({ games, setGames, products, onSave, onTriggerU
                               {/* Delivery Toggle */}
                               <div className="flex items-center gap-2">
                                 <div
-                                  onClick={(e) => { e.stopPropagation(); updateCategoryConfig(game.id, catIdx, 'deliveryEnabled', !cat.deliveryEnabled); }}
+                                  onClick={(e) => { e.stopPropagation(); updateCategoryConfig(game.id, cat.name, 'deliveryEnabled', !cat.deliveryEnabled); }}
                                   className={`w-9 h-5 rounded-full p-0.5 transition-all cursor-pointer ${hasDelivery ? 'bg-emerald-500/50' : 'bg-white/10'}`}
                                 >
                                   <div className={`w-4 h-4 rounded-full shadow-lg transition-all ${hasDelivery ? 'translate-x-4 bg-emerald-400' : 'translate-x-0 bg-white/50'}`} />
@@ -218,7 +223,7 @@ export default function GamesTab({ games, setGames, products, onSave, onTriggerU
                                   <input
                                     type="text"
                                     value={cat.deliveryServerUrl}
-                                    onChange={(e) => updateCategoryConfig(game.id, catIdx, 'deliveryServerUrl', e.target.value)}
+                                    onChange={(e) => updateCategoryConfig(game.id, cat.name, 'deliveryServerUrl', e.target.value)}
                                     placeholder="https://www.roblox.com/share?code=..."
                                     className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500/50 transition-all placeholder:text-white/20"
                                   />

@@ -50,7 +50,7 @@ export default function Testimonials() {
         if (res.success) {
           setReviews(res.data);
           const total = res.data.length;
-          const avg = total > 0 ? res.data.reduce((acc: number, r: any) => acc + r.rating, 0) / total : 5;
+          const avg = total > 0 ? res.data.reduce((acc: number, r: any) => acc + r.rating, 0) / total : 0;
           setStats({ average: parseFloat(avg.toFixed(1)), total });
         }
       } catch (err) {

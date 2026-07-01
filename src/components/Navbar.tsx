@@ -525,6 +525,7 @@ export default function Navbar() {
                     )}
                   </div>
                 ))}
+
               </div>
 
               <div className="flex items-center gap-4 relative">
@@ -682,8 +683,9 @@ export default function Navbar() {
 
                 <Link
                   to="/account?tab=pedidos"
-                  className="hidden sm:flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors"
+                  className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white/5 backdrop-blur-sm rounded-full border border-white/[0.08] text-sm font-semibold text-white/70 hover:text-white transition-colors"
                 >
+                  <img src="/images/carrito.svg" className="w-4 h-4 brightness-0 invert opacity-70" alt="" />
                   Mis Compras
                 </Link>
 
@@ -806,7 +808,7 @@ export default function Navbar() {
           {[
             { id: 'inicio', icon: Home, label: 'Inicio', href: '/' },
             { id: 'catalogo', icon: LayoutGrid, label: 'Catálogo', href: '/catalog' },
-            { id: 'carrito', icon: ShoppingCart, label: 'Pedidos', href: isLoggedIn ? '/account' : '#' },
+            { id: 'carrito', icon: ShoppingCart, label: 'Mis Compras', href: isLoggedIn ? '/account' : '#' },
             { id: 'resenas', icon: Star, label: 'Reseñas', href: '/reviews' },
             { id: 'perfil', icon: User, label: 'Perfil', href: isLoggedIn ? '/account' : '#' },
           ].map((item) => {
@@ -826,7 +828,11 @@ export default function Navbar() {
                   isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-gray-500 hover:text-white'
                 }`}
               >
-                <item.icon size={20} className={isActive ? 'shrink-0' : ''} />
+                {item.id === 'carrito' ? (
+                  <img src="/images/carrito.svg" className="w-5 h-5 brightness-0 invert opacity-70 shrink-0" alt="" />
+                ) : (
+                  <item.icon size={20} className={isActive ? 'shrink-0' : ''} />
+                )}
                 <AnimatePresence>
                   {isActive && (
                     <motion.span

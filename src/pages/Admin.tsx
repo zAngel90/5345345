@@ -51,15 +51,18 @@ import CategoryIconsTab from '../components/admin/CategoryIconsTab';
 import CouponsTab from '../components/admin/CouponsTab';
 import ReviewsTab from '../components/admin/ReviewsTab';
 import FortniteTab from '../components/admin/FortniteTab';
+import SettingsTab from '../components/admin/SettingsTab';
+import LevelPricingTab from '../components/admin/LevelPricingTab';
 
 const TABS = [
-  { id: 'dashboard', label: 'Panel General', icon: LayoutDashboard, category: 'Main' },
+  { id: 'dashboard', label: 'Panel General', icon: LayoutDashboard, category: 'Principal' },
   { id: 'orders', label: 'Pedidos', icon: History, category: 'Operaciones' },
   { id: 'deliveries', label: 'Entregas Especiales', icon: Package, category: 'Operaciones' },
   { id: 'fortnite', label: 'Fortnite', icon: Zap, category: 'Operaciones' },
   { id: 'chats', label: 'Soporte Chat', icon: MessageSquare, category: 'Operaciones' },
   { id: 'products', label: 'Paquetes Robux', icon: ShoppingBag, category: 'Tienda' },
-  { id: 'limiteds', label: 'Limiteds / Trade', icon: Crown, category: 'Tienda' },
+  { id: 'level-pricing', label: 'Precios por Nivel', icon: Crown, category: 'Tienda' },
+  { id: 'limiteds', label: 'Limitados / Trade', icon: Crown, category: 'Tienda' },
   { id: 'mm2', label: 'Murder Mystery 2', icon: Zap, category: 'Tienda' },
   { id: 'coupons', label: 'Cupones Descuento', icon: Ticket, category: 'Tienda' },
   { id: 'reviews', label: 'Reseñas', icon: Star, category: 'Tienda' },
@@ -67,6 +70,7 @@ const TABS = [
   { id: 'groups', label: 'Grupos Roblox', icon: Users, category: 'Configuración' },
   { id: 'currencies', label: 'Tasas y Monedas', icon: Globe, category: 'Configuración' },
   { id: 'payment-methods', label: 'Métodos de Pago', icon: CreditCard, category: 'Configuración' },
+  { id: 'settings', label: 'Ajustes Generales', icon: Settings, category: 'Configuración' },
   { id: 'category-icons', label: 'Iconos Categorías', icon: LayoutGrid, category: 'Visual' },
   { id: 'home', label: 'Página Inicio', icon: ImageIcon, category: 'Visual' },
 ];
@@ -93,6 +97,7 @@ export default function Admin() {
     { minAmount: 0, pricePerUnit: 0.030 },
     { minAmount: 500, pricePerUnit: 0.028 }
   ]);
+  const [levelPricing, setLevelPricing] = useState<Record<string, number>>({});
   const [games, setGames] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [limiteds, setLimiteds] = useState<any[]>([]);
@@ -199,6 +204,9 @@ export default function Admin() {
           if (robuxRes.data.customTiers) {
             setCustomTiers(robuxRes.data.customTiers);
           }
+          if (robuxRes.data.levelPricing) {
+            setLevelPricing(robuxRes.data.levelPricing);
+          }
         }
       }
       if (gamesRes.success) setGames(gamesRes.data || []);
@@ -269,6 +277,7 @@ export default function Admin() {
       let res;
       if (type === 'groups') res = await RobloxAPI.updateGroupsConfig(requiredGroups);
       else if (type === 'robux') res = await StoreAPI.updateRobuxConfig({ packages: robuxPackages, pricePer1000, customTiers });
+      else if (type === 'level-pricing') res = await StoreAPI.updateRobuxConfig({ levelPricing });
       else if (type === 'games') res = await StoreAPI.updateGamesConfig(games);
       else if (type === 'products') res = await StoreAPI.updateProductsConfig(products);
       else if (type === 'limiteds') res = await StoreAPI.updateLimitedsConfig(limiteds);
@@ -306,7 +315,7 @@ export default function Admin() {
               <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <ShieldCheck className="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" size={48} />
             </div>
-            <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Command Center</h2>
+            <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Centro de Control</h2>
             <p className="text-blue-400 text-xs mt-2 font-bold uppercase tracking-widest">Acceso Restringido</p>
           </div>
           
@@ -505,6 +514,15 @@ export default function Admin() {
                       />
                     )}
 
+                    {activeTab === 'level-pricing' && (
+                      <LevelPricingTab
+                        levelPricing={levelPricing}
+                        setLevelPricing={setLevelPricing}
+                        onSave={() => handleSaveAll('level-pricing')}
+                        isSaving={isSaving}
+                      />
+                    )}
+
                     {activeTab === 'currencies' && (
                       <CurrenciesTab 
                         currencies={currencies}
@@ -597,6 +615,10 @@ export default function Admin() {
                       <FortniteTab showToast={showToast} />
                     )}
 
+                    {activeTab === 'settings' && (
+                      <SettingsTab />
+                    )}
+
                     {activeTab === 'home' && (
                       <HomeTab 
                         SERVER_URL={SERVER_URL}
@@ -676,7 +698,7 @@ export default function Admin() {
                   
                   <div className="grid grid-cols-2 gap-5">
                     <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-4">
-                      <span className="text-white/40 text-[10px] font-black uppercase tracking-widest">Fondo Card:</span>
+                      <span className="text-white/40 text-[10px] font-black uppercase tracking-widest">Fondo Tarjeta:</span>
                       <div className="flex-1 flex items-center gap-3">
                         <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white/20">
                           <input type="color" value={editingProduct.color || '#1a1c20'} onChange={(e) => setEditingProduct({ ...editingProduct, color: e.target.value })} className="absolute -top-2 -left-2 w-16 h-16 cursor-pointer" />
@@ -685,7 +707,7 @@ export default function Admin() {
                       </div>
                     </div>
                     <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-4">
-                      <span className="text-white/40 text-[10px] font-black uppercase tracking-widest">Fondo Badge:</span>
+                      <span className="text-white/40 text-[10px] font-black uppercase tracking-widest">Fondo Insignia:</span>
                       <div className="flex-1 flex items-center gap-3">
                         <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white/20">
                           <input type="color" value={editingProduct.badgeColor || editingProduct.color || '#1a1c20'} onChange={(e) => setEditingProduct({ ...editingProduct, badgeColor: e.target.value })} className="absolute -top-2 -left-2 w-16 h-16 cursor-pointer" />

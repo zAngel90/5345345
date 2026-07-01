@@ -96,7 +96,7 @@
   color: #fff;
   padding: 3px 10px;
   font-size: 0.7rem;
-  font-weight: 900;
+  font-weight: 700;
   z-index: 10;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 4px;
@@ -110,7 +110,7 @@
 
 .item-name {
   font-size: 1.3rem;
-  font-weight: 900;
+  font-weight: 700;
   color: #fff;
   line-height: 1.1;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
@@ -141,7 +141,7 @@
 .item-price-badge span {
   font-size: 1.2rem;
   color: #fff;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .rarity-bar {
@@ -207,40 +207,9 @@
   color: #000;
   padding: 6px 30px;
   font-size: 0.9rem;
-  font-weight: 900;
+  font-weight: 700;
   z-index: 100;
   clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-}
-
-.bundle-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.action-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s;
-  color: #fff;
-}
-
-.cart-btn {
-  background: #facc15;
-  color: #000;
-}
-
-.view-btn {
-  background: #2a2aeb;
-}
-
-.action-btn:hover {
-  transform: scale(1.1);
 }
 
 .is-bundle .item-info {

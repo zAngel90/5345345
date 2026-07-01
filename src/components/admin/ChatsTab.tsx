@@ -128,6 +128,29 @@ export default function ChatsTab() {
     }
   };
 
+  const renderMessageWithLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline break-all"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -310,7 +333,7 @@ export default function ChatsTab() {
                           <span className="text-xs font-bold truncate max-w-[150px]">Descargar Archivo</span>
                         </a>
                       )}
-                      {msg.text && <p className="text-sm font-medium leading-relaxed">{msg.text}</p>}
+                      {msg.text && <p className="text-sm font-medium leading-relaxed">{renderMessageWithLinks(msg.text)}</p>}
                     </div>
                     <span className="mt-1 text-[9px] font-bold text-white/20 uppercase px-2">{msg.time}</span>
                   </div>

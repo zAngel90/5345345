@@ -74,7 +74,7 @@ const CheckoutLoader = () => {
             className="flex items-center justify-center gap-4 mt-8"
           >
             <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/20" />
-            <p className="text-[11px] font-black text-white/40 uppercase tracking-[0.6em]">CHECKOUT</p>
+            <p className="text-[11px] font-black text-white/40 uppercase tracking-[0.6em]">FINALIZAR COMPRA</p>
             <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-white/20" />
           </motion.div>
         </motion.div>
@@ -146,82 +146,7 @@ const Checkout = () => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [countries, setCountries] = useState<any[]>([]);
 
-  const hasPlayedSound = useRef(false);
 
-  useEffect(() => {
-    if (!isFetching) {
-      let isPlayed = false;
-
-      const playChime = () => {
-        if (isPlayed || hasPlayedSound.current) return;
-        try {
-          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-          if (AudioContextClass) {
-            const audioCtx = new AudioContextClass();
-            
-            const runChime = () => {
-              const now = audioCtx.currentTime;
-              const gainNode = audioCtx.createGain();
-              gainNode.gain.setValueAtTime(0, now);
-              gainNode.gain.linearRampToValueAtTime(0.40, now + 0.08); // Volumen aumentado a 0.40
-              gainNode.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
-              
-              const osc1 = audioCtx.createOscillator();
-              osc1.type = 'sine';
-              osc1.frequency.setValueAtTime(880, now); // A5 (La5)
-              
-              const osc2 = audioCtx.createOscillator();
-              osc2.type = 'sine';
-              osc2.frequency.setValueAtTime(1318.51, now); // E6 (Mi6)
-              
-              osc1.connect(gainNode);
-              osc2.connect(gainNode);
-              gainNode.connect(audioCtx.destination);
-              
-              osc1.start(now);
-              osc2.start(now);
-              osc1.stop(now + 1.5);
-              osc2.stop(now + 1.5);
-              
-              isPlayed = true;
-              hasPlayedSound.current = true;
-              
-              // Remover event listeners tras reproducirse con éxito
-              document.removeEventListener('click', handleFirstInteraction);
-              document.removeEventListener('keydown', handleFirstInteraction);
-            };
-
-            if (audioCtx.state === 'suspended') {
-              audioCtx.resume().then(runChime).catch(() => {});
-            } else {
-              runChime();
-            }
-          }
-        } catch (err) {
-          console.log('Error de síntesis de audio:', err);
-        }
-      };
-
-      const handleFirstInteraction = () => {
-        playChime();
-      };
-
-      // Intentar reproducir inmediatamente
-      playChime();
-
-      // Si el navegador bloqueó el autoplay (y por ende isPlayed sigue false),
-      // escuchamos la primera interacción del usuario en la pantalla
-      if (!isPlayed && !hasPlayedSound.current) {
-        document.addEventListener('click', handleFirstInteraction);
-        document.addEventListener('keydown', handleFirstInteraction);
-      }
-
-      return () => {
-        document.removeEventListener('click', handleFirstInteraction);
-        document.removeEventListener('keydown', handleFirstInteraction);
-      };
-    }
-  }, [isFetching]);
 
   const [selectedCountry, setSelectedCountry] = useState<string>('PE');
   const [isCountrySelectorOpen, setIsCountrySelectorOpen] = useState<boolean>(false);
@@ -445,7 +370,7 @@ const Checkout = () => {
         console.error('Error fetching checkout data:', error);
       } finally {
         // Aumentado a 3.5 segundos para una mejor experiencia visual
-        setTimeout(() => setIsFetching(false), 3500);
+        setTimeout(() => setIsFetching(false), 2500);
       }
     };
     fetchMethods();
@@ -558,6 +483,23 @@ const Checkout = () => {
 
   const handleSubmitOrder = async () => {
     if (!selected || !receipt) return;
+
+    // Check if delivery method is enabled
+    const methodToUse = state.method || 'gamepass';
+    try {
+      const delRes = await StoreAPI.getDeliveryMethods();
+      if (delRes.success) {
+        const dm = delRes.data;
+        if ((methodToUse === 'gamepass' && !dm.gamepass?.enabled) ||
+            (methodToUse === 'group' && !dm.group?.enabled)) {
+          alert(`El método "${methodToUse === 'gamepass' ? 'Gamepass' : 'Grupo'}" está desactivado actualmente.`);
+          setIsLoading(false);
+          return;
+        }
+      }
+    } catch {
+      // Silently continue if check fails
+    }
     setIsLoading(true);
     try {
       const formData = new FormData();
@@ -683,7 +625,7 @@ const Checkout = () => {
                   </button>
                   <div className="flex flex-col">
                     <h1 className="text-lg font-black text-white uppercase tracking-tighter leading-none">PIXEL STORE</h1>
-                    <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mt-1">CHECKOUT</p>
+                    <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mt-1">FINALIZAR COMPRA</p>
                   </div>
                 </div>
 
@@ -693,7 +635,7 @@ const Checkout = () => {
                       <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                       <span className="text-xs font-black text-white uppercase tracking-wider">Pago Seguro</span>
                     </div>
-                    <span className="text-[9px] text-white/20 uppercase tracking-[0.2em] font-black mt-1">256-BIT SSL ENCRYPTED</span>
+                    <span className="text-[9px] text-white/20 uppercase tracking-[0.2em] font-black mt-1">CIFRADO SSL DE 256 BITS</span>
                   </div>
                   <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner">
                     <Shield size={22} className="text-emerald-500" />
@@ -777,7 +719,7 @@ const Checkout = () => {
                                     <img src="https://www.peekstore.com/_next/image?url=%2Fmm2-logo.webp&w=64&q=75" className="w-full h-full object-contain rounded-lg" alt="MM2" />
                                   </div>
                                   <div className="flex-1">
-                                    <div className="text-sm font-black text-white mb-1">{cart.length} {cart.length === 1 ? 'Item' : 'Items'} MM2</div>
+                                    <div className="text-sm font-black text-white mb-1">{cart.length} {cart.length === 1 ? 'Artículo' : 'Artículos'} MM2</div>
                                     <div className="flex items-center gap-1.5">
                                       <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-white/[0.03]">
                                         <Zap className="w-2.5 h-2.5 text-white/60" />
@@ -836,7 +778,7 @@ const Checkout = () => {
                                     </div>
                                     <div className="flex-1">
                                       <div className="text-sm font-black text-white uppercase tracking-tight mb-1">
-                                        {cart.length} {cart.length === 1 ? 'Skin' : 'Skins'} Fortnite
+                                        {cart.length} {cart.length === 1 ? 'Atuendo' : 'Atuendos'} Fortnite
                                       </div>
                                       <div className="flex flex-wrap gap-1.5">
                                         <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-blue-500/[0.08]">
@@ -967,7 +909,7 @@ const Checkout = () => {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                           <p className="text-[9px] text-white/30 font-bold uppercase tracking-tight mb-0.5">
-                                            {item?.game || 'Roblox Limiteds'}
+                                            {item?.game || 'Roblox Limitados'}
                                           </p>
                                           <p className="text-[11px] font-black text-white truncate leading-tight mb-1">{item?.name}</p>
                                           <p className="text-[9px] text-blue-400 font-bold uppercase">{item?.rarity || item?.category || 'In-Game'}</p>
@@ -1065,7 +1007,7 @@ const Checkout = () => {
                                     {cart.length}
                                   </div>
                                   <div className="flex-1">
-                                    <div className="text-sm font-black text-white mb-1">{cart.length} {cart.length === 1 ? 'Item' : 'Ítems'} Limited</div>
+                                    <div className="text-sm font-black text-white mb-1">{cart.length} {cart.length === 1 ? 'Artículo' : 'Artículos'} Limitados</div>
                                     <div className="flex items-center gap-1.5">
                                       <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-blue-500/[0.08]">
                                         <Zap className="w-2.5 h-2.5 text-blue-400" />
@@ -1131,7 +1073,7 @@ const Checkout = () => {
                                     {cart.length}
                                   </div>
                                   <div className="flex-1">
-                                    <div className="text-sm font-black text-white mb-1">{cart.length} {cart.length === 1 ? 'Item' : 'Ítems'} del Catálogo</div>
+                                    <div className="text-sm font-black text-white mb-1">{cart.length} {cart.length === 1 ? 'Artículo' : 'Artículos'} del Catálogo</div>
                                     <div className="flex items-center gap-1.5">
                                       <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-blue-500/[0.08]">
                                         <Shield className="w-2.5 h-2.5 text-blue-400" />
@@ -1172,7 +1114,7 @@ const Checkout = () => {
                                       </div>
                                       <div className="flex-1 min-w-0">
                                         <p className="text-[9px] text-blue-400 font-bold uppercase tracking-tight mb-0.5">
-                                          {item?.category || 'Item'}
+{item?.category || 'Artículo'}
                                         </p>
                                         <p className="text-[11px] font-black text-white truncate leading-tight mb-1">{item?.name}</p>
                                       </div>
@@ -1433,7 +1375,7 @@ const Checkout = () => {
                                     <div>
                                       <span className="block text-[10px] font-black text-white tracking-wider uppercase">{appliedCoupon.code}</span>
                                       <span className="block text-[9px] text-emerald-400 font-black uppercase mt-0.5 tracking-widest">
-                                        -{appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountValue}%` : `S/${appliedCoupon.discountValue}`} OFF
+                                        -{appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountValue}%` : `S/${appliedCoupon.discountValue}`} DTO
                                       </span>
                                     </div>
                                   </div>

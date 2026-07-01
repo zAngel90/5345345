@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Star, 
@@ -46,18 +46,23 @@ interface Review {
 
 // --- Components ---
 
-const StarRating = ({ rating, size = 16, className = "", onSelect }: { rating: number, size?: number, className?: string, onSelect?: (r: number) => void }) => (
-  <div className={`flex gap-0.5 ${className}`}>
-    {[1, 2, 3, 4, 5].map((star) => (
-      <Star 
-        key={star} 
-        size={size} 
-        onClick={() => onSelect?.(star)}
-        className={`${star <= rating ? "fill-amber-400 text-amber-400" : "text-white/10 fill-white/10"} ${onSelect ? 'cursor-pointer hover:scale-110 transition-transform' : ''}`} 
-      />
-    ))}
-  </div>
-);
+const StarRating = ({ rating, size = 16, className = "", onSelect }: { rating: number, size?: number, className?: string, onSelect?: (r: number) => void }) => {
+  const isLow = rating <= 2;
+  return (
+    <div className={`flex gap-0.5 ${className}`}>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star 
+          key={star} 
+          size={size} 
+          onClick={() => onSelect?.(star)}
+          className={`${star <= rating 
+            ? (isLow ? "fill-red-400 text-red-400" : "fill-amber-400 text-amber-400") 
+            : "text-white/10 fill-white/10"} ${onSelect ? 'cursor-pointer hover:scale-110 transition-transform' : ''}`} 
+        />
+      ))}
+    </div>
+  );
+};
 
 const Pagination = ({ current, total, onChange }: { current: number, total: number, onChange: (p: number) => void }) => {
   const pages = useMemo(() => {
@@ -134,13 +139,13 @@ const ReviewCard = ({ review }: { review: Review }) => {
     
     if (type === 'fortnite') {
       const count = itemsCount || 1;
-      return `Pedido de ${count} Skin${count > 1 ? 's' : ''} Fortnite`;
+      return `Pedido de ${count} ${count > 1 ? 'Atuendos' : 'Atuendo'} Fortnite`;
     } else if (type === 'mm2') {
       const count = itemsCount || 1;
-      return `Pedido de ${count} Item${count > 1 ? 's' : ''} MM2`;
+      return `Pedido de ${count} ${count > 1 ? 'Artículos' : 'Artículo'} MM2`;
     } else if (type === 'trade_limited') {
       const count = itemsCount || 1;
-      return `Pedido de ${count} Limited${count > 1 ? 's' : ''}`;
+      return `Pedido de ${count} ${count > 1 ? 'Limitados' : 'Limitado'}`;
     } else if (type === 'robux') {
       return `Pedido de ${amount || 0} Robux`;
     }
@@ -255,6 +260,7 @@ export default function Reviews() {
   const [currentPage, setCurrentPage] = useState(1);
   const [ratingDropdownOpen, setRatingDropdownOpen] = useState(false);
   const [showOnlyMyReviews, setShowOnlyMyReviews] = useState(false);
+  const scrollPosRef = useRef(0);
   
   // Review Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -284,6 +290,23 @@ export default function Reviews() {
     fetchReviews();
     fetchUserOrders();
   }, []);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      scrollPosRef.current = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPosRef.current}px`;
+      document.body.style.width = '100%';
+    }
+    return () => {
+      if (document.body.style.position === 'fixed') {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollPosRef.current);
+      }
+    };
+  }, [isModalOpen]);
 
   const fetchUserOrders = async () => {
     try {
@@ -316,7 +339,7 @@ export default function Reviews() {
     return {
       total,
       distribution,
-      average: total > 0 ? (sum / total).toFixed(1) : '5.0'
+      average: total > 0 ? (sum / total).toFixed(1) : '0.0'
     };
   }, [reviews]);
 
@@ -399,8 +422,8 @@ export default function Reviews() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, filter: 'blur(10px)' }}
-      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen relative overflow-x-hidden"
     >
@@ -610,8 +633,8 @@ export default function Reviews() {
               >
                 <option value="newest" className="bg-[#0d0c22]">Recientes</option>
                 <option value="oldest" className="bg-[#0d0c22]">Antiguas</option>
-                <option value="highest" className="bg-[#0d0c22]">Mayor Rating</option>
-                <option value="lowest" className="bg-[#0d0c22]">Menor Rating</option>
+                <option value="highest" className="bg-[#0d0c22]">Mayor Puntuación</option>
+                <option value="lowest" className="bg-[#0d0c22]">Menor Puntuación</option>
               </select>
             </div>
 
@@ -680,20 +703,21 @@ export default function Reviews() {
       {/* Write Review Modal */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[100] pointer-events-none">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => !submitting && setIsModalOpen(false)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+              className="fixed inset-0 bg-black/80 backdrop-blur-md pointer-events-auto"
             />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-xl bg-[#151432] border border-white/10 rounded-2xl lg:rounded-[32px] overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto"
-            >
+            <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-xl pointer-events-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="bg-[#151432] border border-white/10 rounded-2xl lg:rounded-[32px] shadow-2xl max-h-[85vh] overflow-y-auto"
+              >
               <div className="p-4 lg:p-8">
                 <div className="flex justify-between items-start mb-8">
                   <div>
@@ -711,10 +735,21 @@ export default function Reviews() {
                     <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Calificación</label>
                     <div className="flex flex-col gap-1">
                       <StarRating rating={newRating} size={32} onSelect={setNewRating} />
-                      <span className="text-xs text-amber-400/60 font-medium">
+                      <span className={`text-xs font-medium ${newRating <= 2 ? 'text-red-400/60' : 'text-amber-400/60'}`}>
                         {['Muy mala', 'Mala', 'Regular', 'Buena', 'Excelente'][newRating - 1]}
                       </span>
                     </div>
+                  </div>
+
+                  {/* Comment */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Comentario</label>
+                    <textarea 
+                      value={newText}
+                      onChange={(e) => setNewText(e.target.value)}
+                      placeholder="¿Qué te pareció el servicio? ¿Fue rápido? ¿Lo recomendarías?"
+                      className="w-full h-32 bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder:text-white/20 focus:border-blue-500/50 transition-all outline-none resize-none"
+                    />
                   </div>
 
                   {/* Order Selector */}
@@ -735,11 +770,11 @@ export default function Reviews() {
                         <option key={order.id} value={order.id} className="bg-[#151432] text-white">
                           Pedido #{order.id.slice(0, 8)} - {
                             order.type === 'fortnite' 
-                              ? `${order.cart?.length || 1} Skin${order.cart?.length > 1 ? 's' : ''} Fortnite`
+                              ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Atuendos' : 'Atuendo'} Fortnite`
                               : order.type === 'mm2'
-                                ? `${order.cart?.length || 1} Item${order.cart?.length > 1 ? 's' : ''} MM2`
+                                ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Artículos' : 'Artículo'} MM2`
                                 : order.type === 'trade_limited'
-                                  ? `${order.cart?.length || 1} Item${order.cart?.length > 1 ? 's' : ''} Limited`
+                                  ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Artículos Limitados' : 'Artículo Limitado'}`
                                   : `${order.amount} Robux`
                           } - {new Date(order.createdAt).toLocaleDateString()}
                         </option>
@@ -750,18 +785,8 @@ export default function Reviews() {
                     )}
                   </div>
 
-                  {/* Comment */}
-                  <div className="space-y-3">
-                    <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Comentario</label>
-                    <textarea 
-                      value={newText}
-                      onChange={(e) => setNewText(e.target.value)}
-                      placeholder="¿Qué te pareció el servicio? ¿Fue rápido? ¿Lo recomendarías?"
-                      className="w-full h-32 bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder:text-white/20 focus:border-blue-500/50 transition-all outline-none resize-none"
-                    />
-                  </div>
-
                   {/* Image Upload */}
+                  {newRating >= 3 && (
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Añadir Foto (Opcional)</label>
                     <div className="flex items-center gap-4">
@@ -776,7 +801,7 @@ export default function Reviews() {
                           </button>
                         </div>
                       ) : (
-                        <label className="size-24 flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/10 bg-white/5 hover:bg-white/[0.08] hover:border-blue-500/40 cursor-pointer transition-all">
+                        <label className="size-24 flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/10 bg-white/5 hover:bg-white/[0.08] hover:border-amber-500/40 cursor-pointer transition-all">
                           <Camera className="text-white/20" size={24} />
                           <span className="text-[10px] font-bold text-white/30">AÑADIR</span>
                           <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
@@ -789,6 +814,7 @@ export default function Reviews() {
                       </div>
                     </div>
                   </div>
+                  )}
 
                   <button 
                     onClick={handleSubmitReview}
@@ -801,6 +827,7 @@ export default function Reviews() {
                 </div>
               </div>
             </motion.div>
+          </div>
           </div>
         )}
       </AnimatePresence>

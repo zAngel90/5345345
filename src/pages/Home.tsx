@@ -23,7 +23,8 @@ import {
   ShieldCheck, 
   MessageSquare, 
   ArrowUpRight,
-  CheckCircle2
+  CheckCircle2,
+  Loader2
 } from 'lucide-react';
 import { StoreAPI, ReviewsAPI, SERVER_URL, SiteStatusAPI } from '../services/api';
 
@@ -85,65 +86,6 @@ const steps = [
   }
 ];
 
-const faqs = [
-  {
-    id: "delivery-methods",
-    icon: Truck,
-    question: "¿Cuáles son los métodos de entrega?",
-    answer: `
-      <div class="space-y-4">
-        <p class="text-gray-400 text-sm">Ofrecemos dos métodos seguros:</p>
-        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-          <p class="text-sm font-bold text-white"><span class="text-pixel-accent">Gamepass:</span> Creas un gamepass en tu juego, nosotros cubrimos el 30% de impuesto de Roblox. Tus Robux aparecerán en tus <span class="text-pixel-accent underline">transacciones pendientes</span> por 5 días antes de reflejarse en tu cuenta.</p>
-        </div>
-        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-          <p class="text-sm font-bold text-white"><span class="text-pixel-accent">Grupo:</span> Te unes a nuestros <span class="text-pixel-accent underline">grupos de Roblox</span>, esperas 14 días para unirte, y luego recibes tus Robux de forma segura.</p>
-        </div>
-      </div>
-    `
-  },
-  {
-    id: "delivery-time",
-    icon: Clock,
-    question: "¿Cuánto tarda la entrega de Robux?",
-    answer: `
-      <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
-        <p class="text-sm font-medium text-gray-300">Nuestra infraestructura está optimizada para la <span class='text-pixel-accent font-bold'>velocidad extrema</span>. Una vez validado el pago, el sistema inicia la transferencia que suele completarse en un rango de <span class='text-white font-black'>1 a 5 minutos</span>. Utilizamos servidores dedicados para asegurar que no haya retrasos incluso en horas de alta demanda mundial.</p>
-      </div>
-    `
-  },
-  {
-    id: "safety",
-    icon: ShieldCheck,
-    question: "¿Es seguro? ¿Hay riesgo de baneo?",
-    answer: `
-      <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
-        <p class="text-sm font-medium text-gray-300">Cero riesgos. En <span class='text-white font-bold'>Pixel Store</span>, priorizamos la integridad de tu perfil. <span class='text-pixel-accent font-bold'>Nunca solicitamos tu contraseña</span> y todas las transacciones se realizan mediante métodos legítimos y seguros que cumplen con los protocolos de la plataforma, garantizando una experiencia sin baneos.</p>
-      </div>
-    `
-  },
-  {
-    id: "trust",
-    icon: Star,
-    question: "¿Cómo sé que son confiables?",
-    answer: `
-      <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
-        <p class="text-sm font-medium text-gray-300">Contamos con más de <span class='text-white font-bold'>100,000 pedidos entregados</span> y miles de reseñas positivas en nuestra comunidad. Nuestro sistema es transparente y puedes seguir tu pedido en tiempo real. Además, somos una tienda verificada con años de trayectoria en el mercado.</p>
-      </div>
-    `
-  },
-  {
-    id: "payments",
-    icon: CreditCard,
-    question: "¿Qué métodos de pago aceptan?",
-    answer: `
-      <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
-        <p class="text-sm font-medium text-gray-300">Soportamos una suite completa de opciones: desde <span class='text-blue-400 font-bold'>PayPal</span> y tarjetas de crédito internacionales hasta <span class='text-orange-400 font-bold'>Criptomonedas</span> para máxima privacidad. Cada pago es procesado a través de pasarelas con cifrado de <span class='text-pixel-accent font-bold'>256-bits</span>, asegurando que tus datos financieros estén blindados.</p>
-      </div>
-    `
-  }
-];
-
 // ==========================================
 // SUB-COMPONENTS
 // ==========================================
@@ -179,6 +121,12 @@ function Hero() {
     const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
     const clampedX = Math.max(-maxScroll, Math.min(0, newX));
     x.set(clampedX);
+  };
+
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    const step = 340;
+    const currentX = x.get();
+    updateX(currentX + (direction === 'right' ? -step : step));
   };
 
   useEffect(() => {
@@ -243,11 +191,11 @@ function Hero() {
   const handleSearch = (item?: any) => {
     if (item) {
       if (item.type === 'game') {
-        navigate(`/catalog?game=${item.id}`);
+        navigate(`/catalog/ingame/${item.id}`);
       } else if (item.type === 'product') {
         navigate(`/catalog?search=${encodeURIComponent(item.name)}`);
       } else if (item.type === 'robux') {
-        navigate('/robux');
+        navigate('/catalog/robux');
       }
       setSearchQuery('');
       setIsSearchDropdownOpen(false);
@@ -380,17 +328,17 @@ function Hero() {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-2 text-center text-white" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}>
               Compra Robux, Items
             </h1>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 text-center">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-5 text-center">
               <span className="bg-gradient-to-r from-[#60a5fa] to-[#3b82f6] bg-clip-text text-transparent" style={{ textShadow: '0 2px 12px rgba(59,130,246,0.4)' }}>Fornite al Mejor Precio</span>
             </h2>
 
-            <p className="text-white/90 text-sm md:text-base mb-6 max-w-xl mx-auto text-center leading-relaxed font-medium">
+            <p className="text-white/90 text-sm md:text-base mb-5 max-w-xl mx-auto text-center leading-relaxed font-medium">
               Entrega rápida, precios bajos y atención 24/7. Paga con
               <br />
               Yape, BCP, Plin, Transferencia y Otros.
             </p>
 
-            <div className="flex items-center gap-0 mb-6 px-8 py-4 bg-white/5 backdrop-blur-md border border-white/[0.08] rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)]">
+            <div className="flex items-center gap-0 mb-5 px-8 py-4 bg-white/5 backdrop-blur-md border border-white/[0.08] rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)]">
               <div className="flex items-center gap-2 px-4">
                 <CheckCircle className="w-5 h-5 text-[#00d4aa]" />
                 <div className="flex flex-col">
@@ -416,7 +364,7 @@ function Hero() {
               </div>
             </div>
 
-            <div className="w-full max-w-2xl mb-5 relative">
+            <div className="w-full max-w-2xl mb-4 relative">
               <div className="flex items-center bg-white/5 backdrop-blur-md border border-white/[0.08] rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)] overflow-hidden">
                 <div className="flex items-center gap-3 flex-1 px-5 py-3.5">
                   <Search className="w-5 h-5 text-white/50" />
@@ -440,21 +388,17 @@ function Hero() {
               </div>
 
               <div
-                className={`absolute top-[calc(100%+8px)] left-0 right-0 z-50 backdrop-blur-md border border-white/[0.08] rounded-2xl overflow-hidden origin-top transition-all duration-[400ms] shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)] ${
+                className={`absolute top-[calc(100%+8px)] left-0 right-0 z-50 backdrop-blur-md border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_0_15px_rgba(255,255,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.12)] transition-all duration-200 ease-out ${
                   isSearchDropdownOpen && searchResults.length > 0
                     ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
                     : 'opacity-0 -translate-y-2 scale-[0.98] pointer-events-none'
                 }`}
                 style={{
-                  background: 'rgba(0, 0, 0, 0.98)',
-                  transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
-                  backdropFilter: 'blur(12px)',
-                  animation: isSearchDropdownOpen ? 'containerVibrate 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards' : 'none',
-                  animationDelay: '0.15s'
+                  background: 'rgb(0, 0, 0)',
                 }}
                 onMouseDown={(e) => e.preventDefault()}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-[#090971]/20 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#090971]/10 via-transparent to-transparent pointer-events-none"></div>
                 <div className="relative z-10">
                   <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10">
                     <Search size={13} className="text-white/60" />
@@ -466,19 +410,9 @@ function Hero() {
                       <React.Fragment key={result.id}>
                         <button
                           onClick={() => handleSearch(result)}
-                          className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group rounded-xl ${
-                            isSearchDropdownOpen ? 'animate-[itemSlideIn_1.1s_cubic-bezier(0.22,1,0.36,1)_both]' : ''
-                          }`}
-                          style={{
-                            animationDelay: '0.08s'
-                          }}
+                          className="w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group rounded-xl"
                         >
-                          <div className={`w-10 h-10 rounded-2xl overflow-hidden bg-blue-500/10 border border-blue-500/20 shrink-0 group-hover:border-blue-500/40 transition-all ${
-                            isSearchDropdownOpen ? 'animate-[avatarAppear_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
-                          }`}
-                          style={{
-                            animationDelay: '0.08s'
-                          }}>
+                          <div className="w-10 h-10 rounded-2xl overflow-hidden bg-white/5 border border-white/[0.08] shrink-0 group-hover:border-white/20 transition-all">
                             <img
                               src={result.image ? (result.image.startsWith('http') ? result.image : `${SERVER_URL}${result.image}`) : '/images/robux-logo.svg'}
                               alt={result.name}
@@ -488,18 +422,9 @@ function Hero() {
                               }}
                             />
                           </div>
-                          <div className={`flex-1 min-w-0 flex flex-col gap-1.5 ${
-                            isSearchDropdownOpen ? 'animate-[textTurbulence_1.1s_cubic-bezier(0.22,1,0.36,1)_forwards]' : ''
-                          }`}
-                          style={{
-                            animationDelay: '0.08s'
-                          }}>
-                            <div className="bg-white px-2 py-1 rounded-lg w-fit max-w-full">
-                              <p className="text-xs font-bold text-black truncate">{result.name}</p>
-                            </div>
-                            <div className="bg-white/80 px-2 py-0.5 rounded-md w-fit">
-                              <p className="text-[10px] font-semibold text-black/70 truncate">{result.category}</p>
-                            </div>
+                          <div className="flex-1 min-w-0 flex flex-col gap-1">
+                            <p className="text-sm font-bold text-white truncate">{result.name}</p>
+                            <p className="text-[11px] font-medium text-white/50 truncate">{result.category}</p>
                           </div>
                           <ArrowRight size={14} className="text-white/10 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all shrink-0" />
                         </button>
@@ -513,34 +438,34 @@ function Hero() {
               </div>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <div className="flex flex-wrap justify-center gap-3 mb-12">
               <button 
-                onClick={() => navigate('/catalog?category=robux')}
+                onClick={() => navigate('/catalog/robux')}
                 className="flex items-center gap-2 px-5 py-3 bg-[#1a3a2e]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#1a3a2e]/50 transition-colors shadow-[0_0_10px rgba(255,255,255,0.05),inset_0_1px_1px rgba(255,255,255,0.1)]"
               >
                 <img src="/images/robux-logo.svg" className="w-5 h-5 object-contain brightness-0 invert" alt="" />
                 Robux
               </button>
               <button 
-                onClick={() => navigate('/catalog')}
+                onClick={() => navigate('/catalog/ingame')}
                 className="flex items-center gap-2 px-5 py-3 bg-[#1e3a5f]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#1e3a5f]/50 transition-colors shadow-[0_0_10px rgba(255,255,255,0.05),inset_0_1px_1px rgba(255,255,255,0.1)]"
               >
                 <img src="/images/ingame.svg" className="w-5 h-5 brightness-0 invert" alt="" />
                 Items In-Game
               </button>
               <button 
-                onClick={() => navigate('/catalog?game=mm2')}
+                onClick={() => navigate('/catalog/ingame/mm2')}
                 className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#dc2626]/40 to-[#991b1b]/40 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:from-[#dc2626]/60 hover:to-[#991b1b]/60 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
               >
                 <Sword className="w-5 h-5" />
                 MM2
               </button>
               <button 
-                onClick={() => navigate('/catalog?category=limiteds')}
+                onClick={() => navigate('/catalog/ingame/limiteds')}
                 className="flex items-center gap-2 px-5 py-3 bg-[#4a4a2e]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#4a4a2e]/50 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
               >
                 <Crown className="w-5 h-5" />
-                Limiteds
+                Limitados
               </button>
               <button 
                 onClick={() => navigate('/fortnite')}
@@ -550,11 +475,18 @@ function Hero() {
               </button>
             </div>
 
-            <h3 className="text-xs font-semibold text-white/50 tracking-[0.2em] uppercase mb-4">
+            <h3 className="text-xs font-semibold text-white/50 tracking-[0.2em] uppercase mb-6">
               Juegos Populares
             </h3>
 
-            <div className="w-full max-w-5xl overflow-hidden">
+            <div className="relative w-full max-w-6xl">
+              <button
+                onClick={() => scrollCarousel('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all shadow-lg -ml-4"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <div className="overflow-hidden mx-2">
               <motion.div 
                 ref={carouselRef}
                 drag="x"
@@ -568,23 +500,30 @@ function Hero() {
                 {games.map((game) => (
                   <div
                     key={game.id}
-                    onClick={() => navigate(`/catalog?game=${game.id}`)}
-                    className="min-w-[180px] sm:min-w-[220px] md:min-w-[260px] h-[120px] sm:h-[140px] md:h-[160px] relative rounded-xl md:rounded-2xl overflow-hidden group border border-white/10 flex-shrink-0 shadow-lg cursor-pointer"
+                    onClick={() => navigate(`/catalog/ingame/${game.id}`)}
+                    className="min-w-[220px] sm:min-w-[280px] md:min-w-[320px] h-[140px] sm:h-[170px] md:h-[200px] relative rounded-xl md:rounded-2xl overflow-hidden group border border-white/10 flex-shrink-0 shadow-lg cursor-pointer"
                   >
                     <img src={game.image ? (game.image.startsWith('http') ? game.image : `${SERVER_URL}${game.image}`) : 'https://via.placeholder.com/260x160'} alt={game.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/60 to-transparent pointer-events-none"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 flex justify-between items-end gap-2 md:gap-3 pointer-events-none">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 flex justify-between items-end gap-2 md:gap-3 pointer-events-none">
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-white font-bold text-sm md:text-base lg:text-lg leading-tight mb-0.5 md:mb-1 truncate" title={game.name}>{game.name}</h3>
-                        <p className="text-gray-300 text-[10px] md:text-xs lg:text-sm truncate">Items In-game</p>
+                        <h3 className="text-white font-bold text-base md:text-lg lg:text-xl leading-tight mb-0.5 md:mb-1 truncate" title={game.name}>{game.name}</h3>
+                        <p className="text-gray-300 text-xs md:text-sm lg:text-base truncate">Items In-game</p>
                       </div>
-                      <div className="flex-shrink-0 bg-pixel-primaryStart/20 border border-pixel-primaryStart/30 text-white text-[9px] md:text-[10px] lg:text-xs font-bold px-2 md:px-2.5 py-1 md:py-1.5 rounded-full whitespace-nowrap backdrop-blur-md">
+                      <div className="flex-shrink-0 bg-pixel-primaryStart/20 border border-pixel-primaryStart/30 text-white text-[10px] md:text-xs lg:text-sm font-bold px-3 md:px-3 py-1.5 md:py-2 rounded-full whitespace-nowrap backdrop-blur-md">
                         Ver productos
                       </div>
                     </div>
                   </div>
                 ))}
               </motion.div>
+              </div>
+              <button
+                onClick={() => scrollCarousel('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all shadow-lg -mr-4"
+              >
+                <ChevronRight size={20} />
+              </button>
             </div>
           </div>
         </section>
@@ -806,6 +745,19 @@ function Testimonials() {
 
 function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [faqs, setFaqs] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [whatsappUrl, setWhatsappUrl] = useState('');
+
+  useEffect(() => {
+    Promise.all([
+      StoreAPI.getFaqs(),
+      StoreAPI.getSocialLinks()
+    ]).then(([faqsRes, linksRes]) => {
+      if (faqsRes.success && faqsRes.data.length > 0) setFaqs(faqsRes.data);
+      if (linksRes.success && linksRes.data?.whatsapp?.url) setWhatsappUrl(linksRes.data.whatsapp.url);
+    }).catch(() => {}).finally(() => setIsLoading(false));
+  }, []);
 
   return (
     <section id="faq" className="pt-0 pb-24 md:pt-10 md:pb-40 relative">
@@ -853,14 +805,13 @@ function FAQ() {
                 </div>
                 
                 <a 
-                  href="https://wa.me/573000000000" 
+                  href={whatsappUrl || '#'} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full py-3 rounded-2xl bg-emerald-600/10 border border-emerald-500/20 text-emerald-400 font-bold text-xs hover:bg-emerald-600 hover:text-white transition-all flex items-center justify-center gap-2 group"
                 >
-                  <span className="text-[10px]">WhatsApp:</span>
-                  <span>+57 300 000 0000</span>
                   <ArrowUpRight size={14} className="opacity-40 group-hover:opacity-100 transition-opacity" />
+                  WhatsApp
                 </a>
               </div>
 
@@ -877,52 +828,60 @@ function FAQ() {
             </div>
 
             <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <div 
-                  key={index}
-                  className={`rounded-[2rem] transition-all duration-500 border ${
-                    openIndex === index 
-                      ? 'bg-pixel-primaryStart/10 border-pixel-primaryEnd/40 shadow-[0_20px_50px_rgba(20,0,172,0.15)]' 
-                      : 'bg-pixel-panel/30 border-white/5 hover:bg-pixel-panel/50 hover:border-white/10'
-                  }`}
-                >
-                  <button 
-                    className="w-full px-6 py-5 flex items-center gap-4 text-left focus:outline-none"
-                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  >
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-500 ${
-                      openIndex === index ? 'bg-pixel-primaryEnd text-white' : 'bg-white/5 text-gray-500'
-                    }`}>
-                      <faq.icon size={20} />
-                    </div>
-                    <span className={`flex-1 font-bold text-base sm:text-lg transition-colors duration-500 ${openIndex === index ? 'text-white' : 'text-gray-300'}`}>
-                      {faq.question}
-                    </span>
-                    <ChevronDown 
-                      className={`transition-all duration-500 shrink-0 ${openIndex === index ? 'rotate-180 text-pixel-accent' : 'text-gray-600'}`} 
-                      size={20} 
-                    />
-                  </button>
-                  
-                  <AnimatePresence>
-                    {openIndex === index && (
-                      <motion.div 
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
-                      >
-                        <div className="px-8 pb-8 pt-0 ml-14">
-                          <div 
-                            className="text-gray-400 text-sm sm:text-base leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: faq.answer }}
-                          />
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+              {isLoading ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="animate-spin text-white/30" size={24} />
                 </div>
-              ))}
+              ) : faqs.length === 0 ? (
+                <p className="text-center text-white/30 text-sm py-12">No hay preguntas frecuentes disponibles.</p>
+              ) : (
+                faqs.map((faq, index) => (
+                  <div 
+                    key={faq.id || index}
+                    className={`rounded-[2rem] transition-all duration-500 border ${
+                      openIndex === index 
+                        ? 'bg-pixel-primaryStart/10 border-pixel-primaryEnd/40 shadow-[0_20px_50px_rgba(20,0,172,0.15)]' 
+                        : 'bg-pixel-panel/30 border-white/5 hover:bg-pixel-panel/50 hover:border-white/10'
+                    }`}
+                  >
+                    <button 
+                      className="w-full px-6 py-5 flex items-center gap-4 text-left focus:outline-none"
+                      onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                    >
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-500 ${
+                        openIndex === index ? 'bg-pixel-primaryEnd text-white' : 'bg-white/5 text-gray-500'
+                      }`}>
+                        <ChevronDown size={20} />
+                      </div>
+                      <span className={`flex-1 font-bold text-base sm:text-lg transition-colors duration-500 ${openIndex === index ? 'text-white' : 'text-gray-300'}`}>
+                        {faq.question}
+                      </span>
+                      <ChevronDown 
+                        className={`transition-all duration-500 shrink-0 ${openIndex === index ? 'rotate-180 text-pixel-accent' : 'text-gray-600'}`} 
+                        size={20} 
+                      />
+                    </button>
+                    
+                    <AnimatePresence>
+                      {openIndex === index && (
+                        <motion.div 
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                        >
+                          <div className="px-8 pb-8 pt-0 ml-14">
+                            <div 
+                              className="text-gray-400 text-sm sm:text-base leading-relaxed"
+                              dangerouslySetInnerHTML={{ __html: faq.answer }}
+                            />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -999,7 +958,7 @@ export default function Home() {
         <span className="text-[10px] font-black uppercase tracking-widest" style={{
           color: siteStatus === 'online' ? '#22c55e' : '#ef4444'
         }}>
-          {siteStatus === 'online' ? 'Online' : 'Offline'}
+          {siteStatus === 'online' ? 'En línea' : 'Desconectado'}
         </span>
       </div>
     </motion.div>

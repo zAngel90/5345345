@@ -200,8 +200,8 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                           return (
                             <>
                               <div className="flex items-center gap-2">
-                                <span className="text-xs font-bold text-white">{order.cart.length} {order.cart.length === 1 ? 'Item' : 'Ítems'}</span>
-                                <button onClick={() => setSelectedOrderItems(order)} className="p-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all" title="Ver items"><Eye size={12} /></button>
+                                <span className="text-xs font-bold text-white">{order.cart.length} {order.cart.length === 1 ? 'Artículo' : 'Artículos'}</span>
+                                <button onClick={() => setSelectedOrderItems(order)} className="p-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all" title="Ver artículos"><Eye size={12} /></button>
                               </div>
                               <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">In-Game</span>
                             </>
@@ -211,7 +211,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                           <>
                             <span className="text-xs font-bold text-white">{order.amount?.toLocaleString()} Robux</span>
                             <div className="flex items-center gap-1.5 mt-0.5">
-                              <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Entrega: {order.method}</span>
+                              <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Entrega: {order.method === 'group' ? 'Grupo' : order.method === 'gamepass' ? 'Gamepass' : order.method}</span>
                               {order.gamepassId && (
                                 <a href={`https://www.roblox.com/game-pass/${order.gamepassId}/`} target="_blank" rel="noopener noreferrer" className="px-1.5 py-0.5 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1" title="Ver Gamepass">
                                   <span className="text-[8px] font-black uppercase tracking-tighter">Link</span>
@@ -226,7 +226,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                         return (
                           <>
                             <div className="flex items-center gap-2">
-                              <span className="text-xs font-bold text-white">{order.cart?.length || 1} {order.cart?.length === 1 ? 'Item' : 'Ítems'}</span>
+                              <span className="text-xs font-bold text-white">{order.cart?.length || 1} {order.cart?.length === 1 ? 'Artículo' : 'Artículos'}</span>
                               <button onClick={() => setSelectedOrderItems(order)} className="p-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all" title="Ver items"><Eye size={12} /></button>
                             </div>
                             <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Fortnite</span>
@@ -237,7 +237,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                         return (
                           <>
                             <div className="flex items-center gap-2">
-                              <span className="text-xs font-bold text-white">{order.cart?.length || 1} {order.cart?.length === 1 ? 'Item' : 'Ítems'}</span>
+                              <span className="text-xs font-bold text-white">{order.cart?.length || 1} {order.cart?.length === 1 ? 'Artículo' : 'Artículos'}</span>
                               <button onClick={() => setSelectedOrderItems(order)} className="p-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all" title="Ver items"><Eye size={12} /></button>
                             </div>
                             <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">In-Game</span>
@@ -248,7 +248,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                         <>
                           <span className="text-xs font-bold text-white">{order.amount?.toLocaleString()} Robux</span>
                           <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Entrega: {order.method}</span>
+                            <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Entrega: {order.method === 'group' ? 'Grupo' : order.method === 'gamepass' ? 'Gamepass' : order.method}</span>
                             {order.gamepassId && (
                               <a href={`https://www.roblox.com/game-pass/${order.gamepassId}/`} target="_blank" rel="noopener noreferrer" className="px-1.5 py-0.5 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1" title="Ver Gamepass">
                                 <span className="text-[8px] font-black uppercase tracking-tighter">Link</span>
@@ -468,7 +468,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                         <div className="flex-1">
                           <p className="text-sm font-bold text-white">{item?.name}</p>
                           <p className="text-[11px] font-bold uppercase mt-1 text-white/60">
-                            {item?.game || (selectedOrderItems.type === 'mm2' ? 'Murder Mystery 2' : selectedOrderItems.type?.includes(':') ? selectedOrderItems.type.split(':')[0].replace(/-/g, ' ') : 'Roblox Limiteds')}
+                            {item?.game || (selectedOrderItems.type === 'mm2' ? 'Murder Mystery 2' : selectedOrderItems.type?.includes(':') ? selectedOrderItems.type.split(':')[0].replace(/-/g, ' ') : 'Roblox Limitados')}
                           </p>
                         </div>
                         {item?.price && (
@@ -487,7 +487,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
               </div>
 
               <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-                <p className="text-xs text-white/40 uppercase tracking-widest">Total Items</p>
+                <p className="text-xs text-white/40 uppercase tracking-widest">Total Artículos</p>
                 <p className="text-lg font-black text-white">{selectedOrderItems.cart?.length || 0}</p>
               </div>
             </motion.div>

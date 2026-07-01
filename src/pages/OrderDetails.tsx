@@ -170,7 +170,7 @@ const OrderDetails = () => {
                       </div>
                       <div>
                         <h3 className="text-sm font-bold text-white">{gameName}</h3>
-                        <p className="text-[10px] text-white/40">{items.length} {items.length === 1 ? 'Item' : 'Ítems'}</p>
+                        <p className="text-[10px] text-white/40">{items.length} {items.length === 1 ? 'Artículo' : 'Artículos'}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
@@ -267,7 +267,11 @@ const OrderDetails = () => {
       <div className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400">
-            <Zap size={14} />
+            {order.method === 'group' ? (
+              <img src="/images/grupos.svg" className="w-4 h-4 brightness-0 invert" alt="Grupo" />
+            ) : (
+              <Zap size={14} />
+            )}
           </div>
           <div>
             <p className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-0.5">Método de Entrega</p>
@@ -841,7 +845,7 @@ const OrderDetails = () => {
               <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
                 <p className="text-xs text-white/60 mb-3 flex items-start gap-2">
                   <Info size={14} className="text-red-400 shrink-0 mt-0.5" />
-                  <span>Haz click en <strong className="text-white">Únirse al Servidor Privado</strong> para entrar y recibir tus ítems. Asegúrate de iniciar sesión en Roblox con tu cuenta correcta.</span>
+                  <span>Haz clic en <strong className="text-white">Únirse al Servidor Privado</strong> para entrar y recibir tus artículos. Asegúrate de iniciar sesión en Roblox con tu cuenta correcta.</span>
                 </p>
 
                 {/* Server Link */}
@@ -906,19 +910,19 @@ const OrderDetails = () => {
                     <div>
                       <h2 className="text-2xl font-black tracking-tighter mb-0.5">
                         {order.type === 'trade_limited' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited'))) ? (
-                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
+                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} Limitados`
                         ) : order.type === 'fortnite' ? (
-                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
+                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Atuendo' : 'Atuendos'} Fortnite`
                         ) : (order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) ? (
-                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
+                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} MM2`
                         ) : isIngameOrder(order) ? (
-                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} In-Game`
+                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} In-Game`
                         ) : (
                           `${order.amount.toLocaleString()} Robux`
                         )}
                       </h2>
                       <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5">
-                        <LucideTag size={10} /> {order.type === 'trade_limited' || order.type === 'fortnite' || order.type === 'mm2' || isIngameOrder(order) ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'}` : `Cantidad: ${order.amount}`}
+                        <LucideTag size={10} /> {order.type === 'trade_limited' || order.type === 'fortnite' || order.type === 'mm2' || isIngameOrder(order) ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'}` : `Cantidad: ${order.amount}`}
                       </p>
 
                     </div>
@@ -1296,11 +1300,13 @@ const OrderDetails = () => {
                             key={star}
                             size={32}
                             onClick={() => setReviewRating(star)}
-                            className={`${star <= reviewRating ? "fill-amber-400 text-amber-400" : "text-white/10 fill-white/10"} cursor-pointer hover:scale-110 transition-transform`}
+                            className={`${star <= reviewRating 
+                              ? (reviewRating <= 2 ? "fill-red-400 text-red-400" : "fill-amber-400 text-amber-400") 
+                              : "text-white/10 fill-white/10"} cursor-pointer hover:scale-110 transition-transform`}
                           />
                         ))}
                       </div>
-                      <span className="text-xs text-amber-400/60 font-medium">
+                      <span className={`text-xs font-medium ${reviewRating <= 2 ? 'text-red-400/60' : 'text-amber-400/60'}`}>
                         {['Muy mala', 'Mala', 'Regular', 'Buena', 'Excelente'][reviewRating - 1]}
                       </span>
                     </div>
@@ -1318,11 +1324,12 @@ const OrderDetails = () => {
                   </div>
 
                   {/* Image Upload */}
+                  {reviewRating >= 3 && (
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-white/30 uppercase tracking-widest">Añadir Foto (Opcional)</label>
                     <div className="flex items-center gap-4">
                       {reviewPreviewUrl ? (
-                        <div className="relative size-24 rounded-2xl overflow-hidden border border-blue-500/50">
+                        <div className="relative size-24 rounded-2xl overflow-hidden border border-amber-500/50">
                           <img src={reviewPreviewUrl} alt="Preview" className="w-full h-full object-cover" />
                           <button
                             onClick={() => { setReviewImage(null); setReviewPreviewUrl(null); }}
@@ -1332,7 +1339,7 @@ const OrderDetails = () => {
                           </button>
                         </div>
                       ) : (
-                        <label className="size-24 flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/10 bg-white/5 hover:bg-white/[0.08] hover:border-blue-500/40 cursor-pointer transition-all">
+                        <label className="size-24 flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/10 bg-white/5 hover:bg-white/[0.08] hover:border-amber-500/40 cursor-pointer transition-all">
                           <Camera className="text-white/20" size={24} />
                           <span className="text-[10px] font-bold text-white/30">AÑADIR</span>
                           <input
@@ -1356,6 +1363,7 @@ const OrderDetails = () => {
                       </div>
                     </div>
                   </div>
+                  )}
 
                   <div className="flex gap-3">
                     <button

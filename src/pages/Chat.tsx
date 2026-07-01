@@ -193,6 +193,28 @@ export default function Chat() {
       setIsUploading(false);
     }
   };
+  const renderMessageWithLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline break-all"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
   // Componente Skeleton para la lista de chats
   const ChatListSkeleton = () => (
     <div className="space-y-4 p-4">
@@ -320,7 +342,7 @@ export default function Chat() {
                       <h2 className="text-white font-black text-base tracking-tight">{activeChat.admin || 'Soporte Pixelito'}</h2>
                       <div className="flex items-center gap-1.5">
                         <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500/80">Online</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500/80">En línea</span>
                       </div>
                     </div>
                   </div>
@@ -394,7 +416,7 @@ export default function Chat() {
                                     <span className="text-xs font-black uppercase tracking-widest truncate max-w-[150px]">Descargar</span>
                                   </a>
                                 )}
-                                {msg.text && <p className="text-sm md:text-base font-medium leading-relaxed tracking-tight">{msg.text}</p>}
+                                {msg.text && <p className="text-sm md:text-base font-medium leading-relaxed tracking-tight">{renderMessageWithLinks(msg.text)}</p>}
                               </div>
                               <div className={`flex items-center gap-1.5 px-2 ${isMe ? 'justify-end' : 'justify-start'}`}>
                                 <span className="text-[10px] font-bold text-white/20">{msg.time}</span>

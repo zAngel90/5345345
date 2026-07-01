@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { 
   ArrowRight, 
   MessageCircle, 
@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 import { useLocation } from 'react-router-dom';
+import { StoreAPI } from '../services/api';
 
 /* ─── Mini generador de partículas galaxia ─────────────────────────── */
 function useGalaxyStars(count: number) {
@@ -108,6 +109,18 @@ const WhatsAppIcon = () => (
 export default function Footer() {
     const location = useLocation();
     const isHome = location.pathname === '/';
+    const [socialLinks, setSocialLinks] = useState<any>(null);
+
+    useEffect(() => {
+        StoreAPI.getSocialLinks().then(res => {
+            if (res.success) setSocialLinks(res.data);
+        }).catch(() => {});
+    }, []);
+
+    const getLink = (key: string) => {
+        if (socialLinks && socialLinks[key]?.url) return socialLinks[key].url;
+        return '#';
+    };
 
     return (
         <footer className="relative z-10">
@@ -207,21 +220,34 @@ export default function Footer() {
                             </p>
                             {/* Social */}
                             <div className="flex gap-3 flex-wrap">
-                                <a href="#" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-blue-400/10 hover:border-blue-400/50 transition-all text-sm font-medium group shadow-lg hover:shadow-[0_0_20px_rgba(96,165,250,0.2)]">
+                                {socialLinks?.discord?.url && (
+                                <a href={socialLinks.discord.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-blue-400/10 hover:border-blue-400/50 transition-all text-sm font-medium group shadow-lg hover:shadow-[0_0_20px_rgba(96,165,250,0.2)]">
                                     <DiscordIcon />
                                     <span className="group-hover:translate-x-0.5 transition-transform">Discord</span>
                                     <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                                 </a>
-                                <a href="#" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-blue-400/10 hover:border-blue-400/50 transition-all text-sm font-medium group shadow-lg hover:shadow-[0_0_20px_rgba(96,165,250,0.2)]">
+                                )}
+                                {socialLinks?.instagram?.url && (
+                                <a href={socialLinks.instagram.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-blue-400/10 hover:border-blue-400/50 transition-all text-sm font-medium group shadow-lg hover:shadow-[0_0_20px_rgba(96,165,250,0.2)]">
                                     <InstagramIcon />
                                     <span className="group-hover:translate-x-0.5 transition-transform">Instagram</span>
                                     <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                                 </a>
-                                <a href="#" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-blue-400/10 hover:border-blue-400/50 transition-all text-sm font-medium group shadow-lg hover:shadow-[0_0_20px_rgba(96,165,250,0.2)]">
+                                )}
+                                {socialLinks?.tiktok?.url && (
+                                <a href={socialLinks.tiktok.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-blue-400/10 hover:border-blue-400/50 transition-all text-sm font-medium group shadow-lg hover:shadow-[0_0_20px_rgba(96,165,250,0.2)]">
                                     <TikTokIcon />
-                                    <span className="group-hover:translate-x-0.5 transition-transform">TikTok</span>
+                                    <span className="group-hover:translate-x-0.5 transition-transform">{socialLinks.tiktok.label || 'TikTok'}</span>
                                     <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                                 </a>
+                                )}
+                                {socialLinks?.custom?.url && (
+                                <a href={socialLinks.custom.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-blue-400/10 hover:border-blue-400/50 transition-all text-sm font-medium group shadow-lg hover:shadow-[0_0_20px_rgba(96,165,250,0.2)]">
+                                    <ArrowRight size={14} className="text-white/40" />
+                                    <span className="group-hover:translate-x-0.5 transition-transform">{socialLinks.custom.label || 'Enlace'}</span>
+                                    <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                </a>
+                                )}
                             </div>
                         </div>
 
@@ -239,8 +265,8 @@ export default function Footer() {
                         <div>
                             <h4 className="text-xs font-bold tracking-widest text-gray-500 uppercase mb-5">Cuenta</h4>
                             <ul className="space-y-3">
-                                <li><a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><User size={14} /> Mi Perfil</a></li>
-                                <li><a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><ShoppingCart size={14} /> Mis Pedidos</a></li>
+                                <li><a href="/account" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><User size={14} /> Mi Perfil</a></li>
+                                <li><a href="/account?tab=pedidos" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><ShoppingCart size={14} /> Mis Pedidos</a></li>
                             </ul>
                         </div>
 
@@ -249,12 +275,12 @@ export default function Footer() {
                             <h4 className="text-xs font-bold tracking-widest text-gray-500 uppercase mb-5">Soporte</h4>
                             <ul className="space-y-3">
                                 <li>
-                                    <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-all text-sm group">
+                                    <a href={getLink('whatsapp')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-white transition-all text-sm group">
                                         <WhatsAppIcon /> <span className="group-hover:translate-x-0.5 transition-transform">Whatsapp</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-all text-sm group">
+                                    <a href={getLink('discord')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-white transition-all text-sm group">
                                         <DiscordIcon /> <span className="group-hover:translate-x-0.5 transition-transform">Discord</span>
                                     </a>
                                 </li>
@@ -287,30 +313,6 @@ export default function Footer() {
                             </p>
                         </div>
 
-                        {/* Idiomas + pagos */}
-                        <div className="flex flex-col items-end gap-3">
-                            {/* Idiomas */}
-                            <div className="flex items-center gap-2">
-                                <button className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 hover:bg-white/10 transition-all">
-                                    🇪🇸 ES
-                                </button>
-                                <button className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-400 hover:bg-white/10 transition-all">
-                                    🇺🇸 EN
-                                </button>
-                                <button className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-400 hover:bg-white/10 transition-all">
-                                    🇧🇷 PT
-                                </button>
-                            </div>
-                            {/* Métodos de pago */}
-                            <div className="flex items-center gap-3 opacity-60">
-                                {/* PayPal */}
-                                <svg width="40" height="24" viewBox="0 0 40 24" fill="none"><rect width="40" height="24" rx="4" fill="white" fillOpacity="0.08" /><text x="5" y="16" fontSize="9" fill="#00a0dc" fontWeight="bold">Pay</text><text x="18" y="16" fontSize="9" fill="#001f6b" fontWeight="bold">Pal</text></svg>
-                                {/* Visa */}
-                                <svg width="40" height="24" viewBox="0 0 40 24" fill="none"><rect width="40" height="24" rx="4" fill="white" fillOpacity="0.08" /><text x="7" y="16" fontSize="11" fill="white" fontWeight="bold">VISA</text></svg>
-                                {/* Mastercard */}
-                                <svg width="40" height="24" viewBox="0 0 40 24" fill="none"><rect width="40" height="24" rx="4" fill="white" fillOpacity="0.08" /><circle cx="15" cy="12" r="7" fill="#eb001b" fillOpacity="0.85" /><circle cx="25" cy="12" r="7" fill="#f79e1b" fillOpacity="0.85" /></svg>
-                            </div>
-                        </div>
                     </div>
 
                 </div>

@@ -125,6 +125,27 @@ export default function RobuxCatalog() {
   const [activeStatIndex, setActiveStatIndex] = useState(0);
   const [dynamicPricePer1000, setDynamicPricePer1000] = useState(8.00);
   const [customTiers, setCustomTiers] = useState<any[]>([]);
+  const [levelPricing, setLevelPricing] = useState<Record<string, number>>({});
+  const [deliveryMethodsConfig, setDeliveryMethodsConfig] = useState<any>(null);
+
+  // Apply level-based pricing override
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('pixel_user') || '{}');
+    if (user?.level && levelPricing[user.level]) {
+      setDynamicPricePer1000(levelPricing[user.level]);
+    }
+  }, [levelPricing]);
+
+  // Fetch delivery methods config and fallback if method is disabled
+  useEffect(() => {
+    StoreAPI.getDeliveryMethods().then(res => {
+      if (res.success) {
+        setDeliveryMethodsConfig(res.data);
+        if (!res.data.gamepass?.enabled && method === 'gamepass') setMethod('group');
+        if (!res.data.group?.enabled && method === 'group') setMethod('gamepass');
+      }
+    }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -179,6 +200,9 @@ export default function RobuxCatalog() {
             setDynamicPricePer1000(data.data.pricePer1000 || 8.00);
             if (data.data.customTiers) {
               setCustomTiers(data.data.customTiers);
+            }
+            if (data.data.levelPricing) {
+              setLevelPricing(data.data.levelPricing);
             }
             if (data.data.packages && data.data.packages.length > 0) {
               const defaultPack = data.data.packages.find((p: any) => p.amount === 1700) || data.data.packages[0];
@@ -329,6 +353,14 @@ export default function RobuxCatalog() {
   const selectedCurrencyData = dynamicCurrencies.find(c => c.code === currency) || { rate: 1, symbol: '$' };
   const selectedPackage = Array.isArray(robuxPackages) ? robuxPackages.find(p => Number(p.amount) === displayAmount && !customAmount) : null;
   
+  const userForLevel = JSON.parse(localStorage.getItem('pixel_user') || '{}');
+  const hasLevelPricing = !!(userForLevel?.level && levelPricing[userForLevel.level]);
+
+  const getPackagePrice = (pkg: any) => {
+    if (hasLevelPricing) return (Number(pkg.amount) / 1000) * dynamicPricePer1000;
+    return Number(pkg.price);
+  };
+
   // Lógica de Escalas para Precio Personalizado
   let basePricePerUnit = dynamicPricePer1000 / 1000;
   if (customAmount && Array.isArray(customTiers) && customTiers.length > 0) {
@@ -340,7 +372,7 @@ export default function RobuxCatalog() {
     }
   }
 
-  const basePrice = selectedPackage ? Number(selectedPackage.price) : (displayAmount * basePricePerUnit);
+  const basePrice = selectedPackage ? getPackagePrice(selectedPackage) : (displayAmount * basePricePerUnit);
   const currentPrice = (basePrice * selectedCurrencyData.rate).toFixed(2);
   const gamepassRequiredPrice = Math.ceil(displayAmount / 0.7);
 
@@ -621,7 +653,7 @@ export default function RobuxCatalog() {
                           </span>
                         </div>
                         <span className={`text-[11px] font-medium ${selectedAmount === Number(pkg.amount) && !customAmount ? 'text-blue-400/60' : 'text-white/30'}`}>
-                          {(Number(pkg.price) * selectedCurrencyData.rate).toFixed(2)} {currency}
+                          {(getPackagePrice(pkg) * selectedCurrencyData.rate).toFixed(2)} {currency}
                         </span>
                       </button>
                     </div>
@@ -693,20 +725,30 @@ export default function RobuxCatalog() {
                 <div className="flex p-1 bg-white/[0.03] rounded-xl border border-white/[0.06]">
                   <button
                     onClick={() => setMethod('gamepass')}
-                    className={`flex-1 py-3 text-xs font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 ${method === 'gamepass' ? 'bg-white/[0.08] text-white shadow-sm border border-white/[0.08]' : 'text-white/35 hover:text-white/50'
-                      }`}
+                    disabled={deliveryMethodsConfig && !deliveryMethodsConfig.gamepass?.enabled}
+                    className={`flex-1 py-3 text-xs font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 ${
+                      method === 'gamepass' ? 'bg-white/[0.08] text-white shadow-sm border border-white/[0.08]' : 'text-white/35 hover:text-white/50'
+                    } ${
+                      deliveryMethodsConfig && !deliveryMethodsConfig.gamepass?.enabled ? 'opacity-30 cursor-not-allowed' : ''
+                    }`}
                   >
                     <img src="/images/gamepass2.svg" className="w-4 h-4 shrink-0" alt="Gamepass" />
                     Gamepass
                   </button>
                   <button
                     onClick={() => setMethod('group')}
-                    className={`flex-1 py-3 text-xs font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 ${method === 'group' ? 'bg-white/[0.08] text-white shadow-sm border border-white/[0.08]' : 'text-white/35 hover:text-white/50'
-                      }`}
+                    disabled={deliveryMethodsConfig && !deliveryMethodsConfig.group?.enabled}
+                    className={`flex-1 py-3 text-xs font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 ${
+                      method === 'group' ? 'bg-white/[0.08] text-white shadow-sm border border-white/[0.08]' : 'text-white/35 hover:text-white/50'
+                    } ${
+                      deliveryMethodsConfig && !deliveryMethodsConfig.group?.enabled ? 'opacity-30 cursor-not-allowed' : ''
+                    }`}
                   >
                     <Users size={16} />
                     Group
-                    <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-md font-bold">-15%</span>
+                    {(!deliveryMethodsConfig || deliveryMethodsConfig.group?.enabled) && (
+                      <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-md font-bold">-15%</span>
+                    )}
                   </button>
                 </div>
               </div>
@@ -821,6 +863,12 @@ export default function RobuxCatalog() {
                     <span className="text-white/30">Precio por cada 1,000</span>
                     <span className="text-white/60 font-medium">{(dynamicPricePer1000 * selectedCurrencyData.rate).toFixed(2)} {currency}</span>
                   </div>
+                  {levelPricing && Object.keys(levelPricing).length > 0 && (
+                    <div className="flex justify-between text-[10px]">
+                      <span className="text-yellow-400/60">Precio especial por nivel</span>
+                      <span className="text-yellow-400/80 font-medium">Activo</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-xs">
                     <span className="text-white/30">Método</span>
                     <span className="text-white/60 font-medium capitalize flex items-center gap-1.5">
@@ -2608,10 +2656,13 @@ export default function RobuxCatalog() {
           <div className="flex gap-2 mb-3">
             <button
               onClick={() => setMethod('gamepass')}
+              disabled={deliveryMethodsConfig && !deliveryMethodsConfig.gamepass?.enabled}
               className={`flex-1 py-2.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                 method === 'gamepass' 
                   ? 'bg-white/10 text-white border border-white/20' 
                   : 'bg-white/5 text-white/40 border border-white/10'
+              } ${
+                deliveryMethodsConfig && !deliveryMethodsConfig.gamepass?.enabled ? 'opacity-30 cursor-not-allowed' : ''
               }`}
             >
               <img src="/images/gamepass2.svg" className="w-4 h-4 shrink-0" alt="Gamepass" />
@@ -2619,15 +2670,20 @@ export default function RobuxCatalog() {
             </button>
             <button
               onClick={() => setMethod('group')}
+              disabled={deliveryMethodsConfig && !deliveryMethodsConfig.group?.enabled}
               className={`flex-1 py-2.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                 method === 'group' 
                   ? 'bg-white/10 text-white border border-white/20' 
                   : 'bg-white/5 text-white/40 border border-white/10'
+              } ${
+                deliveryMethodsConfig && !deliveryMethodsConfig.group?.enabled ? 'opacity-30 cursor-not-allowed' : ''
               }`}
             >
               <Users size={14} />
               Grupo
-              <span className="text-[8px] bg-emerald-500/20 text-emerald-400 px-1 py-0.5 rounded font-bold">-15%</span>
+              {(!deliveryMethodsConfig || deliveryMethodsConfig.group?.enabled) && (
+                <span className="text-[8px] bg-emerald-500/20 text-emerald-400 px-1 py-0.5 rounded font-bold">-15%</span>
+              )}
             </button>
           </div>
 

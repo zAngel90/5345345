@@ -42,8 +42,8 @@ const TIERS_CONFIG = [
   { id: 'SILVER', name: 'Plata', rbx: 3000, desc: 'Rol personalizado en Discord', benefit: 'Prioridad en soporte', logo: '/images/plata.png', color: 'text-slate-300' },
   { id: 'GOLD', name: 'Oro', rbx: 10000, desc: 'Rol personalizado en Discord', benefit: 'Descuentos exclusivos', logo: '/images/oro.png', color: 'text-yellow-400' },
   { id: 'DIAMOND', name: 'Diamante', rbx: 25000, desc: 'Rol personalizado en Discord', benefit: 'Sorteos VIP mensuales', logo: '/images/diamante.png', color: 'text-blue-300' },
-  { id: 'ROYAL', name: 'Royal', rbx: 50000, desc: 'Rol personalizado en Discord', benefit: 'Invitación a eventos secretos', logo: '/images/Royal.png', color: 'text-purple-400' },
-  { id: 'MYTHIC', name: 'Mythic', rbx: 80000, desc: 'Nivel legendario máximo', benefit: 'Beneficios supremos VIP', logo: '/images/mythic.png', color: 'text-red-500' },
+  { id: 'ROYAL', name: 'Real', rbx: 50000, desc: 'Rol personalizado en Discord', benefit: 'Invitación a eventos secretos', logo: '/images/Royal.png', color: 'text-purple-400' },
+  { id: 'MYTHIC', name: 'Mítico', rbx: 80000, desc: 'Nivel legendario máximo', benefit: 'Beneficios supremos VIP', logo: '/images/mythic.png', color: 'text-red-500' },
 ];
 
 const TiltButton = ({ label, icon: Icon, onClick, isSuccess }: { label: string, icon: any, onClick: (e: any) => void, isSuccess: boolean }) => {
@@ -135,7 +135,7 @@ const SIDEBAR_SECTIONS = [
   {
     title: 'PROGRESO',
     items: [
-      { id: 'tiers', label: 'Pixel Tiers', icon: Crown }
+      { id: 'tiers', label: 'Niveles Pixel', icon: Crown }
     ]
   }
 ];
@@ -437,7 +437,7 @@ export default function Account() {
       return {
         Icon: Sword,
         bg: 'from-rose-500/20 to-red-500/20 border-rose-500/30 text-red-400',
-        title: 'Items MM2'
+        title: 'Artículos MM2'
       };
     }
     if (t === 'trade_limited') {
@@ -748,7 +748,7 @@ export default function Account() {
                   <div className="space-y-6">
                     <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5">
                       <div>
-                        <h4 className="text-sm font-bold text-white">Notificaciones Push</h4>
+                        <h4 className="text-sm font-bold text-white">Notificaciones</h4>
                         <p className="text-xs text-white/40">Recibe avisos sobre el estado de tus pedidos y mensajes de soporte.</p>
                       </div>
                       <div className="w-12 h-6 bg-blue-600 rounded-full relative cursor-pointer"><div className="absolute right-1 top-1 size-4 bg-white rounded-full"></div></div>
@@ -892,13 +892,13 @@ export default function Account() {
                                   {groupOrders.map((order) => {
                                     const iconInfo = getOrderIcon(order.type);
                                     const orderTitle = order.type === 'fortnite' 
-                                      ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
+                                      ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Atuendo' : 'Atuendos'} Fortnite`
                                       : order.type === 'mm2'
-                                        ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
+                                        ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} MM2`
                                         : order.type === 'trade_limited'
-                                          ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
+                                          ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} Limitados`
                                           : order.type === 'ingame' || (order.type || '').includes(':')
-                                            ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} In-Game`
+                                            ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} In-Game`
                                             : `${order.amount} Robux`;
 
                                     return (
@@ -1121,7 +1121,7 @@ export default function Account() {
                           </div>
                           
                           <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none uppercase transition-colors">
-                            {c.discountType === 'percentage' ? `${c.discountValue}% OFF` : c.discountType === 'balance' ? `S/${(c.remainingBalance ?? c.initialBalance ?? 0).toFixed(2)}` : `-S/${c.discountValue}`}
+                            {c.discountType === 'percentage' ? `${c.discountValue}% DTO` : c.discountType === 'balance' ? `S/${(c.remainingBalance ?? c.initialBalance ?? 0).toFixed(2)}` : `-S/${c.discountValue}`}
                           </h3>
                           <p className="text-[10px] md:text-xs text-white/40 font-bold uppercase tracking-wider mt-2">
                             Válido para toda la tienda
@@ -1177,7 +1177,7 @@ export default function Account() {
                       <Crown className="text-yellow-600" size={20} />
                     </div>
                     <div>
-                      <h1 className="text-xl font-bold text-white tracking-wide">Pixel Tiers</h1>
+                      <h1 className="text-xl font-bold text-white tracking-wide">Niveles Pixel</h1>
                       <p className="text-[11px] text-white/40">Tu progreso y recompensas</p>
                     </div>
                   </div>
@@ -1270,7 +1270,7 @@ export default function Account() {
                       <div className="size-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
                         <CheckCircle2 size={16} />
                       </div>
-                      <p className="text-xs font-bold text-white/80">1.5% cashback a saldo</p>
+                      <p className="text-xs font-bold text-white/80">1.5% de reembolso a saldo</p>
                     </div>
                     <div className="p-4 bg-white/[0.01] border border-dashed border-white/5 rounded-2xl flex items-center gap-3 opacity-40">
                       <div className="size-8 rounded-full bg-white/5 flex items-center justify-center text-white/20 shrink-0">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getFortniteShop, FortniteShopSection, FortniteItem } from '../../services/fortniteApi';
 import { ItemCard } from './ItemCard';
 import { FortniteCart } from './FortniteCart';
-import { ShoppingCart, Copy, Check } from 'lucide-react';
+import { ShoppingCart, UserPlus, Clock, CheckCircle2, Copy, Check, Filter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SERVER_URL } from '../../services/api';
 import './FortniteShop.css';
@@ -23,6 +23,8 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [pricePerHundred, setPricePerHundred] = useState(20);
+  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
 
   useEffect(() => {
     const fetchShop = async () => {
@@ -34,7 +36,6 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
 
     fetchShop();
 
-    // Cargar configuración del admin
     const fetchAdminConfig = async () => {
       try {
         const response = await fetch(`${SERVER_URL}/api/fortnite/admin-config`);
@@ -51,7 +52,6 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
 
     fetchAdminConfig();
 
-    // Actualizar contador del carrito
     const updateCartCount = () => {
       const savedCart = localStorage.getItem('fortnite_cart');
       if (savedCart) {
@@ -96,7 +96,6 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
     localStorage.setItem('fortnite_cart', JSON.stringify(cart));
     setCartCount(cart.length);
     
-    // Mostrar notificación
     setToastMessage(`${item.name} agregado al carrito!`);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
@@ -116,117 +115,153 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
     );
   }
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
+  const filteredSections = selectedFilter
+    ? sections.filter(s => s.name === selectedFilter)
+    : sections;
 
   return (
     <div className="shop-layout">
-      {/* SIDEBAR NAVIGATION */}
-      <aside className="shop-sidebar">
-        <div className="sidebar-container">
-          <h3 className="sidebar-title burbank">NAVEGACIÓN</h3>
-          <div className="sidebar-divider"></div>
-          <nav className="sidebar-nav">
-            {sections.map((section) => (
-              <button 
-                key={section.name} 
-                className="nav-item burbank"
-                onClick={() => scrollToSection(`section-${section.name.replace(/\s+/g, '-')}`)}
-              >
-                {section.name}
-              </button>
-            ))}
-          </nav>
-        </div>
-      </aside>
-
       <div className="shop-container">
         <header className="shop-header">
           <div className="header-content">
-            <h1 className="burbank skewed">TIENDA DE OBJETOS</h1>
-            <div className="timer-container skewed">
-              <span className="timer-label">Reinicia en:</span>
-              <span className="timer-value burbank">{timeLeft}</span>
-            </div>
-          </div>
-        </header>
-
-        {/* Admin Username Section */}
-        {adminUsername && (
-          <div className="admin-username-card">
-            <div>
-              <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px', marginBottom: '8px' }}>
-                Agrega al administrador en Fortnite para recibir tus items:
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span className="burbank" style={{ color: 'white', fontSize: '20px', fontWeight: 'bold', textTransform: 'none' }}>
-                  {adminUsername}
-                </span>
-                <span style={{ 
-                  background: 'rgba(59, 130, 246, 0.2)', 
-                  color: '#60a5fa', 
-                  padding: '4px 12px', 
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  textTransform: 'capitalize',
-                  fontWeight: 'bold'
-                }}>
-                  {adminPlatform}
-                </span>
+            <h1>TIENDA DE OBJETOS</h1>
+            <div className="header-actions">
+              <div className="timer-container">
+                <span className="timer-label">Reinicia en:</span>
+                <span className="timer-value">{timeLeft}</span>
               </div>
             </div>
+          </div>
+          <div className="filter-bar">
             <button
-              onClick={handleCopyUsername}
-              className="copy-btn"
-              style={{
-                background: copied ? 'rgba(34, 197, 94, 0.2)' : 'rgba(59, 130, 246, 0.2)',
-                border: copied ? '1px solid rgba(34, 197, 94, 0.4)' : '1px solid rgba(59, 130, 246, 0.4)',
-                color: copied ? '#22c55e' : '#60a5fa',
-                padding: '12px 24px',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontWeight: 'bold',
-                transition: 'all 0.2s'
-              }}
+              onClick={() => setShowFilterMenu(!showFilterMenu)}
+              className={`filter-btn ${selectedFilter ? 'filter-active' : ''}`}
             >
-              {copied ? (
-                <>
-                  <Check size={18} />
-                  Copiado
-                </>
-              ) : (
-                <>
-                  <Copy size={18} />
-                  Copiar
-                </>
-              )}
+              <Filter size={16} />
+              <span>{selectedFilter || 'Categorías'}</span>
             </button>
+            {showFilterMenu && (
+              <div className="filter-dropdown-h">
+                <button
+                  className={`filter-chip-h ${!selectedFilter ? 'filter-chip-active' : ''}`}
+                  onClick={() => { setSelectedFilter(null); setShowFilterMenu(false); }}
+                >
+                  Todas
+                </button>
+                {sections.map(s => (
+                  <button
+                    key={s.name}
+                    className={`filter-chip-h ${selectedFilter === s.name ? 'filter-chip-active' : ''}`}
+                    onClick={() => { setSelectedFilter(s.name); setShowFilterMenu(false); }}
+                  >
+                    {s.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </header>
+        {showFilterMenu && <div className="filter-overlay" onClick={() => setShowFilterMenu(false)} />}
+
+        {/* Admin Username Section + 3 Steps */}
+        {adminUsername && (
+          <div className="admin-section">
+            <div className="admin-username-card">
+              <div>
+                <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px', marginBottom: '8px' }}>
+                  Agrega al administrador en Fortnite para recibir tus items:
+                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ color: 'white', fontSize: '20px', fontWeight: 'bold', textTransform: 'none' }}>
+                    {adminUsername}
+                  </span>
+                  <span style={{ 
+                    background: 'rgba(59, 130, 246, 0.2)', 
+                    color: '#60a5fa', 
+                    padding: '4px 12px', 
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    textTransform: 'capitalize',
+                    fontWeight: 'bold'
+                  }}>
+                    {adminPlatform}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={handleCopyUsername}
+                className="copy-btn"
+                style={{
+                  background: copied ? 'rgba(34, 197, 94, 0.2)' : 'rgba(59, 130, 246, 0.2)',
+                  border: copied ? '1px solid rgba(34, 197, 94, 0.4)' : '1px solid rgba(59, 130, 246, 0.4)',
+                  color: copied ? '#22c55e' : '#60a5fa',
+                  padding: '12px 24px',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontWeight: 'bold',
+                  transition: 'all 0.2s'
+                }}
+              >
+                {copied ? (
+                  <>
+                    <Check size={18} />
+                    Copiado
+                  </>
+                ) : (
+                  <>
+                    <Copy size={18} />
+                    Copiar
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* 3 Steps */}
+            <div className="steps-row">
+              <div className="step-card">
+                <div className="step-icon step-icon-1">
+                  <UserPlus size={20} />
+                </div>
+                <div className="step-content">
+                  <span className="step-label">PASO 1</span>
+                  <span className="step-text">Agregar a <strong>{adminUsername}</strong> a tu cuenta de Fortnite</span>
+                </div>
+              </div>
+              <div className="step-connector" />
+              <div className="step-card">
+                <div className="step-icon step-icon-2">
+                  <Clock size={20} />
+                </div>
+                <div className="step-content">
+                  <span className="step-label">PASO 2</span>
+                  <span className="step-text">Esperar 48 horas para la entrega</span>
+                </div>
+              </div>
+              <div className="step-connector" />
+              <div className="step-card">
+                <div className="step-icon step-icon-3">
+                  <CheckCircle2 size={20} />
+                </div>
+                <div className="step-content">
+                  <span className="step-label">PASO 3</span>
+                  <span className="step-text">Listo para enviar los items</span>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
         <main className="shop-main">
-          {sections.map((section) => (
+          {filteredSections.map((section) => (
             <section 
               key={section.name} 
-              id={`section-${section.name.replace(/\s+/g, '-')}`}
               className="shop-section"
             >
               <div className="section-header">
-                <h2 className="burbank skewed">{section.name}</h2>
+                <h2>{section.name}</h2>
                 <div className="section-divider"></div>
               </div>
               <div className="items-grid">

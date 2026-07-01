@@ -13,7 +13,7 @@ import {
   Gamepad2,
   Filter
 } from 'lucide-react';
-import { StoreAPI, socket } from '../../services/api';
+import { StoreAPI, socket, SERVER_URL } from '../../services/api';
 
 interface DeliveryOrder {
   id: string;
@@ -32,6 +32,7 @@ interface DeliveryOrder {
   mm2DeliveryStatus?: 'pending' | 'requested' | 'ready' | 'completed';
   mm2PrivateServer?: string;
   mm2RequestedAt?: string;
+  receipt?: string;
   createdAt: string;
 }
 
@@ -123,6 +124,7 @@ export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
   const [serverUrlModal, setServerUrlModal] = useState<{orderId: string, url: string} | null>(null);
   const [mm2GlobalServerUrl, setMm2GlobalServerUrl] = useState('');
   const [isSavingMm2Url, setIsSavingMm2Url] = useState(false);
+  const [receiptModal, setReceiptModal] = useState<string | null>(null);
   
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
     setToast({ message, type });
@@ -453,6 +455,15 @@ export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
                           <Calendar size={12} />
                           <span>{new Date(order.deliveryRequestedAt || order.mm2RequestedAt || order.createdAt).toLocaleString('es-PE')}</span>
                         </div>
+                        {order.receipt && (
+                          <button
+                            onClick={() => setReceiptModal(`${SERVER_URL}${order.receipt}`)}
+                            className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg text-[10px] font-bold transition-all"
+                          >
+                            <ExternalLink size={12} />
+                            Ver comprobante
+                          </button>
+                        )}
                       </div>
                     </div>
                     <button
@@ -548,6 +559,15 @@ export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
                           <User size={12} />
                           <span>{order.username}</span>
                         </div>
+                        {order.receipt && (
+                          <button
+                            onClick={() => setReceiptModal(`${SERVER_URL}${order.receipt}`)}
+                            className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg text-[10px] font-bold transition-all"
+                          >
+                            <ExternalLink size={12} />
+                            Ver comprobante
+                          </button>
+                        )}
                       </div>
                     </div>
                     <button
@@ -601,16 +621,27 @@ export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
               const gameColor = getGameColor(order.type, games);
               
               return (
-                <div key={order.id} className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle2 size={16} className="text-emerald-400" />
-                    <div>
-                      <p className="text-xs font-bold text-white">{order.id}</p>
-                      <p className="text-[10px] text-white/40">@{order.username} · {parsed.gameName}</p>
+                  <div key={order.id} className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 size={16} className="text-emerald-400" />
+                      <div>
+                        <p className="text-xs font-bold text-white">{order.id}</p>
+                        <p className="text-[10px] text-white/40">@{order.username} · {parsed.gameName}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {order.receipt && (
+                        <button
+                          onClick={() => setReceiptModal(`${SERVER_URL}${order.receipt}`)}
+                          className="flex items-center gap-1 px-2.5 py-1 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg text-[10px] font-bold transition-all"
+                        >
+                          <ExternalLink size={11} />
+                          Comprobante
+                        </button>
+                      )}
+                      {getStatusBadge(getDeliveryStatus(order))}
                     </div>
                   </div>
-                  {getStatusBadge(getDeliveryStatus(order))}
-                </div>
               );
             })}
           </div>
@@ -695,6 +726,31 @@ export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
               >
                 Confirmar
               </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Receipt Modal */}
+      {receiptModal && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setReceiptModal(null)}>
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            onClick={(e) => e.stopPropagation()}
+            className="bg-gradient-to-br from-[#1a1835] via-[#13102a] to-[#0f0d22] border border-white/10 rounded-3xl p-6 max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-black text-white">Comprobante de pago</h3>
+              <button
+                onClick={() => setReceiptModal(null)}
+                className="w-8 h-8 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center text-white/40 hover:text-white transition-all"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto rounded-xl bg-black/40 p-2">
+              <img src={receiptModal} alt="Comprobante" className="w-full h-auto object-contain rounded-lg" />
             </div>
           </motion.div>
         </div>

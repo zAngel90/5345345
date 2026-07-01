@@ -415,28 +415,28 @@ export default function Hero() {
         {/* Category Buttons */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           <button 
-            onClick={() => navigate('/catalog?category=robux')}
+            onClick={() => navigate('/catalog/robux')}
             className="flex items-center gap-2 px-5 py-3 bg-[#1a3a2e]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#1a3a2e]/50 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
           >
             <Gamepad2 className="w-5 h-5" />
             Robux
           </button>
           <button 
-            onClick={() => navigate('/catalog')}
+            onClick={() => navigate('/catalog/ingame')}
             className="flex items-center gap-2 px-5 py-3 bg-[#1e3a5f]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#1e3a5f]/50 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
           >
             <Monitor className="w-5 h-5" />
             Items In-Game
           </button>
           <button 
-            onClick={() => navigate('/catalog?game=mm2')}
+            onClick={() => navigate('/catalog/ingame/mm2')}
             className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#dc2626]/40 to-[#991b1b]/40 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:from-[#dc2626]/60 hover:to-[#991b1b]/60 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
           >
             <Sword className="w-5 h-5" />
             MM2
           </button>
           <button 
-            onClick={() => navigate('/catalog?category=limiteds')}
+            onClick={() => navigate('/catalog/ingame/limiteds')}
             className="flex items-center gap-2 px-5 py-3 bg-[#4a4a2e]/30 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-semibold hover:bg-[#4a4a2e]/50 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
           >
             <Crown className="w-5 h-5" />
