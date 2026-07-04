@@ -1265,8 +1265,8 @@ export default function RobuxCatalog() {
                   {recentUsers.length > 0 && (
                     <div>
                       <p className="text-[10px] font-black text-white/30 tracking-[0.2em] uppercase mb-3">RECIENTES</p>
-                      <div className="grid grid-cols-4 gap-2">
-                        {recentUsers.slice(0, 4).map((u: any) => (
+                      <div className="grid grid-cols-1 gap-2">
+                        {recentUsers.slice(0, 3).map((u: any) => (
                           <button
                             key={u.id}
                             onClick={() => {
@@ -1276,9 +1276,9 @@ export default function RobuxCatalog() {
                               setGamepassError(null);
                               setGamepassStep(2);
                             }}
-                            className="flex flex-col items-center gap-2 p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl hover:bg-blue-500/10 hover:border-blue-500/30 transition-all group"
+                            className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl hover:bg-blue-500/10 hover:border-blue-500/30 transition-all group w-full text-left"
                           >
-                            <div className="w-12 h-12 rounded-full overflow-hidden bg-blue-500/10 border-2 border-white/10 group-hover:border-blue-500/40 transition-all">
+                            <div className="w-11 h-11 rounded-full overflow-hidden bg-blue-500/10 border-2 border-white/10 group-hover:border-blue-500/40 transition-all shrink-0">
                               <img
                                 src={u.id ? `${BASE_URL}/users/avatar/${u.id}` : `https://ui-avatars.com/api/?name=${u.name || 'User'}&background=0D8ABC&color=fff`}
                                 alt={u.name}
@@ -1288,9 +1288,9 @@ export default function RobuxCatalog() {
                                 }}
                               />
                             </div>
-                            <div className="text-center min-w-0 w-full">
-                              <p className="text-[10px] font-bold text-white/70 truncate group-hover:text-white transition-colors">{u.displayName || u.name}</p>
-                              <p className="text-[7px] text-white/30 truncate">@{u.name}</p>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-[11px] font-bold text-white/70 truncate group-hover:text-white transition-colors leading-tight">{u.displayName || u.name}</p>
+                              <p className="text-[8px] text-white/30 truncate">@{u.name}</p>
                             </div>
                           </button>
                         ))}
@@ -2238,8 +2238,8 @@ export default function RobuxCatalog() {
                   {recentUsers.length > 0 && (
                     <div>
                       <p className="text-[10px] font-black text-white/30 tracking-[0.2em] uppercase mb-3">RECIENTES</p>
-                      <div className="grid grid-cols-4 gap-2">
-                        {recentUsers.slice(0, 4).map((u: any) => (
+                      <div className="grid grid-cols-1 gap-2">
+                        {recentUsers.slice(0, 3).map((u: any) => (
                           <button
                             key={u.id}
                             onClick={() => {
@@ -2249,9 +2249,9 @@ export default function RobuxCatalog() {
                               setGroupError(null);
                               handleVerifyGroups();
                             }}
-                            className="flex flex-col items-center gap-2 p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl hover:bg-blue-500/10 hover:border-blue-500/30 transition-all group"
+                            className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl hover:bg-blue-500/10 hover:border-blue-500/30 transition-all group w-full text-left"
                           >
-                            <div className="w-12 h-12 rounded-full overflow-hidden bg-blue-500/10 border-2 border-white/10 group-hover:border-blue-500/40 transition-all">
+                            <div className="w-11 h-11 rounded-full overflow-hidden bg-blue-500/10 border-2 border-white/10 group-hover:border-blue-500/40 transition-all shrink-0">
                               <img
                                 src={`${BASE_URL}/users/avatar/${u.id}`}
                                 alt={u.name}
@@ -2261,9 +2261,9 @@ export default function RobuxCatalog() {
                                 }}
                               />
                             </div>
-                            <div className="text-center min-w-0 w-full">
-                              <p className="text-[10px] font-bold text-white/70 truncate group-hover:text-white transition-colors">{u.displayName || u.name}</p>
-                              <p className="text-[7px] text-white/30 truncate">@{u.name}</p>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-[11px] font-bold text-white/70 truncate group-hover:text-white transition-colors leading-tight">{u.displayName || u.name}</p>
+                              <p className="text-[8px] text-white/30 truncate">@{u.name}</p>
                             </div>
                           </button>
                         ))}
