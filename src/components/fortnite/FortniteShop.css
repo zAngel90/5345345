@@ -38,6 +38,16 @@
   position: relative;
 }
 
+.filter-float {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  max-width: 1400px;
+  padding: 0 2rem;
+  margin: -1rem auto 0;
+  width: 100%;
+}
+
 .filter-btn {
   display: flex;
   align-items: center;
@@ -48,7 +58,7 @@
   padding: 10px 24px;
   border-radius: 12px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 900;
   cursor: pointer;
   transition: all 0.2s;
   text-transform: uppercase;
@@ -85,6 +95,9 @@
   z-index: 200;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
   max-width: 90vw;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 2rem;
 }
 
 .filter-chip-h {
@@ -145,12 +158,14 @@
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
   letter-spacing: 2px;
+  font-weight: 900;
 }
 
 .timer-value {
   font-size: 1.6rem;
   color: #facc15;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 900;
 }
 
 .shop-main {
@@ -181,6 +196,7 @@
   color: #fff;
   white-space: nowrap;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 900;
 }
 
 .section-divider {
@@ -317,7 +333,7 @@
 /* Steps Row */
 .steps-row {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 0;
   width: 100%;
 }
@@ -379,10 +395,11 @@
 }
 
 .step-connector {
+  align-self: center;
   width: 32px;
   height: 2px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
   flex-shrink: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
 }
 
 @media (max-width: 768px) {

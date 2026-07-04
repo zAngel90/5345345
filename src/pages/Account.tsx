@@ -169,6 +169,7 @@ export default function Account() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('todos');
   const [currentPage, setCurrentPage] = useState(1);
+  const [levelPricing, setLevelPricing] = useState<Record<string, number>>({});
   const ordersPerPage = 5;
 
   useEffect(() => {
@@ -191,6 +192,13 @@ export default function Account() {
           localStorage.setItem('pixel_user', JSON.stringify(res.data));
         }
       }).catch(err => console.error('Error refreshing profile:', err));
+
+      // Fetch level pricing config
+      StoreAPI.getRobuxConfig().then(res => {
+        if (res.success && res.data.levelPricing) {
+          setLevelPricing(res.data.levelPricing);
+        }
+      }).catch(err => console.error('Error fetching level pricing:', err));
     }
   }, [navigate]);
 
@@ -1259,29 +1267,39 @@ export default function Account() {
                   <div className="flex items-center gap-2 text-emerald-500 text-[10px] font-bold uppercase tracking-[0.2em]">
                     <CheckCircle2 size={14} /> Beneficios Actuales
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <div className="p-4 bg-white/[0.03] border border-white/5 rounded-2xl flex items-center gap-3">
-                      <div className="size-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
-                        <CheckCircle2 size={16} />
+                  {(() => {
+                    const unlockedLevels = TIERS_CONFIG.filter(t => (user.totalRobux || 0) >= t.rbx && t.id !== 'NINGUNO');
+                    const levelsWithPricing = unlockedLevels.filter(t => levelPricing[t.id]);
+                    if (levelsWithPricing.length === 0) {
+                      return (
+                        <div className="p-4 bg-white/[0.03] border border-dashed border-white/5 rounded-2xl flex items-center gap-3">
+                          <div className="size-8 rounded-full bg-white/5 flex items-center justify-center text-white/20 shrink-0">
+                            <Shield size={16} />
+                          </div>
+                          <p className="text-xs font-bold text-white/40">Compra Robux para desbloquear precios especiales por nivel</p>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                        {levelsWithPricing.map((tier) => {
+                          const isCurrent = user.level === tier.id;
+                          const price = levelPricing[tier.id];
+                          return (
+                            <div key={tier.id} className={`p-4 rounded-2xl flex items-center gap-3 ${isCurrent ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-white/[0.03] border border-white/5'}`}>
+                              <div className={`size-8 rounded-full flex items-center justify-center shrink-0 ${isCurrent ? 'bg-emerald-500/10 text-emerald-400' : 'bg-white/5 text-white/20'}`}>
+                                <CheckCircle2 size={16} />
+                              </div>
+                              <div>
+                                <p className={`text-xs font-bold ${isCurrent ? 'text-emerald-400' : 'text-white/60'}`}>S/ {price.toFixed(2)} por cada 1,000 Robux</p>
+                                <p className={`text-[9px] font-bold mt-0.5 ${isCurrent ? 'text-emerald-500/60' : 'text-white/30'}`}>Nivel {tier.name}</p>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
-                      <p className="text-xs font-bold text-white/80">Rol personalizado en Discord</p>
-                    </div>
-                    <div className="p-4 bg-white/[0.03] border border-white/5 rounded-2xl flex items-center gap-3">
-                      <div className="size-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
-                        <CheckCircle2 size={16} />
-                      </div>
-                      <p className="text-xs font-bold text-white/80">1.5% de reembolso a saldo</p>
-                    </div>
-                    <div className="p-4 bg-white/[0.01] border border-dashed border-white/5 rounded-2xl flex items-center gap-3 opacity-40">
-                      <div className="size-8 rounded-full bg-white/5 flex items-center justify-center text-white/20 shrink-0">
-                        <Shield size={16} />
-                      </div>
-                      <div>
-                        <p className="text-[11px] font-bold text-white/40">Rol Discord Premium</p>
-                        <p className="text-[9px] text-orange-400 font-bold mt-0.5">Nivel Bronce</p>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Todos los Tiers */}
@@ -1378,8 +1396,8 @@ export default function Account() {
                                    const currentIndex = TIERS_CONFIG.findIndex(t => t.id === tier.id);
                                    const nextTier = TIERS_CONFIG[currentIndex + 1];
                                    if (tier.rbx === 0) return 'Sin compras';
-                                   if (!nextTier) return `${tier.rbx.toLocaleString()}+ R$`;
-                                   return `${tier.rbx.toLocaleString()} - ${(nextTier.rbx - 1).toLocaleString()} R$`;
+                                    if (!nextTier) return <>{tier.rbx.toLocaleString()}+ <RobuxLogoIcon size={10} className="inline-block align-text-top" /></>;
+                                    return <>{tier.rbx.toLocaleString()} - {(nextTier.rbx - 1).toLocaleString()} <RobuxLogoIcon size={10} className="inline-block align-text-top" /></>;
                                  })()}
                                </p>
                             </div>

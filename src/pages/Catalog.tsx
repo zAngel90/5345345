@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Shield,
   Zap,
-  Users,
   Gamepad2,
   Search,
   ChevronRight,

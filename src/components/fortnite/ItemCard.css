@@ -8,6 +8,27 @@
   touch-action: manipulation;
 }
 
+.added-indicator {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.added-indicator::after {
+  content: '+';
+  color: #22c55e;
+  font-size: 4rem;
+  font-weight: 200;
+  text-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
+  line-height: 1;
+}
+
 .item-card {
   position: relative;
   width: 100%;
@@ -142,6 +163,28 @@
   font-size: 1.2rem;
   color: #fff;
   font-weight: 700;
+}
+
+.add-to-cart-icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 200;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.item-card-wrapper:hover .add-to-cart-icon {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .rarity-bar {

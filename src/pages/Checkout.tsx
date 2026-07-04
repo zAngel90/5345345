@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, CreditCard, Smartphone, Wallet, DollarSign, X, ChevronDown, ChevronUp, ChevronLeft, Tag, CheckCircle2, Loader2, Copy, Check, ArrowRight, ArrowLeft, Users, Search, Search as SearchIcon, HelpCircle, Shield, Info, TrendingUp, Zap, Star, Clock, Lock, Globe, ExternalLink, AlertCircle, Package, FileText, ImageIcon, Gamepad2 } from 'lucide-react';
+import { ShoppingCart, CreditCard, Smartphone, Wallet, DollarSign, X, ChevronDown, ChevronUp, ChevronLeft, Tag, CheckCircle2, Loader2, Copy, Check, ArrowRight, ArrowLeft, Search, Search as SearchIcon, HelpCircle, Shield, Info, TrendingUp, Zap, Star, Clock, Lock, Globe, ExternalLink, AlertCircle, Package, FileText, ImageIcon, Gamepad2 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { RobloxAPI, StoreAPI, OrdersAPI, BASE_URL, SERVER_URL, CouponsAPI } from '../services/api';
 
@@ -1819,7 +1819,7 @@ const Checkout = () => {
                           {deliveryMethod === 'gamepass' ? (
                             <Tag size={14} className="text-white/20" />
                           ) : (
-                            <Users size={14} className="text-white/20" />
+                            <img src="/images/grupos.svg" className="w-3.5 h-3.5 brightness-0 invert opacity-20" alt="Grupo" />
                           )}
                         </div>
                         <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">
@@ -2347,7 +2347,7 @@ const Checkout = () => {
                               <Tag size={20} className="text-emerald-500/50" />
                             )
                           ) : (
-                            <Users size={20} className="text-emerald-500" />
+                            <img src="/images/grupos.svg" className="w-5 h-5 brightness-0 invert text-emerald-500" alt="Grupo" />
                           )}
                         </div>
                         <div className="min-w-0 truncate">

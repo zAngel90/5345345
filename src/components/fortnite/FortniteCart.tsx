@@ -156,7 +156,7 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3">
                       <ShoppingCart className="text-blue-400" size={24} />
-                      <h2 className="text-2xl font-bold text-white">Carrito</h2>
+                      <h2 className="text-2xl font-black text-white">Carrito</h2>
                     </div>
                     <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
                       <X className="text-white" size={24} />
@@ -175,10 +175,10 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
                           <div key={item.id} className="bg-white/5 rounded-xl p-4 flex gap-4">
                             <img src={item.image} alt={item.name} className="w-20 h-20 object-contain rounded-lg" />
                             <div className="flex-1">
-                              <h3 className="text-white font-bold">{item.name}</h3>
+                              <h3 className="text-white font-black">{item.name}</h3>
                               <p className="text-white/60 text-sm">{item.type}</p>
                               <div className="flex items-center gap-2 mt-2">
-                                <span className="text-white font-bold">S/ {((item.price / 100) * pricePerHundred).toFixed(2)}</span>
+                                <span className="text-white font-black">S/ {((item.price / 100) * pricePerHundred).toFixed(2)}</span>
                               </div>
                             </div>
                             <button
@@ -193,14 +193,14 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
 
                       <div className="border-t border-white/10 pt-4 mb-6">
                         <div className="flex items-center justify-between text-xl mb-6 pb-6 border-b border-white/10">
-                          <span className="text-white">Total:</span>
-                          <span className="text-white text-2xl">S/ {getTotalSoles()}</span>
+                          <span className="text-white font-black">Total:</span>
+                          <span className="text-white text-2xl font-black">S/ {getTotalSoles()}</span>
                         </div>
                       </div>
 
                       <button
                         onClick={() => setShowCheckout(true)}
-                        className="w-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 text-white py-4 rounded-xl font-bold text-lg transition-all shadow-lg"
+                        className="w-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 text-white py-4 rounded-xl font-black text-lg transition-all shadow-lg"
                       >
                         Proceder al Pago
                       </button>
@@ -210,7 +210,7 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
               ) : (
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-bold text-white">Checkout</h2>
+                    <h2 className="text-2xl font-black text-white">Checkout</h2>
                     <button onClick={() => setShowCheckout(false)} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
                       <X className="text-white" size={24} />
                     </button>
@@ -220,7 +220,7 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
                     <p className="text-white/60 text-sm mb-2">Agrega al administrador en Fortnite:</p>
                     <div className="flex items-center gap-2 bg-black/30 rounded-lg p-3">
                       <div className="flex-1">
-                        <p className="text-white font-bold" style={{ textTransform: 'none' }}>{adminUsername}</p>
+                        <p className="text-white font-black" style={{ textTransform: 'none' }}>{adminUsername}</p>
                         <p className="text-white/40 text-xs capitalize">{adminPlatform}</p>
                       </div>
                       <button
@@ -251,7 +251,7 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
                           <button
                             key={p}
                             onClick={() => setPlatform(p)}
-                            className={`py-3 rounded-xl font-bold capitalize transition-all border ${
+                            className={`py-3 rounded-xl font-black capitalize transition-all border ${
                               platform === p
                                 ? 'bg-white/20 text-white border-white/30'
                                 : 'bg-white/5 text-white/60 hover:bg-white/10 border-white/10'
@@ -277,7 +277,7 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
                     <button
                       onClick={handleCheckout}
                       disabled={!fortniteUsername || !contactInfo}
-                      className="w-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 text-white py-4 rounded-xl font-bold text-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white/10 mt-6"
+                      className="w-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 text-white py-4 rounded-xl font-black text-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white/10 mt-6"
                     >
                       Ir a Pagar
                     </button>
@@ -297,7 +297,7 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
             exit={{ opacity: 0, y: -50 }}
             className="fixed top-24 right-6 z-[200] bg-black/80 backdrop-blur-xl text-white px-6 py-4 rounded-xl shadow-2xl border border-white/20"
           >
-            <p className="font-bold">{toastMessage}</p>
+            <p className="font-black">{toastMessage}</p>
           </motion.div>
         )}
       </AnimatePresence>

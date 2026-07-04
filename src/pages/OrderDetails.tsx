@@ -9,7 +9,6 @@ import {
   Truck,
   CheckCircle2,
   MessageSquare,
-  Users,
   HelpCircle,
   LucideIcon,
   Tag as LucideTag,

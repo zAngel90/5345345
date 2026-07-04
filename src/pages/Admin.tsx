@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Settings, 
-  Users, 
-  Plus, 
-  Trash2, 
-  Save, 
+import {
+  Settings,
+  Plus,
+  Trash2,
+  Save,
   ExternalLink,
   ShieldCheck,
   LayoutDashboard,
@@ -34,6 +33,10 @@ import {
   Star
 } from 'lucide-react';
 import { RobloxAPI, StoreAPI, ChatAPI, AuthAPI, SERVER_URL } from '../services/api';
+
+const GrupoIcon = ({ size, className }: { size?: number; className?: string }) => (
+  <img src="/images/grupos.svg" className={`brightness-0 invert ${className || ''}`} style={{ width: size, height: size }} alt="Grupo" />
+);
 
 // Sub-components
 import GroupsTab from '../components/admin/GroupsTab';
@@ -67,7 +70,7 @@ const TABS = [
   { id: 'coupons', label: 'Cupones Descuento', icon: Ticket, category: 'Tienda' },
   { id: 'reviews', label: 'Reseñas', icon: Star, category: 'Tienda' },
   { id: 'games', label: 'Juegos & Items', icon: Gamepad2, category: 'Tienda' },
-  { id: 'groups', label: 'Grupos Roblox', icon: Users, category: 'Configuración' },
+  { id: 'groups', label: 'Grupos Roblox', icon: GrupoIcon, category: 'Configuración' },
   { id: 'currencies', label: 'Tasas y Monedas', icon: Globe, category: 'Configuración' },
   { id: 'payment-methods', label: 'Métodos de Pago', icon: CreditCard, category: 'Configuración' },
   { id: 'settings', label: 'Ajustes Generales', icon: Settings, category: 'Configuración' },
@@ -428,7 +431,7 @@ export default function Admin() {
         <div className="p-4 border-t border-white/[0.05] bg-black/20">
            <div className="flex items-center gap-3 mb-4 px-4">
              <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
-                <Users size={18} className="text-white/60" />
+                 <User size={18} className="text-white/60" />
              </div>
              <div>
                <p className="text-xs font-bold text-white">Administrador</p>

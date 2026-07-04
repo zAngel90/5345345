@@ -24,7 +24,9 @@ import {
   MessageSquare, 
   ArrowUpRight,
   CheckCircle2,
-  Loader2
+  Loader2,
+  Gamepad2,
+  Zap
 } from 'lucide-react';
 import { StoreAPI, ReviewsAPI, SERVER_URL, SiteStatusAPI } from '../services/api';
 
@@ -196,6 +198,12 @@ function Hero() {
         navigate(`/catalog?search=${encodeURIComponent(item.name)}`);
       } else if (item.type === 'robux') {
         navigate('/catalog/robux');
+      } else if (item.type === 'mm2') {
+        navigate('/catalog/ingame/mm2');
+      } else if (item.type === 'ingame') {
+        navigate('/catalog/ingame');
+      } else if (item.type === 'fortnite') {
+        navigate('/fortnite');
       }
       setSearchQuery('');
       setIsSearchDropdownOpen(false);
@@ -244,6 +252,33 @@ function Hero() {
         });
       }
 
+      if ('mm2'.includes(query) || 'murder mystery'.includes(query)) {
+        results.push({
+          type: 'mm2',
+          id: 'mm2',
+          name: 'Murder Mystery 2',
+          category: 'Juego'
+        });
+      }
+
+      if ('ingame'.includes(query) || 'in-game'.includes(query) || 'items in-game'.includes(query)) {
+        results.push({
+          type: 'ingame',
+          id: 'ingame',
+          name: 'Items In-Game',
+          category: 'Categoría'
+        });
+      }
+
+      if ('fortnite'.includes(query)) {
+        results.push({
+          type: 'fortnite',
+          id: 'fortnite',
+          name: 'Fortnite',
+          category: 'Juego'
+        });
+      }
+
       setSearchResults(results.slice(0, 6));
     } else {
       const defaultResults: any[] = [
@@ -254,7 +289,25 @@ function Hero() {
           image: '/images/robux-logo.svg',
           category: 'Moneda'
         },
-        ...games.slice(0, 5).map(game => ({
+        {
+          type: 'mm2',
+          id: 'mm2',
+          name: 'Murder Mystery 2',
+          category: 'Juego'
+        },
+        {
+          type: 'ingame',
+          id: 'ingame',
+          name: 'Items In-Game',
+          category: 'Categoría'
+        },
+        {
+          type: 'fortnite',
+          id: 'fortnite',
+          name: 'Fortnite',
+          category: 'Juego'
+        },
+        ...games.slice(0, 3).map(game => ({
           type: 'game',
           id: game.id,
           name: game.name,
@@ -412,15 +465,20 @@ function Hero() {
                           onClick={() => handleSearch(result)}
                           className="w-full flex items-center gap-3 px-4 py-3 hover:bg-blue-500/10 transition-all text-left group rounded-xl"
                         >
-                          <div className="w-10 h-10 rounded-2xl overflow-hidden bg-white/5 border border-white/[0.08] shrink-0 group-hover:border-white/20 transition-all">
-                            <img
-                              src={result.image ? (result.image.startsWith('http') ? result.image : `${SERVER_URL}${result.image}`) : '/images/robux-logo.svg'}
-                              alt={result.name}
-                              className="w-full h-full object-cover"
-                              onError={(e) => { 
-                                (e.target as HTMLImageElement).src = '/images/robux-logo.svg'; 
-                              }}
-                            />
+                          <div className="w-10 h-10 rounded-2xl overflow-hidden bg-white/5 border border-white/[0.08] shrink-0 group-hover:border-white/20 transition-all flex items-center justify-center">
+                            {result.type === 'mm2' && <Sword size={18} className="text-white/60" />}
+                            {result.type === 'ingame' && <Gamepad2 size={18} className="text-white/60" />}
+                            {result.type === 'fortnite' && <Zap size={18} className="text-white/60" />}
+                            {result.type !== 'mm2' && result.type !== 'ingame' && result.type !== 'fortnite' && (
+                              <img
+                                src={result.image ? (result.image.startsWith('http') ? result.image : `${SERVER_URL}${result.image}`) : '/images/robux-logo.svg'}
+                                alt={result.name}
+                                className="w-full h-full object-cover"
+                                onError={(e) => { 
+                                  (e.target as HTMLImageElement).src = '/images/robux-logo.svg'; 
+                                }}
+                              />
+                            )}
                           </div>
                           <div className="flex-1 min-w-0 flex flex-col gap-1">
                             <p className="text-sm font-bold text-white truncate">{result.name}</p>

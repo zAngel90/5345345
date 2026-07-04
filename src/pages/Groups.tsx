@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Users, 
   Clock, 
   CheckCircle2, 
   Search, 
@@ -159,7 +158,7 @@ export default function Groups() {
               <div className="space-y-6">
                 <div className="flex gap-4">
                   <div className="size-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                    <Users size={18} className="text-blue-400" />
+                    <img src="/images/grupos.svg" className="w-[18px] h-[18px] brightness-0 invert text-blue-400" alt="Grupo" />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white mb-1">1. Unete al grupo</h4>
@@ -276,7 +275,7 @@ export default function Groups() {
                 <div className="col-span-full py-20 text-center text-white/20 font-bold">Cargando grupos...</div>
               ) : groups.length === 0 ? (
                 <div className="col-span-full py-20 text-center bg-white/[0.01] border border-dashed border-white/10 rounded-3xl">
-                  <Users size={48} className="mx-auto text-white/10 mb-4" />
+                  <img src="/images/grupos.svg" className="w-12 h-12 mx-auto brightness-0 invert opacity-10 mb-4" alt="Grupo" />
                   <p className="text-white/20 font-bold">No hay grupos disponibles en este momento</p>
                 </div>
               ) : (

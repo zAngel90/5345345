@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingCart, Menu, X, User, Bell, ChevronDown, ChevronRight, Gamepad2, Crown, Diamond, Home, LayoutGrid, Star, Users, Wallet, LogOut, Globe, Package, Shield, Gem, Sword, CheckCircle2, Clock } from 'lucide-react';
+import { ShoppingCart, Menu, X, User, Bell, ChevronDown, ChevronRight, Gamepad2, Crown, Diamond, Home, LayoutGrid, Star, Wallet, LogOut, Globe, Package, Shield, Gem, Sword, CheckCircle2, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { StoreAPI, AuthAPI, ChatAPI, socket, OrdersAPI, SERVER_URL } from '../services/api';
 import AuthModal from './AuthModal';
+
+const GrupoIcon = ({ size, className }: { size?: number; className?: string }) => (
+  <img src="/images/grupos.svg" className={`brightness-0 invert ${className || ''}`} style={{ width: size, height: size }} alt="Grupo" />
+);
 
 const LEVEL_CONFIG: Record<string, { name: string, color: string }> = {
   NINGUNO: { name: 'Sin Rango', color: 'bg-white/5 text-white/20 border-white/10' },
@@ -30,7 +34,7 @@ const NAV_ITEMS = [
   { id: 'catalogo', label: 'Catálogo', href: '/catalog', icon: LayoutGrid, isDropdown: true },
   { id: 'fortnite', label: 'Fortnite', href: '/fortnite', icon: Gamepad2 },
   { id: 'resenas', label: 'Reseñas', href: '/reviews', icon: Star },
-  { id: 'grupos', label: 'Grupos', href: '/groups', icon: Users },
+  { id: 'grupos', label: 'Grupos', href: '/groups', icon: GrupoIcon },
 ];
 
 export default function Navbar() {

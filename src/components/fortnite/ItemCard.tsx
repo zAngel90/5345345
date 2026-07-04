@@ -1,21 +1,24 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FortniteItem } from '../../services/fortniteApi';
 import './ItemCard.css';
 
 interface ItemCardProps {
   item: FortniteItem;
-  onAddToCart?: (item: FortniteItem) => void;
+  onAddToCart?: (item: FortniteItem, e: React.MouseEvent) => void;
   pricePerHundred?: number;
 }
 
 export const ItemCard: React.FC<ItemCardProps> = ({ item, onAddToCart, pricePerHundred = 20 }) => {
+  const [added, setAdded] = useState(false);
   const rarityClass = `rarity-${item.rarity.toLowerCase().replace(/\s+/g, '-')}`;
   const isBundle = item.isBundle;
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
     if (onAddToCart) {
-      onAddToCart(item);
+      onAddToCart(item, e);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 1000);
     }
   };
 
@@ -30,6 +33,18 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onAddToCart, pricePerH
       onClick={handleClick}
     >
       <div className="card-selection-frame"></div>
+      
+      <AnimatePresence>
+        {added && (
+          <motion.div 
+            className="added-indicator"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          />
+        )}
+      </AnimatePresence>
       
       <div className="item-card">
         <div className="card-rarity-bg"></div>
@@ -60,6 +75,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onAddToCart, pricePerH
             <div className="item-price-badge">
               <span style={{ fontSize: '18px' }}>S/ {priceInSoles}</span>
             </div>
+            <div className="add-to-cart-icon">+</div>
           </div>
         </div>
         

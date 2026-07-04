@@ -10,7 +10,6 @@ import {
   Info,
   CheckCircle2,
 
-  Users,
   Crown,
   Star,
   ShoppingCart,
@@ -127,14 +126,6 @@ export default function RobuxCatalog() {
   const [customTiers, setCustomTiers] = useState<any[]>([]);
   const [levelPricing, setLevelPricing] = useState<Record<string, number>>({});
   const [deliveryMethodsConfig, setDeliveryMethodsConfig] = useState<any>(null);
-
-  // Apply level-based pricing override
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('pixel_user') || '{}');
-    if (user?.level && levelPricing[user.level]) {
-      setDynamicPricePer1000(levelPricing[user.level]);
-    }
-  }, [levelPricing]);
 
   // Fetch delivery methods config and fallback if method is disabled
   useEffect(() => {
@@ -355,14 +346,15 @@ export default function RobuxCatalog() {
   
   const userForLevel = JSON.parse(localStorage.getItem('pixel_user') || '{}');
   const hasLevelPricing = !!(userForLevel?.level && levelPricing[userForLevel.level]);
+  const isLevelPricingActive = hasLevelPricing && displayAmount >= 1000;
 
   const getPackagePrice = (pkg: any) => {
-    if (hasLevelPricing) return (Number(pkg.amount) / 1000) * dynamicPricePer1000;
+    if (hasLevelPricing && Number(pkg.amount) >= 1000) return (Number(pkg.amount) / 1000) * levelPricing[userForLevel.level];
     return Number(pkg.price);
   };
 
   // Lógica de Escalas para Precio Personalizado
-  let basePricePerUnit = dynamicPricePer1000 / 1000;
+  let basePricePerUnit = (isLevelPricingActive ? levelPricing[userForLevel.level] : dynamicPricePer1000) / 1000;
   if (customAmount && Array.isArray(customTiers) && customTiers.length > 0) {
     // Ordenar escalas por minAmount de mayor a menor para encontrar el tier más alto aplicable
     const sortedTiers = [...customTiers].sort((a, b) => b.minAmount - a.minAmount);
@@ -744,7 +736,7 @@ export default function RobuxCatalog() {
                       deliveryMethodsConfig && !deliveryMethodsConfig.group?.enabled ? 'opacity-30 cursor-not-allowed' : ''
                     }`}
                   >
-                    <Users size={16} />
+                          <img src="/images/grupos.svg" className="w-4 h-4 brightness-0 invert text-blue-400" alt="Grupo" />
                     Group
                     {(!deliveryMethodsConfig || deliveryMethodsConfig.group?.enabled) && (
                       <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-md font-bold">-15%</span>
@@ -861,9 +853,9 @@ export default function RobuxCatalog() {
                 <div className="rounded-2xl bg-[#060a20] border border-white/[0.06] p-4 mb-6 space-y-3">
                   <div className="flex justify-between text-xs">
                     <span className="text-white/30">Precio por cada 1,000</span>
-                    <span className="text-white/60 font-medium">{(dynamicPricePer1000 * selectedCurrencyData.rate).toFixed(2)} {currency}</span>
+                    <span className="text-white/60 font-medium">{((isLevelPricingActive ? levelPricing[userForLevel.level] : dynamicPricePer1000) * selectedCurrencyData.rate).toFixed(2)} {currency}</span>
                   </div>
-                  {levelPricing && Object.keys(levelPricing).length > 0 && (
+                  {isLevelPricingActive && (
                     <div className="flex justify-between text-[10px]">
                       <span className="text-yellow-400/60">Precio especial por nivel</span>
                       <span className="text-yellow-400/80 font-medium">Activo</span>
@@ -872,7 +864,11 @@ export default function RobuxCatalog() {
                   <div className="flex justify-between text-xs">
                     <span className="text-white/30">Método</span>
                     <span className="text-white/60 font-medium capitalize flex items-center gap-1.5">
-                      <img src="/images/gamepass2.svg" className="w-3 h-3 opacity-50" alt="" />
+                      {method === 'gamepass' ? (
+                        <img src="/images/gamepass2.svg" className="w-3 h-3 opacity-50" alt="" />
+                      ) : (
+                        <img src="/images/grupos.svg" className="w-3 h-3 brightness-0 invert opacity-50" alt="" />
+                      )}
                       {method}
                     </span>
                   </div>
@@ -2089,7 +2085,7 @@ export default function RobuxCatalog() {
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400">
-                          <Users size={16} />
+                    <img src="/images/grupos.svg" className="w-4 h-4 brightness-0 invert" alt="Grupo" />
                         </div>
                         <div>
                           <h4 className="text-sm font-bold text-white">Seleccionar usuario</h4>
@@ -2158,7 +2154,7 @@ export default function RobuxCatalog() {
                   <div className="flex-1 h-[1px] bg-white/10 mx-2 mt-[-18px]"></div>
                   <div className="flex flex-col items-center gap-2">
                     <div className="w-8 h-8 bg-[#1a1835] border border-white/5 rounded-full flex items-center justify-center">
-                      <Users size={14} className="text-white/20" />
+                      <img src="/images/grupos.svg" className="w-3.5 h-3.5 brightness-0 invert opacity-20" alt="Grupo" />
                     </div>
                     <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">VERIFICAR GRUPO</span>
                   </div>
@@ -2331,7 +2327,7 @@ export default function RobuxCatalog() {
                   <div className="flex-1 h-[1px] bg-blue-600/30 mx-2 mt-[-18px]"></div>
                   <div className="flex flex-col items-center gap-2">
                     <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-                      <Users size={14} className="text-white" />
+                      <img src="/images/grupos.svg" className="w-3.5 h-3.5 brightness-0 invert" alt="Grupo" />
                     </div>
                     <span className="text-[8px] font-black text-white uppercase tracking-widest">VERIFICAR GRUPO</span>
                   </div>
@@ -2679,7 +2675,7 @@ export default function RobuxCatalog() {
                 deliveryMethodsConfig && !deliveryMethodsConfig.group?.enabled ? 'opacity-30 cursor-not-allowed' : ''
               }`}
             >
-              <Users size={14} />
+              <img src="/images/grupos.svg" className="w-3.5 h-3.5 brightness-0 invert" alt="Grupo" />
               Grupo
               {(!deliveryMethodsConfig || deliveryMethodsConfig.group?.enabled) && (
                 <span className="text-[8px] bg-emerald-500/20 text-emerald-400 px-1 py-0.5 rounded font-bold">-15%</span>

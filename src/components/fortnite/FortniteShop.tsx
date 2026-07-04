@@ -25,6 +25,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
   const [pricePerHundred, setPricePerHundred] = useState(20);
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [flyingItem, setFlyingItem] = useState<{ item: FortniteItem; startRect: DOMRect } | null>(null);
 
   useEffect(() => {
     const fetchShop = async () => {
@@ -82,7 +83,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
     };
   }, []);
 
-  const handleAddToCart = (item: FortniteItem) => {
+  const handleAddToCart = (item: FortniteItem, e?: React.MouseEvent) => {
     const savedCart = localStorage.getItem('fortnite_cart');
     const cart = savedCart ? JSON.parse(savedCart) : [];
     
@@ -95,10 +96,17 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
     
     localStorage.setItem('fortnite_cart', JSON.stringify(cart));
     setCartCount(cart.length);
-    
-    setToastMessage(`${item.name} agregado al carrito!`);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
+
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      setToastMessage(`${item.name} agregado al carrito!`);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    } else if (e) {
+      const startRect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      setFlyingItem({ item, startRect });
+      setTimeout(() => setFlyingItem(null), 700);
+    }
   };
 
   const handleCopyUsername = () => {
@@ -131,34 +139,6 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
                 <span className="timer-value">{timeLeft}</span>
               </div>
             </div>
-          </div>
-          <div className="filter-bar">
-            <button
-              onClick={() => setShowFilterMenu(!showFilterMenu)}
-              className={`filter-btn ${selectedFilter ? 'filter-active' : ''}`}
-            >
-              <Filter size={16} />
-              <span>{selectedFilter || 'Categorías'}</span>
-            </button>
-            {showFilterMenu && (
-              <div className="filter-dropdown-h">
-                <button
-                  className={`filter-chip-h ${!selectedFilter ? 'filter-chip-active' : ''}`}
-                  onClick={() => { setSelectedFilter(null); setShowFilterMenu(false); }}
-                >
-                  Todas
-                </button>
-                {sections.map(s => (
-                  <button
-                    key={s.name}
-                    className={`filter-chip-h ${selectedFilter === s.name ? 'filter-chip-active' : ''}`}
-                    onClick={() => { setSelectedFilter(s.name); setShowFilterMenu(false); }}
-                  >
-                    {s.name}
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
         </header>
         {showFilterMenu && <div className="filter-overlay" onClick={() => setShowFilterMenu(false)} />}
@@ -237,7 +217,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
                 </div>
                 <div className="step-content">
                   <span className="step-label">PASO 2</span>
-                  <span className="step-text">Esperar 48 horas para la entrega</span>
+                  <span className="step-text">Espera 48 horas.<br />Requisito único de Epic Games.</span>
                 </div>
               </div>
               <div className="step-connector" />
@@ -247,12 +227,41 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
                 </div>
                 <div className="step-content">
                   <span className="step-label">PASO 3</span>
-                  <span className="step-text">Listo para enviar los items</span>
+                  <span className="step-text">¡Listo!<br />Recibe tus ítems mediante regalo.</span>
                 </div>
               </div>
             </div>
           </div>
         )}
+
+        <div className="filter-float">
+          <button
+            onClick={() => setShowFilterMenu(!showFilterMenu)}
+            className={`filter-btn ${selectedFilter ? 'filter-active' : ''}`}
+          >
+            <Filter size={16} />
+            <span>{selectedFilter || 'Categorías'}</span>
+          </button>
+          {showFilterMenu && (
+            <div className="filter-dropdown-h">
+              <button
+                className={`filter-chip-h ${!selectedFilter ? 'filter-chip-active' : ''}`}
+                onClick={() => { setSelectedFilter(null); setShowFilterMenu(false); }}
+              >
+                Todas
+              </button>
+              {sections.map(s => (
+                <button
+                  key={s.name}
+                  className={`filter-chip-h ${selectedFilter === s.name ? 'filter-chip-active' : ''}`}
+                  onClick={() => { setSelectedFilter(s.name); setShowFilterMenu(false); }}
+                >
+                  {s.name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         <main className="shop-main">
           {filteredSections.map((section) => (
@@ -273,6 +282,36 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
           ))}
         </main>
       </div>
+
+      {/* Flying Item Animation */}
+      {flyingItem && (
+        <motion.img
+          src={flyingItem.item.image}
+          alt=""
+          initial={{ 
+            position: 'fixed',
+            zIndex: 9999,
+            width: 80,
+            height: 80,
+            objectFit: 'contain',
+            borderRadius: 12,
+            left: flyingItem.startRect.left + flyingItem.startRect.width / 2 - 40,
+            top: flyingItem.startRect.top + flyingItem.startRect.height / 2 - 40,
+            opacity: 1,
+            scale: 1
+          }}
+          animate={{ 
+            left: window.innerWidth - 100,
+            top: window.innerHeight - 100,
+            width: 40,
+            height: 40,
+            opacity: 0,
+            scale: 0.5
+          }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          style={{ pointerEvents: 'none' }}
+        />
+      )}
 
       {/* Floating Cart Button */}
       <button
@@ -318,7 +357,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="fixed top-24 right-4 lg:right-[30px] z-[200] bg-gradient-to-br from-blue-500 to-purple-600 text-white px-4 py-3 lg:px-6 lg:py-4 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 max-w-[calc(100vw-2rem)] lg:max-w-none"
+            className="fixed top-24 right-4 lg:right-[30px] z-[200] bg-gradient-to-br from-blue-500 to-blue-900 text-white px-4 py-3 lg:px-6 lg:py-4 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 max-w-[calc(100vw-2rem)] lg:max-w-none"
           >
             <p style={{ fontWeight: 'bold', margin: 0 }}>{toastMessage}</p>
           </motion.div>
