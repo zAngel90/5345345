@@ -857,8 +857,8 @@ export default function RobuxCatalog() {
                   </div>
                   {isLevelPricingActive && (
                     <div className="flex justify-between text-[10px]">
-                      <span className="text-yellow-400/60">Precio especial por nivel</span>
-                      <span className="text-yellow-400/80 font-medium">Activo</span>
+                      <span className="text-emerald-400/60">Precio especial por nivel</span>
+                      <span className="text-emerald-400/80 font-medium">Activo</span>
                     </div>
                   )}
                   <div className="flex justify-between text-xs">
