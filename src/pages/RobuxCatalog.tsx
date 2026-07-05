@@ -355,7 +355,7 @@ export default function RobuxCatalog() {
 
   // Lógica de Escalas para Precio Personalizado
   let basePricePerUnit = (isLevelPricingActive ? levelPricing[userForLevel.level] : dynamicPricePer1000) / 1000;
-  if (customAmount && Array.isArray(customTiers) && customTiers.length > 0) {
+  if (!isLevelPricingActive && customAmount && Array.isArray(customTiers) && customTiers.length > 0) {
     // Ordenar escalas por minAmount de mayor a menor para encontrar el tier más alto aplicable
     const sortedTiers = [...customTiers].sort((a, b) => b.minAmount - a.minAmount);
     const applicableTier = sortedTiers.find(tier => displayAmount >= tier.minAmount);
