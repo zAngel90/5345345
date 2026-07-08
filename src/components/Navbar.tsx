@@ -339,7 +339,12 @@ export default function Navbar() {
                                     <div className="flex-1 min-w-0">
                                       <p className="text-white text-xs font-semibold mb-0.5 leading-tight">Pedido #{order.id.slice(0, 8)}</p>
                                       <p className="text-gray-400 text-[11px] leading-snug">
-                                        Estado: {order.status === 'pending' ? 'Pendiente' : order.status === 'in_progress' ? 'En progreso' : order.status === 'completed' ? 'Completado' : 'Cancelado'}
+                                        {order.type === 'fortnite' ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
+                                          : order.type === 'mm2' ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
+                                          : order.type === 'trade_limited' ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
+                                          : order.type === 'ingame' || (typeof order.type === 'string' && order.type.includes(':'))
+                                            ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Items'} In-Game`
+                                            : `${order.amount} Robux`} • Estado: {order.status === 'pending' ? 'Pendiente' : order.status === 'in_progress' ? 'En progreso' : order.status === 'completed' ? 'Completado' : 'Cancelado'}
                                       </p>
                                     </div>
                                     {order.status === 'pending' && <div className="w-2 h-2 bg-amber-500 rounded-full shrink-0 mt-2 animate-pulse" />}
@@ -619,14 +624,16 @@ export default function Navbar() {
                                        <span className="text-[9px] font-bold text-white/20">{new Date(order.createdAt).toLocaleDateString()}</span>
                                      </div>
                                      <p className="text-[10px] text-white/40 mt-0.5 leading-tight truncate">
-                                      ID: {order.id} • {
-                                        order.type === 'fortnite' 
-                                          ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
-                                          : order.type === 'mm2'
-                                            ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
-                                            : order.type === 'trade_limited'
-                                              ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
-                                              : `${order.amount} Robux`
+                                       ID: {order.id} • {
+                                         order.type === 'fortnite' 
+                                           ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Skin' : 'Skins'} Fortnite`
+                                           : order.type === 'mm2'
+                                             ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} MM2`
+                                             : order.type === 'trade_limited'
+                                               ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Ítems'} Limited`
+                                               : order.type === 'ingame' || (typeof order.type === 'string' && order.type.includes(':'))
+                                                 ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Items'} In-Game`
+                                                 : `${order.amount} Robux`
                                       }
                                     </p>
                                   </div>
