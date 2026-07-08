@@ -93,6 +93,7 @@ export default function Mm2Tab({ items, setItems, onSave, onTriggerUpload, isSav
                       type="number" 
                       value={item.price} 
                       onChange={(e) => updateItem(idx, 'price', parseFloat(e.target.value))} 
+                      onWheel={(e) => (e.target as HTMLElement).blur()}
                       className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-emerald-400 text-xs font-bold" 
                       placeholder="0.00" 
                     />
@@ -103,6 +104,7 @@ export default function Mm2Tab({ items, setItems, onSave, onTriggerUpload, isSav
                       type="number" 
                       value={item.robuxPrice || ''} 
                       onChange={(e) => updateItem(idx, 'robuxPrice', e.target.value ? parseInt(e.target.value) : undefined)} 
+                      onWheel={(e) => (e.target as HTMLElement).blur()}
                       className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-blue-400 text-xs font-bold" 
                       placeholder="0" 
                     />
@@ -123,6 +125,7 @@ export default function Mm2Tab({ items, setItems, onSave, onTriggerUpload, isSav
                       type="number" 
                       value={item.stock || 0} 
                       onChange={(e) => updateItem(idx, 'stock', parseInt(e.target.value))} 
+                      onWheel={(e) => (e.target as HTMLElement).blur()}
                       className="w-full bg-[#0d0c22] border border-white/10 rounded-xl px-4 py-2 text-white text-xs font-bold" 
                       placeholder="0" 
                     />
