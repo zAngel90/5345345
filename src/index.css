@@ -5,6 +5,14 @@
 @tailwind utilities;
 
 @layer base {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
   body {
     @apply bg-[#0d0c22] selection:bg-blue-500/30 selection:text-blue-200;
     font-family: 'Inter', system-ui, sans-serif;
