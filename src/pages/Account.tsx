@@ -1208,7 +1208,11 @@ export default function Account() {
 
                   <div className="relative z-10 flex-1 space-y-4 w-full">
                     <div className="flex items-center justify-center md:justify-start">
-                      <h2 className="text-xl font-bold text-white">{TIERS_CONFIG.find(t => t.id === user.level)?.name || 'Cliente'}</h2>
+                      <span className={`px-4 py-2 rounded-full text-sm font-black border ${
+                        LEVEL_CONFIG[user.level as keyof typeof LEVEL_CONFIG]?.color || 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                      }`}>
+                        {TIERS_CONFIG.find(t => t.id === user.level)?.name || 'Cliente'}
+                      </span>
                     </div>
 
                     <div className="space-y-3">
