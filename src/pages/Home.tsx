@@ -36,19 +36,6 @@ import { StoreAPI, ReviewsAPI, SERVER_URL, SiteStatusAPI } from '../services/api
 
 const CATALOG_URL = 'https://54345345.vercel.app/';
 
-const FortniteIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 1581 441" fill="currentColor">
-    <polygon points="1580.5 7.5 1580.5 112.5 1510.5 115.5 1510.5 173.5 1569.5 173.5 1569.5 258.5 1511.5 258.5 1511.5 332.5 1580.5 332.5 1580.5 430.5 1416.5 418.5 1416.5 20.5 1580.5 7.5"/>
-    <polygon points="178.5 .5 169 96.5 96.5 96.5 96.5 167 98 168.5 160.5 168.5 158.5 260.5 98 260.5 96.5 262 96.5 423.5 .5 440.5 .5 .5 178.5 .5"/>
-    <polygon points="1071.5 21.5 1074.36 389.86 999.61 397.38 935.49 240.51 939.5 384.5 852.5 384.5 852.5 40.5 928.51 25.93 996.49 191.5 983.5 21.5 1071.5 21.5"/>
-    <path d="M547,28.5c15.34,1.56,35.79,11.58,47.51,21.49,56.77,47.99,64.11,151.74,5.29,200.99l46.7,145.52-95,8.01-36.02-126-3.99,111.99h-92V28.5h127.5ZM512.5,210.5c18.95-1.78,26.96-23.8,28.05-40.45,1.38-21.27.04-57.99-28.05-59.55v100Z"/>
-    <path d="M278.3,27.8c99.15-7.84,124.67,74.92,128.19,157.21,3.29,76.74-2.47,205.98-103.5,213.48-102.52,7.6-124.48-76.71-128.5-160.48-3.78-78.7,1.11-202.09,103.81-210.21ZM293.22,104.79c-7.13-5.88-11.16,5.09-12.64,10.28-5.09,17.81-4.36,37.63-5.03,55.97-1.48,40.23-3.97,93.39,3.27,132.64,3.79,20.53,13.74,33.11,20.22,4.85,5.86-25.55,4.23-57.24,4.42-83.58s1.36-54.97-.97-81.95c-.69-7.97-3.46-33.43-9.27-38.21Z"/>
-    <polygon points="1404.5 46.5 1404.5 139.5 1350.5 139.5 1350.5 412.5 1255.5 412.5 1255.5 149.5 1203.5 149.5 1203.5 56.5 1404.5 46.5"/>
-    <polygon points="841.5 44.5 841.5 137.5 788.5 137.5 788.5 388.5 693.5 388.5 693.5 121.5 643.5 121.5 643.5 28.5 841.5 44.5"/>
-    <rect x="1094.5" y="38.5" width="98" height="363"/>
-  </svg>
-);
-
 const stars = Array.from({ length: 50 }, (_, i) => ({
   id: i,
   left: `${Math.random() * 100}%`,
@@ -202,8 +189,6 @@ function Hero() {
         navigate('/catalog/ingame/mm2');
       } else if (item.type === 'ingame') {
         navigate('/catalog/ingame');
-      } else if (item.type === 'fortnite') {
-        navigate('/fortnite');
       }
       setSearchQuery('');
       setIsSearchDropdownOpen(false);
@@ -270,15 +255,6 @@ function Hero() {
         });
       }
 
-      if ('fortnite'.includes(query)) {
-        results.push({
-          type: 'fortnite',
-          id: 'fortnite',
-          name: 'Fortnite',
-          category: 'Juego'
-        });
-      }
-
       setSearchResults(results.slice(0, 6));
     } else {
       const defaultResults: any[] = [
@@ -300,12 +276,6 @@ function Hero() {
           id: 'ingame',
           name: 'Items In-Game',
           category: 'Categoría'
-        },
-        {
-          type: 'fortnite',
-          id: 'fortnite',
-          name: 'Fortnite',
-          category: 'Juego'
         },
         ...games.slice(0, 3).map(game => ({
           type: 'game',
@@ -468,8 +438,7 @@ function Hero() {
                           <div className="w-10 h-10 rounded-2xl overflow-hidden bg-white/5 border border-white/[0.08] shrink-0 group-hover:border-white/20 transition-all flex items-center justify-center">
                             {result.type === 'mm2' && <Sword size={18} className="text-white/60" />}
                             {result.type === 'ingame' && <Gamepad2 size={18} className="text-white/60" />}
-                            {result.type === 'fortnite' && <Zap size={18} className="text-white/60" />}
-                            {result.type !== 'mm2' && result.type !== 'ingame' && result.type !== 'fortnite' && (
+                            {result.type !== 'mm2' && result.type !== 'ingame' && (
                               <img
                                 src={result.image ? (result.image.startsWith('http') ? result.image : `${SERVER_URL}${result.image}`) : '/images/robux-logo.svg'}
                                 alt={result.name}
@@ -524,12 +493,6 @@ function Hero() {
               >
                 <Crown className="w-5 h-5" />
                 Limitados
-              </button>
-              <button 
-                onClick={() => navigate('/fortnite')}
-                className="flex items-center justify-center px-6 py-3 bg-[#0d4a6e]/40 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white text-sm font-bold hover:bg-[#0d4a6e]/60 transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
-              >
-                <FortniteIcon className="w-16 h-5" />
               </button>
             </div>
 

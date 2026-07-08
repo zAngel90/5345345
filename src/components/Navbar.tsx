@@ -32,7 +32,6 @@ const SECTION_TO_NAV: Record<string, string> = {
 const NAV_ITEMS = [
   { id: 'inicio', label: 'Inicio', href: '/', icon: Home },
   { id: 'catalogo', label: 'Catálogo', href: '/catalog', icon: LayoutGrid, isDropdown: true },
-  { id: 'fortnite', label: 'Fortnite', href: '/fortnite', icon: Gamepad2 },
   { id: 'resenas', label: 'Reseñas', href: '/reviews', icon: Star },
   { id: 'grupos', label: 'Grupos', href: '/groups', icon: GrupoIcon },
 ];
@@ -147,8 +146,6 @@ export default function Navbar() {
       setActiveNav('resenas');
     } else if (location.pathname === '/groups') {
       setActiveNav('grupos');
-    } else if (location.pathname === '/fortnite') {
-      setActiveNav('fortnite');
     } else if (location.pathname === '/') {
       setActiveNav('inicio');
     }

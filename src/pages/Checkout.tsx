@@ -485,8 +485,7 @@ const Checkout = () => {
     if (!selected || !receipt) return;
 
     // Check if delivery method is enabled (solo para compras de Robux)
-    const isRobuxOrder = !state.type || state.type === 'robux';
-    if (isRobuxOrder) {
+    if (isRobuxOnly) {
       const methodToUse = state.method || 'gamepass';
       try {
         const delRes = await StoreAPI.getDeliveryMethods();
