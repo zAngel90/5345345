@@ -811,6 +811,7 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Bottom Navigation (Floating) */}
+      {location.pathname !== '/catalog/robux' && (
       <div className="fixed bottom-6 inset-x-0 mx-auto z-[70] lg:hidden w-[calc(100%-2.5rem)] max-w-[400px]">
         <div className="bg-[#161530]/80 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-2 flex items-center justify-around shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           {[
@@ -858,6 +859,7 @@ export default function Navbar() {
           })}
         </div>
       </div>
+      )}
 
 
     </>
