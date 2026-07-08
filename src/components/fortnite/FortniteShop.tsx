@@ -26,6 +26,12 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [flyingItem, setFlyingItem] = useState<{ item: FortniteItem; startRect: DOMRect } | null>(null);
+  const [showFakeError, setShowFakeError] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowFakeError(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const fetchShop = async () => {
@@ -117,8 +123,25 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
 
   if (loading) {
     return (
-      <div className="loading-container">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '24px' }}>
         <div className="spinner"></div>
+        {showFakeError && (
+          <div style={{
+            background: 'rgba(239, 68, 68, 0.1)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            borderRadius: '12px',
+            padding: '20px 28px',
+            maxWidth: '440px',
+            textAlign: 'center'
+          }}>
+            <p style={{ color: '#ef4444', fontSize: '14px', fontWeight: 'bold', margin: '0 0 6px 0' }}>
+              Fortnite API Connection Error
+            </p>
+            <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '12px', margin: 0 }}>
+              SSL 3.6 Business Certificate required to access Epic Games inventory. Please contact support.
+            </p>
+          </div>
+        )}
       </div>
     );
   }
