@@ -611,11 +611,11 @@ export default function Admin() {
                     )}
 
                     {activeTab === 'deliveries' && (
-                      <DeliveriesTab orders={orders} games={games} />
+                      <DeliveriesTab orders={orders} games={games} onContactClient={handleContactClient} />
                     )}
 
                     {activeTab === 'fortnite' && (
-                      <FortniteTab showToast={showToast} />
+                      <FortniteTab showToast={showToast} onContactClient={handleContactClient} />
                     )}
 
                     {activeTab === 'settings' && (

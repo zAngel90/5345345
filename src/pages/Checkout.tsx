@@ -484,21 +484,24 @@ const Checkout = () => {
   const handleSubmitOrder = async () => {
     if (!selected || !receipt) return;
 
-    // Check if delivery method is enabled
-    const methodToUse = state.method || 'gamepass';
-    try {
-      const delRes = await StoreAPI.getDeliveryMethods();
-      if (delRes.success) {
-        const dm = delRes.data;
-        if ((methodToUse === 'gamepass' && !dm.gamepass?.enabled) ||
-            (methodToUse === 'group' && !dm.group?.enabled)) {
-          alert(`El método "${methodToUse === 'gamepass' ? 'Gamepass' : 'Grupo'}" está desactivado actualmente.`);
-          setIsLoading(false);
-          return;
+    // Check if delivery method is enabled (solo para compras de Robux)
+    const isRobuxOrder = !state.type || state.type === 'robux';
+    if (isRobuxOrder) {
+      const methodToUse = state.method || 'gamepass';
+      try {
+        const delRes = await StoreAPI.getDeliveryMethods();
+        if (delRes.success) {
+          const dm = delRes.data;
+          if ((methodToUse === 'gamepass' && !dm.gamepass?.enabled) ||
+              (methodToUse === 'group' && !dm.group?.enabled)) {
+            alert(`El método "${methodToUse === 'gamepass' ? 'Gamepass' : 'Grupo'}" está desactivado actualmente.`);
+            setIsLoading(false);
+            return;
+          }
         }
+      } catch {
+        // Silently continue if check fails
       }
-    } catch {
-      // Silently continue if check fails
     }
     setIsLoading(true);
     try {
@@ -778,7 +781,7 @@ const Checkout = () => {
                                     </div>
                                     <div className="flex-1">
                                       <div className="text-sm font-black text-white uppercase tracking-tight mb-1">
-                                        {cart.length} {cart.length === 1 ? 'Atuendo' : 'Atuendos'} Fortnite
+                                        {cart.length} {cart.length === 1 ? 'Item' : 'Items'} Fortnite
                                       </div>
                                       <div className="flex flex-wrap gap-1.5">
                                         <div className="flex items-center gap-1 px-1 py-px rounded-lg bg-blue-500/[0.08]">

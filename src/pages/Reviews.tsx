@@ -139,7 +139,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
     
     if (type === 'fortnite') {
       const count = itemsCount || 1;
-      return `Pedido de ${count} ${count > 1 ? 'Atuendos' : 'Atuendo'} Fortnite`;
+      return `Pedido de ${count} ${count > 1 ? 'Items' : 'Item'} Fortnite`;
     } else if (type === 'mm2') {
       const count = itemsCount || 1;
       return `Pedido de ${count} ${count > 1 ? 'Artículos' : 'Artículo'} MM2`;
@@ -148,6 +148,9 @@ const ReviewCard = ({ review }: { review: Review }) => {
       return `Pedido de ${count} ${count > 1 ? 'Limitados' : 'Limitado'}`;
     } else if (type === 'robux') {
       return `Pedido de ${amount || 0} Robux`;
+    } else if (type === 'ingame') {
+      const count = itemsCount || 1;
+      return `Pedido de ${count} ${count > 1 ? 'Artículos' : 'Artículo'} In-Game`;
     }
     
     return 'Pedido Realizado';
@@ -770,12 +773,14 @@ export default function Reviews() {
                         <option key={order.id} value={order.id} className="bg-[#151432] text-white">
                           Pedido #{order.id.slice(0, 8)} - {
                             order.type === 'fortnite' 
-                              ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Atuendos' : 'Atuendo'} Fortnite`
+                              ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Items' : 'Item'} Fortnite`
                               : order.type === 'mm2'
                                 ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Artículos' : 'Artículo'} MM2`
-                                : order.type === 'trade_limited'
-                                  ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Artículos Limitados' : 'Artículo Limitado'}`
-                                  : `${order.amount} Robux`
+                                      : order.type === 'trade_limited'
+                                        ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Artículos Limitados' : 'Artículo Limitado'}`
+                                        : order.type === 'ingame' || (order.type || '').includes(':')
+                                          ? `${order.cart?.length || 1} ${order.cart?.length > 1 ? 'Artículos' : 'Artículo'} In-Game`
+                                          : `${order.amount} Robux`
                           } - {new Date(order.createdAt).toLocaleDateString()}
                         </option>
                       ))}

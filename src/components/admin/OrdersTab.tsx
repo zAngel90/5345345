@@ -66,7 +66,7 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
   const filteredByType = visibleOrders.filter(o => {
     if (!o.type) return true;
     if (o.type === 'mm2' || o.type === 'murder-mystery-2') return false;
-    if (o.type === 'trade_limited') return false;
+    // if (o.type === 'trade_limited') return false;
     if (typeof o.type === 'string' && o.type.includes(':')) return false;
     return true;
   });

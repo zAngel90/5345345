@@ -10,7 +10,16 @@ interface ItemCardProps {
 }
 
 export const ItemCard: React.FC<ItemCardProps> = ({ item, onAddToCart, pricePerHundred = 20 }) => {
-  const [added, setAdded] = useState(false);
+  const [added, setAdded] = useState(() => {
+    try {
+      const saved = localStorage.getItem('fortnite_cart');
+      if (saved) {
+        const cart = JSON.parse(saved);
+        return cart.some((i: any) => i.id === item.id);
+      }
+    } catch {}
+    return false;
+  });
   const rarityClass = `rarity-${item.rarity.toLowerCase().replace(/\s+/g, '-')}`;
   const isBundle = item.isBundle;
 
@@ -18,7 +27,6 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onAddToCart, pricePerH
     if (onAddToCart) {
       onAddToCart(item, e);
       setAdded(true);
-      setTimeout(() => setAdded(false), 1000);
     }
   };
 
@@ -75,7 +83,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onAddToCart, pricePerH
             <div className="item-price-badge">
               <span style={{ fontSize: '18px' }}>S/ {priceInSoles}</span>
             </div>
-            <div className="add-to-cart-icon">+</div>
+            <div className={`add-to-cart-icon ${added ? 'added' : ''}`}>{added ? '✓' : '+'}</div>
           </div>
         </div>
         

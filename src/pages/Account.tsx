@@ -900,7 +900,7 @@ export default function Account() {
                                   {groupOrders.map((order) => {
                                     const iconInfo = getOrderIcon(order.type);
                                     const orderTitle = order.type === 'fortnite' 
-                                      ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Atuendo' : 'Atuendos'} Fortnite`
+                                      ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Items'} Fortnite`
                                       : order.type === 'mm2'
                                         ? `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} MM2`
                                         : order.type === 'trade_limited'
@@ -1291,7 +1291,7 @@ export default function Account() {
                                 <CheckCircle2 size={16} />
                               </div>
                               <div>
-                                <p className={`text-xs font-bold ${isCurrent ? 'text-emerald-400' : 'text-white/60'}`}>S/ {price.toFixed(2)} por cada 1,000 Robux</p>
+                                <p className={`text-xs font-bold ${isCurrent ? 'text-emerald-400' : 'text-white/60'}`}><RobuxLogoIcon size={12} className="inline-block align-middle mr-0.5" /> {price.toFixed(2)} por cada 1,000 Robux</p>
                                 <p className={`text-[9px] font-bold mt-0.5 ${isCurrent ? 'text-emerald-500/60' : 'text-white/30'}`}>Nivel {tier.name}</p>
                               </div>
                             </div>
@@ -1402,6 +1402,9 @@ export default function Account() {
                                </p>
                             </div>
                             <p className="text-[9px] font-medium text-white/15 group-hover:text-white/30 transition-colors truncate mt-1">{tier.desc}</p>
+                            {tier.benefit && (
+                              <p className="text-[8px] font-bold text-white/10 group-hover:text-white/20 transition-colors truncate mt-0.5">✦ {tier.benefit}</p>
+                            )}
                           </div>
                         </SpotlightCard>
                       );

@@ -332,7 +332,7 @@ export default function Navbar() {
                               orders.filter(o => !o.seen).slice(0, 5).map(order => (
                                 <div
                                   key={order.id}
-                                  onClick={() => { navigate(`/orders/${order.id}`); setShowNotifications(false); }}
+                                  onClick={() => { navigate(`/order/${order.id}`); setShowNotifications(false); }}
                                   className="p-3 rounded-2xl cursor-pointer transition-all bg-blue-500/10 hover:bg-blue-500/15 border border-blue-500/20"
                                 >
                                   <div className="flex items-start gap-2.5">
@@ -608,7 +608,7 @@ export default function Navbar() {
                               orders.filter(o => !o.seen).slice(0, 3).map(order => (
                                 <div 
                                   key={order.id}
-                                  onClick={() => { setShowNotifications(false); navigate('/account'); }}
+                                  onClick={() => { setShowNotifications(false); navigate(`/order/${order.id}`); }}
                                   className="p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-pointer group flex gap-4 items-start"
                                 >
                                   <div className={`size-9 rounded-xl flex items-center justify-center shrink-0 border ${

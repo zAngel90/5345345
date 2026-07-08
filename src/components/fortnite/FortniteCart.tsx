@@ -129,6 +129,7 @@ export const FortniteCart: React.FC<FortniteCartProps> = ({ isOpen, onClose, use
       }
     };
 
+    localStorage.removeItem('fortnite_cart');
     navigate('/checkout', { state: checkoutData });
   };
 

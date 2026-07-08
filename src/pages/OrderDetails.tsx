@@ -41,7 +41,7 @@ interface Order {
   method: 'gamepass' | 'group';
   total: number;
   currency: string;
-  status: 'pending' | 'processing' | 'completed' | 'cancelled';
+  status: 'pending' | 'processing' | 'in_progress' | 'completed' | 'cancelled';
   createdAt: string;
   receipt: string;
   gamepassId?: string;
@@ -118,8 +118,8 @@ const OrderDetails = () => {
     const fortniteHeader = isFortnite ? (
       <div className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400">
-            <Zap size={14} />
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+            <img src="/images/fortnite-icon.svg" className="w-5 h-5 brightness-0 invert" alt="Fortnite" />
           </div>
           <div>
             <p className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-0.5">Método de Entrega</p>
@@ -519,7 +519,8 @@ const OrderDetails = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed': return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
-      case 'processing': return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
+      case 'processing':
+      case 'in_progress': return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
       case 'pending': return 'text-amber-400 bg-amber-500/10 border-amber-500/20';
       case 'cancelled': return 'text-red-400 bg-red-500/10 border-red-500/20';
       default: return 'text-white/40 bg-white/5 border-white/10';
@@ -529,7 +530,8 @@ const OrderDetails = () => {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case 'completed': return 'Completado';
-      case 'processing': return 'En Proceso';
+      case 'processing':
+      case 'in_progress': return 'En Progreso';
       case 'pending': return 'Pendiente';
       case 'cancelled': return 'Cancelado';
       default: return status;
@@ -676,17 +678,17 @@ const OrderDetails = () => {
             </div>
 
             <div className={`flex-1 h-0.5 mx-3 rounded-full overflow-hidden bg-white/5`}>
-              <div className={`h-full transition-all duration-1000 ${['processing', 'completed'].includes(order.status) ? 'w-full bg-blue-500' : 'w-0'}`}></div>
+              <div className={`h-full transition-all duration-1000 ${['processing', 'in_progress', 'completed'].includes(order.status) ? 'w-full bg-blue-500' : 'w-0'}`}></div>
             </div>
 
             <div className="flex flex-col items-center gap-2 relative z-10">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all duration-500 ${order.status === 'processing' ? 'bg-blue-500 text-white shadow-blue-500/30 scale-110 animate-pulse ring-4 ring-blue-500/20' :
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all duration-500 ${order.status === 'processing' || order.status === 'in_progress' ? 'bg-blue-500 text-white shadow-blue-500/30 scale-110 animate-pulse ring-4 ring-blue-500/20' :
                   order.status === 'completed' ? 'bg-blue-500 text-white shadow-blue-500/20' :
                     'bg-white/5 text-white/20 border border-white/10'
                 }`}>
                 <Truck size={18} />
               </div>
-              <span className={`text-[9px] font-black uppercase tracking-widest ${order.status === 'processing' ? 'text-blue-400' : ['processing', 'completed'].includes(order.status) ? 'text-white' : 'text-white/20'}`}>Procesando</span>
+              <span className={`text-[9px] font-black uppercase tracking-widest ${order.status === 'processing' || order.status === 'in_progress' ? 'text-blue-400' : ['processing', 'in_progress', 'completed'].includes(order.status) ? 'text-white' : 'text-white/20'}`}>En Progreso</span>
             </div>
 
             <div className={`flex-1 h-0.5 mx-3 rounded-full overflow-hidden bg-white/5`}>
@@ -911,7 +913,7 @@ const OrderDetails = () => {
                         {order.type === 'trade_limited' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('limited'))) ? (
                           `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} Limitados`
                         ) : order.type === 'fortnite' ? (
-                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Atuendo' : 'Atuendos'} Fortnite`
+                          `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Item' : 'Items'} Fortnite`
                         ) : (order.type === 'mm2' || (order.cart && order.cart.some((item: any) => String(item.game || '').toLowerCase().includes('mm2')))) ? (
                           `${order.cart?.length || 1} ${order.cart?.length === 1 ? 'Artículo' : 'Artículos'} MM2`
                         ) : isIngameOrder(order) ? (

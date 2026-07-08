@@ -11,7 +11,8 @@ import {
   AlertCircle,
   Loader2,
   Gamepad2,
-  Filter
+  Filter,
+  MessageSquare
 } from 'lucide-react';
 import { StoreAPI, socket, SERVER_URL } from '../../services/api';
 
@@ -39,6 +40,7 @@ interface DeliveryOrder {
 interface DeliveriesTabProps {
   orders: any[];
   games: any[];
+  onContactClient: (orderId: string, userId: string, username: string) => void;
 }
 
 // Helper: check if order type requires delivery
@@ -114,7 +116,7 @@ const getGameColor = (type: string, games: any[]): string => {
   return '#3b82f6';
 };
 
-export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
+export default function DeliveriesTab({ orders, games, onContactClient }: DeliveriesTabProps) {
   const [deliveryOrders, setDeliveryOrders] = useState<DeliveryOrder[]>([]);
   const [isUpdating, setIsUpdating] = useState(false);
   const [copiedOrderId, setCopiedOrderId] = useState<string | null>(null);
@@ -466,21 +468,30 @@ export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
                         )}
                       </div>
                     </div>
-                    <button
-                      onClick={() => {
-                        const url = getCategoryDeliveryUrl(order, games, mm2GlobalServerUrl);
-                        if (url) {
-                          handleApproveDelivery(order.id, url);
-                        } else {
-                          setServerUrlModal({ orderId: order.id, url: '' });
-                        }
-                      }}
-                      disabled={isUpdating}
-                      className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-2"
-                    >
-                      {isUpdating ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
-                      Aprobar Entrega
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => onContactClient(order.id, order.userId, order.username)}
+                        className="p-2 bg-blue-600/10 text-blue-400 rounded-lg border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all"
+                        title="Contactar Cliente"
+                      >
+                        <MessageSquare size={14} />
+                      </button>
+                      <button
+                        onClick={() => {
+                          const url = getCategoryDeliveryUrl(order, games, mm2GlobalServerUrl);
+                          if (url) {
+                            handleApproveDelivery(order.id, url);
+                          } else {
+                            setServerUrlModal({ orderId: order.id, url: '' });
+                          }
+                        }}
+                        disabled={isUpdating}
+                        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-2"
+                      >
+                        {isUpdating ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
+                        Aprobar Entrega
+                      </button>
+                    </div>
                   </div>
 
                   {/* Items Info */}
@@ -570,13 +581,22 @@ export default function DeliveriesTab({ orders, games }: DeliveriesTabProps) {
                         )}
                       </div>
                     </div>
-                    <button
-                      onClick={() => handleCompleteDelivery(order.id)}
-                      disabled={isUpdating}
-                      className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50"
-                    >
-                      {isUpdating ? <Loader2 size={14} className="animate-spin" /> : 'Marcar Completado'}
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => onContactClient(order.id, order.userId, order.username)}
+                        className="p-2 bg-blue-600/10 text-blue-400 rounded-lg border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all"
+                        title="Contactar Cliente"
+                      >
+                        <MessageSquare size={14} />
+                      </button>
+                      <button
+                        onClick={() => handleCompleteDelivery(order.id)}
+                        disabled={isUpdating}
+                        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50"
+                      >
+                        {isUpdating ? <Loader2 size={14} className="animate-spin" /> : 'Marcar Completado'}
+                      </button>
+                    </div>
                   </div>
 
                   {/* Server URL */}
