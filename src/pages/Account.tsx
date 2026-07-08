@@ -21,7 +21,6 @@ import {
   ChevronRight,
   ChevronLeft,
   Leaf,
-  DollarSign,
   Zap,
   TrendingUp,
   HelpCircle,
@@ -647,13 +646,8 @@ export default function Account() {
                         </div>
 
                         <div className="text-center md:text-left flex-grow">
-                          <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
-                            <h2 className="text-3xl md:text-4xl font-black text-white">{user.username}</h2>
-                            <span className={`w-fit mx-auto md:mx-0 text-[10px] px-3 py-1 rounded-full border font-black uppercase tracking-wider ${
-                              LEVEL_CONFIG[user.level as keyof typeof LEVEL_CONFIG]?.color || 'bg-blue-500/10 text-blue-400 border-blue-500/20'
-                            }`}>
-                              {LEVEL_CONFIG[user.level as keyof typeof LEVEL_CONFIG]?.name || 'Cliente'}
-                            </span>
+                          <div className="mb-2">
+                            <h2 className="text-3xl md:text-4xl font-black text-white">{LEVEL_CONFIG[user.level as keyof typeof LEVEL_CONFIG]?.name || 'Cliente'}</h2>
                           </div>
                           <p className="text-white/30 font-medium mb-4">{user.email}</p>
 
@@ -1208,7 +1202,7 @@ export default function Account() {
                   <div className="relative z-10 size-24 rounded-full border-2 border-white/[0.03] bg-white/[0.01] flex items-center justify-center relative shrink-0">
                      <div className="absolute inset-0 rounded-full border border-white/5"></div>
                      <div className="size-16 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center">
-                        <DollarSign size={32} className="text-emerald-500" strokeWidth={2.5} />
+                         <RobuxLogoIcon size={32} className="text-emerald-500" />
                      </div>
                   </div>
 
