@@ -121,7 +121,7 @@ export const FortniteShop: React.FC<FortniteShopProps> = ({ user }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  if (loading) {
+  if (loading || showFakeError) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '24px' }}>
         <div className="spinner"></div>
