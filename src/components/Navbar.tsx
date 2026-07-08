@@ -816,11 +816,11 @@ export default function Navbar() {
           {[
             { id: 'inicio', icon: Home, label: 'Inicio', href: '/' },
             { id: 'catalogo', icon: LayoutGrid, label: 'Catálogo', href: '/catalog' },
-            { id: 'carrito', icon: ShoppingCart, label: 'Mis Compras', href: isLoggedIn ? '/account' : '#' },
+            { id: 'carrito', icon: ShoppingCart, label: 'Mis Compras', href: isLoggedIn ? '/account?tab=pedidos' : '#' },
             { id: 'resenas', icon: Star, label: 'Reseñas', href: '/reviews' },
             { id: 'perfil', icon: User, label: 'Perfil', href: isLoggedIn ? '/account' : '#' },
           ].map((item) => {
-            const isActive = activeNav === item.id || (item.id === 'perfil' && location.pathname === '/account');
+            const isActive = activeNav === item.id || (item.id === 'perfil' && location.pathname === '/account') || (item.id === 'carrito' && location.search === '?tab=pedidos');
             return (
               <Link
                 key={item.id}
