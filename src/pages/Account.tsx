@@ -561,8 +561,27 @@ export default function Account() {
               </div>
             </div>
 
-            {/* Navigation Card */}
-            <div className="bg-white/[0.03] border border-white/5 rounded-3xl p-3 space-y-6">
+            {/* Mobile Nav: Horizontal Carousel */}
+            <div className="lg:hidden bg-white/[0.03] border border-white/5 rounded-3xl p-2">
+              <div className="flex overflow-x-auto gap-1.5 scrollbar-hide">
+                {SIDEBAR_SECTIONS.map(section => section.items.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setSearchParams({ tab: item.id })}
+                    className={`flex items-center gap-2 px-4 py-3 rounded-2xl whitespace-nowrap shrink-0 transition-all ${activeTab === item.id
+                        ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                        : 'text-white/40 hover:bg-white/5 hover:text-white border border-transparent'
+                      }`}
+                  >
+                    <item.icon size={14} />
+                    <span className="text-xs font-bold">{item.label}</span>
+                  </button>
+                )))}
+              </div>
+            </div>
+
+            {/* Desktop Nav: Vertical */}
+            <div className="hidden lg:block bg-white/[0.03] border border-white/5 rounded-3xl p-3 space-y-6">
               {SIDEBAR_SECTIONS.map((section, idx) => (
                 <div key={idx} className="space-y-2">
                   <h5 className="px-3 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">{section.title}</h5>
