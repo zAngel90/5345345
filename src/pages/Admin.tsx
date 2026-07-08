@@ -676,14 +676,14 @@ export default function Admin() {
                        <label className="text-[10px] font-black text-white/40 uppercase tracking-widest ml-1">Precio (S/)</label>
                        <div className="relative">
                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 font-bold">S/</span>
-                         <input type="number" value={editingProduct.price} onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) })} placeholder="0.00" className="w-full bg-white/5 border border-white/10 rounded-2xl pl-8 pr-5 py-4 text-sm text-white focus:border-blue-500/50 outline-none transition-colors" />
-                       </div>
-                    </div>
-                    <div className="space-y-2">
-                       <label className="text-[10px] font-black text-white/40 uppercase tracking-widest ml-1">Precio en Robux</label>
-                       <div className="relative">
-                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 font-bold">R$</span>
-                         <input type="number" value={editingProduct.robuxPrice || ''} onChange={(e) => setEditingProduct({ ...editingProduct, robuxPrice: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="0" className="w-full bg-white/5 border border-white/10 rounded-2xl pl-10 pr-5 py-4 text-sm text-white focus:border-blue-500/50 outline-none transition-colors" />
+                          <input type="number" value={editingProduct.price} onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) })} onWheel={(e) => (e.target as HTMLElement).blur()} placeholder="0.00" className="w-full bg-white/5 border border-white/10 rounded-2xl pl-8 pr-5 py-4 text-sm text-white focus:border-blue-500/50 outline-none transition-colors" />
+                        </div>
+                     </div>
+                     <div className="space-y-2">
+                        <label className="text-[10px] font-black text-white/40 uppercase tracking-widest ml-1">Precio en Robux</label>
+                        <div className="relative">
+                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 font-bold">R$</span>
+                          <input type="number" value={editingProduct.robuxPrice || ''} onChange={(e) => setEditingProduct({ ...editingProduct, robuxPrice: e.target.value ? parseInt(e.target.value) : undefined })} onWheel={(e) => (e.target as HTMLElement).blur()} placeholder="0" className="w-full bg-white/5 border border-white/10 rounded-2xl pl-10 pr-5 py-4 text-sm text-white focus:border-blue-500/50 outline-none transition-colors" />
                        </div>
                     </div>
                     <div className="space-y-2">
