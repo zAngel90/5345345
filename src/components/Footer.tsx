@@ -1,9 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { 
   ArrowRight, 
-  MessageCircle, 
-  Shield, 
-  FileText, 
+  MessageCircle,
   ShoppingBag, 
   Diamond, 
   Star, 
@@ -284,15 +282,6 @@ export default function Footer() {
                                         <DiscordIcon /> <span className="group-hover:translate-x-0.5 transition-transform">Discord</span>
                                     </a>
                                 </li>
-                            </ul>
-                        </div>
-
-                        {/* Legal */}
-                        <div>
-                            <h4 className="text-xs font-bold tracking-widest text-gray-500 uppercase mb-5">Legal</h4>
-                            <ul className="space-y-3">
-                                <li><a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><FileText size={14} /> Términos</a></li>
-                                <li><a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"><Shield size={14} /> Privacidad</a></li>
                             </ul>
                         </div>
 
