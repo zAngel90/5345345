@@ -468,8 +468,10 @@ const OrderDetails = () => {
       if (res.success) {
         setNewMessage('');
         if (!chat) {
+          // Primer mensaje: agregar manualmente (el backend ya no emite a order-{id} para usuarios)
+          setMessages(prev => [...prev, res.data]);
+
           // Buscar el chat completo para tener el ID y unirnos al socket
-          // El mensaje llegará solo via socket a order-{orderId}
           const chatRes = await ChatAPI.getChatByOrderId(orderId!);
           if (chatRes.success) {
             setChat(chatRes.data);
