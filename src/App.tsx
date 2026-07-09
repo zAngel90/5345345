@@ -13,7 +13,7 @@ import Groups from './pages/Groups';
 import Account from './pages/Account';
 import Chat from './pages/Chat';
 import Admin from './pages/Admin';
-import Fortnite from './pages/Fortnite';
+
 import OrderDetails from './pages/OrderDetails';
 
 import PageLoader from './components/PageLoader';
@@ -61,7 +61,7 @@ function AppContent() {
           <Route path="/catalog/ingame" element={<GameItems />} />
           <Route path="/catalog/ingame/:gameId" element={<GameItems />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/fortnite" element={<Fortnite />} />
+
           <Route path="/order/:orderId" element={<OrderDetails />} />
         </Routes>
       </main>
