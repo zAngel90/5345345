@@ -1,0 +1,414 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\geometry{margin=2.5cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny,
+  language=bash,
+  showstringspaces=false
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Pixel Store --- Guía de Despliegue}}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{\small Documento interno --- Versión 1.0}
+
+\title{\textbf{Guía de Despliegue\\Pixel Store}}
+\author{Documentación Técnica}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Descripción General}
+
+Pixel Store es una tienda digital dividida en dos proyectos principales:
+
+\begin{itemize}
+  \item \textbf{Frontend (React + Vite + TypeScript)} --- Aplicación web SPA en \texttt{src/}.
+  \item \textbf{Backend (Node.js + Express + Socket.io)} --- API REST + WebSockets en \texttt{server/}.
+  \item \textbf{Store Estático} --- Versión alternativa en \texttt{C:/items/peek-store-static/}.
+\end{itemize}
+
+\subsection{Servidor de Producción}
+
+\begin{lstlisting}
+Host:   177.7.41.162
+User:   root
+Pass:   Pixelstore34.5
+OS:     Linux
+\end{lstlisting}
+
+\subsection{Dominios}
+
+\begin{lstlisting}
+Frontend (React SPA):   https://vitria.cc  (Vercel, push a main)
+Backend (API):          https://api.vitria.cc  (VPS Nginx + PM2)
+Static store:           (en el VPS, /var/www/frontend)
+\end{lstlisting}
+
+\newpage
+
+\section{Estructura del Proyecto}
+
+\subsection{Raíz del Frontend}
+
+\begin{lstlisting}
+pixel_store_home_page_58ruox_dualiteproject/
+  src/
+    App.tsx                 -- Router principal
+    main.tsx                -- Entry point
+    index.css               -- Estilos globales
+    services/api.ts         -- API client + Socket.io client
+    pages/                  -- Paginas (12)
+      Account.tsx, Admin.tsx, Catalog.tsx, Chat.tsx,
+      Checkout.tsx, Fortnite.tsx, GameItems.tsx,
+      Groups.tsx, Home.tsx, OrderDetails.tsx,
+      Reviews.tsx, RobuxCatalog.tsx
+    components/
+      admin/                -- Componentes del panel admin
+        ChatsTab.tsx, OrdersTab.tsx, Mm2Tab.tsx,
+        LimitedsTab.tsx, DeliveriesTab.tsx,
+        FortniteTab.tsx, ProductsTab.tsx, etc.
+      fortnite/             -- Componentes de Fortnite
+      Navbar.tsx, Footer.tsx, footer2.tsx, etc.
+  server/
+    index.js                -- Entry point del backend (Express + Socket.io)
+    database.js             -- Inicializacion de bases de datos JSON (lowdb)
+    routes/
+      admin.js, auth.js, chat.js, coupons.js,
+      fortnite.js, orders.js, products.js,
+      reviews.js, roblox.js, robloxGamepasses.js,
+      robloxGroups.js, robloxPlaces.js
+    services/
+      discordService.js     -- Embed builder para Discord
+    db/                     -- Archivos JSON (datos persistidos)
+    uploads/                -- Archivos subidos
+  dist/                     -- Build de produccion del frontend
+  vite.config.ts            -- Configuracion de Vite
+  package.json              -- Dependencias del frontend
+  vercel.json               -- Configuracion de despliegue Vercel
+\end{lstlisting}
+
+\subsection{Rutas del Backend (API)}
+
+\begin{longtable}{|l|l|l|}
+\hline
+\textbf{Método} & \textbf{Ruta} & \textbf{Descripción} \\ \hline
+\endfirsthead
+\hline
+\textbf{Método} & \textbf{Ruta} & \textbf{Descripción} \\ \hline
+\endhead
+GET  & /api/products & Listar productos \\ \hline
+POST & /api/products & Crear producto (admin) \\ \hline
+GET  & /api/orders & Listar pedidos (filtro por usuario o admin) \\ \hline
+POST & /api/orders & Crear pedido \\ \hline
+GET  & /api/orders/:id & Detalle de pedido \\ \hline
+PUT  & /api/orders/:id & Actualizar pedido (admin) \\ \hline
+POST & /api/chat/message & Enviar mensaje / crear chat \\ \hline
+GET  & /api/chat/:id/messages & Obtener mensajes de un chat \\ \hline
+GET  & /api/chat/unread-count & Contador de no leídos \\ \hline
+POST & /api/auth/login & Login de admin \\ \hline
+POST & /api/reviews & Crear reseña \\ \hline
+GET  & /api/reviews & Listar reseñas \\ \hline
+GET  & /api/admin/stats & Estadísticas del panel admin \\ \hline
+\end{longtable}
+
+\subsection{Socket.io --- Eventos en Tiempo Real}
+
+\begin{longtable}{|l|l|l|}
+\hline
+\textbf{Evento} & \textbf{Dirección} & \textbf{Propósito} \\ \hline
+\endfirsthead
+\hline
+\textbf{Evento} & \textbf{Dirección} & \textbf{Propósito} \\ \hline
+\endhead
+\texttt{join-chat} & cliente $\rightarrow$ servidor & Unirse a sala de chat \\ \hline
+\texttt{join-order} & cliente $\rightarrow$ servidor & Unirse a sala de orden \\ \hline
+\texttt{join-admin} & cliente $\rightarrow$ servidor & Unirse a sala global de admin \\ \hline
+\texttt{new-message} & servidor $\rightarrow$ cliente & Mensaje nuevo en chat \\ \hline
+\texttt{new-chat} & servidor $\rightarrow$ cliente & Chat nuevo creado \\ \hline
+\texttt{update-chat-list} & servidor $\rightarrow$ cliente & Actualizar lista de chats \\ \hline
+\texttt{notification-admin} & servidor $\rightarrow$ cliente & Notificación para admin \\ \hline
+\texttt{notification-\{userId\}} & servidor $\rightarrow$ cliente & Notificación para usuario \\ \hline
+\texttt{order-updated} & servidor $\rightarrow$ cliente & Orden actualizada \\ \hline
+\texttt{chat-ended} & servidor $\rightarrow$ cliente & Chat finalizado \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Despliegue del Backend}
+
+\subsection{Subir Archivos al VPS}
+
+Usar \texttt{pscp} (Windows) o \texttt{scp} (Linux/Mac).
+
+\subsubsection{Archivo Individual}
+
+\begin{lstlisting}
+pscp -pw Pixelstore34.5 ^
+  "server/routes/chat.js" ^
+  root@177.7.41.162:/root/pixel-backend/server/routes/chat.js
+\end{lstlisting}
+
+\subsubsection{Todo el Backend}
+
+\begin{lstlisting}
+pscp -pw Pixelstore34.5 ^
+  -r "server/*" ^
+  root@177.7.41.162:/root/pixel-backend/server/
+\end{lstlisting}
+
+\subsubsection{Archivos Críticos del Backend}
+
+\begin{itemize}
+  \item \texttt{server/index.js} --- Entry point del servidor
+  \item \texttt{server/database.js} --- Gestión de bases de datos JSON
+  \item \texttt{server/services/discordService.js} --- Embeds de Discord
+  \item \texttt{server/routes/orders.js} --- Lógica de pedidos
+  \item \texttt{server/routes/chat.js} --- Mensajería en tiempo real
+  \item \texttt{server/routes/reviews.js} --- Reseñas
+  \item \texttt{server/routes/admin.js} --- Panel de administración
+\end{itemize}
+
+\subsection{Reiniciar el Servidor}
+
+\begin{lstlisting}
+plink -ssh -pw Pixelstore34.5 ^
+  root@177.7.41.162 ^
+  "cd /root/pixel-backend/server && pm2 restart pixel-server"
+\end{lstlisting}
+
+\subsection{Ver Logs}
+
+\begin{lstlisting}
+plink -ssh -pw Pixelstore34.5 ^
+  root@177.7.41.162 ^
+  "pm2 logs pixel-server"
+\end{lstlisting}
+
+\newpage
+
+\section{Despliegue del Frontend (Build Estático)}
+
+\subsection{Compilar el Frontend}
+
+En la máquina local (Windows):
+
+\begin{lstlisting}
+cd C:\items\items\pixel_store_home_page_58ruox_dualiteproject
+npm run build
+\end{lstlisting}
+
+Esto genera la carpeta \texttt{dist/}.
+
+\subsection{Subir el Build al VPS}
+
+\begin{lstlisting}
+pscp -pw Pixelstore34.5 ^
+  -r "dist/*" ^
+  root@177.7.41.162:/var/www/frontend/
+\end{lstlisting}
+
+\subsection{Verificar la Instalación}
+
+El contenido de \texttt{/var/www/frontend/} debe servirse via Nginx. Comprobar:
+
+\begin{lstlisting}
+plink -ssh -pw Pixelstore34.5 ^
+  root@177.7.41.162 ^
+  "ls -la /var/www/frontend/ && nginx -t && systemctl reload nginx"
+\end{lstlisting}
+
+\newpage
+
+\section{Arquitectura del Sistema}
+
+\subsection{Flujo de una Compra}
+
+\begin{enumerate}
+  \item Usuario selecciona productos en el frontend y paga.
+  \item El frontend llama a \texttt{POST /api/orders} para crear el pedido.
+  \item El backend guarda la orden en \texttt{server/db/orders.json}.
+  \item Se emite \texttt{order-updated} via Socket.io al admin.
+  \item El admin atiende el pedido desde el panel (\texttt{Admin.tsx}).
+  \item Si el admin necesita contactar al cliente, usa \texttt{handleContactClient()} que crea un chat.
+  \item Los mensajes viajan por \texttt{POST /api/chat/message} y se emiten en tiempo real por Socket.io.
+  \item Cuando el pedido se completa, el usuario puede dejar una reseña.
+  \item La reseña se envía a Discord mediante \texttt{discordService.js}.
+\end{enumerate}
+
+\subsection{Flujo de Mensajería en Tiempo Real}
+
+\begin{enumerate}
+  \item El cliente se conecta a Socket.io al cargar la página.
+  \item Al abrir una orden, emite \texttt{join-order(orderId)} para unirse a la sala.
+  \item Al abrir un chat, emite \texttt{join-chat(chatId)} para unirse a la sala del chat.
+  \item Cuando alguien envía un mensaje, el backend emite \texttt{new-message} a ambas salas (\texttt{order-\{id\}} y \texttt{chat-\{id\}}).
+  \item Esto asegura que el usuario reciba el mensaje aunque no haya abierto el chat explícitamente.
+\end{enumerate}
+
+\newpage
+
+\section{Bases de Datos (JSON con lowdb)}
+
+Todas las bases están en \texttt{server/db/}.
+
+\begin{longtable}{|l|l|}
+\hline
+\textbf{Archivo} & \textbf{Contenido} \\ \hline
+\endfirsthead
+\hline
+\textbf{Archivo} & \textbf{Contenido} \\ \hline
+\endhead
+\texttt{products.json} & Catálogo de productos \\ \hline
+\texttt{orders.json} & Pedidos realizados \\ \hline
+\texttt{chats.json} & Conversaciones y mensajes \\ \hline
+\texttt{admins.json} & Cuentas de administradores \\ \hline
+\texttt{users.json} & Usuarios registrados \\ \hline
+\texttt{settings.json} & Configuración global de la tienda \\ \hline
+\texttt{reviews.json} & Reseñas de clientes \\ \hline
+\texttt{limiteds.json} & Items limiteds de Roblox \\ \hline
+\texttt{mm2.json} & Items de Murder Mystery 2 \\ \hline
+\texttt{coupons.json} & Cupones de descuento \\ \hline
+\texttt{fortnite\_orders.json} & Pedidos de Fortnite \\ \hline
+\texttt{group\_joins.json} & Solicitudes de unión a grupos \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Discord Embeds}
+
+Archivo: \texttt{server/services/discordService.js}
+
+\subsection{Funciones Principales}
+
+\begin{itemize}
+  \item \texttt{sendOrderEmbed(order, type)} --- Embed de compra realizada.
+    \begin{itemize}
+      \item Colores: ingame = rojo, MM2 = rojo, robux = verde, limiteds = amarillo, Fortnite = cian.
+      \item MM2 muestra \textit{Via Trade}, limiteds muestra \textit{Via Trade}, ingame/robux/Fortnite muestran \textit{Via Regalo}.
+      \item Para ingame no se muestran nombres de productos, solo cantidad + total en robux.
+    \end{itemize}
+  \item \texttt{sendReviewEmbed(review)} --- Embed de reseña con imagen grande abajo.
+  \item \texttt{getRobuxTotal(cart)} --- Calcula el total de robux de un carrito (busca en \texttt{products.json} por ID).
+\end{itemize}
+
+\subsection{Canales de Discord}
+
+\begin{lstlisting}
+Shop logs (compras):   canal configurado en discordService.js
+Reviews:               canal configurado en discordService.js
+Notificaciones admin:  via Socket.io (no Discord)
+\end{lstlisting}
+
+\newpage
+
+\section{Comandos Rápidos}
+
+\subsection{Despliegue Completo (Backend + Frontend)}
+
+\begin{lstlisting}
+:: 1. Compilar frontend
+cd C:\items\items\pixel_store_home_page_58ruox_dualiteproject
+npm run build
+
+:: 2. Subir backend
+pscp -pw Pixelstore34.5 -r "server/*" ^
+  root@177.7.41.162:/root/pixel-backend/server/
+
+:: 3. Subir frontend build
+pscp -pw Pixelstore34.5 -r "dist/*" ^
+  root@177.7.41.162:/var/www/frontend/
+
+:: 4. Reiniciar servidor
+plink -ssh -pw Pixelstore34.5 ^
+  root@177.7.41.162 ^
+  "cd /root/pixel-backend/server && pm2 restart pixel-server"
+\end{lstlisting}
+
+\subsection{Archivo Individual (Backend)}
+
+\begin{lstlisting}
+pscp -pw Pixelstore34.5 ^
+  "server/routes/chat.js" ^
+  root@177.7.41.162:/root/pixel-backend/server/routes/chat.js
+plink -ssh -pw Pixelstore34.5 ^
+  root@177.7.41.162 ^
+  "cd /root/pixel-backend/server && pm2 restart pixel-server"
+\end{lstlisting}
+
+\newpage
+
+\section{Solución de Problemas}
+
+\subsection{El build falla}
+
+\begin{lstlisting}
+npx tsc --noEmit   # Verificar errores de TypeScript
+npm run build      # Reintentar build
+\end{lstlisting}
+
+\subsection{El servidor no responde}
+
+\begin{lstlisting}
+plink -ssh -pw Pixelstore34.5 ^
+  root@177.7.41.162 ^
+  "pm2 status && pm2 logs pixel-server --lines 20"
+\end{lstlisting}
+
+\subsection{Los mensajes en tiempo real no llegan}
+
+Verificar que el cliente está en la sala correcta:
+
+\begin{lstlisting}
+// En el navegador (consola):
+socket.emit('join-order', 'ORDER_ID');
+socket.emit('join-chat', 'CHAT_ID');
+\end{lstlisting}
+
+El backend emite \texttt{new-message} a las salas \texttt{chat-\{id\}} y \texttt{order-\{id\}}. Si el usuario no está en ninguna, no recibe el mensaje.
+
+\subsection{El bot de Discord no envía mensajes}
+
+\begin{lstlisting}
+plink -ssh -pw Pixelstore34.5 ^
+  root@177.7.41.162 ^
+  "pm2 logs pixelito-bot --lines 30"
+\end{lstlisting}
+
+\newpage
+
+\section*{Historial de Cambios}
+
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Fecha} & \textbf{Cambio} & \textbf{Responsable} \\ \hline
+08/07/2026 & Versión inicial de la guía & Sistema \\ \hline
+\end{tabular}
+
+\end{document}
