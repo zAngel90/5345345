@@ -245,6 +245,14 @@ export default function OrdersTab({ orders, onContactClient, onRefresh }: { orde
                           </>
                         );
                       }
+                      if (t === 'trade_limited') {
+                        return (
+                          <>
+                            <span className="text-xs font-bold text-white">{order.targetItem?.name || order.cart?.[0]?.name || 'Limited'}</span>
+                            <span className="text-[10px] text-white/20 font-black uppercase tracking-widest">Limited</span>
+                          </>
+                        );
+                      }
                       return (
                         <>
                           <span className="text-xs font-bold text-white">{order.amount?.toLocaleString()} Robux</span>
